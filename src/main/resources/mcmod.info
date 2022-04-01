@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "dallas",
+    "name": "Dallas",
+    "description": "Client for Texas people only.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/gerald0mc",
+    "updateUrl": "fuck.you",
+    "authorList": [
+      "gerald0mc"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

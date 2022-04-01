@@ -1,0 +1,103 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+        maven {
+            name = 'SpongePowered'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+group = 'me.gerald'
+version = '1.0'
+
+java {
+    archivesBaseName = 'dallas'
+}
+
+configurations {
+    shadow
+}
+
+minecraft {
+
+    mappings channel: 'stable', version: '39-1.12'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'fml.coreMods.load', 'me.gerald.dallas.mixin.MixinLoader'
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                geraldhack {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        name = 'SpongePowered'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
+
+    shadow('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        exclude module: 'commons-io'
+        exclude module: 'gson'
+        exclude module: 'guava'
+        exclude module: 'launchwrapper'
+        exclude module: 'log4j-core'
+    }
+    annotationProcessor('org.spongepowered:mixin:0.8.2:processor') {
+        exclude module: 'gson'
+    }
+    shadow('club.minnced:java-discord-rpc:2.0.2') {
+        exclude module: 'jna'
+    }
+    implementation configurations.shadow
+}
+
+mixin {
+    defaultObfuscationEnv 'searge'
+    add sourceSets.main, 'mixins.dallas.refmap.json'
+}
+
+jar {
+    manifest.attributes(
+            'Manifest-Version': 1.0,
+            'MixinConfigs': 'mixins.dallas.json',
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'TweakOrder': 0,
+            'FMLCorePluginContainsFMLMod': 'true',
+            'FMLCorePlugin': 'me.gerald.dallas.mixin.MixinLoader',
+            'ForceLoadAsMod': 'true',
+    )
+    from {
+        configurations.shadow.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+jar.finalizedBy('reobfJar')
