@@ -5,14 +5,15 @@ import me.gerald.dallas.gui.comps.TextComponent;
 import me.gerald.dallas.mod.Module;
 import net.minecraft.client.gui.GuiScreen;
 
+import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClickGUI extends GuiScreen {
-    public List<CategoryComponent> categories = new ArrayList<>();
     public TextComponent descriptionBox = new TextComponent("Description's will appear here.", 25, 35, 100, 11);
+    public List<CategoryComponent> categories = new ArrayList<>();
 
     public ClickGUI() {
         int xOffset = 25;

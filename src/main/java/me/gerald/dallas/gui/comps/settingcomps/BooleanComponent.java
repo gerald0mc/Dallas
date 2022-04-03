@@ -3,7 +3,7 @@ package me.gerald.dallas.gui.comps.settingcomps;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
-import me.gerald.dallas.mod.mods.GUI;
+import me.gerald.dallas.mod.mods.client.GUI;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

@@ -3,16 +3,10 @@ package me.gerald.dallas;
 import me.gerald.dallas.event.EventManager;
 import me.gerald.dallas.gui.ClickGUI;
 import me.gerald.dallas.mod.ModuleManager;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import me.gerald.dallas.utils.ConfigManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
         modid = Yeehaw.MOD_ID,
@@ -27,6 +21,7 @@ public class Yeehaw {
 
     public ModuleManager moduleManager;
     public EventManager eventManager;
+    public ConfigManager configManager;
     public ClickGUI clickGUI;
 
     @Mod.Instance(MOD_ID)
@@ -37,6 +32,8 @@ public class Yeehaw {
         MinecraftForge.EVENT_BUS.register(this);
         moduleManager = new ModuleManager();
         eventManager = new EventManager();
+        configManager = new ConfigManager();
         clickGUI = new ClickGUI();
+        ConfigManager.load();
     }
 }

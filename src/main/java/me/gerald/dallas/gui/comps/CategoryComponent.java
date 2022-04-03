@@ -3,7 +3,7 @@ package me.gerald.dallas.gui.comps;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
 import me.gerald.dallas.mod.Module;
-import me.gerald.dallas.mod.mods.GUI;
+import me.gerald.dallas.mod.mods.client.GUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

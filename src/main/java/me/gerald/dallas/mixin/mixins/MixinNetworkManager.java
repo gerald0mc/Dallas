@@ -2,8 +2,10 @@ package me.gerald.dallas.mixin.mixins;
 
 import io.netty.channel.ChannelHandlerContext;
 import me.gerald.dallas.event.events.PacketEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

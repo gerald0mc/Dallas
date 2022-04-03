@@ -1,5 +1,6 @@
 package me.gerald.dallas.mod;
 
+import me.gerald.dallas.event.events.ModuleToggleEvent;
 import me.gerald.dallas.setting.Setting;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -71,6 +72,10 @@ public class Module {
         return isEnabled;
     }
 
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     public void toggle() {
         isEnabled = !isEnabled;
         if(isEnabled)
@@ -83,6 +88,7 @@ public class Module {
 
     public void enable() {
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
         onEnable();
     }
 
@@ -90,10 +96,11 @@ public class Module {
 
     public void disable() {
         MinecraftForge.EVENT_BUS.unregister(this);
+        MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Disable(this));
         onDisable();
     }
 
-    public boolean nullCheck() {
+    public static boolean nullCheck() {
         return mc == null || mc.world == null || mc.player == null;
     }
 

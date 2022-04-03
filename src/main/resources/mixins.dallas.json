@@ -4,7 +4,11 @@
   "package": "me.gerald.dallas.mixin.mixins",
   "refmap": "mixins.dallas.refmap.json",
   "mixins": [
-    "MixinGuiMainMenu",
     "MixinNetworkManager"
+  ],
+  "client": [
+    "IEntityRenderer",
+    "MixinGuiMainMenu",
+    "MixinNetHandlerPlayClient"
   ]
 }

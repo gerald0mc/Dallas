@@ -1,8 +1,12 @@
 package me.gerald.dallas.mod;
 
-import me.gerald.dallas.mod.mods.FullBright;
-import me.gerald.dallas.mod.mods.GUI;
-import me.gerald.dallas.mod.mods.Velocity;
+import me.gerald.dallas.mod.mods.misc.AutoGG;
+import me.gerald.dallas.mod.mods.misc.Chat;
+import me.gerald.dallas.mod.mods.misc.TexasFacts;
+import me.gerald.dallas.mod.mods.render.DamageESP;
+import me.gerald.dallas.mod.mods.render.FullBright;
+import me.gerald.dallas.mod.mods.client.GUI;
+import me.gerald.dallas.mod.mods.combat.Velocity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +20,12 @@ public class ModuleManager {
         modules.add(new Velocity());
         //movement
         //render
+        modules.add(new DamageESP());
         modules.add(new FullBright());
         //misc
+        modules.add(new AutoGG());
+        modules.add(new Chat());
+        modules.add(new TexasFacts());
         //client
         modules.add(new GUI());
     }

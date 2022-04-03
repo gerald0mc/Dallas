@@ -4,12 +4,9 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
 import me.gerald.dallas.gui.comps.settingcomps.*;
 import me.gerald.dallas.mod.Module;
-import me.gerald.dallas.mod.mods.GUI;
+import me.gerald.dallas.mod.mods.client.GUI;
 import me.gerald.dallas.setting.Setting;
-import me.gerald.dallas.setting.settings.BooleanSetting;
-import me.gerald.dallas.setting.settings.ModeSetting;
-import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.setting.settings.StringSetting;
+import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -43,6 +40,8 @@ public class ModuleComponent extends AbstractContainer {
                 settingComponents.add(new ModeComponent((ModeSetting) setting, x, y, 110, height));
             else if(setting instanceof StringSetting)
                 settingComponents.add(new StringComponent((StringSetting) setting, x, y, 110, height));
+            else if(setting instanceof ColorSetting)
+                settingComponents.add(new ColorComponent((ColorSetting) setting, x, y, 110, height));
         }
     }
 
