@@ -23,6 +23,10 @@ java {
     archivesBaseName = 'dallas'
 }
 
+compileJava {
+    options.encoding("UTF-8")
+}
+
 configurations {
     shadow
 }
