@@ -1,9 +1,11 @@
 package me.gerald.dallas;
 
+import me.gerald.dallas.command.CommandManager;
 import me.gerald.dallas.event.EventManager;
 import me.gerald.dallas.gui.ClickGUI;
 import me.gerald.dallas.mod.ModuleManager;
 import me.gerald.dallas.utils.ConfigManager;
+import me.gerald.dallas.utils.friend.FriendManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +24,8 @@ public class Yeehaw {
     public ModuleManager moduleManager;
     public EventManager eventManager;
     public ConfigManager configManager;
+    public CommandManager commandManager;
+    public FriendManager friendManager;
     public ClickGUI clickGUI;
 
     @Mod.Instance(MOD_ID)
@@ -33,6 +37,8 @@ public class Yeehaw {
         moduleManager = new ModuleManager();
         eventManager = new EventManager();
         configManager = new ConfigManager();
+        commandManager = new CommandManager();
+        friendManager = new FriendManager();
         clickGUI = new ClickGUI();
         ConfigManager.load();
     }

@@ -3,10 +3,7 @@ package me.gerald.dallas.utils;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.Setting;
-import me.gerald.dallas.setting.settings.BooleanSetting;
-import me.gerald.dallas.setting.settings.ModeSetting;
-import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.setting.settings.StringSetting;
+import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -27,6 +24,12 @@ public class ConfigManager {
         modulePath = new File(mainPath, "Modules");
         if(!mainPath.exists()) {
             modulePath.mkdirs();
+            clientPath.mkdir();
+        }
+        if(!modulePath.exists()) {
+            modulePath.mkdir();
+        }
+        if(!clientPath.exists()) {
             clientPath.mkdir();
         }
     }
@@ -50,6 +53,8 @@ public class ConfigManager {
                     fileWriter.write("Setting " + setting.getName() + " " + ((ModeSetting) setting).getMode() + "\n");
                 }else if(setting instanceof StringSetting) {
                     fileWriter.write("Setting " + setting.getName() + " " + ((StringSetting) setting).getValue() + "\n");
+                }else if(setting instanceof ColorSetting) {
+                    fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + ((ColorSetting) setting).getA() + "\n");
                 }
             }
             fileWriter.close();
@@ -94,6 +99,16 @@ public class ConfigManager {
                                             } else if (setting instanceof StringSetting) {
                                                 ((StringSetting) setting).setValue(settingValue);
                                                 System.out.println("Set setting " + setting.getName() + " to " + ((StringSetting) setting).getValue());
+                                            } else if (setting instanceof ColorSetting) {
+                                                int red = Integer.parseInt(words[2]);
+                                                int green = Integer.parseInt(words[3]);
+                                                int blue = Integer.parseInt(words[4]);
+                                                int alpha = Integer.parseInt(words[5]);
+                                                ((ColorSetting) setting).setR(red);
+                                                ((ColorSetting) setting).setG(green);
+                                                ((ColorSetting) setting).setB(blue);
+                                                ((ColorSetting) setting).setA(alpha);
+                                                System.out.println("Set setting " + setting.getName() + " to " + ((ColorSetting) setting).getR() + ", " + ((ColorSetting) setting).getG() + ", " + ((ColorSetting) setting).getB() + ", " + ((ColorSetting) setting).getA());
                                             }
                                         }catch (Exception e) {
                                             e.printStackTrace();

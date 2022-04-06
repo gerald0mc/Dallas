@@ -15,7 +15,7 @@ public class MixinGuiMainMenu extends GuiScreen {
 
     @Inject(method = "drawScreen", at = @At("TAIL"))
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + Yeehaw.VERSION, 1, 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
     }
 }

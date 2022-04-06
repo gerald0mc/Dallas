@@ -8,6 +8,7 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.ConfigManager;
 import me.gerald.dallas.utils.MessageUtils;
 import me.gerald.dallas.utils.TimerUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
@@ -52,7 +53,8 @@ public class AutoGG extends Module {
         if(event.getEntity().equals(mc.player)) return;
         if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
         if(event.getEntity().getDistance(mc.player) > 30) return;
-        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + getRandomMessage());
+        EntityPlayer player = (EntityPlayer) event.entity;
+        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + getRandomMessage().replace("<player>", player.getDisplayNameString()));
         timer.reset();
     }
 

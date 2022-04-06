@@ -16,6 +16,7 @@ public class NumberComponent extends AbstractContainer {
     public NumberSetting setting;
     public float sliderWidth;
     public boolean dragging = false;
+    public Color sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f);
 
     public NumberComponent(NumberSetting setting, int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -30,7 +31,7 @@ public class NumberComponent extends AbstractContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateSliderLogic(mouseX);
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Gui.drawRect(x, y, x + (int) sliderWidth, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Gui.drawRect(x, y, x + (int) sliderWidth, y + height, sliderColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A number setting called (" + setting.getName() + ").";

@@ -5,6 +5,7 @@ import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import me.gerald.dallas.utils.TimerUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -26,6 +27,7 @@ public class DamageESP extends Module {
         super("DamageESP", Category.RENDER, "DamageESP");
     }
 
+    public NumberSetting timeBetweenChecks = register(new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f));
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 3, 1, 5));
     public BooleanSetting self = register(new BooleanSetting("Self", true));
     public BooleanSetting healText = register(new BooleanSetting("HealText", true));
@@ -35,6 +37,7 @@ public class DamageESP extends Module {
 
     public HashMap<Entity, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
+    public TimerUtils timer = new TimerUtils();
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
@@ -43,28 +46,36 @@ public class DamageESP extends Module {
             if(e == mc.player && !self.getValue()) continue;
             if(e instanceof EntityLiving) {
                 EntityLiving entity = (EntityLiving) e;
-                if(!entityHealthMap.containsKey(entity)) {
+                if (!entityHealthMap.containsKey(entity)) {
                     entityHealthMap.put(entity, entity.getHealth());
-                }else {
-                    if(entityHealthMap.get(entity) > entity.getHealth()) {
+                } else {
+                    if (entityHealthMap.get(entity) > entity.getHealth()) {
+                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), 1));
                         entityHealthMap.replace(entity, entity.getHealth());
-                    }else if(entityHealthMap.get(entity) < entity.getHealth()) {
+                        timer.reset();
+                    } else if(entityHealthMap.get(entity) < entity.getHealth()) {
+                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), 2));
                         entityHealthMap.replace(entity, entity.getHealth());
+                        timer.reset();
                     }
                 }
             }else if(e instanceof EntityPlayer) {
                 EntityPlayer entity = (EntityPlayer) e;
-                if(!entityHealthMap.containsKey(entity)) {
+                if (!entityHealthMap.containsKey(entity)) {
                     entityHealthMap.put(entity, entity.getHealth());
-                }else {
-                    if(entityHealthMap.get(entity) > entity.getHealth()) {
+                } else {
+                    if (entityHealthMap.get(entity) > entity.getHealth()) {
+                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), 1));
                         entityHealthMap.replace(entity, entity.getHealth());
-                    }else if(entityHealthMap.get(entity) < entity.getHealth()) {
+                        timer.reset();
+                    } else if(entityHealthMap.get(entity) < entity.getHealth()) {
+                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), 2));
                         entityHealthMap.replace(entity, entity.getHealth());
+                        timer.reset();
                     }
                 }
             }

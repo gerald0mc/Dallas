@@ -48,8 +48,20 @@ public class ModuleComponent extends AbstractContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int yOffset = 0;
+        float alignment = 0;
+        switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleAlignment.getMode()) {
+            case "Middle":
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getName()) / 2f);
+                break;
+            case "Left":
+                alignment = x + 2f;
+                break;
+            case "Right":
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getName()) - 2;
+                break;
+        }
         Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName(), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName(), alignment, y + 2f, -1);
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;

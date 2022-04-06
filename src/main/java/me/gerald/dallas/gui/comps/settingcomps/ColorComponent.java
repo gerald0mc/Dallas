@@ -53,6 +53,9 @@ public class ColorComponent extends AbstractContainer {
                 yOffset += component.getHeight();
                 component.drawScreen(mouseX, mouseY, partialTicks);
             }
+            rgbaSliders.get(0).sliderColor = new Color(255, 0, 0);
+            rgbaSliders.get(1).sliderColor = new Color(0, 255, 0);
+            rgbaSliders.get(2).sliderColor = new Color(0, 0, 255);
             setting.setR((int) rgbaSliders.get(0).setting.getValue());
             setting.setG((int) rgbaSliders.get(1).setting.getValue());
             setting.setB((int) rgbaSliders.get(2).setting.getValue());

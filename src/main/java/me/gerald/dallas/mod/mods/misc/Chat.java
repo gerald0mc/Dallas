@@ -2,6 +2,7 @@ package me.gerald.dallas.mod.mods.misc;
 
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.StringSetting;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

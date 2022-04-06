@@ -6,7 +6,6 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.ConfigManager;
 import me.gerald.dallas.utils.MessageUtils;
 import me.gerald.dallas.utils.TimerUtils;
-import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -23,6 +22,7 @@ public class TexasFacts extends Module {
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Facts.txt";
     public List<String> facts = new ArrayList<>();
     public TimerUtils timer = new TimerUtils();
+    public TimerUtils remindTimer = new TimerUtils();
 
     public TexasFacts() {
         super("TexasFacts", Category.MISC, "Sends Texas facts in chat when someone does !texasfact/s as well as randomly for you.");
@@ -50,18 +50,7 @@ public class TexasFacts extends Module {
     //for everyone else
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
-        if(event.getMessage().getUnformattedText().contains("!texasfact") || event.getMessage().getUnformattedText().contains("!texasfacts")) {
-            if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
-            loadMessages();
-            mc.player.sendChatMessage(getRandomMessage());
-            timer.reset();
-        }
-    }
-
-    //for the player
-    @SubscribeEvent
-    public void onChatSend(ClientChatEvent event) {
-        if(event.getOriginalMessage().contains("!texasfact") || event.getOriginalMessage().contains("!texasfacts")) {
+        if(event.getMessage().getUnformattedText().contains("dtexasfact") || event.getMessage().getUnformattedText().contains("dtexasfacts")) {
             if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
             loadMessages();
             mc.player.sendChatMessage(getRandomMessage());
