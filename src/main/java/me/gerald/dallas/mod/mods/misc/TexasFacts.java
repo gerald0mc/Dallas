@@ -4,13 +4,13 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.ConfigManager;
+import me.gerald.dallas.utils.FileUtils;
 import me.gerald.dallas.utils.MessageUtils;
 import me.gerald.dallas.utils.TimerUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +22,6 @@ public class TexasFacts extends Module {
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Facts.txt";
     public List<String> facts = new ArrayList<>();
     public TimerUtils timer = new TimerUtils();
-    public TimerUtils remindTimer = new TimerUtils();
 
     public TexasFacts() {
         super("TexasFacts", Category.MISC, "Sends Texas facts in chat when someone does !texasfact/s as well as randomly for you.");
@@ -52,31 +51,9 @@ public class TexasFacts extends Module {
     public void onChatReceived(ClientChatReceivedEvent event) {
         if(event.getMessage().getUnformattedText().contains("dtexasfact") || event.getMessage().getUnformattedText().contains("dtexasfacts")) {
             if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
-            loadMessages();
-            mc.player.sendChatMessage(getRandomMessage());
+            FileUtils.loadMessages(facts, filePath);
+            mc.player.sendChatMessage(FileUtils.getRandomMessage(facts));
             timer.reset();
         }
-    }
-
-    public String getRandomMessage() {
-        Random rand = new Random();
-        return facts.get(clamp(rand.nextInt(facts.size()), 0, facts.size() - 1));
-    }
-
-    public void loadMessages() {
-        try {
-            facts.clear();
-            Scanner s = new Scanner(new File(filePath));
-            while (s.hasNextLine()){
-                facts.add(s.nextLine());
-            }
-            s.close();
-        }catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
-    }
-
-    public int clamp(int num, int min, int max) {
-        return (num < min) ? min : Math.min(num, max);
     }
 }

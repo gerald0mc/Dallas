@@ -34,8 +34,20 @@ public class BlockUtils {
             if(facing == EnumFacing.UP || facing == EnumFacing.DOWN) continue;
             BlockPos neighbor = pos.offset(facing);
             if (Minecraft.getMinecraft().world.getBlockState(neighbor.up()).getBlock().equals(Blocks.OBSIDIAN) && Minecraft.getMinecraft().world.getBlockState(neighbor.up().up()).getBlock().equals(Blocks.AIR) && Minecraft.getMinecraft().world.getBlockState(neighbor.up().up().up()).getBlock().equals(Blocks.AIR))
-                return neighbor;
+                return neighbor.up();
         }
         return null;
+    }
+
+    public static BlockPos[] getSurroundBlocks(BlockPos pos) {
+        BlockPos[] blocks = new BlockPos[4];
+        int i = 0;
+        for(EnumFacing facing : EnumFacing.values()) {
+            if(facing == EnumFacing.UP || facing == EnumFacing.DOWN) continue;
+            BlockPos neighbor = pos.offset(facing);
+            blocks[i] = neighbor;
+            i += 1;
+        }
+        return blocks;
     }
 }

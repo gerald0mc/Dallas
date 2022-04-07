@@ -1,5 +1,6 @@
 package me.gerald.dallas.mod.mods.combat;
 
+import io.netty.util.internal.MathUtil;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.mod.Module;
@@ -7,6 +8,7 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.BlockUtils;
 import me.gerald.dallas.utils.InventoryUtils;
+import me.gerald.dallas.utils.RotationUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
@@ -30,6 +32,7 @@ public class AntiTrap extends Module {
         super("AntiTrap", Category.COMBAT, "Places a crystal on the block next to you so you cannot be trapped.");
     }
 
+    public BooleanSetting rotate = register(new BooleanSetting("Rotate", true));
     public BooleanSetting fullAnti = register(new BooleanSetting("FullAnti", true));
     public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
     public NumberSetting distanceToActivate = register(new NumberSetting("DistanceToAct", 10, 0, 30));
@@ -43,6 +46,7 @@ public class AntiTrap extends Module {
         BlockPos preTrapPos = BlockUtils.isPreTrap(playerPos);
         EntityPlayer player = findClosestPlayer();
         if(player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
+        if(player == null && !alwaysActive.getValue()) return;
         if(targetPos != null && fullAnti.getValue()) {
             if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(targetPos)).isEmpty()) {
                 int crystalSlot = InventoryUtils.getItemHotbar(Items.END_CRYSTAL);
@@ -56,9 +60,13 @@ public class AntiTrap extends Module {
                 } else {
                     face = result.sideHit;
                 }
+                if(rotate.getValue()) {
+                    Yeehaw.INSTANCE.rotationManager.rotateToPosition(targetPos);
+                }
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(targetPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
-                InventoryUtils.switchToSlot(originalSlot);
+                if(mc.player.inventory.currentItem != originalSlot)
+                    InventoryUtils.switchToSlot(originalSlot);
             }
         }else if(preTrapPos != null) {
             if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(preTrapPos)).isEmpty()) {
@@ -73,9 +81,13 @@ public class AntiTrap extends Module {
                 } else {
                     face = result.sideHit;
                 }
+                if(rotate.getValue()) {
+                    Yeehaw.INSTANCE.rotationManager.rotateToPosition(preTrapPos);
+                }
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(preTrapPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
-                InventoryUtils.switchToSlot(originalSlot);
+                if(mc.player.inventory.currentItem != originalSlot)
+                    InventoryUtils.switchToSlot(originalSlot);
             }
         }
     }
@@ -84,7 +96,7 @@ public class AntiTrap extends Module {
         if (mc.world.playerEntities.isEmpty())
             return null;
         EntityPlayer closestTarget = null;
-        for(final EntityPlayer target : mc.world.playerEntities) {
+        for(EntityPlayer target : mc.world.playerEntities) {
             if(target != mc.player) {
                 if(!target.isEntityAlive())
                     continue;

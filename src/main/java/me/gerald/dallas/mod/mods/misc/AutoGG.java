@@ -5,9 +5,7 @@ import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.ConfigManager;
-import me.gerald.dallas.utils.MessageUtils;
-import me.gerald.dallas.utils.TimerUtils;
+import me.gerald.dallas.utils.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -54,34 +52,7 @@ public class AutoGG extends Module {
         if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
         if(event.getEntity().getDistance(mc.player) > 30) return;
         EntityPlayer player = (EntityPlayer) event.entity;
-        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + getRandomMessage().replace("<player>", player.getDisplayNameString()));
+        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + FileUtils.getRandomMessageWithDefault(randomMessages, "Texas owns <player>!", filePath).replace("<player>", player.getDisplayNameString()));
         timer.reset();
-    }
-
-    public void loadMessages() {
-        try {
-            randomMessages.clear();
-            Scanner s = new Scanner(new File(filePath));
-            while (s.hasNextLine()){
-                randomMessages.add(s.nextLine());
-            }
-            s.close();
-        }catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
-    }
-
-    public String getRandomMessage() {
-        loadMessages();
-        Random rand = new Random();
-        if(randomMessages.size() == 0)
-            return "Texas owns <player>!";
-        if(randomMessages.size() == 1)
-            return randomMessages.get(0);
-        return randomMessages.get(clamp(rand.nextInt(randomMessages.size()), 0, randomMessages.size() - 1));
-    }
-
-    public int clamp(int num, int min, int max) {
-        return (num < min) ? min : Math.min(num, max);
     }
 }

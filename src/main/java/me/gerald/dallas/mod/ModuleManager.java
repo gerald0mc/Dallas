@@ -1,16 +1,11 @@
 package me.gerald.dallas.mod;
 
 import me.gerald.dallas.mod.mods.client.DallasBot;
-import me.gerald.dallas.mod.mods.combat.AntiTrap;
-import me.gerald.dallas.mod.mods.combat.FakePearl;
-import me.gerald.dallas.mod.mods.misc.AutoGG;
-import me.gerald.dallas.mod.mods.misc.Chat;
-import me.gerald.dallas.mod.mods.misc.MCF;
-import me.gerald.dallas.mod.mods.misc.TexasFacts;
+import me.gerald.dallas.mod.mods.combat.*;
+import me.gerald.dallas.mod.mods.misc.*;
 import me.gerald.dallas.mod.mods.render.DamageESP;
 import me.gerald.dallas.mod.mods.render.FullBright;
 import me.gerald.dallas.mod.mods.client.GUI;
-import me.gerald.dallas.mod.mods.combat.Velocity;
 import me.gerald.dallas.mod.mods.render.NameTags;
 
 import java.util.ArrayList;
@@ -27,11 +22,13 @@ public class ModuleManager {
         //combat
         modules.add(new AntiTrap());
         modules.add(new FakePearl());
+        modules.add(new Surround());
         modules.add(new Velocity());
         //misc
         modules.add(new AutoGG());
         modules.add(new Chat());
         modules.add(new MCF());
+        modules.add(new Spammer());
         modules.add(new TexasFacts());
         //movement
         //render
