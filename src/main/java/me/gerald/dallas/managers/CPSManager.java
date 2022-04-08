@@ -22,9 +22,13 @@ public class CPSManager {
     @SubscribeEvent
     public void onPacketS(PacketEvent.Send event) {
         if(event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
-            if(Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL || Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) return;
-            MessageUtil.sendMessage("Usage increasing.");
-            usage++;
+            if(Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
+                usage++;
+                MessageUtil.sendMessage("Usage increasing");
+            }else if(Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+                usage++;
+                MessageUtil.sendMessage("Usage increasing");
+            }
         }
     }
 
@@ -32,10 +36,13 @@ public class CPSManager {
         if(!timer.passedMs(1000)) return;
         if(usage == 0) {
             cps = 0;
+            MessageUtil.sendMessage("Set cps to 0");
             timer.reset();
         } else {
             cps = usage / 20;
+            MessageUtil.sendMessage("Set cps to " + usage / 20);
             timer.reset();
+            usage = 0;
         }
     }
 

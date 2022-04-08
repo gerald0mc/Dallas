@@ -15,8 +15,8 @@ public class CrystalCountComponent extends HUDContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
-        Yeehaw.INSTANCE.cpsManager.calculateCPS();
         super.drawScreen(mouseX, mouseY, partialTicks);
+        Yeehaw.INSTANCE.cpsManager.calculateCPS();
         this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("CPS: " + Yeehaw.INSTANCE.cpsManager.getCps());
         this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("CPS: " + Yeehaw.INSTANCE.cpsManager.getCps(), x, y, -1);

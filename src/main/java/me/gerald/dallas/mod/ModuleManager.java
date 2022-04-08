@@ -24,6 +24,7 @@ public class ModuleManager {
         //combat
         modules.add(new AntiTrap());
         modules.add(new AutoKit());
+        modules.add(new CrystalAura());
         modules.add(new FakePearl());
         modules.add(new Surround());
         modules.add(new Velocity());
