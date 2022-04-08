@@ -4,8 +4,8 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.BlockUtils;
-import me.gerald.dallas.utils.InventoryUtils;
+import me.gerald.dallas.utils.BlockUtil;
+import me.gerald.dallas.utils.InventoryUtil;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -34,18 +34,18 @@ public class AntiTrap extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
         BlockPos playerPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
-        if(!BlockUtils.isSurrounded(playerPos)) return;
-        BlockPos targetPos = BlockUtils.canPlaceCrystal(playerPos);
-        BlockPos preTrapPos = BlockUtils.isPreTrap(playerPos);
+        if(!BlockUtil.isSurrounded(playerPos)) return;
+        BlockPos targetPos = BlockUtil.canPlaceCrystal(playerPos);
+        BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = findClosestPlayer();
         if(player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
         if(player == null && !alwaysActive.getValue()) return;
         if(targetPos != null && fullAnti.getValue()) {
             if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(targetPos)).isEmpty()) {
-                int crystalSlot = InventoryUtils.getItemHotbar(Items.END_CRYSTAL);
+                int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
                 int originalSlot = mc.player.inventory.currentItem;
                 if(crystalSlot != -1 && mc.player.inventory.currentItem != crystalSlot)
-                    InventoryUtils.switchToSlot(crystalSlot);
+                    InventoryUtil.switchToSlot(crystalSlot);
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(targetPos.getX() + .5, targetPos.getY() - .5, targetPos.getZ() + .5));
                 EnumFacing face;
                 if (result == null || result.sideHit == null) {
@@ -59,14 +59,14 @@ public class AntiTrap extends Module {
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(targetPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
                 if(mc.player.inventory.currentItem != originalSlot)
-                    InventoryUtils.switchToSlot(originalSlot);
+                    InventoryUtil.switchToSlot(originalSlot);
             }
         }else if(preTrapPos != null) {
             if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(preTrapPos)).isEmpty()) {
-                int crystalSlot = InventoryUtils.getItemHotbar(Items.END_CRYSTAL);
+                int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
                 int originalSlot = mc.player.inventory.currentItem;
                 if(crystalSlot != -1 && mc.player.inventory.currentItem != crystalSlot)
-                    InventoryUtils.switchToSlot(crystalSlot);
+                    InventoryUtil.switchToSlot(crystalSlot);
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(preTrapPos.getX() + .5, preTrapPos.getY() - .5, preTrapPos.getZ() + .5));
                 EnumFacing face;
                 if (result == null || result.sideHit == null) {
@@ -80,7 +80,7 @@ public class AntiTrap extends Module {
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(preTrapPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
                 if(mc.player.inventory.currentItem != originalSlot)
-                    InventoryUtils.switchToSlot(originalSlot);
+                    InventoryUtil.switchToSlot(originalSlot);
             }
         }
     }

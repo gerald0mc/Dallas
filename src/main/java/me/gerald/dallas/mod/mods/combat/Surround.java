@@ -1,10 +1,9 @@
 package me.gerald.dallas.mod.mods.combat;
 
 import me.gerald.dallas.mod.Module;
-import me.gerald.dallas.utils.BlockUtils;
-import me.gerald.dallas.utils.InventoryUtils;
+import me.gerald.dallas.utils.BlockUtil;
+import me.gerald.dallas.utils.InventoryUtil;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
@@ -27,13 +26,13 @@ public class Surround extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
         playerPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
-        if(BlockUtils.isSurrounded(playerPos) || mc.player.isAirBorne || mc.player.isOnLadder() || mc.player.isInLava() || mc.player.isInWater()) return;
-        for(BlockPos pos : BlockUtils.getSurroundBlocks(playerPos)) {
+        if(BlockUtil.isSurrounded(playerPos) || mc.player.isAirBorne || mc.player.isOnLadder() || mc.player.isInLava() || mc.player.isInWater()) return;
+        for(BlockPos pos : BlockUtil.getSurroundBlocks(playerPos)) {
             if(mc.world.getBlockState(pos).getBlock() == Blocks.AIR) {
-                int obsidianSlot = InventoryUtils.getItemHotbar(Item.getItemFromBlock(Blocks.OBSIDIAN));
+                int obsidianSlot = InventoryUtil.getItemHotbar(Item.getItemFromBlock(Blocks.OBSIDIAN));
                 int originalSlot = mc.player.inventory.currentItem;
                 if(obsidianSlot != -1 && mc.player.inventory.currentItem != obsidianSlot)
-                    InventoryUtils.switchToSlot(obsidianSlot);
+                    InventoryUtil.switchToSlot(obsidianSlot);
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos.getX() + .5, pos.getY() - .5, pos.getZ() + .5));
                 EnumFacing face;
                 if (result == null || result.sideHit == null) {
@@ -44,7 +43,7 @@ public class Surround extends Module {
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
                 if(mc.player.inventory.currentItem != originalSlot)
-                    InventoryUtils.switchToSlot(originalSlot);
+                    InventoryUtil.switchToSlot(originalSlot);
             }
         }
     }

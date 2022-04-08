@@ -4,10 +4,10 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.ConfigManager;
-import me.gerald.dallas.utils.FileUtils;
-import me.gerald.dallas.utils.MessageUtils;
-import me.gerald.dallas.utils.TimerUtils;
+import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.utils.FileUtil;
+import me.gerald.dallas.utils.MessageUtil;
+import me.gerald.dallas.utils.TimerUtil;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -25,7 +25,7 @@ public class Spammer extends Module {
     public BooleanSetting messageCounter = register(new BooleanSetting("MessageCounter", true));
 
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Spammer.txt";
-    public TimerUtils timer = new TimerUtils();
+    public TimerUtil timer = new TimerUtil();
     public List<String> messages = new ArrayList<>();
     public int messageCount = 0;
 
@@ -35,7 +35,7 @@ public class Spammer extends Module {
         if(!autoGGFile.exists()) {
             try {
                 autoGGFile.createNewFile();
-                MessageUtils.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.");
+                MessageUtil.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.");
                 toggle();
             }catch (IOException ignored) {}
         }
@@ -45,8 +45,8 @@ public class Spammer extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
         if(timer.passedMs((long) (delay.getValue() * 1000))) {
-            FileUtils.loadMessages(messages, filePath);
-            mc.player.sendChatMessage(FileUtils.getRandomMessageWithDefault(messages, "I haven't added anything to my spammer yet!", filePath) + (messageCounter.getValue() ? " | " + messageCount : ""));
+            FileUtil.loadMessages(messages, filePath);
+            mc.player.sendChatMessage(FileUtil.getRandomMessageWithDefault(messages, "I haven't added anything to my spammer yet!", filePath) + (messageCounter.getValue() ? " | " + messageCount : ""));
             messageCount++;
             timer.reset();
         }

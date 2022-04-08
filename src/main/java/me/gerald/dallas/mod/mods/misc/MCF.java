@@ -2,7 +2,7 @@ package me.gerald.dallas.mod.mods.misc;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.mod.Module;
-import me.gerald.dallas.utils.MessageUtils;
+import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -22,10 +22,10 @@ public class MCF extends Module {
                 EntityPlayer player = (EntityPlayer) mc.objectMouseOver.entityHit;
                 if(Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString())) {
                     Yeehaw.INSTANCE.friendManager.delFriend(player.getDisplayNameString());
-                    MessageUtils.sendMessage("Removed " + player.getDisplayNameString() + " from friends list.");
+                    MessageUtil.sendMessage("Removed " + player.getDisplayNameString() + " from friends list.");
                 }else {
                     Yeehaw.INSTANCE.friendManager.addFriend(player.getDisplayNameString());
-                    MessageUtils.sendMessage("Added " + player.getDisplayNameString() + " to the friends list.");
+                    MessageUtil.sendMessage("Added " + player.getDisplayNameString() + " to the friends list.");
                 }
             }
         }

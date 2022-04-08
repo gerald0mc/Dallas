@@ -5,10 +5,10 @@ import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.ConfigManager;
-import me.gerald.dallas.utils.FileUtils;
-import me.gerald.dallas.utils.MessageUtils;
-import me.gerald.dallas.utils.TimerUtils;
+import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.utils.FileUtil;
+import me.gerald.dallas.utils.MessageUtil;
+import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -22,7 +22,7 @@ public class AutoGG extends Module {
     public BooleanSetting greenText = register(new BooleanSetting("GreenText", false));
 
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "AutoGG.txt";
-    public TimerUtils timer = new TimerUtils();
+    public TimerUtil timer = new TimerUtil();
     public List<String> randomMessages = new ArrayList<>();
 
     public AutoGG() {
@@ -35,7 +35,7 @@ public class AutoGG extends Module {
         if(!autoGGFile.exists()) {
             try {
                 autoGGFile.createNewFile();
-                MessageUtils.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "AutoGG.txt" + ChatFormatting.RESET + " and add what you wish for it to say.");
+                MessageUtil.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "AutoGG.txt" + ChatFormatting.RESET + " and add what you wish for it to say.");
             }catch (IOException ignored) {}
         }
     }
@@ -52,7 +52,7 @@ public class AutoGG extends Module {
         if(!timer.passedMs((long) (cooldown.getValue() * 1000))) return;
         if(event.getEntity().getDistance(mc.player) > 30) return;
         EntityPlayer player = (EntityPlayer) event.entity;
-        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + FileUtils.getRandomMessageWithDefault(randomMessages, "Texas owns <player>!", filePath).replace("<player>", player.getDisplayNameString()));
+        mc.player.sendChatMessage(greenText.getValue() ? "> " : "" + FileUtil.getRandomMessageWithDefault(randomMessages, "Texas owns <player>!", filePath).replace("<player>", player.getDisplayNameString()));
         timer.reset();
     }
 }

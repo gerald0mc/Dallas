@@ -7,8 +7,8 @@ import me.gerald.dallas.event.events.ModuleToggleEvent;
 import me.gerald.dallas.gui.clickgui.ClickGUI;
 import me.gerald.dallas.mod.HUDModule;
 import me.gerald.dallas.mod.Module;
-import me.gerald.dallas.utils.ConfigManager;
-import me.gerald.dallas.utils.MessageUtils;
+import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -69,11 +69,11 @@ public class EventManager {
 
     @SubscribeEvent
     public void onModuleEnable(ModuleToggleEvent.Enable event) {
-        MessageUtils.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.GREEN + " enabled");
+        MessageUtil.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.GREEN + " enabled");
     }
 
     @SubscribeEvent
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
-        MessageUtils.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.RED + " disabled");
+        MessageUtil.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.RED + " disabled");
     }
 }

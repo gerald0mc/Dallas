@@ -4,7 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
 import me.gerald.dallas.setting.settings.StringSetting;
-import me.gerald.dallas.utils.MessageUtils;
+import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -67,11 +67,11 @@ public class StringComponent extends AbstractContainer {
                 case Keyboard.KEY_C:
                     if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                         if(entryString.length() == 0) {
-                            MessageUtils.sendMessage("Nothing to copy.");
+                            MessageUtil.sendMessage("Nothing to copy.");
                             return;
                         }
                         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entryString), null);
-                        MessageUtils.sendMessage(ChatFormatting.GRAY + "Copied text in string box to clipboard.");
+                        MessageUtil.sendMessage(ChatFormatting.GRAY + "Copied text in string box to clipboard.");
                     }
                     break;
             }

@@ -5,7 +5,7 @@ import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.TimerUtils;
+import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DamageESP extends Module {
@@ -39,7 +38,7 @@ public class DamageESP extends Module {
 
     public HashMap<Entity, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
-    public TimerUtils timer = new TimerUtils();
+    public TimerUtil timer = new TimerUtil();
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {

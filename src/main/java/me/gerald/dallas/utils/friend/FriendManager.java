@@ -1,15 +1,12 @@
 package me.gerald.dallas.utils.friend;
 
-import me.gerald.dallas.utils.ConfigManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import me.gerald.dallas.managers.ConfigManager;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FriendManager {
     public List<Friend> friends;

@@ -30,6 +30,7 @@ public class NumberComponent extends AbstractContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateSliderLogic(mouseX);
+        sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f);
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Gui.drawRect(x, y, x + (int) sliderWidth, y + height, sliderColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
