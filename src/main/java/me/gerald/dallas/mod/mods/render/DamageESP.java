@@ -21,6 +21,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DamageESP extends Module {
     public DamageESP() {
@@ -51,12 +53,12 @@ public class DamageESP extends Module {
                 } else {
                     if (entityHealthMap.get(entity) > entity.getHealth()) {
                         if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), 1));
+                        damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 1));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
                     } else if(entityHealthMap.get(entity) < entity.getHealth()) {
                         if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), 2));
+                        damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 2));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
                     }
@@ -68,12 +70,12 @@ public class DamageESP extends Module {
                 } else {
                     if (entityHealthMap.get(entity) > entity.getHealth()) {
                         if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), 1));
+                        damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 1));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
                     } else if(entityHealthMap.get(entity) < entity.getHealth()) {
                         if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), 2));
+                        damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 2));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
                     }
@@ -92,7 +94,7 @@ public class DamageESP extends Module {
                 return;
             }
             final double x = damage.getEntity().getPosition().getX() + (damage.getEntity().getPosition().getX() - damage.getEntity().getPosition().getX()) * event.getPartialTicks() - mc.getRenderManager().viewerPosX;
-            final double y = damage.getEntity().getPosition().getY() + (damage.getEntity().getPosition().getY() - damage.getEntity().getPosition().getY()) * event.getPartialTicks() - mc.getRenderManager().viewerPosY + damage.getEntity().getEyeHeight() + 0.5;
+            final double y = damage.getEntity().getPosition().getY() + (damage.getEntity().getPosition().getY() - damage.getEntity().getPosition().getY()) * event.getPartialTicks() - mc.getRenderManager().viewerPosY + damage.getEntity().getEyeHeight() + damage.getHeight();
             final double z = damage.getEntity().getPosition().getZ() + (damage.getEntity().getPosition().getZ() - damage.getEntity().getPosition().getZ()) * event.getPartialTicks() - mc.getRenderManager().viewerPosZ;
             final float var10001 = (mc.gameSettings.thirdPersonView == 2) ? -1.0f : 1.0f;
             GL11.glPushMatrix();
@@ -142,16 +144,18 @@ public class DamageESP extends Module {
     }
 
     public static class Damage {
-        public Damage(Entity entity, long startTime, float damage, int stage) {
+        public Damage(Entity entity, long startTime, float damage, float height, int stage) {
             this.entity = entity;
             this.startTime = startTime;
             this.damage = damage;
+            this.height = height;
             this.stage = stage;
         }
 
         private final Entity entity;
         private final long startTime;
         private final float damage;
+        private final float height;
         private final int stage;
 
         public Entity getEntity() {
@@ -164,6 +168,10 @@ public class DamageESP extends Module {
 
         public float getDamage() {
             return damage;
+        }
+
+        public float getHeight() {
+            return height;
         }
 
         public int getStage() {

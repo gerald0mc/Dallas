@@ -2,7 +2,7 @@ package me.gerald.dallas;
 
 import me.gerald.dallas.command.CommandManager;
 import me.gerald.dallas.event.EventManager;
-import me.gerald.dallas.gui.ClickGUI;
+import me.gerald.dallas.gui.clickgui.ClickGUI;
 import me.gerald.dallas.mod.ModuleManager;
 import me.gerald.dallas.utils.ConfigManager;
 import me.gerald.dallas.utils.RotationManager;
@@ -37,10 +37,10 @@ public class Yeehaw {
     public void preinit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         moduleManager = new ModuleManager();
-        eventManager = new EventManager();
-        configManager = new ConfigManager();
         commandManager = new CommandManager();
+        configManager = new ConfigManager();
         friendManager = new FriendManager();
+        eventManager = new EventManager();
         rotationManager = new RotationManager();
         clickGUI = new ClickGUI();
         ConfigManager.load();

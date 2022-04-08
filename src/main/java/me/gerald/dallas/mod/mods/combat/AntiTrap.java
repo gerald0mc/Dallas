@@ -1,23 +1,16 @@
 package me.gerald.dallas.mod.mods.combat;
 
-import io.netty.util.internal.MathUtil;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.BlockUtils;
 import me.gerald.dallas.utils.InventoryUtils;
-import me.gerald.dallas.utils.RotationUtil;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
-import net.minecraft.network.play.server.SPacketBlockChange;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;

@@ -11,6 +11,7 @@ import net.minecraft.network.play.server.SPacketTimeUpdate;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.legacydev.reloc.joptsimple.internal.Strings;
 import org.apache.commons.lang3.StringUtils;
 
 public class DallasBot extends Module {
@@ -39,17 +40,21 @@ public class DallasBot extends Module {
             remindTimer.reset();
         }
     }
+
     @SubscribeEvent
     public void onChatReceive(ClientChatReceivedEvent event) {
-        if(event.getMessage().getUnformattedText().contains("dhelp")) {
-            if(StringUtils.substringBetween(event.getMessage().getUnformattedText(), "<", ">").equalsIgnoreCase(mc.player.getDisplayNameString())) {
-                MessageUtils.sendMessage(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands");
-                MessageUtils.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " +ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.");
-            }else {
-                if(event.getMessage().getUnformattedText().contains("Dallas Bot")) return;
-                if(!coolDownTimer.passedMs((long) (coolDown.getValue() * 1000))) return;
-                mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] says all commands" + afterMessage);
-                coolDownTimer.reset();
+        String[] strings = event.getMessage().getUnformattedText().split(" ");
+        for(String string : strings) {
+            if(string.equalsIgnoreCase("dhelp")) {
+                if(StringUtils.substringBetween(event.getMessage().getUnformattedText(), "<", ">").equalsIgnoreCase(mc.player.getDisplayNameString())) {
+                    MessageUtils.sendMessage(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands");
+                    MessageUtils.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " +ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.");
+                }else {
+                    if(event.getMessage().getUnformattedText().contains("Dallas Bot")) return;
+                    if(!coolDownTimer.passedMs((long) (coolDown.getValue() * 1000))) return;
+                    mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] says all commands" + afterMessage);
+                    coolDownTimer.reset();
+                }
             }
         }
     }

@@ -2,6 +2,8 @@ package me.gerald.dallas.mod;
 
 import me.gerald.dallas.mod.mods.client.DallasBot;
 import me.gerald.dallas.mod.mods.combat.*;
+import me.gerald.dallas.mod.mods.hud.crystalcount.CrystalCount;
+import me.gerald.dallas.mod.mods.hud.watermark.Watermark;
 import me.gerald.dallas.mod.mods.misc.*;
 import me.gerald.dallas.mod.mods.render.DamageESP;
 import me.gerald.dallas.mod.mods.render.FullBright;
@@ -21,9 +23,13 @@ public class ModuleManager {
         modules.add(new GUI());
         //combat
         modules.add(new AntiTrap());
+        modules.add(new AutoKit());
         modules.add(new FakePearl());
         modules.add(new Surround());
         modules.add(new Velocity());
+        //hud
+        modules.add(new CrystalCount());
+        modules.add(new Watermark());
         //misc
         modules.add(new AutoGG());
         modules.add(new Chat());

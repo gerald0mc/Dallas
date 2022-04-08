@@ -5,17 +5,17 @@ import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.*;
+import me.gerald.dallas.utils.ConfigManager;
+import me.gerald.dallas.utils.FileUtils;
+import me.gerald.dallas.utils.MessageUtils;
+import me.gerald.dallas.utils.TimerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 public class AutoGG extends Module {
     public NumberSetting cooldown = register(new NumberSetting("Cooldown", 5, 1, 10));

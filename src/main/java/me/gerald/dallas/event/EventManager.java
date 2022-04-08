@@ -4,10 +4,14 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.command.Command;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
+import me.gerald.dallas.gui.clickgui.ClickGUI;
+import me.gerald.dallas.mod.HUDModule;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.utils.ConfigManager;
 import me.gerald.dallas.utils.MessageUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -33,7 +37,7 @@ public class EventManager {
         }
     }
 
-    //comands
+    //commands
     @SubscribeEvent
     public void onChatSend(ClientChatEvent event) {
         String[] args = event.getMessage().split(" ");
@@ -43,6 +47,17 @@ public class EventManager {
                 if(args[0].equalsIgnoreCase((Yeehaw.INSTANCE.commandManager.PREFIX + command.getName()))) {
                     command.onCommand(args);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onGameOverlay(RenderGameOverlayEvent.Text event) {
+        if(Minecraft.getMinecraft().currentScreen instanceof ClickGUI) return;
+        for(Module module : Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD)) {
+            if(module.isEnabled()) {
+                final HUDModule hudMod = (HUDModule) module;
+                hudMod.getContainer().drawScreen(-1, -1, event.getPartialTicks());
             }
         }
     }
