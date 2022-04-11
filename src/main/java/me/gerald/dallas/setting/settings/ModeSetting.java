@@ -1,6 +1,7 @@
 package me.gerald.dallas.setting.settings;
 
 import me.gerald.dallas.setting.Setting;
+import me.gerald.dallas.setting.Visibility;
 
 public class ModeSetting extends Setting {
     private final String[] modes;
@@ -9,6 +10,13 @@ public class ModeSetting extends Setting {
 
     public ModeSetting(String name, String defaultMode, String... modes) {
         super(name);
+        this.defaultMode = defaultMode;
+        this.modes = modes;
+        this.modeIndex = indexOf(defaultMode);
+    }
+
+    public ModeSetting(String name, String defaultMode, Visibility visibility, String... modes) {
+        super(name, visibility);
         this.defaultMode = defaultMode;
         this.modes = modes;
         this.modeIndex = indexOf(defaultMode);

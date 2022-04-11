@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
 import me.gerald.dallas.mod.Module;
+import me.gerald.dallas.mod.mods.client.GUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
@@ -13,6 +14,7 @@ import java.awt.*;
 public class BindComponent extends AbstractContainer {
     public Module module;
     public boolean listening = false;
+    public boolean onlySetting = false;
 
     public BindComponent(Module module, int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -25,8 +27,19 @@ public class BindComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
+        Gui.drawRect(x, y, x + width, y + height, listening ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + "Listening..." : "Bind " + ChatFormatting.GRAY + Keyboard.getKeyName(module.getKeybind()), x + 2, y + 2f, -1);
+        //borders
+        //top lines
+        Gui.drawRect(x, y, x + width, y + 1, new Color(0, 0, 0, 255).getRGB());
+        //left line
+        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(x + width, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        if(onlySetting) {
+            //bottom line
+            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        }
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A bind setting.";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A bind setting.") + 3;

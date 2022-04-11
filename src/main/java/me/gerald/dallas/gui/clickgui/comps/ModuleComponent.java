@@ -2,6 +2,7 @@ package me.gerald.dallas.gui.clickgui.comps;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
+import me.gerald.dallas.gui.api.SettingComponent;
 import me.gerald.dallas.gui.clickgui.comps.settingcomps.*;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.mod.mods.client.GUI;
@@ -14,13 +15,15 @@ import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ModuleComponent extends AbstractContainer {
     public Module module;
     public Module.Category category;
     public boolean open = false;
-    public List<AbstractContainer> settingComponents = new ArrayList<>();
+    public boolean lastModule = false;
+    public List<SettingComponent> settingComponents = new ArrayList<>();
 
     public ModuleComponent(Module module, Module.Category category, int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -30,18 +33,22 @@ public class ModuleComponent extends AbstractContainer {
         this.y = y;
         this.width = width;
         this.height = height;
-        settingComponents.add(new BindComponent(module, x, y, 110, height));
-        for(Setting setting : module.getSettings()) {
-            if(setting instanceof BooleanSetting)
-                settingComponents.add(new BooleanComponent((BooleanSetting) setting, x, y, 110, height));
-            else if(setting instanceof NumberSetting)
-                settingComponents.add(new NumberComponent((NumberSetting) setting, x, y, 110, height));
-            else if(setting instanceof ModeSetting)
-                settingComponents.add(new ModeComponent((ModeSetting) setting, x, y, 110, height));
-            else if(setting instanceof StringSetting)
-                settingComponents.add(new StringComponent((StringSetting) setting, x, y, 110, height));
-            else if(setting instanceof ColorSetting)
-                settingComponents.add(new ColorComponent((ColorSetting) setting, x, y, 110, height));
+        Iterator<Setting> iterator = module.getSettings().iterator();
+        while(iterator.hasNext()) {
+            Setting element = iterator.next();
+            if(element instanceof BooleanSetting)
+                settingComponents.add(new BooleanComponent((BooleanSetting) element, x, y, 110, height));
+            else if(element instanceof NumberSetting)
+                settingComponents.add(new NumberComponent((NumberSetting) element, x, y, 110, height));
+            else if(element instanceof ModeSetting)
+                settingComponents.add(new ModeComponent((ModeSetting) element, x, y, 110, height));
+            else if(element instanceof StringSetting)
+                settingComponents.add(new StringComponent((StringSetting) element, x, y, 110, height));
+            else if(element instanceof ColorSetting)
+                settingComponents.add(new ColorComponent((ColorSetting) element, x, y, 110, height));
+            if(!iterator.hasNext()) {
+                settingComponents.get(settingComponents.size() - 1).last = true;
+            }
         }
     }
 
@@ -51,23 +58,41 @@ public class ModuleComponent extends AbstractContainer {
         float alignment = 0;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleAlignment.getMode()) {
             case "Middle":
-                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getName()) / 2f);
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName()) / 2f);
                 break;
             case "Left":
                 alignment = x + 2f;
                 break;
             case "Right":
-                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getName()) - 2;
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName()) - 2;
                 break;
         }
         Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName(), alignment, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow((open ? "> " : "") + module.getName(), alignment, y + 2f, -1);
+        //left line
+        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        if(lastModule) {
+            //bottom line
+            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        }
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;
         }
         if(open) {
-            for(AbstractContainer component : settingComponents) {
+            BindComponent bindComponent = new BindComponent(module, x, y, 110, height);
+            bindComponent.x = x + width;
+            bindComponent.y = y + yOffset;
+            yOffset += bindComponent.getHeight();
+            if(settingComponents.size() == 0) {
+                bindComponent.onlySetting = true;
+            }
+            bindComponent.drawScreen(mouseX, mouseY, partialTicks);
+            if(settingComponents.isEmpty()) return;
+            for(SettingComponent component : settingComponents) {
+                if(!component.isVisible()) continue;
                 component.x = x + width;
                 component.y = y + yOffset;
                 yOffset += component.getHeight();

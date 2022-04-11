@@ -1,20 +1,21 @@
 package me.gerald.dallas.setting.settings;
 
 import me.gerald.dallas.setting.Setting;
+import me.gerald.dallas.setting.Visibility;
 
 import java.awt.*;
 
 public class ColorSetting extends Setting {
-    public ColorSetting(String name, int r, int g, int b) {
+    public ColorSetting(String name, int r, int g, int b, int a) {
         super(name);
         this.r = r;
         this.g = g;
         this.b = b;
-        this.a = 255;
+        this.a = a;
     }
 
-    public ColorSetting(String name, int r, int g, int b, int a) {
-        super(name);
+    public ColorSetting(String name, int r, int g, int b, int a, Visibility visibility) {
+        super(name, visibility);
         this.r = r;
         this.g = g;
         this.b = b;

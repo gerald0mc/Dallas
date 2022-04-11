@@ -7,7 +7,7 @@ import me.gerald.dallas.managers.CPSManager;
 import me.gerald.dallas.mod.ModuleManager;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.RotationManager;
-import me.gerald.dallas.utils.friend.FriendManager;
+import me.gerald.dallas.managers.FriendManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;

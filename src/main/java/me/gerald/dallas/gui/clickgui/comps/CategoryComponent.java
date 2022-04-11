@@ -11,12 +11,12 @@ import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CategoryComponent extends AbstractContainer {
     public Module.Category category;
     public List<ModuleComponent> modules = new ArrayList<>();
-    int yOffset = height;
     boolean open = true;
 
     public CategoryComponent(Module.Category category, int x, int y, int width, int height) {
@@ -27,8 +27,13 @@ public class CategoryComponent extends AbstractContainer {
         this.width = width;
         this.height = height;
         if(Yeehaw.INSTANCE.moduleManager.getCategory(category) != null) {
-            for (Module module : Yeehaw.INSTANCE.moduleManager.getCategory(category)) {
-                modules.add(new ModuleComponent(module, category, x, y + yOffset, width, height));
+            Iterator<Module> iterator = Yeehaw.INSTANCE.moduleManager.getCategory(category).iterator();
+            while(iterator.hasNext()) {
+                Module element = iterator.next();
+                modules.add(new ModuleComponent(element, category, x, y, width, height));
+                if(!iterator.hasNext()) {
+                    modules.get(modules.size() - 1).lastModule = true;
+                }
             }
         }
     }
@@ -51,7 +56,17 @@ public class CategoryComponent extends AbstractContainer {
                 text = category.toString() + (open ? " >" : " V");
                 break;
         }
-        Gui.drawRect(x, y, x + width, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Gui.drawRect(x - 2, y, x + width + 2, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        //borders
+        //top lines
+        Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());
+        //left line
+        Gui.drawRect(x - 2, y, x -1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(x + width, y, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
+        //bottom line
+        Gui.drawRect(x - 2, y + height - 1, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
+
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = category.toString() + " category.";

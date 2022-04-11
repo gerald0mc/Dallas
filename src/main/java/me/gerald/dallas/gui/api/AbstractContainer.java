@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public abstract class AbstractContainer {
     public int x, y, width, height;
+    public boolean last = false;
 
     public AbstractContainer(int x, int y, int width, int height) {
         this.x = x;

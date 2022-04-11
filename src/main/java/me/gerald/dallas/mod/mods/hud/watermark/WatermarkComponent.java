@@ -1,9 +1,12 @@
 package me.gerald.dallas.mod.mods.hud.watermark;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.HUDContainer;
+import me.gerald.dallas.mod.mods.client.GUI;
 import net.minecraft.client.Minecraft;
 
+import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
@@ -16,9 +19,9 @@ public class WatermarkComponent extends HUDContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.MOD_NAME);
+        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.MOD_NAME + " " + Yeehaw.VERSION);
         this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.MOD_NAME, x, y, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.MOD_NAME + " " + ChatFormatting.WHITE + Yeehaw.VERSION, x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
     }
 
     @Override

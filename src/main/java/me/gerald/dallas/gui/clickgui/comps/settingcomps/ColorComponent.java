@@ -2,6 +2,7 @@ package me.gerald.dallas.gui.clickgui.comps.settingcomps;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.gui.api.AbstractContainer;
+import me.gerald.dallas.gui.api.SettingComponent;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import net.minecraft.client.Minecraft;
@@ -13,14 +14,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColorComponent extends AbstractContainer {
+public class ColorComponent extends SettingComponent {
     public ColorSetting setting;
     public boolean open = false;
 
     public List<NumberComponent> rgbaSliders;
 
     public ColorComponent(ColorSetting setting, int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(setting, x, y, width, height);
         this.setting = setting;
         this.x = x;
         this.y = y;
@@ -38,6 +39,14 @@ public class ColorComponent extends AbstractContainer {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName(), x + 2, y + 2f, -1);
         Gui.drawRect(x + width - 12, y + 1, x + width - 2, y + height - 1, new Color(setting.getR(), setting.getG(), setting.getB(), 255).getRGB());
+        //left line
+        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        if(last) {
+            //bottom line
+            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        }
         if(isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A color setting called (" + setting.getName() + ").";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A color setting called (" + setting.getName() + ").") + 3;

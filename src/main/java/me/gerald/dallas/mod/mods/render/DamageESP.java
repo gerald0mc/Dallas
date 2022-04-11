@@ -32,9 +32,9 @@ public class DamageESP extends Module {
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 3, 1, 5));
     public BooleanSetting self = register(new BooleanSetting("Self", true));
     public BooleanSetting healText = register(new BooleanSetting("HealText", true));
-    public ColorSetting healColor = register(new ColorSetting("HealColor", 0, 255, 0));
+    public ColorSetting healColor = register(new ColorSetting("HealColor", 0, 255, 0, 255, () -> healText.getValue()));
     public BooleanSetting damageText = register(new BooleanSetting("DamageText", true));
-    public ColorSetting damageColor = register(new ColorSetting("DamageColor", 255, 0, 0));
+    public ColorSetting damageColor = register(new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue()));
 
     public HashMap<Entity, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
