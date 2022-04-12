@@ -1,13 +1,15 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "me.gerald.dallas.asm.mixins",
+  "package": "me.gerald.dallas.mixin.mixins",
   "refmap": "mixins.dallas.refmap.json",
   "mixins": [
+    "ICPacketPlayerMixin",
     "MixinNetworkManager"
   ],
   "client": [
     "IEntityRenderer",
+    "IMinecraft",
     "MixinGuiMainMenu",
     "MixinNetHandlerPlayClient"
   ]

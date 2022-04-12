@@ -1,4 +1,4 @@
-package me.gerald.dallas.asm.mixins;
+package me.gerald.dallas.mixin.mixins;
 
 import net.minecraft.network.play.client.CPacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;

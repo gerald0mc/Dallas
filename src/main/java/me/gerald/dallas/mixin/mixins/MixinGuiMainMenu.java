@@ -1,4 +1,4 @@
-package me.gerald.dallas.asm.mixins;
+package me.gerald.dallas.mixin.mixins;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;

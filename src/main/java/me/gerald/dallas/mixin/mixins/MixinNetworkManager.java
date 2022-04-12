@@ -1,4 +1,4 @@
-package me.gerald.dallas.asm.mixins;
+package me.gerald.dallas.mixin.mixins;
 
 import io.netty.channel.ChannelHandlerContext;
 import me.gerald.dallas.event.events.PacketEvent;

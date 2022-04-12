@@ -1,4 +1,4 @@
-package me.gerald.dallas.asm.mixins;
+package me.gerald.dallas.mixin.mixins;
 
 import me.gerald.dallas.event.events.DeathEvent;
 import net.minecraft.client.Minecraft;

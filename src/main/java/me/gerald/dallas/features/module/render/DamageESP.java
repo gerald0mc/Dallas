@@ -1,6 +1,6 @@
 package me.gerald.dallas.features.module.render;
 
-import me.gerald.dallas.asm.mixins.IEntityRenderer;
+import me.gerald.dallas.mixin.mixins.IEntityRenderer;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
