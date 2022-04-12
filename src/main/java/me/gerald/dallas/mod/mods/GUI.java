@@ -1,10 +1,8 @@
 package me.gerald.dallas.mod.mods;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.gui.ClickGUI;
 import me.gerald.dallas.mod.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import org.lwjgl.input.Keyboard;
 
 public class GUI extends Module {
     public GUI() {
