@@ -3,6 +3,7 @@ package me.gerald.dallas.managers;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.DallasBot;
 import me.gerald.dallas.features.module.combat.*;
+import me.gerald.dallas.features.module.hud.coordinates.Coordinates;
 import me.gerald.dallas.features.module.misc.*;
 import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.features.module.hud.watermark.Watermark;
@@ -30,6 +31,7 @@ public class ModuleManager {
         modules.add(new Surround());
         modules.add(new Velocity());
         //hud
+        modules.add(new Coordinates());
         modules.add(new CrystalCount());
         modules.add(new Watermark());
         //misc

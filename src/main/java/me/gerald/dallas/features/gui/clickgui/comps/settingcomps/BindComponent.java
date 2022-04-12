@@ -35,7 +35,7 @@ public class BindComponent extends AbstractContainer {
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
-        Gui.drawRect(x + width, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
         if(onlySetting) {
             //bottom line
             Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
