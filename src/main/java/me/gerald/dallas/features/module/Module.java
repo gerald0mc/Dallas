@@ -104,5 +104,12 @@ public class Module {
         return mc == null || mc.world == null || mc.player == null;
     }
 
-    public enum Category {COMBAT, MOVEMENT, RENDER, MISC, CLIENT, HUD}
+    public enum Category {
+        COMBAT,
+        MOVEMENT,
+        RENDER,
+        MISC,
+        CLIENT,
+        HUD
+    }
 }
