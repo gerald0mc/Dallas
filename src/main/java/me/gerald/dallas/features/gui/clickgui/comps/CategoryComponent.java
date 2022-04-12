@@ -19,6 +19,9 @@ public class CategoryComponent extends AbstractContainer {
     public List<ModuleComponent> modules = new ArrayList<>();
     boolean open = true;
 
+    private boolean dragging = false;
+    private int dragX, dragY;
+
     public CategoryComponent(Module.Category category, int x, int y, int width, int height) {
         super(x, y, width, height);
         this.category = category;
@@ -40,6 +43,11 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (dragging) {
+            x = dragX + mouseX;
+            y = dragY + mouseY;
+        }
+
         float alignment = 0;
         String text = null;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAllignment.getMode()) {
@@ -85,7 +93,11 @@ public class CategoryComponent extends AbstractContainer {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 1) {
+            if (mouseButton == 0) {
+                dragging = !dragging;
+                dragX = x - mouseX;
+                dragY = y - mouseY;
+            } else if(mouseButton == 1) {
                 open = !open;
             }
         }
@@ -97,6 +109,10 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+        if (mouseButton == 0 && dragging) {
+            dragging = false;
+        }
+
         for(ModuleComponent component : modules) {
             if(!open) return;
             component.mouseReleased(mouseX, mouseY, mouseButton);
