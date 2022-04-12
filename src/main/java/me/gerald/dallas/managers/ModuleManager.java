@@ -7,6 +7,7 @@ import me.gerald.dallas.features.module.hud.coordinates.Coordinates;
 import me.gerald.dallas.features.module.hud.cps.CPS;
 import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.features.module.hud.gapplecount.GappleCount;
+import me.gerald.dallas.features.module.hud.ping.Ping;
 import me.gerald.dallas.features.module.hud.totemcount.TotemCount;
 import me.gerald.dallas.features.module.hud.xpcount.XPCount;
 import me.gerald.dallas.features.module.misc.*;
@@ -38,6 +39,7 @@ public class ModuleManager {
         modules.add(new Coordinates());
         modules.add(new CPS());
         modules.add(new CrystalCount());
+        modules.add(new Ping());
         modules.add(new GappleCount());
         modules.add(new TotemCount());
         modules.add(new Watermark());

@@ -91,7 +91,7 @@ jar {
     manifest.attributes(
             'Manifest-Version': 1.0,
             'MixinConfigs': 'mixins.dallas.json',
-            'TweakClass': 'org.spongepowered.mixin.launch.MixinTweaker',
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'TweakOrder': 0,
             'FMLCorePluginContainsFMLMod': 'true',
             'FMLCorePlugin': 'me.gerald.dallas.mixin.MixinLoader',
