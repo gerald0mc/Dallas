@@ -15,8 +15,8 @@ public class DallasBot extends Module {
         super("DallasBot", Category.CLIENT, "A bot with multiple useful commands.");
     }
 
-    public NumberSetting coolDown = register(new NumberSetting("CoolDown(Seconds)", 5, 1, 30));
-    public NumberSetting remindDelay = register(new NumberSetting("RemindDelay(Minutes)", 2.5f, 1, 5));
+    public NumberSetting coolDown = register(new NumberSetting("CoolDown(Secs)", 5, 1, 30));
+    public NumberSetting remindDelay = register(new NumberSetting("RemindDelay(Mins)", 2.5f, 1, 5));
 
     public TimerUtil remindTimer = new TimerUtil();
     public TimerUtil coolDownTimer = new TimerUtil();

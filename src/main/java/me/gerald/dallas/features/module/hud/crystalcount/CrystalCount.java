@@ -4,6 +4,6 @@ import me.gerald.dallas.features.module.hud.HUDModule;
 
 public class CrystalCount extends HUDModule {
     public CrystalCount() {
-        super(new CrystalCountComponent(1, 11, 1, 1), "CrystalCount", Category.HUD, "Counts your crystal usage.");
+        super(new CrystalCountComponent(1, 71, 1, 1), "CrystalCount", Category.HUD, "Counts your crystals.");
     }
 }

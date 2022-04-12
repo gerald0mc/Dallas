@@ -4,8 +4,12 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.DallasBot;
 import me.gerald.dallas.features.module.combat.*;
 import me.gerald.dallas.features.module.hud.coordinates.Coordinates;
-import me.gerald.dallas.features.module.misc.*;
+import me.gerald.dallas.features.module.hud.cps.CPS;
 import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
+import me.gerald.dallas.features.module.hud.gapplecount.GappleCount;
+import me.gerald.dallas.features.module.hud.totemcount.TotemCount;
+import me.gerald.dallas.features.module.hud.xpcount.XPCount;
+import me.gerald.dallas.features.module.misc.*;
 import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.render.DamageESP;
 import me.gerald.dallas.features.module.render.FullBright;
@@ -32,8 +36,12 @@ public class ModuleManager {
         modules.add(new Velocity());
         //hud
         modules.add(new Coordinates());
+        modules.add(new CPS());
         modules.add(new CrystalCount());
+        modules.add(new GappleCount());
+        modules.add(new TotemCount());
         modules.add(new Watermark());
+        modules.add(new XPCount());
         //misc
         modules.add(new AutoGG());
         modules.add(new Chat());

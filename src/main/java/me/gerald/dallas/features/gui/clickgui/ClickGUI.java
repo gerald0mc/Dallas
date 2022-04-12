@@ -20,7 +20,7 @@ public class ClickGUI extends GuiScreen {
         int xOffset = 10;
         for(Module.Category category : Module.Category.values()) {
             categories.add(new CategoryComponent(category, xOffset, 50, 100, 11));
-            xOffset += 105;
+            xOffset += 210;
         }
     }
 
