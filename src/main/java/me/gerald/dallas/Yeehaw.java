@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
         version = Yeehaw.VERSION
 )
 public class Yeehaw {
-    //best client ever made no cap
+    //cum
     public static final String MOD_ID = "dallas";
     public static final String MOD_NAME = "Dallas";
     public static final String VERSION = "1.0";
