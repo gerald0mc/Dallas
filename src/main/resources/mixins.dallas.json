@@ -1,7 +1,7 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "me.gerald.dallas.mixin.mixins",
+  "package": "me.gerald.dallas.asm.mixins",
   "refmap": "mixins.dallas.refmap.json",
   "mixins": [
     "MixinNetworkManager"

@@ -2,11 +2,11 @@ package me.gerald.dallas.event;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.command.Command;
+import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
-import me.gerald.dallas.gui.clickgui.ClickGUI;
-import me.gerald.dallas.mod.HUDModule;
-import me.gerald.dallas.mod.Module;
+import me.gerald.dallas.features.gui.clickgui.ClickGUI;
+import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;

@@ -1,7 +1,7 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.mod.Module;
+import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;

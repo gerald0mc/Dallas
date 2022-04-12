@@ -41,7 +41,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
 
-            property 'fml.coreMods.load', 'me.gerald.dallas.mixin.MixinLoader'
+            property 'fml.coreMods.load', 'me.gerald.dallas.asm.MixinLoader'
 
             property 'forge.logging.console.level', 'debug'
 
@@ -94,7 +94,7 @@ jar {
             'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'TweakOrder': 0,
             'FMLCorePluginContainsFMLMod': 'true',
-            'FMLCorePlugin': 'me.gerald.dallas.mixin.MixinLoader',
+            'FMLCorePlugin': 'me.gerald.dallas.asm.MixinLoader',
             'ForceLoadAsMod': 'true',
     )
     from {

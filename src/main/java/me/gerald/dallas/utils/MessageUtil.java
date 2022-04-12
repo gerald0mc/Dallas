@@ -1,7 +1,7 @@
 package me.gerald.dallas.utils;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.gerald.dallas.mod.Module;
+import me.gerald.dallas.features.module.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 

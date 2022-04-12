@@ -1,6 +1,6 @@
 package me.gerald.dallas.event.events;
 
-import me.gerald.dallas.mod.Module;
+import me.gerald.dallas.features.module.Module;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ModuleToggleEvent extends Event {

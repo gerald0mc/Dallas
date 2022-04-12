@@ -1,10 +1,10 @@
 package me.gerald.dallas;
 
-import me.gerald.dallas.command.CommandManager;
+import me.gerald.dallas.managers.CommandManager;
 import me.gerald.dallas.event.EventManager;
-import me.gerald.dallas.gui.clickgui.ClickGUI;
+import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.managers.CPSManager;
-import me.gerald.dallas.mod.ModuleManager;
+import me.gerald.dallas.managers.ModuleManager;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.RotationManager;
 import me.gerald.dallas.managers.FriendManager;

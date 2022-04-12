@@ -1,7 +1,7 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.event.events.PacketEvent;
-import me.gerald.dallas.mixin.mixins.ICPacketPlayerMixin;
+import me.gerald.dallas.asm.mixins.ICPacketPlayerMixin;
 import me.gerald.dallas.utils.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
