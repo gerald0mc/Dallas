@@ -1,7 +1,7 @@
 package me.gerald.dallas.gui;
 
-import me.gerald.dallas.gui.comps.CategoryComponent;
-import me.gerald.dallas.gui.comps.TextComponent;
+import me.gerald.dallas.gui.clickgui.comps.CategoryComponent;
+import me.gerald.dallas.gui.clickgui.comps.TextComponent;
 import me.gerald.dallas.mod.Module;
 import net.minecraft.client.gui.GuiScreen;
 
