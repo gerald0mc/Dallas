@@ -15,7 +15,6 @@ import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.render.DamageESP;
 import me.gerald.dallas.features.module.render.FullBright;
 import me.gerald.dallas.features.module.client.GUI;
-import me.gerald.dallas.features.module.render.NameTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,6 @@ public class ModuleManager {
         //render
         modules.add(new DamageESP());
         modules.add(new FullBright());
-        modules.add(new NameTags());
     }
 
     public List<Module> getModules() {
