@@ -37,7 +37,7 @@ public class AntiTrap extends Module {
         if(!BlockUtil.isSurrounded(playerPos)) return;
         BlockPos targetPos = BlockUtil.canPlaceCrystal(playerPos);
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
-        EntityPlayer player = findClosestPlayer();
+        EntityPlayer player = BlockUtil.findClosestPlayer();
         if(player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
         if(player == null && !alwaysActive.getValue()) return;
         if(targetPos != null && fullAnti.getValue()) {
@@ -83,23 +83,5 @@ public class AntiTrap extends Module {
                     InventoryUtil.switchToSlot(originalSlot);
             }
         }
-    }
-
-    private EntityPlayer findClosestPlayer() {
-        if (mc.world.playerEntities.isEmpty())
-            return null;
-        EntityPlayer closestTarget = null;
-        for(EntityPlayer target : mc.world.playerEntities) {
-            if(target != mc.player) {
-                if(!target.isEntityAlive())
-                    continue;
-                if(Yeehaw.INSTANCE.friendManager.isFriend(target.getName()))
-                    continue;
-                if(target.getHealth() <= 0.0f)
-                    continue;
-                closestTarget = target;
-            }
-        }
-        return closestTarget;
     }
 }

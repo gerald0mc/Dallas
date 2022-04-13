@@ -15,6 +15,7 @@ import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.render.DamageESP;
 import me.gerald.dallas.features.module.render.FullBright;
 import me.gerald.dallas.features.module.client.GUI;
+import me.gerald.dallas.features.module.render.Waypoints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ModuleManager {
         modules.add(new GUI());
         //combat
         modules.add(new AntiTrap());
+        modules.add(new AutoBurrow());
         modules.add(new AutoKit());
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
@@ -46,6 +48,7 @@ public class ModuleManager {
         //misc
         modules.add(new AutoGG());
         modules.add(new Chat());
+        modules.add(new FakePlayer());
         modules.add(new MCF());
         modules.add(new Spammer());
         modules.add(new TexasFacts());
@@ -53,6 +56,7 @@ public class ModuleManager {
         //render
         modules.add(new DamageESP());
         modules.add(new FullBright());
+        modules.add(new Waypoints());
     }
 
     public List<Module> getModules() {

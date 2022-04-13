@@ -1,7 +1,9 @@
 package me.gerald.dallas.utils;
 
+import me.gerald.dallas.Yeehaw;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -49,5 +51,23 @@ public class BlockUtil {
             i += 1;
         }
         return blocks;
+    }
+
+    public static EntityPlayer findClosestPlayer() {
+        if (Minecraft.getMinecraft().world.playerEntities.isEmpty())
+            return null;
+        EntityPlayer closestTarget = null;
+        for(EntityPlayer target : Minecraft.getMinecraft().world.playerEntities) {
+            if(target != Minecraft.getMinecraft().player) {
+                if(!target.isEntityAlive())
+                    continue;
+                if(Yeehaw.INSTANCE.friendManager.isFriend(target.getName()))
+                    continue;
+                if(target.getHealth() <= 0.0f)
+                    continue;
+                closestTarget = target;
+            }
+        }
+        return closestTarget;
     }
 }

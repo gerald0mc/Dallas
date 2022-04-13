@@ -8,9 +8,12 @@ import me.gerald.dallas.managers.ModuleManager;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.RotationManager;
 import me.gerald.dallas.managers.FriendManager;
+import me.gerald.dallas.utils.ProjectionUtil;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(
         modid = Yeehaw.MOD_ID,
@@ -47,5 +50,10 @@ public class Yeehaw {
         cpsManager = new CPSManager();
         clickGUI = new ClickGUI();
         ConfigManager.load();
+    }
+
+    @SubscribeEvent
+    public void onRenderWorld(RenderWorldLastEvent event) {
+        ProjectionUtil.updateMatrix();
     }
 }

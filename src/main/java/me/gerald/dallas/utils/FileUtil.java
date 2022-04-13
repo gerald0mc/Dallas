@@ -1,7 +1,6 @@
 package me.gerald.dallas.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -32,6 +31,40 @@ public class FileUtil {
             s.close();
         }catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
+        }
+    }
+
+    public static void removeLineFromFile(File file, String lineToRemove) {
+        try {
+            if (!file.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
+            }
+            //Construct the new file that will later be renamed to the original filename.
+            File tempFile = new File(file.getAbsolutePath() + ".tmp");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+            String line;
+            //Read from the original file and write to the new
+            //unless content matches data to be removed.
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().equals(lineToRemove)) {
+                    pw.println(line);
+                    pw.flush();
+                }
+            }
+            pw.close();
+            br.close();
+            //Delete the original file
+            if (!file.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(file))
+                System.out.println("Could not rename file");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
