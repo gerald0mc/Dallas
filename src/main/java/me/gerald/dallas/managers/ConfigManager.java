@@ -54,7 +54,7 @@ public class ConfigManager {
                 }else if(setting instanceof StringSetting) {
                     fileWriter.write("Setting " + setting.getName() + " " + ((StringSetting) setting).getValue() + "\n");
                 }else if(setting instanceof ColorSetting) {
-                    fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + ((ColorSetting) setting).getA() + "\n");
+                    fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
                 }
             }
             fileWriter.close();

@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.misc;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.StringSetting;
 import me.gerald.dallas.utils.MessageUtil;
@@ -15,7 +16,7 @@ public class Window extends Module {
     @Override
     public void onEnable() {
         Display.setTitle(windowName.getValue());
-        MessageUtil.sendMessage("Set Minecraft window to " + windowName.getValue());
+        MessageUtil.sendMessage("Set Minecraft window to " + ChatFormatting.AQUA + windowName.getValue());
         toggle();
     }
 }

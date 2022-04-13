@@ -13,7 +13,6 @@ import me.gerald.dallas.features.module.hud.xpcount.XPCount;
 import me.gerald.dallas.features.module.misc.*;
 import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.render.DamageESP;
-import me.gerald.dallas.features.module.render.FullBright;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.render.Waypoints;
 
@@ -34,7 +33,6 @@ public class ModuleManager {
         modules.add(new AutoKit());
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
-        modules.add(new Surround());
         modules.add(new Velocity());
         //hud
         modules.add(new Coordinates());
@@ -52,10 +50,10 @@ public class ModuleManager {
         modules.add(new MCF());
         modules.add(new Spammer());
         modules.add(new TexasFacts());
+        modules.add(new Window());
         //movement
         //render
         modules.add(new DamageESP());
-        modules.add(new FullBright());
         modules.add(new Waypoints());
     }
 

@@ -7,6 +7,7 @@ import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.FileUtil;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.text.TextComponentString;
 
 import java.io.File;
@@ -38,6 +39,7 @@ public class Waypoint extends Command {
                 int y = 69;
                 int z = 1;
                 String dimension = "Unknown";
+                String server = "Singleplayer";
                 switch (args.length) {
                     case 2:
                         MessageUtil.sendMessage("Please specify the name of your Waypoint.");
@@ -57,6 +59,10 @@ public class Waypoint extends Command {
                             case 1:
                                 dimension = "End";
                                 break;
+                        }
+                        ServerData data = Minecraft.getMinecraft().getCurrentServerData();
+                        if(data != null) {
+                            server = data.serverIP;
                         }
                         break;
                     case 4:
@@ -83,11 +89,15 @@ public class Waypoint extends Command {
                             MessageUtil.sendMessage("Please make your dimension you are trying to set is one of three (Overworld, Nether, or End).");
                             return;
                         }
+                        ServerData data2 = Minecraft.getMinecraft().getCurrentServerData();
+                        if(data2 != null) {
+                            server = data2.serverIP;
+                        }
                         break;
                 }
                 try {
                     FileWriter fileWriter = new FileWriter(waypointFile, true);
-                    fileWriter.write("Name " + waypointName + " X " + x + " Y " + y + " Z " + z + " Dimension " + dimension + "\n");
+                    fileWriter.write("Name " + waypointName + " X " + x + " Y " + y + " Z " + z + " Dimension " + dimension + " Server " + server + "\n");
                     fileWriter.close();
                     MessageUtil.sendMessage("Added new waypoint called " + waypointName + " and is it X: " + x + " Y: " + y + " Z: " + z + " and is in " + dimension);
                 }catch (IOException ignored) {}
@@ -113,8 +123,8 @@ public class Waypoint extends Command {
                 try {
                     List<String> waypoints = Files.readAllLines(Paths.get(waypointFile.toURI()));
                     Minecraft.getMinecraft().player.sendMessage(new TextComponentString(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List"));
-                    for(String friend : waypoints) {
-                        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
+                    for(String waypoint : waypoints) {
+                        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(waypoint));
                     }
                 }catch (IOException ignored) {}
         }
