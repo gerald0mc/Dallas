@@ -67,18 +67,19 @@ public class ConfigManager {
             if(moduleFile.exists()) {
                 try {
                     List<String> lines = Files.readAllLines(Paths.get(moduleFile.toURI()), StandardCharsets.UTF_8);
-                    System.out.println(lines);
                     for (String line : lines) {
                         String[] words = line.split("\\W+");
                         switch (words[0]) {
                             case "Bind":
                                 String bind = words[1];
                                 module.setKeybind(Keyboard.getKeyIndex(bind));
+                                System.out.println("Set module " + module.getName() + " bind to " + module.getKeybind());
                                 break;
                             case "Enabled":
                                 String status = words[1];
                                 if(status.equalsIgnoreCase("true")) {
                                     module.toggle();
+                                    System.out.println("Set module " + module.getName() + " to Toggled");
                                 }
                                 break;
                             case "Setting":

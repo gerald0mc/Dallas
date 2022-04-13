@@ -11,7 +11,7 @@ public class Window extends Module {
         super("Window", Category.MISC, "Customize the Minecraft window.");
     }
     
-    StringSetting windowName = new StringSetting("WindowName", "Dallas 1.0");
+    StringSetting windowName = register(new StringSetting("WindowName", "Dallas 1.0"));
     
     @Override
     public void onEnable() {
