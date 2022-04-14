@@ -46,7 +46,6 @@ public class TexasFacts extends Module {
         }
     }
 
-    //for everyone else
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
         if(event.getMessage().getUnformattedText().contains("dtexasfact") || event.getMessage().getUnformattedText().contains("dtexasfacts")) {

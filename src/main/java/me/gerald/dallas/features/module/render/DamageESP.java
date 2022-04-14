@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +37,7 @@ public class DamageESP extends Module {
     public BooleanSetting damageText = register(new BooleanSetting("DamageText", true));
     public ColorSetting damageColor = register(new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue()));
 
-    public HashMap<Entity, Float> entityHealthMap = new HashMap<>();
+    public HashMap<EntityLivingBase, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
     public TimerUtil timer = new TimerUtil();
 
@@ -45,25 +46,8 @@ public class DamageESP extends Module {
         if(nullCheck()) return;
         for(Entity e : mc.world.loadedEntityList) {
             if(e == mc.player && !self.getValue()) continue;
-            if(e instanceof EntityLiving) {
-                EntityLiving entity = (EntityLiving) e;
-                if (!entityHealthMap.containsKey(entity)) {
-                    entityHealthMap.put(entity, entity.getHealth());
-                } else {
-                    if (entityHealthMap.get(entity) > entity.getHealth()) {
-                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 1));
-                        entityHealthMap.replace(entity, entity.getHealth());
-                        timer.reset();
-                    } else if(entityHealthMap.get(entity) < entity.getHealth()) {
-                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
-                        damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 2));
-                        entityHealthMap.replace(entity, entity.getHealth());
-                        timer.reset();
-                    }
-                }
-            }else if(e instanceof EntityPlayer) {
-                EntityPlayer entity = (EntityPlayer) e;
+            if(e instanceof EntityLivingBase) {
+                EntityLivingBase entity = (EntityLivingBase) e;
                 if (!entityHealthMap.containsKey(entity)) {
                     entityHealthMap.put(entity, entity.getHealth());
                 } else {

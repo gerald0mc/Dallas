@@ -19,14 +19,20 @@ public class CoordinatesComponent extends HUDContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        if(Minecraft.getMinecraft().player.dimension == 0 && Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).nether.getValue()) {
-            this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("X: " + (int) Minecraft.getMinecraft().player.posX + " Y: " + (int) Minecraft.getMinecraft().player.posY + " Z: " + (int) Minecraft.getMinecraft().player.posZ + " [" + ((int) Minecraft.getMinecraft().player.posX / 8) + " " + (int) Minecraft.getMinecraft().player.posY + " " + ((int) Minecraft.getMinecraft().player.posZ / 8) + "]");
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posZ + ChatFormatting.RED + " [" + ChatFormatting.GRAY + ((int) Minecraft.getMinecraft().player.posX / 8) + " " + (int) Minecraft.getMinecraft().player.posY + " " + ((int) Minecraft.getMinecraft().player.posZ / 8) + ChatFormatting.RED + "]", x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
-        }else {
-            this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("X: " + (int) Minecraft.getMinecraft().player.posX + " Y: " + (int) Minecraft.getMinecraft().player.posY + " Z: " + (int) Minecraft.getMinecraft().player.posZ);
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posZ, x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        int playerX = (int) Minecraft.getMinecraft().player.posX;
+        int playerZ = (int) Minecraft.getMinecraft().player.posZ;
+        String coordinates = Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).xyz.getValue() ? "X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerZ : ChatFormatting.WHITE + (playerX + " " + (int) Minecraft.getMinecraft().player.posY + " " + playerZ);
+        if(Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).spoof.getValue()) {
+            playerX += (Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).spoofAmount.getValue() * 1000);
+            playerZ += (Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).spoofAmount.getValue() * 1000);
+            if(Minecraft.getMinecraft().player.dimension == 0 && Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).nether.getValue())
+                coordinates = (Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).xyz.getValue() ? "X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerZ : ChatFormatting.WHITE + (playerX + " " + (int) Minecraft.getMinecraft().player.posY + " " + playerZ)) + ChatFormatting.RED + " [" + ChatFormatting.GRAY + (playerX / 8) + " " + (int) Minecraft.getMinecraft().player.posY + " " + (playerZ / 8) + ChatFormatting.RED + "]";
+        }else if(Minecraft.getMinecraft().player.dimension == 0 && Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).nether.getValue()){
+            coordinates += ChatFormatting.RED + " [" + ChatFormatting.GRAY + ((int) Minecraft.getMinecraft().player.posX / 8) + " " + (int) Minecraft.getMinecraft().player.posY + " " + ((int) Minecraft.getMinecraft().player.posZ / 8) + ChatFormatting.RED + "]";
         }
+        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates);
+        this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
     }
 
     @Override

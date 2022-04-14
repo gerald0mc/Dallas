@@ -67,6 +67,7 @@ public class StringComponent extends SettingComponent {
                         setting.setValue(entryString);
                     }
                     listening = false;
+                    entryString = "";
                     break;
                 case Keyboard.KEY_V:
                     if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))
