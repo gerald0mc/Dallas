@@ -32,6 +32,7 @@ public class ModuleManager {
         modules.add(new AntiTrap());
         modules.add(new AutoBurrow());
         modules.add(new AutoKit());
+        modules.add(new CevPlace());
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
         modules.add(new Velocity());

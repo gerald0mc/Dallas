@@ -1,6 +1,5 @@
 package me.gerald.dallas.features.module.combat;
 
-import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
@@ -25,7 +24,6 @@ public class AntiTrap extends Module {
         super("AntiTrap", Category.COMBAT, "Places a crystal on the block next to you so you cannot be trapped.");
     }
 
-    public BooleanSetting rotate = register(new BooleanSetting("Rotate", true));
     public BooleanSetting fullAnti = register(new BooleanSetting("FullAnti", true));
     public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
     public NumberSetting distanceToActivate = register(new NumberSetting("DistanceToAct", 10, 0, 30));
@@ -35,7 +33,7 @@ public class AntiTrap extends Module {
         if(nullCheck()) return;
         BlockPos playerPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
         if(!BlockUtil.isSurrounded(playerPos)) return;
-        BlockPos targetPos = BlockUtil.canPlaceCrystal(playerPos);
+        BlockPos targetPos = BlockUtil.canPlaceCrystalSurround(playerPos);
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = BlockUtil.findClosestPlayer();
         if(player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
@@ -52,9 +50,6 @@ public class AntiTrap extends Module {
                     face = EnumFacing.UP;
                 } else {
                     face = result.sideHit;
-                }
-                if(rotate.getValue()) {
-                    Yeehaw.INSTANCE.rotationManager.rotateToPosition(targetPos);
                 }
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(targetPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
@@ -73,9 +68,6 @@ public class AntiTrap extends Module {
                     face = EnumFacing.UP;
                 } else {
                     face = result.sideHit;
-                }
-                if(rotate.getValue()) {
-                    Yeehaw.INSTANCE.rotationManager.rotateToPosition(preTrapPos);
                 }
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(preTrapPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
                 mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));

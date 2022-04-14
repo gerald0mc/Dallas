@@ -21,7 +21,7 @@ public class BlockUtil {
         return true;
     }
 
-    public static BlockPos canPlaceCrystal(BlockPos pos) {
+    public static BlockPos canPlaceCrystalSurround(BlockPos pos) {
         for (EnumFacing facing : EnumFacing.values()) {
             if(facing == EnumFacing.UP || facing == EnumFacing.DOWN) continue;
             BlockPos neighbor = pos.offset(facing);
