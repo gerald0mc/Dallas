@@ -13,8 +13,8 @@ public class CommandManager {
     public CommandManager() {
         commands = new ArrayList<>();
         commands.add(new Help());
-        commands.add(new Friend());
         commands.add(new Waypoint());
+        commands.add(new Friend());
         commands.add(new Webhook());
     }
 

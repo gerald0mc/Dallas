@@ -1,7 +1,9 @@
 package me.gerald.dallas.managers;
 
+import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.features.command.impl.Friend;
 import me.gerald.dallas.utils.FileUtil;
-import me.gerald.dallas.utils.Friend;
+import me.gerald.dallas.utils.FriendConstructor;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendManager {
-    public List<Friend> friends;
+    public List<FriendConstructor> friends;
     File friendsFile;
 
     public FriendManager() {
@@ -21,19 +23,17 @@ public class FriendManager {
         if (!friendsFile.exists()) {
             try {
                 friendsFile.createNewFile();
-            } catch (IOException e) {
-            }
+            } catch (IOException ignored) {}
         }
     }
 
     public void addFriend(String entity) {
-        friends.add(new Friend(entity));
+        friends.add(new FriendConstructor(entity));
         try {
             FileWriter fileWriter = new FileWriter(friendsFile, true);
             fileWriter.write(entity + "\n");
             fileWriter.close();
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) {}
     }
 
     public void delFriend(String entity) {
@@ -42,23 +42,25 @@ public class FriendManager {
             for (String friend : friendsList) {
                 if (friend.equalsIgnoreCase(entity)) {
                     FileUtil.removeLineFromFile(friendsFile, entity);
-                    friends.remove(new Friend(entity));
+                }
+                for(FriendConstructor friendConstructor : getFriends()) {
+                    if(friendConstructor.getName().equalsIgnoreCase(entity)) {
+                        friends.remove(friendConstructor);
+                    }
                 }
             }
-        } catch (IOException e) {
-        }
+        } catch (IOException ignored) {}
     }
 
     public boolean isFriend(String name) {
-        for (Friend friend : friends) {
-            if (friend.getName().equalsIgnoreCase(name)) {
+        for (FriendConstructor friendConstructor : friends) {
+            if (friendConstructor.getName().equalsIgnoreCase(name))
                 return true;
-            }
         }
         return false;
     }
 
-    public List<Friend> getFriends() {
+    public List<FriendConstructor> getFriends() {
         return friends;
     }
 }

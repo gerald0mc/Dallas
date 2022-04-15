@@ -3,28 +3,30 @@ package me.gerald.dallas.event;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
+import me.gerald.dallas.event.listeners.TotemPopListener;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.HUDModule;
-import me.gerald.dallas.features.module.hud.notification.NotificationComponent;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
-import me.gerald.dallas.utils.Notification;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 
 public class EventManager {
+    public TotemPopListener totemPopListener;
+
     public EventManager() {
         MinecraftForge.EVENT_BUS.register(this);
+        totemPopListener = new TotemPopListener();
     }
 
     //binds
@@ -57,6 +59,7 @@ public class EventManager {
     @SubscribeEvent
     public void onGameOverlay(RenderGameOverlayEvent.Text event) {
         if (Minecraft.getMinecraft().currentScreen instanceof ClickGUI) return;
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiChat) return;
         for (Module module : Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD)) {
             if (module.isEnabled()) {
                 final HUDModule hudMod = (HUDModule) module;

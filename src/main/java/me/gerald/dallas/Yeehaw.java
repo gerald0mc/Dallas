@@ -5,7 +5,6 @@ import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.managers.*;
 import me.gerald.dallas.utils.ProjectionUtil;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

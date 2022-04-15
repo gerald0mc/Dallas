@@ -1,22 +1,20 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.features.module.client.DallasBot;
-import me.gerald.dallas.features.module.client.GUI;
+import me.gerald.dallas.features.module.misc.*;
+import me.gerald.dallas.features.module.render.*;
+import me.gerald.dallas.features.module.client.*;
 import me.gerald.dallas.features.module.combat.*;
 import me.gerald.dallas.features.module.hud.coordinates.Coordinates;
 import me.gerald.dallas.features.module.hud.cps.CPS;
 import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.features.module.hud.gapplecount.GappleCount;
 import me.gerald.dallas.features.module.hud.notification.Notifications;
-import me.gerald.dallas.features.module.hud.ping.Ping;
-import me.gerald.dallas.features.module.hud.server.Server;
 import me.gerald.dallas.features.module.hud.totemcount.TotemCount;
 import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.hud.xpcount.XPCount;
-import me.gerald.dallas.features.module.misc.*;
-import me.gerald.dallas.features.module.render.DamageESP;
-import me.gerald.dallas.features.module.render.Waypoints;
+import me.gerald.dallas.features.module.hud.ping.Ping;
+import me.gerald.dallas.features.module.hud.server.Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +52,12 @@ public class ModuleManager {
         modules.add(new FakePlayer());
         modules.add(new MCF());
         modules.add(new Spammer());
-        modules.add(new TexasFacts());
         modules.add(new WebhookSpammer());
         modules.add(new Window());
         //movement
         //render
         modules.add(new DamageESP());
+        modules.add(new Nametags());
         modules.add(new Waypoints());
     }
 

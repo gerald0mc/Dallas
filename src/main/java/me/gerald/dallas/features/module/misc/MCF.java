@@ -22,10 +22,10 @@ public class MCF extends Module {
                 EntityPlayer player = (EntityPlayer) mc.objectMouseOver.entityHit;
                 if (Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString())) {
                     Yeehaw.INSTANCE.friendManager.delFriend(player.getDisplayNameString());
-                    MessageUtil.sendMessage("Removed " + player.getDisplayNameString() + " from friends list.");
+                    MessageUtil.sendMessage("Removed " + player.getDisplayNameString() + " from friendConstructors list.");
                 } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(player.getDisplayNameString());
-                    MessageUtil.sendMessage("Added " + player.getDisplayNameString() + " to the friends list.");
+                    MessageUtil.sendMessage("Added " + player.getDisplayNameString() + " to the friendConstructors list.");
                 }
             }
         }

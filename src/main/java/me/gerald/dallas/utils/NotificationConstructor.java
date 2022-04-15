@@ -1,11 +1,11 @@
 package me.gerald.dallas.utils;
 
-public class Notification {
+public class NotificationConstructor {
     private String title;
     private String message;
     private long startTime;
 
-    public Notification(String title, String message, long startTime) {
+    public NotificationConstructor(String title, String message, long startTime) {
         this.title = title;
         this.message = message;
         this.startTime = startTime;
