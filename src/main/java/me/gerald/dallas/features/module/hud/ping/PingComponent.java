@@ -21,7 +21,7 @@ public class PingComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Ping: " + getPing());
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Ping" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + getPing(), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Ping" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + getPing(), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
     }
 
     @Override

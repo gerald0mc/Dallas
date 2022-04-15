@@ -24,6 +24,7 @@ public class ModuleComponent extends AbstractContainer {
     public boolean open = false;
     public boolean lastModule = false;
     public List<SettingComponent> settingComponents = new ArrayList<>();
+    public BindComponent bindComponent;
 
     public ModuleComponent(Module module, Module.Category category, int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -33,6 +34,7 @@ public class ModuleComponent extends AbstractContainer {
         this.y = y;
         this.width = width;
         this.height = height;
+        bindComponent = new BindComponent(module, x, y, 110, height);
         Iterator<Setting> iterator = module.getSettings().iterator();
         while (iterator.hasNext()) {
             Setting element = iterator.next();
@@ -67,7 +69,7 @@ public class ModuleComponent extends AbstractContainer {
                 alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName()) - 2;
                 break;
         }
-        Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
+        Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow((open ? "> " : "") + module.getName(), alignment, y + 2f, -1);
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
@@ -82,7 +84,6 @@ public class ModuleComponent extends AbstractContainer {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;
         }
         if (open) {
-            BindComponent bindComponent = new BindComponent(module, x, y, 110, height);
             bindComponent.x = x + width;
             bindComponent.y = y + yOffset;
             yOffset += bindComponent.getHeight();
@@ -104,6 +105,7 @@ public class ModuleComponent extends AbstractContainer {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (open) {
+            bindComponent.mouseClicked(mouseX, mouseY, mouseButton);
             for (AbstractContainer component : settingComponents) {
                 component.mouseClicked(mouseX, mouseY, mouseButton);
             }
@@ -126,6 +128,7 @@ public class ModuleComponent extends AbstractContainer {
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
         if (open) {
+            bindComponent.mouseReleased(mouseX, mouseY, mouseButton);
             for (AbstractContainer component : settingComponents) {
                 component.mouseReleased(mouseX, mouseY, mouseButton);
             }
@@ -135,6 +138,7 @@ public class ModuleComponent extends AbstractContainer {
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
         if (open) {
+            bindComponent.keyTyped(keyChar, key);
             for (AbstractContainer component : settingComponents) {
                 component.keyTyped(keyChar, key);
             }

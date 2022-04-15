@@ -4,11 +4,16 @@ import me.gerald.dallas.event.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.managers.*;
 import me.gerald.dallas.utils.ProjectionUtil;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(
         modid = Yeehaw.MOD_ID,
@@ -36,6 +41,8 @@ public class Yeehaw {
     public CPSManager cpsManager;
     public ClickGUI clickGUI;
 
+    public List<Block> searchBlocks;
+
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
@@ -49,6 +56,7 @@ public class Yeehaw {
         cpsManager = new CPSManager();
         clickGUI = new ClickGUI();
         ConfigManager.load();
+        searchBlocks = new ArrayList<>();
     }
 
     @SubscribeEvent

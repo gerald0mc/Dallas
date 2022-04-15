@@ -49,7 +49,7 @@ public class CategoryComponent extends AbstractContainer {
         }
         float alignment = 0;
         String text = null;
-        switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAllignment.getMode()) {
+        switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
             case "Middle":
                 alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString()) / 2f);
                 text = (open ? "> " : "V ") + category.toString();
@@ -63,7 +63,7 @@ public class CategoryComponent extends AbstractContainer {
                 text = category.toString() + (open ? " >" : " V");
                 break;
         }
-        Gui.drawRect(x - 2, y, x + width + 2, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Gui.drawRect(x - 2, y, x + width + 2, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
         //borders
         //top lines
         Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());

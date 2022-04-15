@@ -27,7 +27,7 @@ public class BindComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        Gui.drawRect(x, y, x + width, y + height, listening ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
+        Gui.drawRect(x, y, x + width, y + height, listening ? new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + "Listening..." : "Bind " + ChatFormatting.GRAY + Keyboard.getKeyName(module.getKeybind()), x + 2, y + 2f, -1);
         //borders
         //top lines

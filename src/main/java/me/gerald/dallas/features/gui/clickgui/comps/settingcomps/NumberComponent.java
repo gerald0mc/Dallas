@@ -16,7 +16,8 @@ public class NumberComponent extends SettingComponent {
     public NumberSetting setting;
     public float sliderWidth;
     public boolean dragging = false;
-    public Color sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f);
+
+    Color sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
 
     public NumberComponent(NumberSetting setting, int x, int y, int width, int height) {
         super(setting, x, y, width, height);
@@ -40,7 +41,7 @@ public class NumberComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateSliderLogic(mouseX);
-        sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f);
+        sliderColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Gui.drawRect(x, y, x + (int) sliderWidth, y + height, sliderColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);

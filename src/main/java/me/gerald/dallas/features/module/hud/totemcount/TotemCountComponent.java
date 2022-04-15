@@ -23,7 +23,7 @@ public class TotemCountComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Totems: " + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Totems" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Totems" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
     }
 
     @Override
