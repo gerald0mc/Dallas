@@ -11,11 +11,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.apache.commons.lang3.StringUtils;
 
 public class DallasBot extends Module {
-    public NumberSetting coolDown = register(new NumberSetting("CoolDown(Secs)", 5, 1, 30));
-    public NumberSetting remindDelay = register(new NumberSetting("RemindDelay(Mins)", 2.5f, 1, 5));
+    public NumberSetting coolDown = this.register(new NumberSetting("CoolDown(Secs)", 5, 1, 30));
+    public NumberSetting remindDelay = this.register(new NumberSetting("RemindDelay(Mins)", 2.5f, 1, 5));
     public TimerUtil remindTimer = new TimerUtil();
     public TimerUtil coolDownTimer = new TimerUtil();
     public String afterMessage = " | Dallas Bot";
+
     public DallasBot() {
         super("DallasBot", Category.CLIENT, "A bot with multiple useful commands.");
     }
@@ -29,9 +30,9 @@ public class DallasBot extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (remindTimer.passedMs((long) (remindDelay.getValue() * 60000))) {
-            mc.player.sendChatMessage("Remember you can do dhelp for a list of commands for Dallas Bot." + afterMessage);
-            remindTimer.reset();
+        if (this.remindTimer.passedMs((long) (this.remindDelay.getValue() * 60000))) {
+            mc.player.sendChatMessage("Remember you can do dhelp for a list of commands for Dallas Bot." + this.afterMessage);
+            this.remindTimer.reset();
         }
     }
 
@@ -45,9 +46,9 @@ public class DallasBot extends Module {
                     MessageUtil.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.");
                 } else {
                     if (event.getMessage().getUnformattedText().contains("Dallas Bot")) return;
-                    if (!coolDownTimer.passedMs((long) (coolDown.getValue() * 1000))) return;
-                    mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] says all commands" + afterMessage);
-                    coolDownTimer.reset();
+                    if (!this.coolDownTimer.passedMs((long) (this.coolDown.getValue() * 1000))) return;
+                    mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] says all commands" + this.afterMessage);
+                    this.coolDownTimer.reset();
                 }
             }
         }

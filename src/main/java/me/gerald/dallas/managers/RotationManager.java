@@ -15,34 +15,35 @@ public class RotationManager {
     public boolean shouldRotate = false;
     public float desiredPitch;
     public float desiredYaw;
+
     public RotationManager() {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
     public void onPacket(PacketEvent.Send event) {
-        if (!shouldRotate)
+        if (!this.shouldRotate)
             return;
         if (event.getPacket() instanceof CPacketPlayer) {
             final CPacketPlayer packet = (CPacketPlayer) event.getPacket();
             final ICPacketPlayerMixin accessor = (ICPacketPlayerMixin) packet;
-            accessor.setYawAccessor(desiredYaw);
-            accessor.setPitchAccessor(desiredPitch);
-            shouldRotate = false;
+            accessor.setYawAccessor(this.desiredYaw);
+            accessor.setPitchAccessor(this.desiredPitch);
+            this.shouldRotate = false;
         }
     }
 
     public void rotateToEntity(Entity entity) {
         final float[] angle = MathUtil.calcAngle(Minecraft.getMinecraft().player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()), entity.getPositionVector());
-        shouldRotate = true;
-        desiredYaw = angle[0];
-        desiredPitch = angle[1];
+        this.shouldRotate = true;
+        this.desiredYaw = angle[0];
+        this.desiredPitch = angle[1];
     }
 
     public void rotateToPosition(BlockPos position) {
         final float[] angle = MathUtil.calcAngle(Minecraft.getMinecraft().player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()), new Vec3d(position.getX() + 0.5f, position.getY() - 0.5f, position.getZ()));
-        shouldRotate = true;
-        desiredYaw = angle[0];
-        desiredPitch = angle[1];
+        this.shouldRotate = true;
+        this.desiredYaw = angle[0];
+        this.desiredPitch = angle[1];
     }
 }

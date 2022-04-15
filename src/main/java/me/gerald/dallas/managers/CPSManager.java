@@ -12,35 +12,36 @@ public class CPSManager {
     private final TimerUtil timer;
     private int usage;
     private int cps;
+
     public CPSManager() {
         MinecraftForge.EVENT_BUS.register(this);
-        timer = new TimerUtil();
+        this.timer = new TimerUtil();
     }
 
     @SubscribeEvent
     public void onPacketS(PacketEvent.Send event) {
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
             if (Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
-                usage++;
+                this.usage++;
             } else if (Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-                usage++;
+                this.usage++;
             }
         }
     }
 
     public void calculateCPS() {
-        if (!timer.passedMs(1000)) return;
-        if (usage == 0) {
-            cps = 0;
-            timer.reset();
+        if (!this.timer.passedMs(1000)) return;
+        if (this.usage == 0) {
+            this.cps = 0;
+            this.timer.reset();
         } else {
-            cps = usage;
-            timer.reset();
-            usage = 0;
+            this.cps = this.usage;
+            this.timer.reset();
+            this.usage = 0;
         }
     }
 
     public int getCps() {
-        return cps;
+        return this.cps;
     }
 }

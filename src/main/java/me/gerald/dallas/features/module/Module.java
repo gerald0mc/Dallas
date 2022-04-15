@@ -11,19 +11,19 @@ import java.util.List;
 
 public class Module {
     public static Minecraft mc = Minecraft.getMinecraft();
+    private final List<Setting> settings;
     private String name;
     private Category category;
     private int keybind;
     private String description;
     private boolean isEnabled = false;
-    private final List<Setting> settings;
 
     public Module(String name, Category category, String description) {
         this.name = name;
         this.category = category;
         this.description = description;
         this.keybind = name.equalsIgnoreCase("gui") ? Keyboard.KEY_U : Keyboard.KEY_NONE;
-        settings = new ArrayList<>();
+        this.settings = new ArrayList<>();
     }
 
     public static boolean nullCheck() {
@@ -31,7 +31,7 @@ public class Module {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -39,7 +39,7 @@ public class Module {
     }
 
     public Category getCategory() {
-        return category;
+        return this.category;
     }
 
     public void setCategory(Category category) {
@@ -47,7 +47,7 @@ public class Module {
     }
 
     public int getKeybind() {
-        return keybind;
+        return this.keybind;
     }
 
     public void setKeybind(int keybind) {
@@ -55,7 +55,7 @@ public class Module {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -63,28 +63,28 @@ public class Module {
     }
 
     public <T extends Setting> T register(T setting) {
-        settings.add(setting);
+        this.settings.add(setting);
         return setting;
     }
 
     public List<Setting> getSettings() {
-        return settings;
+        return this.settings;
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        return this.isEnabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.isEnabled = enabled;
     }
 
     public void toggle() {
-        isEnabled = !isEnabled;
-        if (isEnabled)
-            enable();
+        this.isEnabled = !this.isEnabled;
+        if (this.isEnabled)
+            this.enable();
         else
-            disable();
+            this.disable();
     }
 
     public void onEnable() {
@@ -93,7 +93,7 @@ public class Module {
     public void enable() {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
-        onEnable();
+        this.onEnable();
     }
 
     public void onDisable() {
@@ -102,7 +102,7 @@ public class Module {
     public void disable() {
         MinecraftForge.EVENT_BUS.unregister(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Disable(this));
-        onDisable();
+        this.onDisable();
     }
 
     public enum Category {

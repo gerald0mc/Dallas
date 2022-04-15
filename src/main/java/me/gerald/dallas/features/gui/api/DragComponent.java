@@ -3,24 +3,25 @@ package me.gerald.dallas.features.gui.api;
 public abstract class DragComponent extends AbstractContainer {
     protected boolean dragging = false;
     private int dragX, dragY;
+
     public DragComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
 
     protected void beginDragging(int mouseX, int mouseY) {
-        dragging = true;
-        dragX = mouseX - x;
-        dragY = mouseY - y;
+        this.dragging = true;
+        this.dragX = mouseX - this.x;
+        this.dragY = mouseY - this.y;
     }
 
     protected void stopDragging() {
-        dragging = false;
+        this.dragging = false;
     }
 
     protected void updateDragPosition(int mouseX, int mouseY) {
-        if (dragging) {
-            x = mouseX - dragX;
-            y = mouseY - dragY;
+        if (this.dragging) {
+            this.x = mouseX - this.dragX;
+            this.y = mouseY - this.dragY;
         }
     }
 }

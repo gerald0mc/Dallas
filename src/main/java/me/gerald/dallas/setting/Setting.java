@@ -1,8 +1,8 @@
 package me.gerald.dallas.setting;
 
 public class Setting {
-    private String name;
     private final Visibility visibility;
+    private String name;
 
     public Setting(String name) {
         this.name = name;
@@ -15,7 +15,7 @@ public class Setting {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {

@@ -4,9 +4,9 @@ import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.Visibility;
 
 public class NumberSetting extends Setting {
-    private float value;
     private final float min;
     private final float max;
+    private float value;
 
     public NumberSetting(String name, float value, float min, float max) {
         super(name);
@@ -23,7 +23,7 @@ public class NumberSetting extends Setting {
     }
 
     public float getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(float value) {
@@ -31,10 +31,10 @@ public class NumberSetting extends Setting {
     }
 
     public float getMin() {
-        return min;
+        return this.min;
     }
 
     public float getMax() {
-        return max;
+        return this.max;
     }
 }

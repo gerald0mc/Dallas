@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FakePearl extends Module {
     private final Queue<CPacketPlayer> packets = new ConcurrentLinkedQueue<>();
     private int thrownPearlId = -1;
+
     public FakePearl() {
         super("FakePearl", Category.COMBAT, "When you throw a pearl it will be a fake pearl and will blink the player until the fake pearl has landed.");
     }
@@ -39,7 +40,7 @@ public class FakePearl extends Module {
                                 mc.player.movementInput.moveStrafe = 0.0f;
                                 // send rubberband packet
                                 mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1.0, mc.player.posZ, false));
-                                thrownPearlId = packet.getEntityID();
+                                this.thrownPearlId = packet.getEntityID();
                             }
                         });
             }
@@ -48,9 +49,9 @@ public class FakePearl extends Module {
 
     @SubscribeEvent
     public void onPacketS(PacketEvent.Send event) {
-        if (thrownPearlId != -1 && event.getPacket() instanceof CPacketPlayer) {
+        if (this.thrownPearlId != -1 && event.getPacket() instanceof CPacketPlayer) {
             CPacketPlayer packet = (CPacketPlayer) event.getPacket();
-            packets.add(packet);
+            this.packets.add(packet);
             event.setCanceled(true);
         }
     }
@@ -58,20 +59,20 @@ public class FakePearl extends Module {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (thrownPearlId != -1) {
+        if (this.thrownPearlId != -1) {
             for (Entity entity : mc.world.loadedEntityList) {
-                if (entity.getEntityId() == thrownPearlId && entity instanceof EntityEnderPearl) {
+                if (entity.getEntityId() == this.thrownPearlId && entity instanceof EntityEnderPearl) {
                     EntityEnderPearl pearl = (EntityEnderPearl) entity;
                     if (pearl.isDead) {
-                        thrownPearlId = -1;
+                        this.thrownPearlId = -1;
                     }
                 }
             }
         } else {
-            if (!packets.isEmpty()) {
+            if (!this.packets.isEmpty()) {
                 do {
-                    mc.player.connection.sendPacket(packets.poll());
-                } while (!packets.isEmpty());
+                    mc.player.connection.sendPacket(this.packets.poll());
+                } while (!this.packets.isEmpty());
             }
         }
     }

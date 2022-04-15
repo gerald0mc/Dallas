@@ -21,9 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Waypoints extends Module {
-    public NumberSetting scale = register(new NumberSetting("Scale", 2.5f, 1, 10));
+    public NumberSetting scale = this.register(new NumberSetting("Scale", 2.5f, 1, 10));
     public List<String> waypoints = new ArrayList<>();
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Waypoints.txt";
+
     public Waypoints() {
         super("Waypoints", Category.RENDER, "Allows you to add and render waypoints in game.");
     }
@@ -43,8 +44,8 @@ public class Waypoints extends Module {
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Text event) {
         if (nullCheck()) return;
-        FileUtil.loadMessages(waypoints, filePath);
-        for (String waypoint : waypoints) {
+        FileUtil.loadMessages(this.waypoints, this.filePath);
+        for (String waypoint : this.waypoints) {
             String[] values = waypoint.split(" ");
             String name = values[1];
             int x = Integer.parseInt(values[3]);
@@ -61,7 +62,7 @@ public class Waypoints extends Module {
             Vec3d projection = ProjectionUtil.toScaledScreenPos(new Vec3d(x, y, z));
             GlStateManager.pushMatrix();
             GlStateManager.translate(projection.x, projection.y, 0);
-            GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
+            GlStateManager.scale(this.scale.getValue(), this.scale.getValue(), 0);
             mc.fontRenderer.drawStringWithShadow(name + " [" + x + " " + y + " " + z + "]", -(mc.fontRenderer.getStringWidth(name + " [" + x + " " + y + " " + z + "]") / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
             GlStateManager.popMatrix();
         }
