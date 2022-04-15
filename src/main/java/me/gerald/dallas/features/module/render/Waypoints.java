@@ -53,9 +53,10 @@ public class Waypoints extends Module {
             int z = Integer.parseInt(values[7]);
             String dimension = values[9];
             String ip = values[11];
-            ServerData data = Minecraft.getMinecraft().getCurrentServerData();
-            if (data == null) return;
-            if (!data.serverIP.equalsIgnoreCase(ip)) continue;
+            if(Minecraft.getMinecraft().getCurrentServerData() != null) {
+                ServerData data = Minecraft.getMinecraft().getCurrentServerData();
+                if (!data.serverIP.equalsIgnoreCase(ip)) continue;
+            }
             if (dimension.equalsIgnoreCase("nether") && mc.player.dimension != -1) continue;
             else if (dimension.equalsIgnoreCase("overworld") && mc.player.dimension != 0) continue;
             else if (dimension.equalsIgnoreCase("end") && mc.player.dimension != 1) continue;

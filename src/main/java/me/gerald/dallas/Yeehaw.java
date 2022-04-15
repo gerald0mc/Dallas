@@ -32,6 +32,7 @@ public class Yeehaw {
     public CommandManager commandManager;
     public FriendManager friendManager;
     public RotationManager rotationManager;
+    public NotificationManager notificationManager;
     public CPSManager cpsManager;
     public ClickGUI clickGUI;
 
@@ -44,6 +45,7 @@ public class Yeehaw {
         friendManager = new FriendManager();
         eventManager = new EventManager();
         rotationManager = new RotationManager();
+        notificationManager = new NotificationManager();
         cpsManager = new CPSManager();
         clickGUI = new ClickGUI();
         ConfigManager.load();

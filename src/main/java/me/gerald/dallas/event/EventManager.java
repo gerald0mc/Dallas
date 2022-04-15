@@ -7,14 +7,17 @@ import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.features.module.hud.notification.NotificationComponent;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
+import me.gerald.dallas.utils.Notification;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -70,10 +73,12 @@ public class EventManager {
     @SubscribeEvent
     public void onModuleEnable(ModuleToggleEvent.Enable event) {
         MessageUtil.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.GREEN + " enabled");
+        Yeehaw.INSTANCE.notificationManager.addNotification(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled!", System.currentTimeMillis());
     }
 
     @SubscribeEvent
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
         MessageUtil.sendMessage(ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.RED + " disabled");
+        Yeehaw.INSTANCE.notificationManager.addNotification(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.BOLD + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled!", System.currentTimeMillis());
     }
 }
