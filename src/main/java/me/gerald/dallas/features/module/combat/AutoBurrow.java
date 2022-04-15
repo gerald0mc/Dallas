@@ -5,7 +5,6 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.BlockUtil;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

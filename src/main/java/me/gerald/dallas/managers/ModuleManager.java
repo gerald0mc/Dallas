@@ -53,6 +53,7 @@ public class ModuleManager {
         modules.add(new MCF());
         modules.add(new Spammer());
         modules.add(new TexasFacts());
+        modules.add(new WebhookSpammer());
         modules.add(new Window());
         //movement
         //render

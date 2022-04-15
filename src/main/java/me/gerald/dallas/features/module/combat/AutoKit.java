@@ -1,13 +1,11 @@
 package me.gerald.dallas.features.module.combat;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.setting.settings.StringSetting;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoKit extends Module {

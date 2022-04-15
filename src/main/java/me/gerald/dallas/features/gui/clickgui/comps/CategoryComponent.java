@@ -47,7 +47,6 @@ public class CategoryComponent extends AbstractContainer {
             x = dragX + mouseX;
             y = dragY + mouseY;
         }
-
         float alignment = 0;
         String text = null;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAllignment.getMode()) {

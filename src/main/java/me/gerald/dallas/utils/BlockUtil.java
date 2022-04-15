@@ -3,10 +3,19 @@ package me.gerald.dallas.utils;
 import me.gerald.dallas.Yeehaw;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.network.play.client.CPacketAnimation;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 
 public class BlockUtil {
     public static boolean isSurrounded(BlockPos playerPos) {
@@ -69,5 +78,24 @@ public class BlockUtil {
             }
         }
         return closestTarget;
+    }
+
+    public static void placeBlock(BlockPos targetPos, boolean switchItem, Item itemToSwitch) {
+        if(Minecraft.getMinecraft().world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(targetPos)).isEmpty()) {
+            int slot = InventoryUtil.getItemHotbar(itemToSwitch);
+            int originalSlot = Minecraft.getMinecraft().player.inventory.currentItem;
+            if(slot != -1 && Minecraft.getMinecraft().player.inventory.currentItem != slot && switchItem)
+                InventoryUtil.switchToSlot(slot);
+            RayTraceResult result = Minecraft.getMinecraft().world.rayTraceBlocks(new Vec3d(Minecraft.getMinecraft().player.posX, Minecraft.getMinecraft().player.posY + Minecraft.getMinecraft().player.getEyeHeight(), Minecraft.getMinecraft().player.posZ), new Vec3d(targetPos.getX() + .5, targetPos.getY() - .5, targetPos.getZ() + .5));
+            EnumFacing face;
+            if (result == null || result.sideHit == null)
+                face = EnumFacing.UP;
+            else
+                face = result.sideHit;
+            Minecraft.getMinecraft().player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(targetPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
+            Minecraft.getMinecraft().player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
+            if(Minecraft.getMinecraft().player.inventory.currentItem != originalSlot && switchItem)
+                InventoryUtil.switchToSlot(originalSlot);
+        }
     }
 }

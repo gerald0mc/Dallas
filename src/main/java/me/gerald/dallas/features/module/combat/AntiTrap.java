@@ -30,50 +30,19 @@ public class AntiTrap extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         BlockPos playerPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
-        if(!BlockUtil.isSurrounded(playerPos)) return;
+        if (!BlockUtil.isSurrounded(playerPos)) return;
         BlockPos targetPos = BlockUtil.canPlaceCrystalSurround(playerPos);
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = BlockUtil.findClosestPlayer();
-        if(player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
-        if(player == null && !alwaysActive.getValue()) return;
-        if(targetPos != null && fullAnti.getValue()) {
-            if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(targetPos)).isEmpty()) {
-                int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
-                int originalSlot = mc.player.inventory.currentItem;
-                if(crystalSlot != -1 && mc.player.inventory.currentItem != crystalSlot)
-                    InventoryUtil.switchToSlot(crystalSlot);
-                RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(targetPos.getX() + .5, targetPos.getY() - .5, targetPos.getZ() + .5));
-                EnumFacing face;
-                if (result == null || result.sideHit == null) {
-                    face = EnumFacing.UP;
-                } else {
-                    face = result.sideHit;
-                }
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(targetPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
-                mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
-                if(mc.player.inventory.currentItem != originalSlot)
-                    InventoryUtil.switchToSlot(originalSlot);
-            }
-        }else if(preTrapPos != null) {
-            if(mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(preTrapPos)).isEmpty()) {
-                int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
-                int originalSlot = mc.player.inventory.currentItem;
-                if(crystalSlot != -1 && mc.player.inventory.currentItem != crystalSlot)
-                    InventoryUtil.switchToSlot(crystalSlot);
-                RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(preTrapPos.getX() + .5, preTrapPos.getY() - .5, preTrapPos.getZ() + .5));
-                EnumFacing face;
-                if (result == null || result.sideHit == null) {
-                    face = EnumFacing.UP;
-                } else {
-                    face = result.sideHit;
-                }
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(preTrapPos, face, EnumHand.MAIN_HAND, 0, 0, 0));
-                mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
-                if(mc.player.inventory.currentItem != originalSlot)
-                    InventoryUtil.switchToSlot(originalSlot);
-            }
+        if (player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue())
+            return;
+        if (player == null && !alwaysActive.getValue()) return;
+        if (targetPos != null && fullAnti.getValue()) {
+            BlockUtil.placeBlock(targetPos, true, Items.END_CRYSTAL);
+        } else if (preTrapPos != null) {
+            BlockUtil.placeBlock(preTrapPos, true, Items.END_CRYSTAL);
         }
     }
 }

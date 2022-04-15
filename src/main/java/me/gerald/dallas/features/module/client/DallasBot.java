@@ -45,7 +45,7 @@ public class DallasBot extends Module {
                 if(StringUtils.substringBetween(event.getMessage().getUnformattedText(), "<", ">").equalsIgnoreCase(mc.player.getDisplayNameString())) {
                     MessageUtil.sendMessage(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands");
                     MessageUtil.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " +ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.");
-                }else {
+                } else {
                     if(event.getMessage().getUnformattedText().contains("Dallas Bot")) return;
                     if(!coolDownTimer.passedMs((long) (coolDown.getValue() * 1000))) return;
                     mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] says all commands" + afterMessage);
