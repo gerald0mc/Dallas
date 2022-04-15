@@ -20,7 +20,7 @@ public class WebhookUtil {
 
     private boolean tts;
 
-    private List<EmbedObject> embeds = new ArrayList<>();
+    private final List<EmbedObject> embeds = new ArrayList<>();
 
     public WebhookUtil(String url) {
         this.url = url;
@@ -53,7 +53,7 @@ public class WebhookUtil {
         json.put("content", this.content);
         json.put("username", this.username);
         json.put("avatar_url", this.avatarUrl);
-        json.put("tts", Boolean.valueOf(this.tts));
+        json.put("tts", this.tts);
         if (!this.embeds.isEmpty()) {
             List<JSONObject> embedObjects = new ArrayList<>();
             for (EmbedObject embed : this.embeds) {
@@ -66,7 +66,7 @@ public class WebhookUtil {
                     int rgb = color.getRed();
                     rgb = (rgb << 8) + color.getGreen();
                     rgb = (rgb << 8) + color.getBlue();
-                    jsonEmbed.put("color", Integer.valueOf(rgb));
+                    jsonEmbed.put("color", rgb);
                 }
                 EmbedObject.Footer footer = embed.getFooter();
                 EmbedObject.Image image = embed.getImage();
@@ -101,7 +101,7 @@ public class WebhookUtil {
                     JSONObject jsonField = new JSONObject();
                     jsonField.put("name", field.getName());
                     jsonField.put("value", field.getValue());
-                    jsonField.put("inline", Boolean.valueOf(field.isInline()));
+                    jsonField.put("inline", field.isInline());
                     jsonFields.add(jsonField);
                 }
                 jsonEmbed.put("fields", jsonFields.toArray());
@@ -112,7 +112,7 @@ public class WebhookUtil {
         URL url = new URL(this.url);
         HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
         connection.addRequestProperty("Content-Type", "application/json");
-        connection.addRequestProperty("User-Agent", "Java-DiscordWebhook-BY-Gelox_");
+        connection.addRequestProperty("User-Agent", "Dallas-On-Top");
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         OutputStream stream = connection.getOutputStream();
@@ -140,7 +140,7 @@ public class WebhookUtil {
 
         private Author author;
 
-        private List<Field> fields = new ArrayList<>();
+        private final List<Field> fields = new ArrayList<>();
 
         public String getTitle() {
             return this.title;
@@ -243,7 +243,7 @@ public class WebhookUtil {
         }
 
         private class Thumbnail {
-            private String url;
+            private final String url;
 
             private Thumbnail(String url) {
                 this.url = url;
@@ -255,7 +255,7 @@ public class WebhookUtil {
         }
 
         private class Image {
-            private String url;
+            private final String url;
 
             private Image(String url) {
                 this.url = url;
@@ -267,11 +267,11 @@ public class WebhookUtil {
         }
 
         private class Author {
-            private String name;
+            private final String name;
 
-            private String url;
+            private final String url;
 
-            private String iconUrl;
+            private final String iconUrl;
 
             private Author(String name, String url, String iconUrl) {
                 this.name = name;
@@ -293,11 +293,11 @@ public class WebhookUtil {
         }
 
         private class Field {
-            private String name;
+            private final String name;
 
-            private String value;
+            private final String value;
 
-            private boolean inline;
+            private final boolean inline;
 
             private Field(String name, String value, boolean inline) {
                 this.name = name;
@@ -320,9 +320,9 @@ public class WebhookUtil {
     }
 
     private class Footer {
-        private String text;
+        private final String text;
 
-        private String iconUrl;
+        private final String iconUrl;
 
         private Footer(String text, String iconUrl) {
             this.text = text;
@@ -339,7 +339,7 @@ public class WebhookUtil {
     }
 
     private class Thumbnail {
-        private String url;
+        private final String url;
 
         private Thumbnail(String url) {
             this.url = url;
@@ -351,7 +351,7 @@ public class WebhookUtil {
     }
 
     private class Image {
-        private String url;
+        private final String url;
 
         private Image(String url) {
             this.url = url;
@@ -363,11 +363,11 @@ public class WebhookUtil {
     }
 
     private class Author {
-        private String name;
+        private final String name;
 
-        private String url;
+        private final String url;
 
-        private String iconUrl;
+        private final String iconUrl;
 
         private Author(String name, String url, String iconUrl) {
             this.name = name;
@@ -389,11 +389,11 @@ public class WebhookUtil {
     }
 
     private class Field {
-        private String name;
+        private final String name;
 
-        private String value;
+        private final String value;
 
-        private boolean inline;
+        private final boolean inline;
 
         private Field(String name, String value, boolean inline) {
             this.name = name;
@@ -437,7 +437,7 @@ public class WebhookUtil {
                 } else if (val instanceof Boolean) {
                     builder.append(val);
                 } else if (val instanceof JSONObject) {
-                    builder.append(val.toString());
+                    builder.append(val);
                 } else if (val.getClass().isArray()) {
                     builder.append("[");
                     int len = Array.getLength(val);
