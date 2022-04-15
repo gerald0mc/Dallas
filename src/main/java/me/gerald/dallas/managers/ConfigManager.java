@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigManager {
@@ -100,7 +101,8 @@ public class ConfigManager {
                                                 ((ModeSetting) setting).setMode(settingValue);
                                                 System.out.println("Set setting " + setting.getName() + " to " + ((ModeSetting) setting).getMode());
                                             } else if (setting instanceof StringSetting) {
-                                                ((StringSetting) setting).setValue(settingValue);
+                                                String[] value = getStringValue(setting, words);
+                                                ((StringSetting) setting).setValue(Arrays.toString(value));
                                                 System.out.println("Set setting " + setting.getName() + " to " + ((StringSetting) setting).getValue());
                                             } else if (setting instanceof ColorSetting) {
                                                 int red = Integer.parseInt(words[2]);
@@ -128,5 +130,15 @@ public class ConfigManager {
                 System.out.println("Couldn't find module " + module.getName() + " for some reason.");
             }
         }
+    }
+
+    public static String[] getStringValue(Setting setting, String[] line) {
+        String[] value = new String[line.length - 2];
+        for(int i = 0; i < line.length; i++) {
+            if(line[i].equalsIgnoreCase("setting")) continue;
+            if(line[i].equalsIgnoreCase(setting.getName())) continue;
+            value[i] = line[2 + i];
+        }
+        return value;
     }
 }

@@ -4,6 +4,7 @@ import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.command.impl.Friend;
 import me.gerald.dallas.features.command.impl.Help;
 import me.gerald.dallas.features.command.impl.Waypoint;
+import me.gerald.dallas.features.command.impl.Webhook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class CommandManager {
         commands.add(new Help());
         commands.add(new Friend());
         commands.add(new Waypoint());
+        commands.add(new Webhook());
     }
 
     public List<Command> getCommands() {
