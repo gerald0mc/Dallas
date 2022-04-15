@@ -8,8 +8,8 @@ import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 public class InventoryUtil {
     public static int getItemHotbar(Item item) {
-        for(int i = 0; i < 9; i++) {
-            if(Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem() == item) {
+        for (int i = 0; i < 9; i++) {
+            if (Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem() == item) {
                 return i;
             }
         }
@@ -17,8 +17,8 @@ public class InventoryUtil {
     }
 
     public static int getItemInventory(Item item, boolean hotbar) {
-        for(int i = (hotbar ? 0 : 9); i < 36; i++) {
-            if(Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem() == item) {
+        for (int i = (hotbar ? 0 : 9); i < 36; i++) {
+            if (Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem() == item) {
                 return i;
             }
         }
@@ -27,12 +27,12 @@ public class InventoryUtil {
 
     public static int getTotalAmountOfItem(Item item) {
         int amountOfItem = 0;
-        for(int i = 0; i < 36; i++) {
+        for (int i = 0; i < 36; i++) {
             ItemStack stack = Minecraft.getMinecraft().player.inventory.getStackInSlot(i);
-            if(stack.getItem() == item)
+            if (stack.getItem() == item)
                 amountOfItem += stack.getCount();
         }
-        if(Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == item)
+        if (Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == item)
             amountOfItem += Minecraft.getMinecraft().player.getHeldItemOffhand().getCount();
         return amountOfItem;
     }

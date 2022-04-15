@@ -1,7 +1,7 @@
 package me.gerald.dallas.features.module.render;
 
-import me.gerald.dallas.mixin.mixins.IEntityRenderer;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.mixin.mixins.IEntityRenderer;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
@@ -9,9 +9,7 @@ import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -25,10 +23,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DamageESP extends Module {
-    public DamageESP() {
-        super("DamageESP", Category.RENDER, "DamageESP");
-    }
-
     public NumberSetting timeBetweenChecks = register(new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f));
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 3, 1, 5));
     public BooleanSetting self = register(new BooleanSetting("Self", true));
@@ -36,28 +30,30 @@ public class DamageESP extends Module {
     public ColorSetting healColor = register(new ColorSetting("HealColor", 0, 255, 0, 255, () -> healText.getValue()));
     public BooleanSetting damageText = register(new BooleanSetting("DamageText", true));
     public ColorSetting damageColor = register(new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue()));
-
     public HashMap<EntityLivingBase, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
     public TimerUtil timer = new TimerUtil();
+    public DamageESP() {
+        super("DamageESP", Category.RENDER, "DamageESP");
+    }
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        for(Entity e : mc.world.loadedEntityList) {
-            if(e == mc.player && !self.getValue()) continue;
-            if(e instanceof EntityLivingBase) {
+        if (nullCheck()) return;
+        for (Entity e : mc.world.loadedEntityList) {
+            if (e == mc.player && !self.getValue()) continue;
+            if (e instanceof EntityLivingBase) {
                 EntityLivingBase entity = (EntityLivingBase) e;
                 if (!entityHealthMap.containsKey(entity)) {
                     entityHealthMap.put(entity, entity.getHealth());
                 } else {
                     if (entityHealthMap.get(entity) > entity.getHealth()) {
-                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
+                        if (!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entityHealthMap.get(entity) - entity.getHealth()), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 1));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
-                    } else if(entityHealthMap.get(entity) < entity.getHealth()) {
-                        if(!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
+                    } else if (entityHealthMap.get(entity) < entity.getHealth()) {
+                        if (!timer.passedMs((long) (timeBetweenChecks.getValue() * 1000))) return;
                         damages.add(new Damage(e, System.currentTimeMillis(), (entity.getHealth() - entityHealthMap.get(entity)), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1.0), 2));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
@@ -69,10 +65,10 @@ public class DamageESP extends Module {
 
     @SubscribeEvent
     public void onRenderWorld(RenderWorldLastEvent event) {
-        if(nullCheck()) return;
-        if(damages.isEmpty()) return;
-        for(Damage damage : damages) {
-            if(System.currentTimeMillis() - damage.startTime >= timeToRemove.getValue() * 1000) {
+        if (nullCheck()) return;
+        if (damages.isEmpty()) return;
+        for (Damage damage : damages) {
+            if (System.currentTimeMillis() - damage.startTime >= timeToRemove.getValue() * 1000) {
                 damages.remove(damage);
                 return;
             }
@@ -87,7 +83,7 @@ public class DamageESP extends Module {
             GL11.glEnable(2848);
             GL11.glDisable(3553);
             GL11.glDisable(2929);
-            ((IEntityRenderer)mc.entityRenderer).setupCameraTransformInvoker(event.getPartialTicks(), 0);
+            ((IEntityRenderer) mc.entityRenderer).setupCameraTransformInvoker(event.getPartialTicks(), 0);
             GL11.glTranslated(x, y, z);
             GL11.glNormal3f(0.0f, 1.0f, 0.0f);
             GL11.glRotatef(-mc.getRenderManager().playerViewY, 0.0f, 1.0f, 0.0f);
@@ -108,12 +104,12 @@ public class DamageESP extends Module {
             //font is a cuatom font
             switch (damage.getStage()) {
                 case 2:
-                    if(!healText.getValue()) return;
-                    mc.fontRenderer.drawStringWithShadow(new DecimalFormat("#.#").format(damage.damage), 0, (int)(-yPercentage), healColor.getColor().getRGB());
+                    if (!healText.getValue()) return;
+                    mc.fontRenderer.drawStringWithShadow(new DecimalFormat("#.#").format(damage.damage), 0, (int) (-yPercentage), healColor.getColor().getRGB());
                     break;
                 case 1:
-                    if(!damageText.getValue()) return;
-                    mc.fontRenderer.drawStringWithShadow(new DecimalFormat("#.#").format(damage.damage), 0, (int)(-yPercentage), damageColor.getColor().getRGB());
+                    if (!damageText.getValue()) return;
+                    mc.fontRenderer.drawStringWithShadow(new DecimalFormat("#.#").format(damage.damage), 0, (int) (-yPercentage), damageColor.getColor().getRGB());
                     break;
             }
             GL11.glDisable(3042);
@@ -127,6 +123,11 @@ public class DamageESP extends Module {
     }
 
     public static class Damage {
+        private final Entity entity;
+        private final long startTime;
+        private final float damage;
+        private final float height;
+        private final int stage;
         public Damage(Entity entity, long startTime, float damage, float height, int stage) {
             this.entity = entity;
             this.startTime = startTime;
@@ -134,12 +135,6 @@ public class DamageESP extends Module {
             this.height = height;
             this.stage = stage;
         }
-
-        private final Entity entity;
-        private final long startTime;
-        private final float damage;
-        private final float height;
-        private final int stage;
 
         public Entity getEntity() {
             return entity;

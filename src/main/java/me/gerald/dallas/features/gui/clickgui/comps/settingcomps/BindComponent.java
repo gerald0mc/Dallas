@@ -36,11 +36,11 @@ public class BindComponent extends AbstractContainer {
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
         Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if(onlySetting) {
+        if (onlySetting) {
             //bottom line
             Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
         }
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A bind setting.";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A bind setting.") + 3;
         }
@@ -48,18 +48,19 @@ public class BindComponent extends AbstractContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0)
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0)
                 listening = !listening;
         }
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {}
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+    }
 
     @Override
     public void keyTyped(char keyChar, int key) {
-        if(listening) {
+        if (listening) {
             module.setKeybind(key);
             listening = false;
         }

@@ -34,19 +34,19 @@ public class ModuleComponent extends AbstractContainer {
         this.width = width;
         this.height = height;
         Iterator<Setting> iterator = module.getSettings().iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Setting element = iterator.next();
-            if(element instanceof BooleanSetting)
+            if (element instanceof BooleanSetting)
                 settingComponents.add(new BooleanComponent((BooleanSetting) element, x, y, 110, height));
-            else if(element instanceof NumberSetting)
+            else if (element instanceof NumberSetting)
                 settingComponents.add(new NumberComponent((NumberSetting) element, x, y, 110, height));
-            else if(element instanceof ModeSetting)
+            else if (element instanceof ModeSetting)
                 settingComponents.add(new ModeComponent((ModeSetting) element, x, y, 110, height));
-            else if(element instanceof StringSetting)
+            else if (element instanceof StringSetting)
                 settingComponents.add(new StringComponent((StringSetting) element, x, y, 110, height));
-            else if(element instanceof ColorSetting)
+            else if (element instanceof ColorSetting)
                 settingComponents.add(new ColorComponent((ColorSetting) element, x, y, 110, height));
-            if(!iterator.hasNext()) {
+            if (!iterator.hasNext()) {
                 settingComponents.get(settingComponents.size() - 1).last = true;
             }
         }
@@ -73,26 +73,26 @@ public class ModuleComponent extends AbstractContainer {
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
         Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if(lastModule) {
+        if (lastModule) {
             //bottom line
             Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
         }
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;
         }
-        if(open) {
+        if (open) {
             BindComponent bindComponent = new BindComponent(module, x, y, 110, height);
             bindComponent.x = x + width;
             bindComponent.y = y + yOffset;
             yOffset += bindComponent.getHeight();
-            if(settingComponents.size() == 0) {
+            if (settingComponents.size() == 0) {
                 bindComponent.onlySetting = true;
             }
             bindComponent.drawScreen(mouseX, mouseY, partialTicks);
-            if(settingComponents.isEmpty()) return;
-            for(SettingComponent component : settingComponents) {
-                if(!component.isVisible()) continue;
+            if (settingComponents.isEmpty()) return;
+            for (SettingComponent component : settingComponents) {
+                if (!component.isVisible()) continue;
                 component.x = x + width;
                 component.y = y + yOffset;
                 yOffset += component.getHeight();
@@ -103,18 +103,19 @@ public class ModuleComponent extends AbstractContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(open) {
-            for(AbstractContainer component : settingComponents) {
+        if (open) {
+            for (AbstractContainer component : settingComponents) {
                 component.mouseClicked(mouseX, mouseY, mouseButton);
             }
         }
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0) {
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0) {
                 module.toggle();
-            }else if(mouseButton == 1) {
-                for(CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
-                    for(ModuleComponent moduleComponent : categoryComponent.modules) {
-                        if(moduleComponent.open && moduleComponent.module != module && moduleComponent.module.getCategory() == module.getCategory()) moduleComponent.open = false;
+            } else if (mouseButton == 1) {
+                for (CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
+                    for (ModuleComponent moduleComponent : categoryComponent.modules) {
+                        if (moduleComponent.open && moduleComponent.module != module && moduleComponent.module.getCategory() == module.getCategory())
+                            moduleComponent.open = false;
                     }
                 }
                 open = !open;
@@ -124,8 +125,8 @@ public class ModuleComponent extends AbstractContainer {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        if(open) {
-            for(AbstractContainer component : settingComponents) {
+        if (open) {
+            for (AbstractContainer component : settingComponents) {
                 component.mouseReleased(mouseX, mouseY, mouseButton);
             }
         }
@@ -133,8 +134,8 @@ public class ModuleComponent extends AbstractContainer {
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
-        if(open) {
-            for(AbstractContainer component : settingComponents) {
+        if (open) {
+            for (AbstractContainer component : settingComponents) {
                 component.keyTyped(keyChar, key);
             }
         }

@@ -2,11 +2,11 @@ package me.gerald.dallas.event;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
+import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -27,10 +27,10 @@ public class EventManager {
     //binds
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if(Keyboard.getEventKeyState()) {
+        if (Keyboard.getEventKeyState()) {
             int key = Keyboard.getEventKey();
-            for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if(module.getKeybind() == key) {
+            for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+                if (module.getKeybind() == key) {
                     module.toggle();
                 }
             }
@@ -41,10 +41,10 @@ public class EventManager {
     @SubscribeEvent
     public void onChatSend(ClientChatEvent event) {
         String[] args = event.getMessage().split(" ");
-        if(event.getMessage().startsWith(Yeehaw.INSTANCE.commandManager.PREFIX)) {
+        if (event.getMessage().startsWith(Yeehaw.INSTANCE.commandManager.PREFIX)) {
             event.setCanceled(true);
-            for(Command command : Yeehaw.INSTANCE.commandManager.getCommands()) {
-                if(args[0].equalsIgnoreCase((Yeehaw.INSTANCE.commandManager.PREFIX + command.getName()))) {
+            for (Command command : Yeehaw.INSTANCE.commandManager.getCommands()) {
+                if (args[0].equalsIgnoreCase((Yeehaw.INSTANCE.commandManager.PREFIX + command.getName()))) {
                     command.onCommand(args);
                 }
             }
@@ -53,9 +53,9 @@ public class EventManager {
 
     @SubscribeEvent
     public void onGameOverlay(RenderGameOverlayEvent.Text event) {
-        if(Minecraft.getMinecraft().currentScreen instanceof ClickGUI) return;
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD)) {
-            if(module.isEnabled()) {
+        if (Minecraft.getMinecraft().currentScreen instanceof ClickGUI) return;
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD)) {
+            if (module.isEnabled()) {
                 final HUDModule hudMod = (HUDModule) module;
                 hudMod.getContainer().drawScreen(-1, -1, event.getPartialTicks());
             }

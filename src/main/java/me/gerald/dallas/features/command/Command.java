@@ -1,10 +1,9 @@
 package me.gerald.dallas.features.command;
 
-import java.io.IOException;
-
 public class Command {
-    private String name, description;
-    private String[] usage;
+    private final String name;
+    private final String description;
+    private final String[] usage;
 
     public Command(String name, String description, String[] usage) {
         this.name = name;
@@ -12,7 +11,8 @@ public class Command {
         this.usage = usage;
     }
 
-    public void onCommand(String[] args) {}
+    public void onCommand(String[] args) {
+    }
 
     public String getName() {
         return name;

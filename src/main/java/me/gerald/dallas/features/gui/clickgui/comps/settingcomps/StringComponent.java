@@ -34,11 +34,11 @@ public class StringComponent extends SettingComponent {
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
         Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if(last) {
+        if (last) {
             //bottom line
             Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
         }
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 3;
         }
@@ -46,36 +46,37 @@ public class StringComponent extends SettingComponent {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0)
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0)
                 listening = !listening;
         }
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {}
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+    }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
-        if(listening) {
+        if (listening) {
             switch (key) {
                 case Keyboard.KEY_BACK:
                     entryString = removeLastLetter(entryString);
                     break;
                 case Keyboard.KEY_RETURN:
-                    if(entryString.length() > 0) {
+                    if (entryString.length() > 0) {
                         setting.setValue(entryString);
                     }
                     listening = false;
                     entryString = "";
                     break;
                 case Keyboard.KEY_V:
-                    if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))
+                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))
                         entryString += Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
                     break;
                 case Keyboard.KEY_C:
-                    if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-                        if(entryString.length() == 0) {
+                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                        if (entryString.length() == 0) {
                             MessageUtil.sendMessage("Nothing to copy.");
                             return;
                         }
@@ -84,7 +85,7 @@ public class StringComponent extends SettingComponent {
                     }
                     break;
             }
-            if(ChatAllowedCharacters.isAllowedCharacter(keyChar)) {
+            if (ChatAllowedCharacters.isAllowedCharacter(keyChar)) {
                 entryString = entryString + keyChar;
             }
         }
@@ -92,7 +93,7 @@ public class StringComponent extends SettingComponent {
 
     public String removeLastLetter(String string) {
         String out = "";
-        if(string != null && string.length() > 0) {
+        if (string != null && string.length() > 0) {
             out = string.substring(0, string.length() - 1);
         }
         return out;

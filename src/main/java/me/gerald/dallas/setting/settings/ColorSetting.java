@@ -6,6 +6,8 @@ import me.gerald.dallas.setting.Visibility;
 import java.awt.*;
 
 public class ColorSetting extends Setting {
+    private int r, g, b, a;
+
     public ColorSetting(String name, int r, int g, int b, int a) {
         super(name);
         this.r = r;
@@ -21,8 +23,6 @@ public class ColorSetting extends Setting {
         this.b = b;
         this.a = a;
     }
-
-    private int r, g, b, a;
 
     public int getR() {
         return r;

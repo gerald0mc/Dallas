@@ -16,39 +16,39 @@ import java.util.List;
 
 public class Friend extends Command {
     public Friend() {
-        super("Friend", "Adds, removes, or list's all friends.", new String[] {"f", "add/remove/list"});
+        super("Friend", "Adds, removes, or list's all friends.", new String[]{"f", "add/remove/list"});
     }
 
     @Override
     public void onCommand(String[] args) {
-        if(args.length == 1) {
+        if (args.length == 1) {
             MessageUtil.sendMessage("Please specify if you would like to add, remove, or list friends.");
             return;
         }
         switch (args[1]) {
             case "add":
-                if(args.length == 2) {
+                if (args.length == 2) {
                     MessageUtil.sendMessage("Please specify which player you would like to add to the friends list.");
                     return;
                 }
                 String playerName = args[2];
-                if(Yeehaw.INSTANCE.friendManager.isFriend(playerName)) {
+                if (Yeehaw.INSTANCE.friendManager.isFriend(playerName)) {
                     MessageUtil.sendMessage(playerName + " is already a friend.");
-                }else {
+                } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(playerName);
                     MessageUtil.sendMessage("Added " + playerName + " to the friends list.");
                 }
                 break;
             case "remove":
-                if(args.length == 2) {
+                if (args.length == 2) {
                     MessageUtil.sendMessage("Please specify which player you would like to remove from the friends list.");
                     return;
                 }
                 String playerName2 = args[2];
-                if(Yeehaw.INSTANCE.friendManager.isFriend(playerName2)) {
+                if (Yeehaw.INSTANCE.friendManager.isFriend(playerName2)) {
                     Yeehaw.INSTANCE.friendManager.delFriend(playerName2);
                     MessageUtil.sendMessage("Removed " + playerName2 + " from friends list.");
-                }else {
+                } else {
                     MessageUtil.sendMessage(playerName2 + " is already not a friend.");
                 }
                 break;
@@ -57,10 +57,11 @@ public class Friend extends Command {
                 try {
                     List<String> friends = Files.readAllLines(Paths.get(friendFile.toURI()));
                     Minecraft.getMinecraft().player.sendMessage(new TextComponentString(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Friend List"));
-                    for(String friend : friends) {
+                    for (String friend : friends) {
                         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
                     }
-                }catch (IOException ignored) {}
+                } catch (IOException ignored) {
+                }
                 break;
         }
     }

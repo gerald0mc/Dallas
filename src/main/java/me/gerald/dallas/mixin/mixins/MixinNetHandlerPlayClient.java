@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={NetHandlerPlayClient.class})
+@Mixin(value = {NetHandlerPlayClient.class})
 public class MixinNetHandlerPlayClient {
-    @Inject(method={"handleEntityMetadata"}, at={@At(value="RETURN")})
+    @Inject(method = {"handleEntityMetadata"}, at = {@At(value = "RETURN")})
     private void handleEntityMetadataHook(SPacketEntityMetadata packetIn, CallbackInfo info) {
         EntityPlayer player;
         Entity entity;
-        if (Minecraft.getMinecraft().world != null && (entity = Minecraft.getMinecraft().world.getEntityByID(packetIn.getEntityId())) instanceof EntityPlayer && (player = (EntityPlayer)entity).getHealth() <= 0.0f) {
+        if (Minecraft.getMinecraft().world != null && (entity = Minecraft.getMinecraft().world.getEntityByID(packetIn.getEntityId())) instanceof EntityPlayer && (player = (EntityPlayer) entity).getHealth() <= 0.0f) {
             MinecraftForge.EVENT_BUS.post(new DeathEvent(player));
         }
     }

@@ -62,7 +62,7 @@ public class ProjectionUtil {
 
     private static Vector4f getTransformedMatrix(Vec3d posIn) {
         final Vec3d relativePos = camPos.subtract(posIn);
-        final Vector4f vector4f = new Vector4f((float)relativePos.x, (float)relativePos.y, (float)relativePos.z, 1f);
+        final Vector4f vector4f = new Vector4f((float) relativePos.x, (float) relativePos.y, (float) relativePos.z, 1f);
 
         transform(vector4f, modelMatrix);
         transform(vector4f, projectionMatrix);

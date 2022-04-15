@@ -2,6 +2,7 @@ package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.DallasBot;
+import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.combat.*;
 import me.gerald.dallas.features.module.hud.coordinates.Coordinates;
 import me.gerald.dallas.features.module.hud.cps.CPS;
@@ -10,11 +11,10 @@ import me.gerald.dallas.features.module.hud.gapplecount.GappleCount;
 import me.gerald.dallas.features.module.hud.ping.Ping;
 import me.gerald.dallas.features.module.hud.server.Server;
 import me.gerald.dallas.features.module.hud.totemcount.TotemCount;
+import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.hud.xpcount.XPCount;
 import me.gerald.dallas.features.module.misc.*;
-import me.gerald.dallas.features.module.hud.watermark.Watermark;
 import me.gerald.dallas.features.module.render.DamageESP;
-import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.render.Waypoints;
 
 import java.util.ArrayList;
@@ -66,8 +66,8 @@ public class ModuleManager {
     }
 
     public <T extends Module> T getModule(Class<T> clazz) {
-        for(Module module : getModules()) {
-            if(module.getClass() == clazz) {
+        for (Module module : getModules()) {
+            if (module.getClass() == clazz) {
                 return (T) module;
             }
         }
@@ -76,8 +76,8 @@ public class ModuleManager {
 
     public List<Module> getCategory(Module.Category category) {
         List<Module> modules = new ArrayList<>();
-        for(Module module : getModules()) {
-            if(module.getCategory() == category) {
+        for (Module module : getModules()) {
+            if (module.getCategory() == category) {
                 modules.add(module);
             }
         }

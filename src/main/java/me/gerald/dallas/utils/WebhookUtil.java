@@ -6,21 +6,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class WebhookUtil {
     private final String url;
-
-    private String content;
-
-    private String username;
-
-    private String avatarUrl;
-
-    private boolean tts;
-
     private final List<EmbedObject> embeds = new ArrayList<>();
+    private String content;
+    private String username;
+    private String avatarUrl;
+    private boolean tts;
 
     public WebhookUtil(String url) {
         this.url = url;
@@ -110,7 +105,7 @@ public class WebhookUtil {
             json.put("embeds", embedObjects.toArray());
         }
         URL url = new URL(this.url);
-        HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.addRequestProperty("Content-Type", "application/json");
         connection.addRequestProperty("User-Agent", "Dallas-On-Top");
         connection.setDoOutput(true);
@@ -124,38 +119,50 @@ public class WebhookUtil {
     }
 
     public static class EmbedObject {
-        private String title;
-
-        private String description;
-
-        private String url;
-
-        private Color color;
-
-        private Footer footer;
-
-        private Thumbnail thumbnail;
-
-        private Image image;
-
-        private Author author;
-
         private final List<Field> fields = new ArrayList<>();
+        private String title;
+        private String description;
+        private String url;
+        private Color color;
+        private Footer footer;
+        private Thumbnail thumbnail;
+        private Image image;
+        private Author author;
 
         public String getTitle() {
             return this.title;
+        }
+
+        public EmbedObject setTitle(String title) {
+            this.title = title;
+            return this;
         }
 
         public String getDescription() {
             return this.description;
         }
 
+        public EmbedObject setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
         public String getUrl() {
             return this.url;
         }
 
+        public EmbedObject setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
         public Color getColor() {
             return this.color;
+        }
+
+        public EmbedObject setColor(Color color) {
+            this.color = color;
+            return this;
         }
 
         public Footer getFooter() {
@@ -166,8 +173,18 @@ public class WebhookUtil {
             return this.thumbnail;
         }
 
+        public EmbedObject setThumbnail(String url) {
+            this.thumbnail = new Thumbnail(url);
+            return this;
+        }
+
         public Image getImage() {
             return this.image;
+        }
+
+        public EmbedObject setImage(String url) {
+            this.image = new Image(url);
+            return this;
         }
 
         public Author getAuthor() {
@@ -178,38 +195,8 @@ public class WebhookUtil {
             return this.fields;
         }
 
-        public EmbedObject setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public EmbedObject setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public EmbedObject setUrl(String url) {
-            this.url = url;
-            return this;
-        }
-
-        public EmbedObject setColor(Color color) {
-            this.color = color;
-            return this;
-        }
-
         public EmbedObject setFooter(String text, String icon) {
             this.footer = new Footer(text, icon);
-            return this;
-        }
-
-        public EmbedObject setThumbnail(String url) {
-            this.thumbnail = new Thumbnail(url);
-            return this;
-        }
-
-        public EmbedObject setImage(String url) {
-            this.image = new Image(url);
             return this;
         }
 
@@ -224,9 +211,9 @@ public class WebhookUtil {
         }
 
         private class Footer {
-            private String text;
+            private final String text;
 
-            private String iconUrl;
+            private final String iconUrl;
 
             private Footer(String text, String iconUrl) {
                 this.text = text;
@@ -415,12 +402,15 @@ public class WebhookUtil {
     }
 
     private class JSONObject {
+        private final HashMap<String, Object> map = new HashMap<>();
+
+        private JSONObject() {
+        }
+
         void put(String key, Object value) {
             if (value != null)
                 this.map.put(key, value);
         }
-
-        private final HashMap<String, Object> map = new HashMap<>();
 
         public String toString() {
             StringBuilder builder = new StringBuilder();
@@ -453,7 +443,5 @@ public class WebhookUtil {
         private String quote(String string) {
             return "\"" + string + "\"";
         }
-
-        private JSONObject() {}
     }
 }

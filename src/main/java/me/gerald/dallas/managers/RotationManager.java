@@ -12,13 +12,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RotationManager {
-    public RotationManager() {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
     public boolean shouldRotate = false;
     public float desiredPitch;
     public float desiredYaw;
+    public RotationManager() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
     @SubscribeEvent
     public void onPacket(PacketEvent.Send event) {

@@ -1,10 +1,10 @@
 package me.gerald.dallas.features.gui.clickgui;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.gui.clickgui.comps.TextComponent;
 import me.gerald.dallas.features.gui.clickgui.comps.CategoryComponent;
-import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.features.gui.clickgui.comps.TextComponent;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.hud.HUDModule;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -18,7 +18,7 @@ public class ClickGUI extends GuiScreen {
 
     public ClickGUI() {
         int xOffset = 10;
-        for(Module.Category category : Module.Category.values()) {
+        for (Module.Category category : Module.Category.values()) {
             categories.add(new CategoryComponent(category, xOffset, 50, 100, 11));
             xOffset += 210;
         }
@@ -26,33 +26,33 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        for(CategoryComponent component : categories) {
+        for (CategoryComponent component : categories) {
             component.drawScreen(mouseX, mouseY, partialTicks);
         }
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(module.getCategory() == Module.Category.HUD) {
-                if(module.isEnabled()) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (module.getCategory() == Module.Category.HUD) {
+                if (module.isEnabled()) {
                     HUDModule hudModule = (HUDModule) module;
                     hudModule.getContainer().drawScreen(mouseX, mouseY, partialTicks);
                 }
             }
         }
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
-        if(descriptionBox.width != 156)
+        if (descriptionBox.width != 156)
             descriptionBox.width = 156;
-        if(!descriptionBox.text.equalsIgnoreCase("Description's will appear here."))
+        if (!descriptionBox.text.equalsIgnoreCase("Description's will appear here."))
             descriptionBox.text = "Description's will appear here.";
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        for(CategoryComponent component : categories) {
+        for (CategoryComponent component : categories) {
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(module.getCategory() == Module.Category.HUD) {
-                if(module.isEnabled()) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (module.getCategory() == Module.Category.HUD) {
+                if (module.isEnabled()) {
                     HUDModule hudModule = (HUDModule) module;
                     hudModule.getContainer().mouseClicked(mouseX, mouseY, mouseButton);
                 }
@@ -63,12 +63,12 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        for(CategoryComponent component : categories) {
+        for (CategoryComponent component : categories) {
             component.mouseReleased(mouseX, mouseY, state);
         }
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(module.getCategory() == Module.Category.HUD) {
-                if(module.isEnabled()) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (module.getCategory() == Module.Category.HUD) {
+                if (module.isEnabled()) {
                     HUDModule hudModule = (HUDModule) module;
                     hudModule.getContainer().mouseReleased(mouseX, mouseY, state);
                 }
@@ -79,7 +79,7 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        for(CategoryComponent component : categories) {
+        for (CategoryComponent component : categories) {
             try {
                 component.keyTyped(typedChar, keyCode);
             } catch (UnsupportedFlavorException e) {

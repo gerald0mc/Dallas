@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Module {
+    public static Minecraft mc = Minecraft.getMinecraft();
     private String name;
     private Category category;
     private int keybind;
     private String description;
     private boolean isEnabled = false;
-    private List<Setting> settings;
-
-    public static Minecraft mc = Minecraft.getMinecraft();
+    private final List<Setting> settings;
 
     public Module(String name, Category category, String description) {
         this.name = name;
@@ -25,6 +24,10 @@ public class Module {
         this.description = description;
         this.keybind = name.equalsIgnoreCase("gui") ? Keyboard.KEY_U : Keyboard.KEY_NONE;
         settings = new ArrayList<>();
+    }
+
+    public static boolean nullCheck() {
+        return mc == null || mc.world == null || mc.player == null;
     }
 
     public String getName() {
@@ -78,13 +81,14 @@ public class Module {
 
     public void toggle() {
         isEnabled = !isEnabled;
-        if(isEnabled)
+        if (isEnabled)
             enable();
         else
             disable();
     }
 
-    public void onEnable() {}
+    public void onEnable() {
+    }
 
     public void enable() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -92,16 +96,13 @@ public class Module {
         onEnable();
     }
 
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
     public void disable() {
         MinecraftForge.EVENT_BUS.unregister(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Disable(this));
         onDisable();
-    }
-
-    public static boolean nullCheck() {
-        return mc == null || mc.world == null || mc.player == null;
     }
 
     public enum Category {

@@ -14,13 +14,13 @@ public class ModuleToggleEvent extends Event {
         return module;
     }
 
-    public static class Enable extends ModuleToggleEvent{
+    public static class Enable extends ModuleToggleEvent {
         public Enable(Module module) {
             super(module);
         }
     }
 
-    public static class Disable extends ModuleToggleEvent{
+    public static class Disable extends ModuleToggleEvent {
         public Disable(Module module) {
             super(module);
         }

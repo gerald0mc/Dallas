@@ -34,9 +34,9 @@ public class RotationUtil {
         double diffY = vec.y - eyesPos.y;
         double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
-        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
-        float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{mc.player.rotationYaw + MathHelper.wrapDegrees((float)(yaw - mc.player.rotationYaw)), mc.player.rotationPitch + MathHelper.wrapDegrees((float)(pitch - mc.player.rotationPitch))};
+        float yaw = (float) Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
+        float pitch = (float) (-Math.toDegrees(Math.atan2(diffY, diffXZ)));
+        return new float[]{mc.player.rotationYaw + MathHelper.wrapDegrees(yaw - mc.player.rotationYaw), mc.player.rotationPitch + MathHelper.wrapDegrees(pitch - mc.player.rotationPitch)};
     }
 
     public static float[] simpleFacing(EnumFacing facing) {
@@ -66,7 +66,7 @@ public class RotationUtil {
 
     public static void faceVector(Vec3d vec, boolean normalizeAngle) {
         float[] rotations = getLegitRotations(vec);
-       mc.player.connection.sendPacket(new CPacketPlayer.Rotation(rotations[0], normalizeAngle ? (float)MathHelper.normalizeAngle((int)rotations[1], 360) : rotations[1], mc.player.onGround));
+        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(rotations[0], normalizeAngle ? (float) MathHelper.normalizeAngle((int) rotations[1], 360) : rotations[1], mc.player.onGround));
     }
 
     public static void faceEntity(Entity entity) {
@@ -94,11 +94,11 @@ public class RotationUtil {
     }
 
     public static boolean isInFov(BlockPos pos) {
-        return pos != null && (mc.player.getDistanceSq(pos) < 4.0 || RotationUtil.yawDist(pos) < (double)(RotationUtil.getHalvedfov() + 2.0f));
+        return pos != null && (mc.player.getDistanceSq(pos) < 4.0 || RotationUtil.yawDist(pos) < (double) (RotationUtil.getHalvedfov() + 2.0f));
     }
 
     public static boolean isInFov(Entity entity) {
-        return entity != null && (mc.player.getDistanceSq(entity) < 4.0 || RotationUtil.yawDist(entity) < (double)(RotationUtil.getHalvedfov() + 2.0f));
+        return entity != null && (mc.player.getDistanceSq(entity) < 4.0 || RotationUtil.yawDist(entity) < (double) (RotationUtil.getHalvedfov() + 2.0f));
     }
 
     public static double yawDist(BlockPos pos) {
@@ -130,7 +130,7 @@ public class RotationUtil {
     public static float[] calcAngleNoY(Vec3d from, Vec3d to) {
         double difX = to.x - from.x;
         double difZ = to.z - from.z;
-        return new float[]{(float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0)};
+        return new float[]{(float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0)};
     }
 
     public static float[] calcAngle(Vec3d from, Vec3d to) {
@@ -138,6 +138,6 @@ public class RotationUtil {
         double difY = (to.y - from.y) * -1.0;
         double difZ = to.z - from.z;
         double dist = MathHelper.sqrt(difX * difX + difZ * difZ);
-        return new float[]{(float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist)))};
+        return new float[]{(float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist)))};
     }
 }

@@ -11,7 +11,7 @@ public abstract class HUDContainer extends DragComponent {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(Minecraft.getMinecraft().currentScreen instanceof ClickGUI) {
+        if (Minecraft.getMinecraft().currentScreen instanceof ClickGUI) {
             Gui.drawRect(x, y, x + width, y + height, isInside(mouseX, mouseY) ? 0x50ffffff : 0x90000000);
         }
     }

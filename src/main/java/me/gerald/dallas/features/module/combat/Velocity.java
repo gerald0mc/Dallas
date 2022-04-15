@@ -13,7 +13,7 @@ public class Velocity extends Module {
 
     @SubscribeEvent
     public void onPush(PacketEvent.Receive event) {
-        if(event.getPacket() instanceof SPacketEntityVelocity || event.getPacket() instanceof SPacketExplosion) {
+        if (event.getPacket() instanceof SPacketEntityVelocity || event.getPacket() instanceof SPacketExplosion) {
             mc.player.entityCollisionReduction = 1.0f;
             event.setCanceled(true);
         }

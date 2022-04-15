@@ -28,8 +28,8 @@ public class XPCountComponent extends HUDContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0)
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0)
                 beginDragging(mouseX, mouseY);
         }
     }
@@ -40,7 +40,8 @@ public class XPCountComponent extends HUDContainer {
     }
 
     @Override
-    public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {}
+    public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
+    }
 
     @Override
     public int getHeight() {

@@ -14,12 +14,11 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FakePearl extends Module {
+    private final Queue<CPacketPlayer> packets = new ConcurrentLinkedQueue<>();
+    private int thrownPearlId = -1;
     public FakePearl() {
         super("FakePearl", Category.COMBAT, "When you throw a pearl it will be a fake pearl and will blink the player until the fake pearl has landed.");
     }
-
-    private final Queue<CPacketPlayer> packets = new ConcurrentLinkedQueue<>();
-    private int thrownPearlId = -1;
 
     @SubscribeEvent
     public void onPacketR(PacketEvent.Receive event) {
@@ -58,7 +57,7 @@ public class FakePearl extends Module {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         if (thrownPearlId != -1) {
             for (Entity entity : mc.world.loadedEntityList) {
                 if (entity.getEntityId() == thrownPearlId && entity instanceof EntityEnderPearl) {

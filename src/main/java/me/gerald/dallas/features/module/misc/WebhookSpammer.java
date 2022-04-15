@@ -4,7 +4,6 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.setting.settings.StringSetting;
 import me.gerald.dallas.utils.MessageUtil;
-import me.gerald.dallas.utils.TimerUtil;
 import me.gerald.dallas.utils.WebhookUtil;
 
 import java.io.IOException;

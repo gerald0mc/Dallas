@@ -14,9 +14,9 @@ public class FileUtil {
     public static String getRandomMessageWithDefault(List<String> messages, String defaultMessage, String filePath) {
         FileUtil.loadMessages(messages, filePath);
         Random rand = new Random();
-        if(messages.size() == 0)
+        if (messages.size() == 0)
             return defaultMessage;
-        if(messages.size() == 1)
+        if (messages.size() == 1)
             return messages.get(0);
         return messages.get(MathUtil.clamp(rand.nextInt(messages.size()), 0, messages.size() - 1));
     }
@@ -25,11 +25,11 @@ public class FileUtil {
         try {
             messageList.clear();
             Scanner s = new Scanner(new File(filePath));
-            while (s.hasNextLine()){
+            while (s.hasNextLine()) {
                 messageList.add(s.nextLine());
             }
             s.close();
-        }catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         }
     }

@@ -29,12 +29,12 @@ public class CategoryComponent extends AbstractContainer {
         this.y = y;
         this.width = width;
         this.height = height;
-        if(Yeehaw.INSTANCE.moduleManager.getCategory(category) != null) {
+        if (Yeehaw.INSTANCE.moduleManager.getCategory(category) != null) {
             Iterator<Module> iterator = Yeehaw.INSTANCE.moduleManager.getCategory(category).iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 Module element = iterator.next();
                 modules.add(new ModuleComponent(element, category, x, y, width, height));
-                if(!iterator.hasNext()) {
+                if (!iterator.hasNext()) {
                     modules.get(modules.size() - 1).lastModule = true;
                 }
             }
@@ -68,20 +68,20 @@ public class CategoryComponent extends AbstractContainer {
         //top lines
         Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());
         //left line
-        Gui.drawRect(x - 2, y, x -1, y + height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x - 2, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
         Gui.drawRect(x + width + 1, y, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
         //bottom line
         Gui.drawRect(x - 2, y + height - 1, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
 
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = category.toString() + " category.";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + " category.") + 3;
         }
         int yOffset = height;
-        for(ModuleComponent component : modules) {
-            if(!open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.x = this.x;
             component.y = this.y + yOffset;
             yOffset += component.getHeight();
@@ -91,17 +91,17 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0) {
                 dragging = !dragging;
                 dragX = x - mouseX;
                 dragY = y - mouseY;
-            } else if(mouseButton == 1) {
+            } else if (mouseButton == 1) {
                 open = !open;
             }
         }
-        for(ModuleComponent component : modules) {
-            if(!open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }
@@ -112,16 +112,16 @@ public class CategoryComponent extends AbstractContainer {
             dragging = false;
         }
 
-        for(ModuleComponent component : modules) {
-            if(!open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.mouseReleased(mouseX, mouseY, mouseButton);
         }
     }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
-        for(ModuleComponent component : modules) {
-            if(!open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.keyTyped(keyChar, key);
         }
     }

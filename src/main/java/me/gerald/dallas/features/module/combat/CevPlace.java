@@ -15,28 +15,27 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CevPlace extends Module {
-    public CevPlace() {
-        super("CevPlace", Category.COMBAT, "Automatically will place a crystal if the trapped player tries to mine out.");
-    }
-
     public NumberSetting range = register(new NumberSetting("Range", 4, 1, 6));
     public NumberSetting delay = register(new NumberSetting("Delay", 100, 0, 2000));
     public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
     public BooleanSetting ownSwing = register(new BooleanSetting("OwnSwing", true));
-
     public TimerUtil timer = new TimerUtil();
+
+    public CevPlace() {
+        super("CevPlace", Category.COMBAT, "Automatically will place a crystal if the trapped player tries to mine out.");
+    }
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(!alwaysActive.getValue()) return;
-        if(timer.passedMs((long) delay.getValue())) {
-            for(EntityPlayer p : mc.world.playerEntities) {
-                if(p == mc.player) continue;
-                if(p.getDistance(mc.player) >= range.getValue()) continue;
-                if(Yeehaw.INSTANCE.friendManager.isFriend(p.getDisplayNameString())) continue;
+        if (!alwaysActive.getValue()) return;
+        if (timer.passedMs((long) delay.getValue())) {
+            for (EntityPlayer p : mc.world.playerEntities) {
+                if (p == mc.player) continue;
+                if (p.getDistance(mc.player) >= range.getValue()) continue;
+                if (Yeehaw.INSTANCE.friendManager.isFriend(p.getDisplayNameString())) continue;
                 BlockPos playerPos = new BlockPos(p.posX, p.posY, p.posZ);
                 BlockPos targetPos = playerPos.up().up();
-                if(mc.world.getBlockState(targetPos).getBlock() == Blocks.OBSIDIAN) {
+                if (mc.world.getBlockState(targetPos).getBlock() == Blocks.OBSIDIAN) {
                     if (mc.world.getBlockState(targetPos.up()).getBlock().equals(Blocks.AIR) && mc.world.getBlockState(targetPos.up().up()).getBlock().equals(Blocks.AIR)) {
                         BlockUtil.placeBlock(targetPos, true, Items.END_CRYSTAL);
                         timer.reset();
@@ -48,12 +47,12 @@ public class CevPlace extends Module {
 
     @SubscribeEvent
     public void onBlockInteract(PlayerInteractEvent.LeftClickBlock event) {
-        if(timer.passedMs((long) delay.getValue())) {
-            if(event.getEntityPlayer()== mc.player && !ownSwing.getValue()) return;
-            if(event.getEntityPlayer().getDistance(mc.player) >= range.getValue()) return;
-            if(Yeehaw.INSTANCE.friendManager.isFriend(event.getEntityPlayer().getDisplayNameString())) return;
+        if (timer.passedMs((long) delay.getValue())) {
+            if (event.getEntityPlayer() == mc.player && !ownSwing.getValue()) return;
+            if (event.getEntityPlayer().getDistance(mc.player) >= range.getValue()) return;
+            if (Yeehaw.INSTANCE.friendManager.isFriend(event.getEntityPlayer().getDisplayNameString())) return;
             BlockPos targetPos = event.getPos();
-            if(mc.world.getBlockState(targetPos).getBlock() == Blocks.OBSIDIAN) {
+            if (mc.world.getBlockState(targetPos).getBlock() == Blocks.OBSIDIAN) {
                 if (mc.world.getBlockState(targetPos.up()).getBlock().equals(Blocks.AIR) && mc.world.getBlockState(targetPos.up().up()).getBlock().equals(Blocks.AIR)) {
                     BlockUtil.placeBlock(targetPos, true, Items.END_CRYSTAL);
                     timer.reset();

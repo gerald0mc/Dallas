@@ -16,14 +16,14 @@ public class MCF extends Module {
 
     @SubscribeEvent
     public void onMouseInput(InputEvent.MouseInputEvent event) {
-        if(Mouse.isButtonDown(2)) {
-            if(mc.objectMouseOver.typeOfHit.equals(RayTraceResult.Type.ENTITY)) {
-                if(!(mc.objectMouseOver.entityHit instanceof EntityPlayer)) return;
+        if (Mouse.isButtonDown(2)) {
+            if (mc.objectMouseOver.typeOfHit.equals(RayTraceResult.Type.ENTITY)) {
+                if (!(mc.objectMouseOver.entityHit instanceof EntityPlayer)) return;
                 EntityPlayer player = (EntityPlayer) mc.objectMouseOver.entityHit;
-                if(Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString())) {
+                if (Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString())) {
                     Yeehaw.INSTANCE.friendManager.delFriend(player.getDisplayNameString());
                     MessageUtil.sendMessage("Removed " + player.getDisplayNameString() + " from friends list.");
-                }else {
+                } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(player.getDisplayNameString());
                     MessageUtil.sendMessage("Added " + player.getDisplayNameString() + " to the friends list.");
                 }

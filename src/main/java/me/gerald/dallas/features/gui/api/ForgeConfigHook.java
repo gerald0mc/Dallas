@@ -1,9 +1,9 @@
 package me.gerald.dallas.features.gui.api;
 
+import me.gerald.dallas.Yeehaw;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
-import me.gerald.dallas.Yeehaw;
 
 import java.util.Set;
 
@@ -14,7 +14,8 @@ import java.util.Set;
 public class ForgeConfigHook implements IModGuiFactory {
 
     @Override
-    public void initialize(Minecraft mc) {}
+    public void initialize(Minecraft mc) {
+    }
 
     @Override
     public boolean hasConfigGui() {

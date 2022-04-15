@@ -1,7 +1,7 @@
 package me.gerald.dallas.features.module.hud;
 
-import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.gui.api.HUDContainer;
+import me.gerald.dallas.features.module.Module;
 
 public class HUDModule extends Module {
     private final HUDContainer container;

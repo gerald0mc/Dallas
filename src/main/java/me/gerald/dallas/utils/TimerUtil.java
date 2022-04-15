@@ -1,10 +1,10 @@
 package me.gerald.dallas.utils;
 
 public class TimerUtil {
-    private long time = -1L;
     long startTime;
     long delay;
     boolean paused;
+    private long time = -1L;
 
     public TimerUtil() {
         this.startTime = System.currentTimeMillis();

@@ -36,13 +36,16 @@ public class TextComponent extends AbstractContainer {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {}
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+    }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {}
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+    }
 
     @Override
-    public void keyTyped(char keyChar, int key) {}
+    public void keyTyped(char keyChar, int key) {
+    }
 
     @Override
     public int getHeight() {

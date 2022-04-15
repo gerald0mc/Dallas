@@ -22,13 +22,13 @@ public class ModeSetting extends Setting {
         this.modeIndex = indexOf(defaultMode);
     }
 
+    public String getMode() {
+        return modes[modeIndex];
+    }
+
     public void setMode(String mode) {
         int i = indexOf(mode);
         modeIndex = i == -1 ? 0 : i;
-    }
-
-    public String getMode() {
-        return modes[modeIndex];
     }
 
     public String[] getModes() {

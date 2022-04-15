@@ -4,10 +4,8 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
-import me.gerald.dallas.utils.InventoryUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.init.Items;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -24,7 +22,7 @@ public class ServerComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         String server = "Singleplayer";
         ServerData data = Minecraft.getMinecraft().getCurrentServerData();
-        if(data != null) {
+        if (data != null) {
             server = data.serverIP;
         }
         this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Server: " + server);
@@ -34,8 +32,8 @@ public class ServerComponent extends HUDContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0)
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0)
                 beginDragging(mouseX, mouseY);
         }
     }
@@ -46,7 +44,8 @@ public class ServerComponent extends HUDContainer {
     }
 
     @Override
-    public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {}
+    public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
+    }
 
     @Override
     public int getHeight() {

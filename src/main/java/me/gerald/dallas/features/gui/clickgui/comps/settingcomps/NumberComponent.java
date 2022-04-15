@@ -27,6 +27,16 @@ public class NumberComponent extends SettingComponent {
         this.height = height;
     }
 
+    public static float roundToPlace(float value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.floatValue();
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateSliderLogic(mouseX);
@@ -38,11 +48,11 @@ public class NumberComponent extends SettingComponent {
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
         Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if(last) {
+        if (last) {
             //bottom line
             Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
         }
-        if(isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A number setting called (" + setting.getName() + ").";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A number setting called (" + setting.getName() + ").") + 3;
         }
@@ -50,8 +60,8 @@ public class NumberComponent extends SettingComponent {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY)) {
-            if(mouseButton == 0) {
+        if (isInside(mouseX, mouseY)) {
+            if (mouseButton == 0) {
                 dragging = !dragging;
             }
         }
@@ -59,12 +69,13 @@ public class NumberComponent extends SettingComponent {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        if(dragging)
+        if (dragging)
             dragging = false;
     }
 
     @Override
-    public void keyTyped(char keyChar, int key) {}
+    public void keyTyped(char keyChar, int key) {
+    }
 
     @Override
     public int getHeight() {
@@ -84,15 +95,5 @@ public class NumberComponent extends SettingComponent {
                 setting.setValue(value);
             }
         }
-    }
-
-    public static float roundToPlace(float value, int places) {
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.floatValue();
     }
 }

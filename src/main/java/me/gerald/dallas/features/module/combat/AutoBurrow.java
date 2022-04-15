@@ -23,30 +23,29 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoBurrow extends Module {
+    public NumberSetting distanceToAct = register(new NumberSetting("DistanceToAct", 7, 1, 10));
+    public NumberSetting offset = register(new NumberSetting("Offset", 7, -20, 20));
+    public int oldSlot = -1;
+
     public AutoBurrow() {
         super("AutoBurrow", Category.COMBAT, "Automatically burrows the player.");
     }
 
-    public NumberSetting distanceToAct = register(new NumberSetting("DistanceToAct", 7, 1, 10));
-    public NumberSetting offset = register(new NumberSetting("Offset", 7, -20, 20));
-
-    public int oldSlot = -1;
-
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         BlockPos playerPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
         EntityPlayer entity = BlockUtil.findClosestPlayer();
-        if(entity == null) return;
-        if(entity.getDistance(mc.player) >= distanceToAct.getValue()) return;
-        if(mc.world.getBlockState(playerPos).getBlock() == Blocks.OBSIDIAN) return;
-        if(mc.player.isInWater() || mc.player.isInLava() || mc.player.isOnLadder() || !mc.player.onGround) return;
-        if(intersectsWithEntity(playerPos)) return;
+        if (entity == null) return;
+        if (entity.getDistance(mc.player) >= distanceToAct.getValue()) return;
+        if (mc.world.getBlockState(playerPos).getBlock() == Blocks.OBSIDIAN) return;
+        if (mc.player.isInWater() || mc.player.isInLava() || mc.player.isOnLadder() || !mc.player.onGround) return;
+        if (intersectsWithEntity(playerPos)) return;
         int obbySlot = InventoryUtil.getItemHotbar(Item.getItemFromBlock(Blocks.OBSIDIAN));
-        if(obbySlot != -1) {
+        if (obbySlot != -1) {
             oldSlot = mc.player.inventory.currentItem;
             InventoryUtil.switchToSlot(obbySlot);
-        }else {
+        } else {
             MessageUtil.sendMessage("You have no Obsidian to burrow with toggling!");
             toggle();
             return;
@@ -74,10 +73,10 @@ public class AutoBurrow extends Module {
     }
 
     public boolean intersectsWithEntity(BlockPos pos) {
-        for(Entity entity : mc.world.loadedEntityList) {
-            if(entity.equals(mc.player)) continue;
-            if(entity instanceof EntityItem) continue;
-            if(new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox())) return true;
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (entity.equals(mc.player)) continue;
+            if (entity instanceof EntityItem) continue;
+            if (new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox())) return true;
         }
         return false;
     }
