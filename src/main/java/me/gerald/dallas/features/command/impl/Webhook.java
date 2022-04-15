@@ -8,19 +8,19 @@ import me.gerald.dallas.utils.MessageUtil;
 
 public class Webhook extends Command {
     public Webhook() {
-        super("Webhook", "Webhook stuff.", new String[] {"webhook", "[set [webhook/url]/start]"});
+        super("Webhook", "Webhook stuff.", new String[]{"webhook", "[set [webhook/url]/start]"});
     }
 
     @Override
     public void onCommand(String[] args) {
         super.onCommand(args);
-        if(args.length == 1) {
+        if (args.length == 1) {
             MessageUtil.sendMessage("Please specify which sub command you would like to use.");
             return;
         }
         switch (args[1]) {
             case "set":
-                if(args.length == 2) {
+                if (args.length == 2) {
                     MessageUtil.sendMessage("Please specify either set webhook or message.");
                     return;
                 }
@@ -32,7 +32,7 @@ public class Webhook extends Command {
                         break;
                     case "message":
                         StringBuilder string = new StringBuilder(args[3]);
-                        for(int i = 1; i < (args.length - 3); i++) {
+                        for (int i = 1; i < (args.length - 3); i++) {
                             string.append(" ").append(args[(3 + i)]);
                         }
                         Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).message.setValue(string.toString());

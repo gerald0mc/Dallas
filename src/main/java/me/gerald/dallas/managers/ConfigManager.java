@@ -134,9 +134,9 @@ public class ConfigManager {
 
     public static String[] getStringValue(Setting setting, String[] line) {
         String[] value = new String[line.length - 2];
-        for(int i = 0; i < line.length; i++) {
-            if(line[i].equalsIgnoreCase("setting")) continue;
-            if(line[i].equalsIgnoreCase(setting.getName())) continue;
+        for (int i = 0; i < line.length; i++) {
+            if (line[i].equalsIgnoreCase("setting")) continue;
+            if (line[i].equalsIgnoreCase(setting.getName())) continue;
             value[i] = line[2 + i];
         }
         return value;
