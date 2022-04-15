@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AntiTrap extends Module {
-    public BooleanSetting fullAnti = this.register(new BooleanSetting("FullAnti", true));
-    public BooleanSetting alwaysActive = this.register(new BooleanSetting("AlwaysActive", false));
-    public NumberSetting distanceToActivate = this.register(new NumberSetting("DistanceToAct", 10, 0, 30));
+    public BooleanSetting fullAnti = register(new BooleanSetting("FullAnti", true));
+    public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
+    public NumberSetting distanceToActivate = register(new NumberSetting("DistanceToAct", 10, 0, 30));
 
     public AntiTrap() {
         super("AntiTrap", Category.COMBAT, "Places a crystal on the block next to you so you cannot be trapped.");
@@ -27,10 +27,10 @@ public class AntiTrap extends Module {
         BlockPos targetPos = BlockUtil.canPlaceCrystalSurround(playerPos);
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = BlockUtil.findClosestPlayer();
-        if (player != null && mc.player.getDistance(player) > this.distanceToActivate.getValue() && !this.alwaysActive.getValue())
+        if (player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue())
             return;
-        if (player == null && !this.alwaysActive.getValue()) return;
-        if (targetPos != null && this.fullAnti.getValue()) {
+        if (player == null && !alwaysActive.getValue()) return;
+        if (targetPos != null && fullAnti.getValue()) {
             BlockUtil.placeBlock(targetPos, true, Items.END_CRYSTAL);
         } else if (preTrapPos != null) {
             BlockUtil.placeBlock(preTrapPos, true, Items.END_CRYSTAL);

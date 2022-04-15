@@ -22,8 +22,8 @@ public class Module {
         this.name = name;
         this.category = category;
         this.description = description;
-        this.keybind = name.equalsIgnoreCase("gui") ? Keyboard.KEY_U : Keyboard.KEY_NONE;
-        this.settings = new ArrayList<>();
+        keybind = name.equalsIgnoreCase("gui") ? Keyboard.KEY_U : Keyboard.KEY_NONE;
+        settings = new ArrayList<>();
     }
 
     public static boolean nullCheck() {
@@ -31,7 +31,7 @@ public class Module {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -39,7 +39,7 @@ public class Module {
     }
 
     public Category getCategory() {
-        return this.category;
+        return category;
     }
 
     public void setCategory(Category category) {
@@ -47,7 +47,7 @@ public class Module {
     }
 
     public int getKeybind() {
-        return this.keybind;
+        return keybind;
     }
 
     public void setKeybind(int keybind) {
@@ -55,7 +55,7 @@ public class Module {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -63,28 +63,28 @@ public class Module {
     }
 
     public <T extends Setting> T register(T setting) {
-        this.settings.add(setting);
+        settings.add(setting);
         return setting;
     }
 
     public List<Setting> getSettings() {
-        return this.settings;
+        return settings;
     }
 
     public boolean isEnabled() {
-        return this.isEnabled;
+        return isEnabled;
     }
 
     public void setEnabled(boolean enabled) {
-        this.isEnabled = enabled;
+        isEnabled = enabled;
     }
 
     public void toggle() {
-        this.isEnabled = !this.isEnabled;
-        if (this.isEnabled)
-            this.enable();
+        isEnabled = !isEnabled;
+        if (isEnabled)
+            enable();
         else
-            this.disable();
+            disable();
     }
 
     public void onEnable() {
@@ -93,7 +93,7 @@ public class Module {
     public void enable() {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
-        this.onEnable();
+        onEnable();
     }
 
     public void onDisable() {
@@ -102,7 +102,7 @@ public class Module {
     public void disable() {
         MinecraftForge.EVENT_BUS.unregister(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Disable(this));
-        this.onDisable();
+        onDisable();
     }
 
     public enum Category {

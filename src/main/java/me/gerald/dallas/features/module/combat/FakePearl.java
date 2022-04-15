@@ -40,7 +40,7 @@ public class FakePearl extends Module {
                                 mc.player.movementInput.moveStrafe = 0.0f;
                                 // send rubberband packet
                                 mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1.0, mc.player.posZ, false));
-                                this.thrownPearlId = packet.getEntityID();
+                                thrownPearlId = packet.getEntityID();
                             }
                         });
             }
@@ -49,9 +49,9 @@ public class FakePearl extends Module {
 
     @SubscribeEvent
     public void onPacketS(PacketEvent.Send event) {
-        if (this.thrownPearlId != -1 && event.getPacket() instanceof CPacketPlayer) {
+        if (thrownPearlId != -1 && event.getPacket() instanceof CPacketPlayer) {
             CPacketPlayer packet = (CPacketPlayer) event.getPacket();
-            this.packets.add(packet);
+            packets.add(packet);
             event.setCanceled(true);
         }
     }
@@ -59,20 +59,20 @@ public class FakePearl extends Module {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (this.thrownPearlId != -1) {
+        if (thrownPearlId != -1) {
             for (Entity entity : mc.world.loadedEntityList) {
-                if (entity.getEntityId() == this.thrownPearlId && entity instanceof EntityEnderPearl) {
+                if (entity.getEntityId() == thrownPearlId && entity instanceof EntityEnderPearl) {
                     EntityEnderPearl pearl = (EntityEnderPearl) entity;
                     if (pearl.isDead) {
-                        this.thrownPearlId = -1;
+                        thrownPearlId = -1;
                     }
                 }
             }
         } else {
-            if (!this.packets.isEmpty()) {
+            if (!packets.isEmpty()) {
                 do {
-                    mc.player.connection.sendPacket(this.packets.poll());
-                } while (!this.packets.isEmpty());
+                    mc.player.connection.sendPacket(packets.poll());
+                } while (!packets.isEmpty());
             }
         }
     }

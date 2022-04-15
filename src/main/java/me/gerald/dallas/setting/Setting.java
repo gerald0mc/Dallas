@@ -6,7 +6,7 @@ public class Setting {
 
     public Setting(String name) {
         this.name = name;
-        this.visibility = null;
+        visibility = null;
     }
 
     public Setting(String name, Visibility visibility) {
@@ -15,7 +15,7 @@ public class Setting {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -23,8 +23,8 @@ public class Setting {
     }
 
     public boolean isVisible() {
-        if (this.visibility == null)
+        if (visibility == null)
             return true;
-        return this.visibility.visible();
+        return visibility.visible();
     }
 }

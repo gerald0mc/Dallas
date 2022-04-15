@@ -12,52 +12,52 @@ public class ModeSetting extends Setting {
         super(name);
         this.defaultMode = defaultMode;
         this.modes = modes;
-        this.modeIndex = this.indexOf(defaultMode);
+        modeIndex = indexOf(defaultMode);
     }
 
     public ModeSetting(String name, String defaultMode, Visibility visibility, String... modes) {
         super(name, visibility);
         this.defaultMode = defaultMode;
         this.modes = modes;
-        this.modeIndex = this.indexOf(defaultMode);
+        modeIndex = indexOf(defaultMode);
     }
 
     public String getMode() {
-        return this.modes[this.modeIndex];
+        return modes[modeIndex];
     }
 
     public void setMode(String mode) {
-        int i = this.indexOf(mode);
-        this.modeIndex = i == -1 ? 0 : i;
+        int i = indexOf(mode);
+        modeIndex = i == -1 ? 0 : i;
     }
 
     public String[] getModes() {
-        return this.modes;
+        return modes;
     }
 
     public String getDefaultMode() {
-        return this.defaultMode;
+        return defaultMode;
     }
 
     public void increase() {
-        if (this.modeIndex == this.modes.length - 1) {
-            this.modeIndex = 0;
+        if (modeIndex == modes.length - 1) {
+            modeIndex = 0;
         } else {
-            this.modeIndex++;
+            modeIndex++;
         }
     }
 
     public void decrease() {
-        if (this.modeIndex == 0) {
-            this.modeIndex = this.modes.length - 1;
+        if (modeIndex == 0) {
+            modeIndex = modes.length - 1;
         } else {
-            this.modeIndex--;
+            modeIndex--;
         }
     }
 
     public int indexOf(String name) {
-        for (int i = 0; i < this.modes.length; i++) {
-            if (this.modes[i].equals(name))
+        for (int i = 0; i < modes.length; i++) {
+            if (modes[i].equals(name))
                 return i;
         }
 

@@ -33,9 +33,9 @@ public class CategoryComponent extends AbstractContainer {
             Iterator<Module> iterator = Yeehaw.INSTANCE.moduleManager.getCategory(category).iterator();
             while (iterator.hasNext()) {
                 Module element = iterator.next();
-                this.modules.add(new ModuleComponent(element, category, x, y, width, height));
+                modules.add(new ModuleComponent(element, category, x, y, width, height));
                 if (!iterator.hasNext()) {
-                    this.modules.get(this.modules.size() - 1).lastModule = true;
+                    modules.get(modules.size() - 1).lastModule = true;
                 }
             }
         }
@@ -43,47 +43,47 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (this.dragging) {
-            this.x = this.dragX + mouseX;
-            this.y = this.dragY + mouseY;
+        if (dragging) {
+            x = dragX + mouseX;
+            y = dragY + mouseY;
         }
         float alignment = 0;
         String text = null;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAllignment.getMode()) {
             case "Middle":
-                alignment = this.x + this.width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((this.open ? "> " : "V ") + this.category.toString()) / 2f);
-                text = (this.open ? "> " : "V ") + this.category.toString();
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString()) / 2f);
+                text = (open ? "> " : "V ") + category.toString();
                 break;
             case "Left":
-                alignment = this.x + 2f;
-                text = (this.open ? "> " : "V ") + this.category.toString();
+                alignment = x + 2f;
+                text = (open ? "> " : "V ") + category.toString();
                 break;
             case "Right":
-                alignment = this.x + this.width - Minecraft.getMinecraft().fontRenderer.getStringWidth(this.category.toString() + (this.open ? " >" : " V")) - 2;
-                text = this.category.toString() + (this.open ? " >" : " V");
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + (open ? " >" : " V")) - 2;
+                text = category.toString() + (open ? " >" : " V");
                 break;
         }
-        Gui.drawRect(this.x - 2, this.y, this.x + this.width + 2, this.y + this.height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        Gui.drawRect(x - 2, y, x + width + 2, y + height, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
         //borders
         //top lines
-        Gui.drawRect(this.x - 2, this.y, this.x + this.width + 2, this.y + 1, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());
         //left line
-        Gui.drawRect(this.x - 2, this.y, this.x - 1, this.y + this.height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x - 2, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
-        Gui.drawRect(this.x + this.width + 1, this.y, this.x + this.width + 2, this.y + this.height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x + width + 1, y, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
         //bottom line
-        Gui.drawRect(this.x - 2, this.y + this.height - 1, this.x + this.width + 2, this.y + this.height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x - 2, y + height - 1, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
 
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, this.y + 2, -1);
-        if (this.isInside(mouseX, mouseY)) {
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = this.category.toString() + " category.";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(this.category.toString() + " category.") + 3;
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
+        if (isInside(mouseX, mouseY)) {
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = category.toString() + " category.";
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + " category.") + 3;
         }
-        int yOffset = this.height;
-        for (ModuleComponent component : this.modules) {
-            if (!this.open) return;
-            component.x = this.x;
-            component.y = this.y + yOffset;
+        int yOffset = height;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
+            component.x = x;
+            component.y = y + yOffset;
             yOffset += component.getHeight();
             component.drawScreen(mouseX, mouseY, partialTicks);
         }
@@ -91,43 +91,43 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if (this.isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0) {
-                this.dragging = !this.dragging;
-                this.dragX = this.x - mouseX;
-                this.dragY = this.y - mouseY;
+                dragging = !dragging;
+                dragX = x - mouseX;
+                dragY = y - mouseY;
             } else if (mouseButton == 1) {
-                this.open = !this.open;
+                open = !open;
             }
         }
-        for (ModuleComponent component : this.modules) {
-            if (!this.open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        if (mouseButton == 0 && this.dragging) {
-            this.dragging = false;
+        if (mouseButton == 0 && dragging) {
+            dragging = false;
         }
 
-        for (ModuleComponent component : this.modules) {
-            if (!this.open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.mouseReleased(mouseX, mouseY, mouseButton);
         }
     }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
-        for (ModuleComponent component : this.modules) {
-            if (!this.open) return;
+        for (ModuleComponent component : modules) {
+            if (!open) return;
             component.keyTyped(keyChar, key);
         }
     }
 
     @Override
     public int getHeight() {
-        return this.height;
+        return height;
     }
 }

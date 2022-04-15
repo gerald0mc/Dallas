@@ -23,7 +23,7 @@ public class NumberSetting extends Setting {
     }
 
     public float getValue() {
-        return this.value;
+        return value;
     }
 
     public void setValue(float value) {
@@ -31,10 +31,10 @@ public class NumberSetting extends Setting {
     }
 
     public float getMin() {
-        return this.min;
+        return min;
     }
 
     public float getMax() {
-        return this.max;
+        return max;
     }
 }

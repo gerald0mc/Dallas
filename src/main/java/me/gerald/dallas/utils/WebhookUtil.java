@@ -38,20 +38,20 @@ public class WebhookUtil {
     }
 
     public void addEmbed(EmbedObject embed) {
-        this.embeds.add(embed);
+        embeds.add(embed);
     }
 
     public void execute() throws IOException {
-        if (this.content == null && this.embeds.isEmpty())
+        if (content == null && embeds.isEmpty())
             throw new IllegalArgumentException("Set content or add at least one EmbedObject");
         JSONObject json = new JSONObject();
-        json.put("content", this.content);
-        json.put("username", this.username);
-        json.put("avatar_url", this.avatarUrl);
-        json.put("tts", this.tts);
-        if (!this.embeds.isEmpty()) {
+        json.put("content", content);
+        json.put("username", username);
+        json.put("avatar_url", avatarUrl);
+        json.put("tts", tts);
+        if (!embeds.isEmpty()) {
             List<JSONObject> embedObjects = new ArrayList<>();
-            for (EmbedObject embed : this.embeds) {
+            for (EmbedObject embed : embeds) {
                 JSONObject jsonEmbed = new JSONObject();
                 jsonEmbed.put("title", embed.getTitle());
                 jsonEmbed.put("description", embed.getDescription());
@@ -130,7 +130,7 @@ public class WebhookUtil {
         private Author author;
 
         public String getTitle() {
-            return this.title;
+            return title;
         }
 
         public EmbedObject setTitle(String title) {
@@ -139,7 +139,7 @@ public class WebhookUtil {
         }
 
         public String getDescription() {
-            return this.description;
+            return description;
         }
 
         public EmbedObject setDescription(String description) {
@@ -148,7 +148,7 @@ public class WebhookUtil {
         }
 
         public String getUrl() {
-            return this.url;
+            return url;
         }
 
         public EmbedObject setUrl(String url) {
@@ -157,7 +157,7 @@ public class WebhookUtil {
         }
 
         public Color getColor() {
-            return this.color;
+            return color;
         }
 
         public EmbedObject setColor(Color color) {
@@ -166,47 +166,47 @@ public class WebhookUtil {
         }
 
         public Footer getFooter() {
-            return this.footer;
+            return footer;
         }
 
         public Thumbnail getThumbnail() {
-            return this.thumbnail;
+            return thumbnail;
         }
 
         public EmbedObject setThumbnail(String url) {
-            this.thumbnail = new Thumbnail(url);
+            thumbnail = new Thumbnail(url);
             return this;
         }
 
         public Image getImage() {
-            return this.image;
+            return image;
         }
 
         public EmbedObject setImage(String url) {
-            this.image = new Image(url);
+            image = new Image(url);
             return this;
         }
 
         public Author getAuthor() {
-            return this.author;
+            return author;
         }
 
         public List<Field> getFields() {
-            return this.fields;
+            return fields;
         }
 
         public EmbedObject setFooter(String text, String icon) {
-            this.footer = new Footer(text, icon);
+            footer = new Footer(text, icon);
             return this;
         }
 
         public EmbedObject setAuthor(String name, String url, String icon) {
-            this.author = new Author(name, url, icon);
+            author = new Author(name, url, icon);
             return this;
         }
 
         public EmbedObject addField(String name, String value, boolean inline) {
-            this.fields.add(new Field(name, value, inline));
+            fields.add(new Field(name, value, inline));
             return this;
         }
 
@@ -221,11 +221,11 @@ public class WebhookUtil {
             }
 
             private String getText() {
-                return this.text;
+                return text;
             }
 
             private String getIconUrl() {
-                return this.iconUrl;
+                return iconUrl;
             }
         }
 
@@ -237,7 +237,7 @@ public class WebhookUtil {
             }
 
             private String getUrl() {
-                return this.url;
+                return url;
             }
         }
 
@@ -249,7 +249,7 @@ public class WebhookUtil {
             }
 
             private String getUrl() {
-                return this.url;
+                return url;
             }
         }
 
@@ -267,15 +267,15 @@ public class WebhookUtil {
             }
 
             private String getName() {
-                return this.name;
+                return name;
             }
 
             private String getUrl() {
-                return this.url;
+                return url;
             }
 
             private String getIconUrl() {
-                return this.iconUrl;
+                return iconUrl;
             }
         }
 
@@ -293,15 +293,15 @@ public class WebhookUtil {
             }
 
             private String getName() {
-                return this.name;
+                return name;
             }
 
             private String getValue() {
-                return this.value;
+                return value;
             }
 
             private boolean isInline() {
-                return this.inline;
+                return inline;
             }
         }
     }
@@ -317,11 +317,11 @@ public class WebhookUtil {
         }
 
         private String getText() {
-            return this.text;
+            return text;
         }
 
         private String getIconUrl() {
-            return this.iconUrl;
+            return iconUrl;
         }
     }
 
@@ -333,7 +333,7 @@ public class WebhookUtil {
         }
 
         private String getUrl() {
-            return this.url;
+            return url;
         }
     }
 
@@ -345,7 +345,7 @@ public class WebhookUtil {
         }
 
         private String getUrl() {
-            return this.url;
+            return url;
         }
     }
 
@@ -363,15 +363,15 @@ public class WebhookUtil {
         }
 
         private String getName() {
-            return this.name;
+            return name;
         }
 
         private String getUrl() {
-            return this.url;
+            return url;
         }
 
         private String getIconUrl() {
-            return this.iconUrl;
+            return iconUrl;
         }
     }
 
@@ -389,15 +389,15 @@ public class WebhookUtil {
         }
 
         private String getName() {
-            return this.name;
+            return name;
         }
 
         private String getValue() {
-            return this.value;
+            return value;
         }
 
         private boolean isInline() {
-            return this.inline;
+            return inline;
         }
     }
 
@@ -409,19 +409,19 @@ public class WebhookUtil {
 
         void put(String key, Object value) {
             if (value != null)
-                this.map.put(key, value);
+                map.put(key, value);
         }
 
         public String toString() {
             StringBuilder builder = new StringBuilder();
-            Set<Map.Entry<String, Object>> entrySet = this.map.entrySet();
+            Set<Map.Entry<String, Object>> entrySet = map.entrySet();
             builder.append("{");
             int i = 0;
             for (Map.Entry<String, Object> entry : entrySet) {
                 Object val = entry.getValue();
-                builder.append(this.quote(entry.getKey())).append(":");
+                builder.append(quote(entry.getKey())).append(":");
                 if (val instanceof String) {
-                    builder.append(this.quote(String.valueOf(val)));
+                    builder.append(quote(String.valueOf(val)));
                 } else if (val instanceof Integer) {
                     builder.append(Integer.valueOf(String.valueOf(val)));
                 } else if (val instanceof Boolean) {

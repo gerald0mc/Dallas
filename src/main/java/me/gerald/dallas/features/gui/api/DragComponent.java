@@ -9,19 +9,19 @@ public abstract class DragComponent extends AbstractContainer {
     }
 
     protected void beginDragging(int mouseX, int mouseY) {
-        this.dragging = true;
-        this.dragX = mouseX - this.x;
-        this.dragY = mouseY - this.y;
+        dragging = true;
+        dragX = mouseX - x;
+        dragY = mouseY - y;
     }
 
     protected void stopDragging() {
-        this.dragging = false;
+        dragging = false;
     }
 
     protected void updateDragPosition(int mouseX, int mouseY) {
-        if (this.dragging) {
-            this.x = mouseX - this.dragX;
-            this.y = mouseY - this.dragY;
+        if (dragging) {
+            x = mouseX - dragX;
+            y = mouseY - dragY;
         }
     }
 }

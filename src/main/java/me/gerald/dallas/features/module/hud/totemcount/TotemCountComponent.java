@@ -19,24 +19,24 @@ public class TotemCountComponent extends HUDContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.updateDragPosition(mouseX, mouseY);
+        updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Totems: " + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));
-        this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Totems" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING), this.x, this.y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Totems: " + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Totems" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if (this.isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
-                this.beginDragging(mouseX, mouseY);
+                beginDragging(mouseX, mouseY);
         }
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        this.stopDragging();
+        stopDragging();
     }
 
     @Override
@@ -45,6 +45,6 @@ public class TotemCountComponent extends HUDContainer {
 
     @Override
     public int getHeight() {
-        return this.height;
+        return height;
     }
 }

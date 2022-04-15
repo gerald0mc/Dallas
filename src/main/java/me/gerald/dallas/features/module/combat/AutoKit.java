@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoKit extends Module {
-    public StringSetting kitName = this.register(new StringSetting("KitName", "autoKit"));
-    public NumberSetting delay = this.register(new NumberSetting("Delay", 50, 0, 250));
+    public StringSetting kitName = register(new StringSetting("KitName", "autoKit"));
+    public NumberSetting delay = register(new NumberSetting("Delay", 50, 0, 250));
     public boolean hasDied = false;
     public TimerUtil timer = new TimerUtil();
 
@@ -20,25 +20,25 @@ public class AutoKit extends Module {
 
     @SubscribeEvent
     public void onDeath(DeathEvent event) {
-        if (event.getEntity() == mc.player && !this.hasDied)
-            this.hasDied = true;
+        if (event.getEntity() == mc.player && !hasDied)
+            hasDied = true;
     }
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (this.hasDied && mc.player.isEntityAlive() && !mc.player.isDead && mc.player.getHealth() > 1) {
-            if (this.timer.passedMs((long) this.delay.getValue())) {
-                mc.player.sendChatMessage("/kit " + this.kitName.getValue());
-                this.timer.reset();
-                this.hasDied = false;
+        if (hasDied && mc.player.isEntityAlive() && !mc.player.isDead && mc.player.getHealth() > 1) {
+            if (timer.passedMs((long) delay.getValue())) {
+                mc.player.sendChatMessage("/kit " + kitName.getValue());
+                timer.reset();
+                hasDied = false;
             }
         }
     }
 
     @Override
     public void onDisable() {
-        if (this.hasDied)
-            this.hasDied = false;
+        if (hasDied)
+            hasDied = false;
     }
 }

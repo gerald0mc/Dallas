@@ -17,7 +17,7 @@ public class CoordinatesComponent extends HUDContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.updateDragPosition(mouseX, mouseY);
+        updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
         int playerX = (int) Minecraft.getMinecraft().player.posX;
         int playerZ = (int) Minecraft.getMinecraft().player.posZ;
@@ -30,22 +30,22 @@ public class CoordinatesComponent extends HUDContainer {
         } else if (Minecraft.getMinecraft().player.dimension == 0 && Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).nether.getValue()) {
             coordinates += ChatFormatting.RED + " [" + ChatFormatting.GRAY + ((int) Minecraft.getMinecraft().player.posX / 8) + " " + (int) Minecraft.getMinecraft().player.posY + " " + ((int) Minecraft.getMinecraft().player.posZ / 8) + ChatFormatting.RED + "]";
         }
-        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates);
-        this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, this.x, this.y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates);
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).red.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).green.getValue() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).blue.getValue() / 255f).getRGB());
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if (this.isInside(mouseX, mouseY)) {
+        if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
-                this.beginDragging(mouseX, mouseY);
+                beginDragging(mouseX, mouseY);
         }
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        this.stopDragging();
+        stopDragging();
     }
 
     @Override
@@ -54,6 +54,6 @@ public class CoordinatesComponent extends HUDContainer {
 
     @Override
     public int getHeight() {
-        return this.height;
+        return height;
     }
 }

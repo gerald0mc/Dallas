@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spammer extends Module {
-    public NumberSetting delay = this.register(new NumberSetting("Delay", 3, 0.1f, 5));
-    public BooleanSetting messageCounter = this.register(new BooleanSetting("MessageCounter", true));
+    public NumberSetting delay = register(new NumberSetting("Delay", 3, 0.1f, 5));
+    public BooleanSetting messageCounter = register(new BooleanSetting("MessageCounter", true));
     public TimerUtil timer = new TimerUtil();
     public List<String> messages = new ArrayList<>();
     public int messageCount = 0;
@@ -35,7 +35,7 @@ public class Spammer extends Module {
             try {
                 autoGGFile.createNewFile();
                 MessageUtil.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.");
-                this.toggle();
+                toggle();
             } catch (IOException ignored) {
             }
         }
@@ -44,16 +44,16 @@ public class Spammer extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (this.timer.passedMs((long) (this.delay.getValue() * 1000))) {
-            FileUtil.loadMessages(this.messages, this.filePath);
-            mc.player.sendChatMessage(FileUtil.getRandomMessageWithDefault(this.messages, "I haven't added anything to my spammer yet!", this.filePath) + (this.messageCounter.getValue() ? " | " + this.messageCount : ""));
-            this.messageCount++;
-            this.timer.reset();
+        if (timer.passedMs((long) (delay.getValue() * 1000))) {
+            FileUtil.loadMessages(messages, filePath);
+            mc.player.sendChatMessage(FileUtil.getRandomMessageWithDefault(messages, "I haven't added anything to my spammer yet!", filePath) + (messageCounter.getValue() ? " | " + messageCount : ""));
+            messageCount++;
+            timer.reset();
         }
     }
 
     @Override
     public void onDisable() {
-        this.messageCount = 0;
+        messageCount = 0;
     }
 }
