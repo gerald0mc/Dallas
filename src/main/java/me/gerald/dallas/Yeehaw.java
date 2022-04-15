@@ -18,13 +18,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(
         modid = Yeehaw.MOD_ID,
         name = Yeehaw.MOD_NAME,
-        version = Yeehaw.VERSION
+        version = Yeehaw.VERSION,
+        guiFactory = Yeehaw.GUI_HOOK
 )
 public class Yeehaw {
     //cum
     public static final String MOD_ID = "dallas";
     public static final String MOD_NAME = "Dallas";
     public static final String VERSION = "1.0";
+    public static final String GUI_HOOK = "me.gerald.dallas.features.gui.api.ForgeConfigHook";
 
     public ModuleManager moduleManager;
     public EventManager eventManager;
