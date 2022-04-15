@@ -22,8 +22,10 @@ public class Yeehaw {
     public static final String MOD_NAME = "Dallas";
     public static final String VERSION = "1.0";
     public static final String GUI_HOOK = "me.gerald.dallas.features.gui.api.ForgeConfigHook";
+
     @Mod.Instance(MOD_ID)
     public static Yeehaw INSTANCE;
+
     public ModuleManager moduleManager;
     public EventManager eventManager;
     public ConfigManager configManager;
