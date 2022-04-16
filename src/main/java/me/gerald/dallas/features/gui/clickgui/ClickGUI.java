@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClickGUI extends GuiScreen {
-    public static final String DEFAULT_DESCRIPTION_TEXT = "Description's will appear here.";
+    public static final String DEFAULT_DESCRIPTION_TEXT = "The module's description will appear here.";
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 25, 35, 100, 11);
 
     public List<CategoryComponent> categories = new ArrayList<>();
