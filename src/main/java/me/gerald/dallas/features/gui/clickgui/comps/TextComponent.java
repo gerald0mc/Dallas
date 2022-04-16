@@ -1,14 +1,14 @@
 package me.gerald.dallas.features.gui.clickgui.comps;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.gui.api.AbstractContainer;
+import me.gerald.dallas.features.gui.api.DragComponent;
 import me.gerald.dallas.features.module.client.GUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 
-public class TextComponent extends AbstractContainer {
+public class TextComponent extends DragComponent {
     public String text;
 
     public TextComponent(String text, int x, int y, int width, int height) {

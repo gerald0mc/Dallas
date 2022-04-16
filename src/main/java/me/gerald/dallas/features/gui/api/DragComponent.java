@@ -8,17 +8,17 @@ public abstract class DragComponent extends AbstractContainer {
         super(x, y, width, height);
     }
 
-    protected void beginDragging(int mouseX, int mouseY) {
+    public void beginDragging(int mouseX, int mouseY) {
         dragging = true;
         dragX = mouseX - x;
         dragY = mouseY - y;
     }
 
-    protected void stopDragging() {
+    public void stopDragging() {
         dragging = false;
     }
 
-    protected void updateDragPosition(int mouseX, int mouseY) {
+    public void updateDragPosition(int mouseX, int mouseY) {
         if (dragging) {
             x = mouseX - dragX;
             y = mouseY - dragY;

@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClickGUI extends GuiScreen {
-    public TextComponent descriptionBox = new TextComponent("Description's will appear here.", 25, 35, 100, 11);
-    public List<CategoryComponent> categories = new ArrayList<>();
+    public static final String DEFAULT_DESCRIPTION_TEXT = "Description's will appear here.";
+    public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 25, 35, 100, 11);
 
+    public List<CategoryComponent> categories = new ArrayList<>();
     private CategoryComponent priorityComponent = null;
 
     public ClickGUI() {
@@ -48,11 +49,17 @@ public class ClickGUI extends GuiScreen {
                 }
             }
         }
+
+        descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
-        if (descriptionBox.width != 156)
+        if (descriptionBox.width != 156) {
             descriptionBox.width = 156;
-        if (!descriptionBox.text.equalsIgnoreCase("Description's will appear here."))
-            descriptionBox.text = "Description's will appear here.";
+        }
+
+        if (!descriptionBox.text.equalsIgnoreCase(DEFAULT_DESCRIPTION_TEXT)) {
+            descriptionBox.text = DEFAULT_DESCRIPTION_TEXT;
+        }
+
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -65,7 +72,6 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
-
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
                 if (module.isEnabled()) {
@@ -74,6 +80,11 @@ public class ClickGUI extends GuiScreen {
                 }
             }
         }
+
+        if (mouseButton == 0 && descriptionBox.isInside(mouseX, mouseY)) {
+            descriptionBox.beginDragging(mouseX, mouseY);
+        }
+
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
@@ -90,6 +101,11 @@ public class ClickGUI extends GuiScreen {
                 }
             }
         }
+
+        if (state == 0 && descriptionBox.isDragging()) {
+            descriptionBox.stopDragging();
+        }
+
         super.mouseReleased(mouseX, mouseY, state);
     }
 
