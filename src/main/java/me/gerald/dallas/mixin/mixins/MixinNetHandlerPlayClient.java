@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = {NetHandlerPlayClient.class})
 public class MixinNetHandlerPlayClient {
     @Inject(method = {"handleEntityMetadata"}, at = {@At(value = "RETURN")})
-    private void handleEntityMetadataHook(SPacketEntityMetadata packetIn, CallbackInfo info) {
+    public void handleEntityMetadataHook(SPacketEntityMetadata packetIn, CallbackInfo info) {
         EntityPlayer player;
         Entity entity;
         if (Minecraft.getMinecraft().world != null && (entity = Minecraft.getMinecraft().world.getEntityByID(packetIn.getEntityId())) instanceof EntityPlayer && (player = (EntityPlayer) entity).getHealth() <= 0.0f) {

@@ -1,4 +1,4 @@
-package me.gerald.dallas.utils;
+package me.gerald.dallas.managers.friend;
 
 public class FriendConstructor {
     private final String name;

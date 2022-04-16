@@ -3,6 +3,8 @@ package me.gerald.dallas;
 import me.gerald.dallas.event.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.managers.*;
+import me.gerald.dallas.managers.friend.FriendManager;
+import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -35,7 +37,6 @@ public class Yeehaw {
     public ConfigManager configManager;
     public CommandManager commandManager;
     public FriendManager friendManager;
-    public RotationManager rotationManager;
     public NotificationManager notificationManager;
     public CPSManager cpsManager;
     public ClickGUI clickGUI;
@@ -50,7 +51,6 @@ public class Yeehaw {
         configManager = new ConfigManager();
         friendManager = new FriendManager();
         eventManager = new EventManager();
-        rotationManager = new RotationManager();
         notificationManager = new NotificationManager();
         cpsManager = new CPSManager();
         clickGUI = new ClickGUI();

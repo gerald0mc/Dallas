@@ -4,7 +4,6 @@
   "package": "me.gerald.dallas.mixin.mixins",
   "refmap": "mixins.dallas.refmap.json",
   "mixins": [
-    "ICPacketPlayerMixin",
     "MixinNetworkManager"
   ],
   "client": [

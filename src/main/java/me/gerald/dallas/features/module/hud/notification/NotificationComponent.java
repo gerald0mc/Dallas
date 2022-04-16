@@ -3,7 +3,7 @@ package me.gerald.dallas.features.module.hud.notification;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
-import me.gerald.dallas.utils.NotificationConstructor;
+import me.gerald.dallas.managers.notification.NotificationConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

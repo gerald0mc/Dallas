@@ -1,4 +1,4 @@
-package me.gerald.dallas.utils;
+package me.gerald.dallas.managers.notification;
 
 public class NotificationConstructor {
     private String title;

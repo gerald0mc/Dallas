@@ -1,9 +1,8 @@
-package me.gerald.dallas.managers;
+package me.gerald.dallas.managers.notification;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.hud.notification.Notifications;
-import me.gerald.dallas.utils.MessageUtil;
-import me.gerald.dallas.utils.NotificationConstructor;
+import me.gerald.dallas.managers.notification.NotificationConstructor;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;

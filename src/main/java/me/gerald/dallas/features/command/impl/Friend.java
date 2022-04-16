@@ -4,7 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.managers.ConfigManager;
-import me.gerald.dallas.utils.FriendConstructor;
+import me.gerald.dallas.managers.friend.FriendConstructor;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;

@@ -51,7 +51,6 @@ public class ModuleManager {
         modules.add(new AutoGG());
         modules.add(new Chat());
         modules.add(new FakePlayer());
-        modules.add(new MCF());
         modules.add(new Spammer());
         modules.add(new WebhookSpammer());
         modules.add(new Window());
