@@ -16,19 +16,30 @@ public class ClickGUI extends GuiScreen {
     public TextComponent descriptionBox = new TextComponent("Description's will appear here.", 25, 35, 100, 11);
     public List<CategoryComponent> categories = new ArrayList<>();
 
+    private CategoryComponent priorityComponent = null;
+
     public ClickGUI() {
         int xOffset = 10;
         for (Module.Category category : Module.Category.values()) {
             categories.add(new CategoryComponent(category, xOffset, 50, 100, 11));
-            xOffset += 210;
+            xOffset += 110;
         }
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         for (CategoryComponent component : categories) {
+            if (component.equals(priorityComponent)) {
+                continue;
+            }
+
             component.drawScreen(mouseX, mouseY, partialTicks);
         }
+
+        if (priorityComponent != null) {
+            priorityComponent.drawScreen(mouseX, mouseY, partialTicks);
+        }
+
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
                 if (module.isEnabled()) {
@@ -49,7 +60,12 @@ public class ClickGUI extends GuiScreen {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         for (CategoryComponent component : categories) {
             component.mouseClicked(mouseX, mouseY, mouseButton);
+            if (component.isInside(mouseX, mouseY)) {
+                priorityComponent = component;
+            }
         }
+
+
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
                 if (module.isEnabled()) {
