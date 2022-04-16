@@ -27,6 +27,7 @@ public class CevPlace extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
+        if(nullCheck()) return;
         if (!alwaysActive.getValue()) return;
         if (timer.passedMs((long) delay.getValue())) {
             for (EntityPlayer p : mc.world.playerEntities) {
