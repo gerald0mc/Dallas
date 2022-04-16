@@ -1,9 +1,11 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.event.events.PacketEvent;
+import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,11 +23,10 @@ public class CPSManager {
     @SubscribeEvent
     public void onPacketS(PacketEvent.Send event) {
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
-            if (Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
+            if (Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL)
                 usage++;
-            } else if (Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+            else if (Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL)
                 usage++;
-            }
         }
     }
 

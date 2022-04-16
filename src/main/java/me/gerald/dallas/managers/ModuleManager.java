@@ -34,6 +34,7 @@ public class ModuleManager {
         modules.add(new CevPlace());
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
+        modules.add(new TotemPopCounter());
         modules.add(new Velocity());
         //hud
         modules.add(new Coordinates());

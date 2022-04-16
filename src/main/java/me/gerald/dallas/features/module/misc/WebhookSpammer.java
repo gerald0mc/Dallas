@@ -36,7 +36,7 @@ public class WebhookSpammer extends Module {
                     messagesSent = 0;
                 } else {
                     WebhookUtil webhook = new WebhookUtil(webhookURL.getValue());
-                    webhook.setContent("PWNED BY DALLAS EZ");
+                    webhook.setContent(message.getValue());
                     try {
                         webhook.execute();
                         MessageUtil.sendMessage("Executed");
