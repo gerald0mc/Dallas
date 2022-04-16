@@ -2,6 +2,7 @@ package me.gerald.dallas.features.gui.clickgui.comps;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
+import me.gerald.dallas.features.gui.api.DragComponent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
 import net.minecraft.client.Minecraft;
@@ -14,13 +15,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CategoryComponent extends AbstractContainer {
+public class CategoryComponent extends DragComponent {
     public Module.Category category;
     public List<ModuleComponent> modules = new ArrayList<>();
     boolean open = true;
-
-    private boolean dragging = false;
-    private int dragX, dragY;
 
     public CategoryComponent(Module.Category category, int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -43,10 +41,8 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (dragging) {
-            x = dragX + mouseX;
-            y = dragY + mouseY;
-        }
+        updateDragPosition(mouseX, mouseY);
+
         float alignment = 0;
         String text = null;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
@@ -93,9 +89,7 @@ public class CategoryComponent extends AbstractContainer {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0) {
-                dragging = !dragging;
-                dragX = x - mouseX;
-                dragY = y - mouseY;
+                beginDragging(mouseX, mouseY);
             } else if (mouseButton == 1) {
                 open = !open;
             }
@@ -108,8 +102,8 @@ public class CategoryComponent extends AbstractContainer {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        if (mouseButton == 0 && dragging) {
-            dragging = false;
+        if (mouseButton == 0 && isDragging()) {
+            stopDragging();
         }
 
         for (ModuleComponent component : modules) {

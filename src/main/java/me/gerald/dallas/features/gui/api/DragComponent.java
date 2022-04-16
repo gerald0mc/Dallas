@@ -24,4 +24,8 @@ public abstract class DragComponent extends AbstractContainer {
             y = mouseY - dragY;
         }
     }
+
+    public boolean isDragging() {
+        return dragging;
+    }
 }
