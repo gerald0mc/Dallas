@@ -4,9 +4,12 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
+import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.utils.InventoryUtil;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -21,9 +24,19 @@ public class GappleCountComponent extends HUDContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE));
-        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
+        switch (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).renderMode.getMode()) {
+            case "Item":
+                width = 12;
+                height = 12;
+                RenderUtil.renderItem(new ItemStack(Items.GOLDEN_APPLE), x, y);
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)), x + 10, y + 12, -1);
+                break;
+            case "Name":
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE));
+                height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
+                break;
+        }
     }
 
     @Override

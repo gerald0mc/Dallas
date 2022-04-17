@@ -5,7 +5,7 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class Notifications extends HUDModule {
     public Notifications() {
-        super(new NotificationComponent(1, 11, 1, 1), "Notifications", Category.HUD, "Shows the players ping.");
+        super(new NotificationsComponent(1, 151, 1, 1), "Notifications", Category.HUD, "Shows the players ping.");
     }
 
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1, 5));

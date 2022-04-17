@@ -1,6 +1,11 @@
 package me.gerald.dallas.utils;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
@@ -38,5 +43,25 @@ public class RenderUtil {
     public static Color genRainbow(int delay) {
         double rainbowState = Math.ceil((double) (System.currentTimeMillis() + (long) delay) / 20.0);
         return Color.getHSBColor((float) (rainbowState % 360.0 / 360.0), 1f, 1f);
+    }
+
+    public static void renderItem(ItemStack stack, int x, int y) {
+        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+        GlStateManager.pushMatrix();
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x - 3, y + 8, 0.0F);
+        GlStateManager.scale(0.3F, 0.3F, 0.3F);
+        GlStateManager.popMatrix();
+        RenderHelper.enableGUIStandardItemLighting();
+        renderItem.zLevel = -100.0F;
+        GlStateManager.disableDepth();
+        renderItem.renderItemIntoGUI(stack, x, y);
+        GlStateManager.enableDepth();
+        renderItem.zLevel = 0.0F;
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.enableAlpha();
+        GlStateManager.disableBlend();
+        GlStateManager.disableLighting();
+        GlStateManager.popMatrix();
     }
 }

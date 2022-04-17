@@ -11,8 +11,8 @@ import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-public class NotificationComponent extends HUDContainer {
-    public NotificationComponent(int x, int y, int width, int height) {
+public class NotificationsComponent extends HUDContainer {
+    public NotificationsComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
 

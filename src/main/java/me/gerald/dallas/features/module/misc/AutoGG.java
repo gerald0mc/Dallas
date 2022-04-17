@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoGG extends Module {
-    public NumberSetting cooldown = register(new NumberSetting("Cooldown", 5, 1, 10));
+    public NumberSetting cooldown = register(new NumberSetting("Cooldown(Secs)", 5, 1, 10));
     public BooleanSetting greenText = register(new BooleanSetting("GreenText", false));
     public TimerUtil timer = new TimerUtil();
     public List<String> randomMessages = new ArrayList<>();

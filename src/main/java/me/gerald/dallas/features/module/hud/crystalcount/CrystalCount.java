@@ -1,9 +1,12 @@
 package me.gerald.dallas.features.module.hud.crystalcount;
 
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.setting.settings.ModeSetting;
 
 public class CrystalCount extends HUDModule {
     public CrystalCount() {
-        super(new CrystalCountComponent(1, 71, 1, 1), "CrystalCount", Category.HUD, "Counts your crystals.");
+        super(new CrystalCountComponent(1, 91, 1, 1), "CrystalCount", Category.HUD, "Counts your crystals.");
     }
+
+    public ModeSetting renderMode = register(new ModeSetting("RenderMode", "Item", "Item", "Name"));
 }
