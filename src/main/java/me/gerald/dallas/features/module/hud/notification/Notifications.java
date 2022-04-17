@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.module.hud.notification;
 
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class Notifications extends HUDModule {
@@ -9,4 +10,5 @@ public class Notifications extends HUDModule {
     }
 
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1, 5));
+    public BooleanSetting title = register(new BooleanSetting("Title", true));
 }

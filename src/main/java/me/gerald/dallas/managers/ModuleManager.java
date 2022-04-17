@@ -59,7 +59,9 @@ public class ModuleManager {
         //movement
         modules.add(new Sprint());
         //render
+        modules.add(new ChorusPredict());
         modules.add(new DamageESP());
+        modules.add(new ItemESP());
         modules.add(new Nametags());
         modules.add(new Waypoints());
     }

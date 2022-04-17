@@ -29,13 +29,19 @@ public class NotificationsComponent extends HUDContainer {
         }
         if(Yeehaw.INSTANCE.notificationManager.notifications.isEmpty() || !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled()) return;
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4);
-        height = 26;
+        height = Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? 26 : 13;
         int yOffset = 0;
         for(NotificationConstructor notificationConstructor : Yeehaw.INSTANCE.notificationManager.getNotifications()) {
-            Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
-            Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getTitle(), x + 4, y + 2 + yOffset, -1);
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 15 + yOffset, -1);
+            if(!Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue()) {
+                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+                Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
+            }else {
+                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+                Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getTitle(), x + 4, y + 2 + yOffset, -1);
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 15 + yOffset, -1);
+            }
             yOffset += height + 2;
         }
     }
