@@ -1,7 +1,9 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.hud.armor.Armor;
 import me.gerald.dallas.features.module.misc.*;
+import me.gerald.dallas.features.module.movement.Sprint;
 import me.gerald.dallas.features.module.render.*;
 import me.gerald.dallas.features.module.client.*;
 import me.gerald.dallas.features.module.combat.*;
@@ -35,8 +37,8 @@ public class ModuleManager {
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
         modules.add(new TotemPopCounter());
-        modules.add(new Velocity());
         //hud
+        modules.add(new Armor());
         modules.add(new Coordinates());
         modules.add(new CPS());
         modules.add(new CrystalCount());
@@ -55,6 +57,7 @@ public class ModuleManager {
         modules.add(new WebhookSpammer());
         modules.add(new Window());
         //movement
+        modules.add(new Sprint());
         //render
         modules.add(new DamageESP());
         modules.add(new Nametags());

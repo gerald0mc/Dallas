@@ -35,12 +35,12 @@ public class GappleCountComponent extends HUDContainer {
                 width = 12;
                 height = 12;
                 RenderUtil.renderItem(new ItemStack(Items.GOLDEN_APPLE), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)), x + 10, y + 12, -1);
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x + 10, y + 12, -1);
                 break;
             case "Name":
-                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE));
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""));
                 height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE), x, y, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x, y, color.getRGB());
                 break;
         }
     }

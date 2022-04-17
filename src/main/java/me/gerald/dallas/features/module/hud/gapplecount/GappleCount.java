@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.module.hud.gapplecount;
 
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 
 public class GappleCount extends HUDModule {
@@ -9,4 +10,5 @@ public class GappleCount extends HUDModule {
     }
 
     public ModeSetting renderMode = register(new ModeSetting("RendeMode", "Item", "Item", "Name"));
+    public BooleanSetting stackCount = register(new BooleanSetting("StackCount", true));
 }

@@ -53,4 +53,20 @@ public class InventoryUtil {
         Minecraft.getMinecraft().player.inventory.currentItem = slot;
         Minecraft.getMinecraft().playerController.updateController();
     }
+
+    public static String getStackTotal(double amount) {
+        double value = amount / 64;
+        if(value == 0)
+            return "x0";
+        else if(!isInteger(value))
+            return "<x" + (int) Math.ceil(value);
+        else
+            return "x" + (int) value;
+    }
+
+    public static boolean isInteger(double number) {
+        int x = (int) number;
+        double temp2 = number - x;
+        return !(temp2 > 0);
+    }
 }

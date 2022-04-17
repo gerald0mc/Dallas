@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TotemPopCounter extends Module {
     public TotemPopCounter() {
-        super("TotemPopCounter", Category.MISC, "Says in chat when someone pops.");
+        super("TotemPopCounter", Category.COMBAT, "Says in chat when someone pops.");
     }
 
     public BooleanSetting notifications = register(new BooleanSetting("Notifications", true));
