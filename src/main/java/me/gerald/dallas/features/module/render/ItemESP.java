@@ -42,7 +42,7 @@ public class ItemESP extends Module {
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(projection.x, projection.y, 0);
                 GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
-                mc.fontRenderer.drawStringWithShadow(count.getValue() ? (item.getItem().getCount() == 1 ? "" : "x" + item.getItem().getCount()) : "" + item.getItem().getDisplayName(), -(mc.fontRenderer.getStringWidth(item.getItem().getDisplayName()) / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
+                mc.fontRenderer.drawStringWithShadow((count.getValue() ? (item.getItem().getCount() == 1 ? "" : "x" + item.getItem().getCount() + " ") : "") + item.getItem().getDisplayName(), -(mc.fontRenderer.getStringWidth(item.getItem().getDisplayName()) / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
                 GlStateManager.popMatrix();
             }
         }

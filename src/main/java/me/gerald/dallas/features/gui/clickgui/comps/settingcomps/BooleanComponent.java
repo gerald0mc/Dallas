@@ -3,6 +3,7 @@ package me.gerald.dallas.features.gui.clickgui.comps.settingcomps;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.SettingComponent;
+import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.RenderUtil;
@@ -25,13 +26,7 @@ public class BooleanComponent extends SettingComponent {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        Color solidColor;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
-            solidColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
-            solidColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
-        }
-        Gui.drawRect(x, y, x + width, y + height, setting.getValue() ? solidColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
+        Gui.drawRect(x, y, x + width, y + height, setting.getValue() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + (setting.getValue() ? "True" : "False"), x + 2, y + 2f, -1);
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());

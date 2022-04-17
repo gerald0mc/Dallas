@@ -39,6 +39,7 @@ public class Yeehaw {
     public FriendManager friendManager;
     public NotificationManager notificationManager;
     public CPSManager cpsManager;
+    public FPSManager fpsManager;
     public ClickGUI clickGUI;
 
     public List<Block> searchBlocks;
@@ -54,6 +55,7 @@ public class Yeehaw {
         notificationManager = new NotificationManager();
         cpsManager = new CPSManager();
         clickGUI = new ClickGUI();
+        fpsManager = new FPSManager();
         ConfigManager.load();
         searchBlocks = new ArrayList<>();
     }
@@ -61,5 +63,6 @@ public class Yeehaw {
     @SubscribeEvent
     public void onRenderWorld(RenderWorldLastEvent event) {
         ProjectionUtil.updateMatrix();
+        fpsManager.update();
     }
 }

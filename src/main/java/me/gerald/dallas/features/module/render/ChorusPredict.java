@@ -5,17 +5,12 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.ProjectionUtil;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.network.play.client.CPacketConfirmTeleport;
-import net.minecraft.network.play.server.SPacketEntityTeleport;
-import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.HashMap;
@@ -46,6 +41,7 @@ public class ChorusPredict extends Module {
         if(nullCheck()) return;
         if(chorusPos.isEmpty()) return;
         for(Map.Entry<BlockPos, Long> entry : chorusPos.entrySet()) {
+            if(nullCheck()) return; //lol anti crash ig?
             if(System.currentTimeMillis() - entry.getValue() > timeToRemove.getValue() * 1000) {
                 chorusPos.remove(entry.getKey());
             }

@@ -3,6 +3,7 @@ package me.gerald.dallas.features.gui.clickgui.comps;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
 import me.gerald.dallas.features.gui.api.DragComponent;
+import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.utils.RenderUtil;
@@ -43,7 +44,6 @@ public class CategoryComponent extends DragComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
-
         float alignment = 0;
         String text = null;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
@@ -60,13 +60,7 @@ public class CategoryComponent extends DragComponent {
                 text = category.toString() + (open ? " >" : " V");
                 break;
         }
-        Color solidColor;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
-            solidColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
-            solidColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
-        }
-        Gui.drawRect(x - 2, y, x + width + 2, y + height, solidColor.getRGB());
+        Gui.drawRect(x - 2, y, x + width + 2, y + height, ClickGUI.clientColor.getRGB());
         //borders
         //top lines
         Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());

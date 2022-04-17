@@ -4,9 +4,13 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.clickgui.comps.CategoryComponent;
 import me.gerald.dallas.features.gui.clickgui.comps.TextComponent;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.utils.RenderUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
+import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ public class ClickGUI extends GuiScreen {
 
     public List<CategoryComponent> categories = new ArrayList<>();
     private CategoryComponent priorityComponent = null;
+    public static Color clientColor;
 
     public ClickGUI() {
         int xOffset = 10;
@@ -29,6 +34,11 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+            clientColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
+        }else {
+            clientColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
+        }
         for (CategoryComponent component : categories) {
             if (component.equals(priorityComponent)) {
                 continue;
@@ -52,14 +62,12 @@ public class ClickGUI extends GuiScreen {
 
         descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
-        if (descriptionBox.width != 156) {
-            descriptionBox.width = 156;
+        if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 1) {
+            descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT);
         }
-
         if (!descriptionBox.text.equalsIgnoreCase(DEFAULT_DESCRIPTION_TEXT)) {
             descriptionBox.text = DEFAULT_DESCRIPTION_TEXT;
         }
-
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
