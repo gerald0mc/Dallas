@@ -59,6 +59,9 @@ public class ColorComponent extends SettingComponent {
                 yOffset += component.getHeight();
                 component.drawScreen(mouseX, mouseY, partialTicks);
             }
+            rgbaSliders.get(0).changeColor = false;
+            rgbaSliders.get(1).changeColor = false;
+            rgbaSliders.get(2).changeColor = false;
             rgbaSliders.get(0).sliderColor = new Color(255, 0, 0);
             rgbaSliders.get(1).sliderColor = new Color(0, 255, 0);
             rgbaSliders.get(2).sliderColor = new Color(0, 0, 255);

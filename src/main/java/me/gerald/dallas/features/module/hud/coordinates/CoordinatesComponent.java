@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
@@ -21,6 +22,12 @@ public class CoordinatesComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         int playerX = (int) Minecraft.getMinecraft().player.posX;
         int playerZ = (int) Minecraft.getMinecraft().player.posZ;
+        Color color;
+        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+            color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
+        }else {
+            color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
+        }
         String coordinates = Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).xyz.getValue() ? "X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerZ : ChatFormatting.WHITE + (playerX + " " + (int) Minecraft.getMinecraft().player.posY + " " + playerZ);
         if (Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).spoof.getValue()) {
             playerX += (Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).spoofAmount.getValue() * 1000);
@@ -34,7 +41,7 @@ public class CoordinatesComponent extends HUDContainer {
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates);
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, x, y, color.getRGB());
     }
 
     @Override

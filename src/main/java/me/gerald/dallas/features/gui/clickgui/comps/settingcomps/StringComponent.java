@@ -29,7 +29,7 @@ public class StringComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? entryString : setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + entryString : setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
@@ -85,9 +85,8 @@ public class StringComponent extends SettingComponent {
                     }
                     break;
             }
-            if (ChatAllowedCharacters.isAllowedCharacter(keyChar)) {
-                entryString = entryString + keyChar;
-            }
+            if (ChatAllowedCharacters.isAllowedCharacter(keyChar))
+                entryString += keyChar;
         }
     }
 

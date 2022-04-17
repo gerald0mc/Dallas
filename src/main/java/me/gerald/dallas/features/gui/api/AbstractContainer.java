@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.gui.api;
 
+import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 

@@ -24,6 +24,12 @@ public class GappleCountComponent extends HUDContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
+        Color color;
+        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+            color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
+        }else {
+            color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
+        }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).renderMode.getMode()) {
             case "Item":
                 width = 12;
@@ -34,7 +40,7 @@ public class GappleCountComponent extends HUDContainer {
             case "Name":
                 width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE));
                 height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE), x, y, new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE), x, y, color.getRGB());
                 break;
         }
     }
