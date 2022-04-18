@@ -77,11 +77,11 @@ public class StringComponent extends SettingComponent {
                 case Keyboard.KEY_C:
                     if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                         if (entryString.length() == 0) {
-                            MessageUtil.sendMessage("Nothing to copy.");
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(),"Nothing to copy.", true);
                             return;
                         }
                         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entryString), null);
-                        MessageUtil.sendMessage(ChatFormatting.GRAY + "Copied text in string box to clipboard.");
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(),"Copied text in string box to clipboard.", true);
                     }
                     break;
             }

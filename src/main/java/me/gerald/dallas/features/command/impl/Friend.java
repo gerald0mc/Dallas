@@ -23,34 +23,34 @@ public class Friend extends Command {
     @Override
     public void onCommand(String[] args) {
         if (args.length == 1) {
-            MessageUtil.sendMessage("Please specify if you would like to add, remove, or list Friend.");
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "Please specify if you would like to add, remove, or list Friend.", true);
             return;
         }
         switch (args[1]) {
             case "add":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage("Please specify which player you would like to add to the Friend list.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Please specify which player you would like to add to the Friend list.", true);
                     return;
                 }
                 String playerName = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName)) {
-                    MessageUtil.sendMessage(playerName + " is already a friend.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager",playerName + " is already a friend.", true);
                 } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(playerName);
-                    MessageUtil.sendMessage("Added " + playerName + " to the Friend list.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Added " + playerName + " to the Friend list.", true);
                 }
                 break;
             case "remove":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage("Please specify which player you would like to remove from the Friend list.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Please specify which player you would like to remove from the Friend list.", true);
                     return;
                 }
                 String playerName2 = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName2)) {
                     Yeehaw.INSTANCE.friendManager.delFriend(playerName2);
-                    MessageUtil.sendMessage("Removed " + playerName2 + " from Friend list.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Removed " + playerName2 + " from Friend list.", true);
                 } else {
-                    MessageUtil.sendMessage(playerName2 + " is already not a friend.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager",playerName2 + " is already not a friend.", true);
                 }
                 break;
             case "list":
@@ -60,9 +60,9 @@ public class Friend extends Command {
                     Minecraft.getMinecraft().player.sendMessage(new TextComponentString(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Friend List"));
                     for (String friend : friends)
                         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
-                    MessageUtil.sendMessage("----------");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","----------", true);
                     for(FriendConstructor friendConstructor : Yeehaw.INSTANCE.friendManager.getFriends())
-                        MessageUtil.sendMessage(friendConstructor.getName());
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager",friendConstructor.getName(), true);
                 } catch (IOException ignored) {
                 }
                 break;

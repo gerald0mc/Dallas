@@ -9,6 +9,8 @@ public class Notifications extends HUDModule {
         super(new NotificationsComponent(1, 151, 1, 1), "Notifications", Category.HUD, "Shows the players ping.");
     }
 
-    public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1, 5));
-    public BooleanSetting title = register(new BooleanSetting("Title", true));
+    public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 3, 1, 5));
+    public BooleanSetting title = register(new BooleanSetting("Title", false));
+    public BooleanSetting moduleToggle = register(new BooleanSetting("ModuleToggle", true));
+    public BooleanSetting clientMessages = register(new BooleanSetting("ClientMessages", true));
 }

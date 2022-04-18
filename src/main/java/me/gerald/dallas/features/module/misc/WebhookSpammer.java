@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.misc;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.setting.settings.StringSetting;
@@ -30,22 +31,22 @@ public class WebhookSpammer extends Module {
         Thread thread = new Thread(() -> {
             while (isEnabled()) {
                 if (messagesSent >= messages.getValue()) {
-                    MessageUtil.sendMessage("On cooldown to avoid being rate limited.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "On cooldown to avoid being rate limited.", true);
                     delay((int) cooldown.getValue() * 1000);
-                    MessageUtil.sendMessage("No longer on cooldown, continuing webhook spam.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "No longer on cooldown, continuing webhook spam.", true);
                     messagesSent = 0;
                 } else {
                     WebhookUtil webhook = new WebhookUtil(webhookURL.getValue());
                     webhook.setContent(message.getValue());
                     try {
                         webhook.execute();
-                        MessageUtil.sendMessage("Executed");
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "Executed", true);
                         messagesSent++;
                     } catch (MalformedURLException e) {
-                        MessageUtil.sendMessage("You have entered a invalid Webhook URL.");
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "You have entered a invalid Webhook URL.", true);
                         toggle();
                     } catch (IOException exception) {
-                        MessageUtil.sendMessage("There was an error while trying to send to the webhook.");
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "There was an error while trying to send to the webhook.", true);
                     }
                     delay((int) delay.getValue() * 1000);
                 }

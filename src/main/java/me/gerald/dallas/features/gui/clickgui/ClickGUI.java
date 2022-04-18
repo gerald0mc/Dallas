@@ -62,8 +62,8 @@ public class ClickGUI extends GuiScreen {
 
         descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
-        if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 1) {
-            descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT);
+        if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3) {
+            descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3;
         }
         if (!descriptionBox.text.equalsIgnoreCase(DEFAULT_DESCRIPTION_TEXT)) {
             descriptionBox.text = DEFAULT_DESCRIPTION_TEXT;

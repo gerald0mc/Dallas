@@ -32,10 +32,12 @@ public class Yeehaw {
     @Mod.Instance(MOD_ID)
     public static Yeehaw INSTANCE;
 
+    //major client managers
     public ModuleManager moduleManager;
     public EventManager eventManager;
     public ConfigManager configManager;
     public CommandManager commandManager;
+    //secondary managers
     public FriendManager friendManager;
     public NotificationManager notificationManager;
     public CPSManager cpsManager;
@@ -47,16 +49,20 @@ public class Yeehaw {
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
+        //major managers
         moduleManager = new ModuleManager();
-        commandManager = new CommandManager();
-        configManager = new ConfigManager();
-        friendManager = new FriendManager();
         eventManager = new EventManager();
+        configManager = new ConfigManager();
+        commandManager = new CommandManager();
+        //secondary managers
+        friendManager = new FriendManager();
         notificationManager = new NotificationManager();
         cpsManager = new CPSManager();
-        clickGUI = new ClickGUI();
         fpsManager = new FPSManager();
+        clickGUI = new ClickGUI();
+
         ConfigManager.load();
+
         searchBlocks = new ArrayList<>();
     }
 

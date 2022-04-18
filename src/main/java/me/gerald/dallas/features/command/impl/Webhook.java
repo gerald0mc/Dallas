@@ -15,20 +15,20 @@ public class Webhook extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage("Please specify which sub command you would like to use.");
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Command","Please specify which sub command you would like to use.", true);
             return;
         }
         switch (args[1]) {
             case "set":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage("Please specify either set webhook or message.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Command","Please specify either set webhook or message.", true);
                     return;
                 }
                 switch (args[2]) {
                     case "url":
                         String webhookURL = args[3];
                         Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).webhookURL.setValue(webhookURL);
-                        MessageUtil.sendMessage("Set Webhook URL to " + ChatFormatting.AQUA + webhookURL);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Command","Set Webhook URL to " + ChatFormatting.AQUA + webhookURL, true);
                         break;
                     case "message":
                         StringBuilder string = new StringBuilder(args[3]);
@@ -36,7 +36,7 @@ public class Webhook extends Command {
                             string.append(" ").append(args[(3 + i)]);
                         }
                         Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).message.setValue(string.toString());
-                        MessageUtil.sendMessage("Set message to " + ChatFormatting.AQUA + string);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Command","Set message to " + ChatFormatting.AQUA + string, true);
                         break;
                 }
                 break;

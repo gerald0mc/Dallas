@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.BlockUtil;
@@ -46,7 +47,7 @@ public class AutoBurrow extends Module {
             oldSlot = mc.player.inventory.currentItem;
             InventoryUtil.switchToSlot(obbySlot);
         } else {
-            MessageUtil.sendMessage("You have no Obsidian to burrow with toggling!");
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Auto Burrow", "You have no Obsidian to burrow with toggling!", true);
             toggle();
             return;
         }

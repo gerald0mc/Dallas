@@ -41,6 +41,7 @@ public class Chams extends Module {
     public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1,5, () -> pops.getValue() || deaths.getValue()));
     public BooleanSetting fade = register(new BooleanSetting("Fade", true));
     public NumberSetting fadeSpeed = register(new NumberSetting("FadeSpeed", 1, 0.1f, 5, () -> fade.getValue() && (pops.getValue() || deaths.getValue())));
+    public BooleanSetting removePrevious = register(new BooleanSetting("RemovePrevious", true, () -> pops.getValue() || deaths.getValue()));
 
     public CopyOnWriteArrayList<Render> renderMap = new CopyOnWriteArrayList<>();
 
@@ -123,6 +124,8 @@ public class Chams extends Module {
         fakeEntity.cameraYaw = fakeEntity.rotationYaw;
         fakeEntity.cameraPitch = fakeEntity.rotationPitch;
         fakeEntity.setSneaking(event.getEntity().isSneaking());
+        if(removePrevious.getValue())
+            renderMap.removeIf(render -> render.entity == fakeEntity);
         renderMap.add(new Render(fakeEntity, System.currentTimeMillis()));
     }
 
@@ -139,6 +142,8 @@ public class Chams extends Module {
         fakeEntity.cameraYaw = fakeEntity.rotationYaw;
         fakeEntity.cameraPitch = fakeEntity.rotationPitch;
         fakeEntity.setSneaking(event.getEntity().isSneaking());
+        if(removePrevious.getValue())
+            renderMap.removeIf(render -> render.entity == fakeEntity);
         renderMap.add(new Render(fakeEntity, System.currentTimeMillis()));
     }
 

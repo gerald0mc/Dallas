@@ -40,12 +40,12 @@ public class DallasBot extends Module {
     @Override
     public void onEnable() {
         if (nullCheck()) return;
-        MessageUtil.sendMessage("For a full list of commands you can do with Dallas Bot please do dhelp.");
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot","For a full list of commands you can do with Dallas Bot please do dhelp.", true);
         File factsFile = new File(ConfigManager.clientPath, "Facts.txt");
         if (!factsFile.exists()) {
             try {
                 factsFile.createNewFile();
-                MessageUtil.sendMessage("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Facts.txt" + ChatFormatting.RESET + " and add what facts you would like to use.");
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Facts.txt" + ChatFormatting.RESET + " and add what facts you would like to use.", true);
                 try {
                     FileWriter writer = new FileWriter(factsFile, true);
                     for (String lines : facts) {
@@ -74,9 +74,9 @@ public class DallasBot extends Module {
         for (String string : strings) {
             if (string.equalsIgnoreCase("dhelp")) {
                 if (StringUtils.substringBetween(event.getMessage().getUnformattedText(), "<", ">").equalsIgnoreCase(mc.player.getDisplayNameString())) {
-                    MessageUtil.sendMessage(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands");
-                    MessageUtil.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.");
-                    MessageUtil.sendMessage(ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dtexasfact(s)" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Sends a texas fact in chat.");
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dtexasfact(s)" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Sends a texas fact in chat.", true);
                 } else {
                     if (!coolDownTimer.passedMs((long) (coolDown.getValue() * 1000))) return;
                     mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] Says all commands." + "|" + "[dtexasfact(s)] Sends texas facts in chat." + afterMessage);

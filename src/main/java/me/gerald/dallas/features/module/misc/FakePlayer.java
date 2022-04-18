@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.module.misc;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -19,7 +20,7 @@ public class FakePlayer extends Module {
             fakePlayer = new EntityOtherPlayerMP(mc.world, new GameProfile(mc.player.getUniqueID(), "Dallas"));
             fakePlayer.setPositionAndRotation(mc.player.posX, mc.player.posY, mc.player.posZ, mc.player.cameraYaw, mc.player.cameraPitch);
             mc.world.spawnEntity(fakePlayer);
-            MessageUtil.sendMessage("Spawned a Fake Player.");
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Fake Player", "Spawned a Fake Player.", true);
         }
     }
 

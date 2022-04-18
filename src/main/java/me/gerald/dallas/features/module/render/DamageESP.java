@@ -7,6 +7,7 @@ import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
