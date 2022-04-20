@@ -5,6 +5,8 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class FakePlayer extends Module {
     public EntityOtherPlayerMP fakePlayer;

@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
 import me.gerald.dallas.setting.Setting;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ public class Module {
     private Category category;
     private int keybind;
     private String description;
+    private String metaData = "";
     private boolean isEnabled = false;
 
     public Module(String name, Category category, String description) {
@@ -103,6 +105,10 @@ public class Module {
         MinecraftForge.EVENT_BUS.unregister(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Disable(this));
         onDisable();
+    }
+
+    public String getMetaData() {
+        return metaData;
     }
 
     public enum Category {

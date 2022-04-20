@@ -34,7 +34,10 @@ public class ChangeConstructor {
     public String getFullLog() {
         switch (type) {
             case MODULE:
-                return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
+                if(secondaryValue.equals(""))
+                    return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
+                else
+                    return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + secondaryValue + ChatFormatting.RESET + " to " + value;
             case COMMAND:
                 return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " command!";
             case CHANGE:

@@ -12,9 +12,11 @@ public class CommandManager {
 
     public CommandManager() {
         commands = new ArrayList<>();
-        commands.add(new Help());
-        commands.add(new Waypoint());
+        commands.add(new Emoji());
         commands.add(new Friend());
+        commands.add(new Help());
+        commands.add(new Toggle());
+        commands.add(new Waypoint());
         commands.add(new Webhook());
     }
 

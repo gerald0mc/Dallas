@@ -2,6 +2,7 @@ package me.gerald.dallas;
 
 import me.gerald.dallas.event.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
+import me.gerald.dallas.features.gui.console.ConsoleGUI;
 import me.gerald.dallas.managers.*;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
@@ -43,6 +44,7 @@ public class Yeehaw {
     public CPSManager cpsManager;
     public FPSManager fpsManager;
     public ClickGUI clickGUI;
+    public ConsoleGUI consoleGUI;
 
     public List<Block> searchBlocks;
 
@@ -60,6 +62,7 @@ public class Yeehaw {
         cpsManager = new CPSManager();
         fpsManager = new FPSManager();
         clickGUI = new ClickGUI();
+        consoleGUI = new ConsoleGUI();
 
         ConfigManager.load();
 

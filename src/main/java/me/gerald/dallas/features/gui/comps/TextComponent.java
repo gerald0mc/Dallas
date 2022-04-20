@@ -1,4 +1,4 @@
-package me.gerald.dallas.features.gui.clickgui.comps;
+package me.gerald.dallas.features.gui.comps;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.DragComponent;

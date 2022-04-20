@@ -1,15 +1,14 @@
-package me.gerald.dallas.features.gui.clickgui.comps;
+package me.gerald.dallas.features.gui.comps;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
 import me.gerald.dallas.features.gui.api.SettingComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.features.gui.clickgui.comps.settingcomps.*;
+import me.gerald.dallas.features.gui.comps.settingcomps.*;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
-import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

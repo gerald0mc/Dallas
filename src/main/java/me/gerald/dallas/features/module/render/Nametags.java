@@ -3,9 +3,11 @@ package me.gerald.dallas.features.module.render;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.misc.NameChanger;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import me.gerald.dallas.utils.BlockUtil;
 import me.gerald.dallas.utils.ProjectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -45,7 +47,10 @@ public class Nametags extends Module {
             GlStateManager.pushMatrix();
             GlStateManager.translate(projection.x, projection.y, 0);
             GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
-            str += Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString()) ? ChatFormatting.AQUA + player.getDisplayNameString() + ChatFormatting.RESET : player.getDisplayNameString();
+            if(Yeehaw.INSTANCE.moduleManager.getModule(NameChanger.class).fakeClips.getValue() && Yeehaw.INSTANCE.moduleManager.getModule(NameChanger.class).isEnabled() && !Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString()) && BlockUtil.findClosestPlayer() == player)
+                str += Yeehaw.INSTANCE.moduleManager.getModule(NameChanger.class).fakeName.getValue();
+            else
+                str += Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString()) ? ChatFormatting.AQUA + player.getDisplayNameString() + ChatFormatting.RESET : player.getDisplayNameString();
             if(ping.getValue())
                 str += " " + ChatFormatting.GRAY + MathHelper.ceil(Objects.requireNonNull(Minecraft.getMinecraft().getConnection()).getPlayerInfo(player.getUniqueID()).getResponseTime()) + "ms";
             if(totemPops.getValue())

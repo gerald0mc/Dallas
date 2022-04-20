@@ -1,4 +1,4 @@
-package me.gerald.dallas.features.gui.clickgui.comps.settingcomps;
+package me.gerald.dallas.features.gui.comps.settingcomps;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class StringComponent extends SettingComponent {
     public StringSetting setting;
     public boolean listening;
-    public String entryString;
+    public String entryString = "";
 
     public StringComponent(StringSetting setting, int x, int y, int width, int height) {
         super(setting, x, y, width, height);

@@ -1,8 +1,8 @@
 package me.gerald.dallas.features.gui.clickgui;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.gui.clickgui.comps.CategoryComponent;
-import me.gerald.dallas.features.gui.clickgui.comps.TextComponent;
+import me.gerald.dallas.features.gui.comps.CategoryComponent;
+import me.gerald.dallas.features.gui.comps.TextComponent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.hud.HUDModule;

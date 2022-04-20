@@ -3,6 +3,7 @@ package me.gerald.dallas.managers;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.armor.Armor;
 import me.gerald.dallas.features.module.misc.*;
+import me.gerald.dallas.features.module.movement.Dive;
 import me.gerald.dallas.features.module.movement.Sprint;
 import me.gerald.dallas.features.module.render.*;
 import me.gerald.dallas.features.module.client.*;
@@ -27,6 +28,7 @@ public class ModuleManager {
     public ModuleManager() {
         modules = new ArrayList<>();
         //client
+        modules.add(new Console());
         modules.add(new DallasBot());
         modules.add(new GUI());
         //combat
@@ -36,9 +38,11 @@ public class ModuleManager {
         modules.add(new CevPlace());
         modules.add(new CrystalAura());
         modules.add(new FakePearl());
+        modules.add(new MCP());
         modules.add(new TotemPopCounter());
         //hud
         modules.add(new Armor());
+        modules.add(new me.gerald.dallas.features.module.hud.arraylist.ArrayList());
         modules.add(new Coordinates());
         modules.add(new CPS());
         modules.add(new CrystalCount());
@@ -52,11 +56,14 @@ public class ModuleManager {
         //misc
         modules.add(new AutoGG());
         modules.add(new Chat());
+        modules.add(new Emojis());
         modules.add(new FakePlayer());
+        modules.add(new NameChanger());
         modules.add(new Spammer());
         modules.add(new WebhookSpammer());
         modules.add(new Window());
         //movement
+        modules.add(new Dive());
         modules.add(new Sprint());
         //render
         modules.add(new Chams());

@@ -3,6 +3,7 @@ package me.gerald.dallas.mixin.mixins;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.utils.ChangeConstructor;
+import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -21,9 +22,17 @@ public class MixinGuiMainMenu extends GuiScreen {
     @Inject(method = "drawScreen", at = @At("TAIL"))
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         List<ChangeConstructor> changelog = new ArrayList<>();
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Dive"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "MCP"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Emoji"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Emojis"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "NameChanger", "FakeClip"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Console"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "NameChanger"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "ArrayList"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Toggle"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "Changelog", "Rewrote"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Chams"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.DELETE, "ChorusPredict"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffset = 0;
