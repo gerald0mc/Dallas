@@ -61,6 +61,7 @@ public class PacketLogComponent extends HUDContainer {
                 }
                 break;
             case 1:
+
                 break;
         }
     }
