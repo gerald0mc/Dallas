@@ -61,11 +61,15 @@ repositories {
         name = 'SpongePowered'
         url = 'https://repo.spongepowered.org/repository/maven-public/'
     }
+    mavenCentral()
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
-
+    // Apparently future crashes with v10
+    shadow('org.reflections:reflections:0.10.2') {
+        exclude module: 'jsr305'
+    }
     shadow('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
         exclude module: 'commons-io'
         exclude module: 'gson'
