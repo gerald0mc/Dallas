@@ -2,6 +2,7 @@ package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.armor.Armor;
+import me.gerald.dallas.features.module.hud.packetlog.PacketLog;
 import me.gerald.dallas.features.module.misc.*;
 import me.gerald.dallas.features.module.movement.Dive;
 import me.gerald.dallas.features.module.movement.Sprint;
@@ -48,6 +49,7 @@ public class ModuleManager {
         modules.add(new CrystalCount());
         modules.add(new GappleCount());
         modules.add(new Notifications());
+        modules.add(new PacketLog());
         modules.add(new Ping());
         modules.add(new Server());
         modules.add(new TotemCount());

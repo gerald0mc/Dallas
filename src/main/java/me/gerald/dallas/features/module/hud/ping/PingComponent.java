@@ -2,14 +2,20 @@ package me.gerald.dallas.features.module.hud.ping;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.network.Packet;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class PingComponent extends HUDContainer {
     public PingComponent(int x, int y, int width, int height) {

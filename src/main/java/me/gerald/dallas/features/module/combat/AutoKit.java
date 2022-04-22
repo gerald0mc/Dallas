@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
@@ -16,6 +17,11 @@ public class AutoKit extends Module {
 
     public AutoKit() {
         super("AutoKit", Category.COMBAT, "Automatically does /kit + name.");
+    }
+
+    @Override
+    public String getMetaData() {
+        return "[" + ChatFormatting.WHITE + kitName.getValue() + ChatFormatting.RESET + "]";
     }
 
     @SubscribeEvent

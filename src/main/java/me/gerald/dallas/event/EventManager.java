@@ -3,34 +3,26 @@ package me.gerald.dallas.event;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
+import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.event.listeners.TotemPopListener;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.features.module.hud.HUDModule;
-import me.gerald.dallas.features.module.hud.notification.Notifications;
+import me.gerald.dallas.features.module.hud.packetlog.PacketLog;
+import me.gerald.dallas.features.module.hud.packetlog.PacketLogComponent;
 import me.gerald.dallas.managers.ConfigManager;
-import me.gerald.dallas.managers.notification.NotificationConstructor;
-import me.gerald.dallas.managers.notification.NotificationManager;
-import me.gerald.dallas.utils.AnimationUtil;
 import me.gerald.dallas.utils.MessageUtil;
-import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
 import java.io.IOException;
-
-import static me.gerald.dallas.managers.notification.NotificationManager.notificationHistory;
 
 public class EventManager {
     public TotemPopListener totemPopListener;
@@ -97,6 +89,17 @@ public class EventManager {
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
         MessageUtil.sendMessage(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
     }
+
+//    @SubscribeEvent
+//    public void onPacketR(PacketEvent.Receive event) {
+//        if(Yeehaw.INSTANCE.moduleManager.getModule(PacketLog.class).isEnabled())
+//            PacketLogComponent.packetHistory.add("Received packet " + event.getPacket().getClass().getSimpleName());
+//    }
+//
+//    @SubscribeEvent
+//    public void onPacketR(PacketEvent.Send event) {
+//        PacketLogComponent.packetHistory.add("Sent packet " + event.getPacket().getClass().getSimpleName());
+//    }
 
 //    @SubscribeEvent
 //    public void onRender(RenderGameOverlayEvent.Text event) {

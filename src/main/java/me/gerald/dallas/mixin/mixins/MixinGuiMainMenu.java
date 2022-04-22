@@ -22,7 +22,9 @@ public class MixinGuiMainMenu extends GuiScreen {
     @Inject(method = "drawScreen", at = @At("TAIL"))
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         List<ChangeConstructor> changelog = new ArrayList<>();
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Dive"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Search Box"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "FakePlayer", "Moving"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "WebhookSpammer", "Crasher Mode"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "MCP"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Emoji"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Emojis"));
@@ -31,8 +33,6 @@ public class MixinGuiMainMenu extends GuiScreen {
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "NameChanger"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "ArrayList"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Toggle"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "Changelog", "Rewrote"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Chams"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffset = 0;

@@ -1,19 +1,15 @@
 package me.gerald.dallas.features.module.hud.arraylist;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
-import me.gerald.dallas.utils.ChangeConstructor;
-import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +33,9 @@ public class ArrayListComponent extends HUDContainer {
         for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if(module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.module.hud.arraylist.ArrayList.class).skipHUD.getValue()) continue;
             if(module.isEnabled()) {
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName() + " " + module.getMetaData(), x, y + yOffset, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName() + module.getMetaData(), x, y + yOffset, color.getRGB());
                 yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.module.hud.arraylist.ArrayList.class).spacing.getValue();
-                moduleNames.add(module.getName() + " " + module.getMetaData());
+                moduleNames.add(module.getName() + module.getMetaData());
             }else {
                 if(moduleNames.contains(module.getName()))
                     moduleNames.remove(module.getName());

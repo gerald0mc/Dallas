@@ -15,6 +15,7 @@ public class CommandManager {
         commands.add(new Emoji());
         commands.add(new Friend());
         commands.add(new Help());
+        commands.add(new Set());
         commands.add(new Toggle());
         commands.add(new Waypoint());
         commands.add(new Webhook());

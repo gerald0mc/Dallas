@@ -18,23 +18,30 @@ public class MCP extends Module {
     }
 
     public BooleanSetting switchBack = register(new BooleanSetting("SwitchBack", true));
+    public BooleanSetting toggle = register(new BooleanSetting("Toggle", true));
+    public BooleanSetting noPearlToggle = register(new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue()));
+    public BooleanSetting onThrowToggle = register(new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue()));
 
     @SubscribeEvent
     public void onMouseInput(InputEvent.MouseInputEvent event) {
         if (Mouse.getEventButtonState()) {
             int mouseButton = Mouse.getEventButton();
-            if (mouseButton == 1) {
+            if (mouseButton == 2) {
                 int pearlSlot = InventoryUtil.getItemHotbar(Items.ENDER_PEARL);
-                int originalSlot = -1;
+                int originalSlot;
                 if (pearlSlot == -1) {
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your inventory.", true);
-                    toggle();
+                    if(noPearlToggle.getValue())
+                        toggle();
+                    return;
                 }
                 originalSlot = mc.player.inventory.currentItem;
                 InventoryUtil.switchToSlot(pearlSlot);
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
                 if(switchBack.getValue())
                     InventoryUtil.switchToSlot(originalSlot);
+                if(onThrowToggle.getValue())
+                    toggle();
             }
         }
     }

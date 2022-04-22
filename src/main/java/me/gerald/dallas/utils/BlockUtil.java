@@ -16,8 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BlockUtil {
     public static boolean isSurrounded(BlockPos playerPos) {
@@ -67,7 +66,8 @@ public class BlockUtil {
     public static EntityPlayer findClosestPlayer() {
         if (Minecraft.getMinecraft().world.playerEntities.isEmpty())
             return null;
-        EntityPlayer closestTarget = null;
+        HashMap<EntityPlayer, Float> distanceMap = new HashMap<>();
+        EntityPlayer closestTarget;
         for (EntityPlayer target : Minecraft.getMinecraft().world.playerEntities) {
             if (target != Minecraft.getMinecraft().player) {
                 if (!target.isEntityAlive())
@@ -76,9 +76,10 @@ public class BlockUtil {
                     continue;
                 if (target.getHealth() <= 0.0f)
                     continue;
-                closestTarget = target;
+                distanceMap.put(target, Minecraft.getMinecraft().player.getDistance(target));
             }
         }
+        closestTarget = Collections.min(distanceMap.entrySet(), Map.Entry.comparingByValue()).getKey();
         return closestTarget;
     }
 

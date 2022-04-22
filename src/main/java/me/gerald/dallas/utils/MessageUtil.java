@@ -24,8 +24,4 @@ public class MessageUtil {
             Minecraft.getMinecraft().player.sendMessage(new TextComponentString(clientPrefix + message));
         }
     }
-
-    public static void sendRemovableMessage(String message, int id, boolean watermark) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(watermark ? clientPrefix : "" + message), id);
-    }
 }

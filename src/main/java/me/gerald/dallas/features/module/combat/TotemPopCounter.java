@@ -14,25 +14,17 @@ public class TotemPopCounter extends Module {
         super("TotemPopCounter", Category.COMBAT, "Says in chat when someone pops.");
     }
 
-    public BooleanSetting notifications = register(new BooleanSetting("Notifications", true));
-
     @SubscribeEvent
     public void onPop(TotemPopEvent event) {
         if(event.getPopCount() == 1) {
-            MessageUtil.sendRemovableMessage(ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped a totem.", event.getEntity().getEntityId(), true);
-            if(notifications.getValue())
-                Yeehaw.INSTANCE.notificationManager.addNotification(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has popped a totem.", System.currentTimeMillis());
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped a totem.", true);
         }else if(event.getPopCount() > 1) {
-            MessageUtil.sendRemovableMessage(ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.GRAY + " totems.", event.getEntity().getEntityId(), true);
-            if(notifications.getValue())
-                Yeehaw.INSTANCE.notificationManager.addNotification(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.RESET + " totems.", System.currentTimeMillis());
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop" , ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.GRAY + " totems.", true);
         }
     }
 
     @SubscribeEvent
     public void onDeath(DeathEvent event) {
-        MessageUtil.sendRemovableMessage(ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has just died what a retard.", event.getEntity().getEntityId(), true);
-        if(notifications.getValue())
-            Yeehaw.INSTANCE.notificationManager.addNotification(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has just died what a retard.", System.currentTimeMillis());
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has just died what a retard.", true);
     }
 }

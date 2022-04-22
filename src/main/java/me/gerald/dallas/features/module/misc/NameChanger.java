@@ -18,22 +18,21 @@ public class NameChanger extends Module {
 
     public StringSetting name = register(new StringSetting("Name", "PERSON"));
     public BooleanSetting mentionHighlight = register(new BooleanSetting("MentionHighlight", true));
-    public BooleanSetting fakeClips = register(new BooleanSetting("FakeClips", true));
+    public BooleanSetting fakeClips = register(new BooleanSetting("FakeClips", false));
     public StringSetting fakeName = register(new StringSetting("FakeName", "WomanAreObjects", () -> fakeClips.getValue()));
     public NumberSetting fakeDistance = register(new NumberSetting("FakeDistance", 30, 1, 50, () -> fakeClips.getValue()));
 
     @Override
     public String getMetaData() {
-        return "[" + ChatFormatting.RESET + name.getValue() + ChatFormatting.RESET + "]";
+        return "[" + ChatFormatting.WHITE + name.getValue() + ChatFormatting.RESET + "]";
     }
 
     public EntityPlayer closestPlayer;
 
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
-        if(BlockUtil.findClosestPlayer().getDistance(mc.player) > fakeDistance.getValue() && BlockUtil.findClosestPlayer() != null && fakeClips.getValue()) {
+        if(BlockUtil.findClosestPlayer().getDistance(mc.player) > fakeDistance.getValue() && BlockUtil.findClosestPlayer() != null && fakeClips.getValue())
             closestPlayer = BlockUtil.findClosestPlayer();
-        }
         if(event.getMessage().getUnformattedText().contains(mc.player.getDisplayNameString()))
             event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(mc.player.getDisplayNameString(), (mentionHighlight.getValue() ? ChatFormatting.YELLOW : "") + name.getValue() + ChatFormatting.RESET)));
         else if(event.getMessage().getUnformattedText().contains(closestPlayer.getDisplayNameString()) && fakeClips.getValue() && closestPlayer != null)

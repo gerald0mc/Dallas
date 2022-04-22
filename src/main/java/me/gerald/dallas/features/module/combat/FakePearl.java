@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.features.module.Module;
 import net.minecraft.entity.Entity;
@@ -16,9 +17,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FakePearl extends Module {
     private final Queue<CPacketPlayer> packets = new ConcurrentLinkedQueue<>();
     private int thrownPearlId = -1;
+    public boolean hasThrown = false;
 
     public FakePearl() {
         super("FakePearl", Category.COMBAT, "When you throw a pearl it will be a fake pearl and will blink the player until the fake pearl has landed.");
+    }
+
+    @Override
+    public String getMetaData() {
+        return hasThrown ? "[" + ChatFormatting.GREEN + "ACTIVE" + ChatFormatting.RESET + "]" : "";
     }
 
     @SubscribeEvent
@@ -40,6 +47,7 @@ public class FakePearl extends Module {
                                 mc.player.movementInput.moveStrafe = 0.0f;
                                 // send rubberband packet
                                 mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1.0, mc.player.posZ, false));
+                                hasThrown = true;
                                 thrownPearlId = packet.getEntityID();
                             }
                         });
@@ -65,6 +73,7 @@ public class FakePearl extends Module {
                     EntityEnderPearl pearl = (EntityEnderPearl) entity;
                     if (pearl.isDead) {
                         thrownPearlId = -1;
+                        hasThrown = false;
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
@@ -19,6 +20,7 @@ public class CevPlace extends Module {
     public NumberSetting delay = register(new NumberSetting("Delay", 100, 0, 2000));
     public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
     public BooleanSetting ownSwing = register(new BooleanSetting("OwnSwing", true));
+
     public TimerUtil timer = new TimerUtil();
 
     public CevPlace() {

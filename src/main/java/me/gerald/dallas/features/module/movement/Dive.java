@@ -5,6 +5,7 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Dive extends Module {
     public Dive() {
@@ -20,7 +21,7 @@ public class Dive extends Module {
     }
 
     @SubscribeEvent
-    public void onUpdate() {
+    public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY - 0.01D, mc.player.posZ, mc.player.onGround));
         for (int i = 0; i < 2; i++)

@@ -5,6 +5,7 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -74,15 +75,24 @@ public class ConfigManager {
                         String[] words = line.split("\\W+");
                         switch (words[0]) {
                             case "Bind":
-                                String bind = words[1];
-                                module.setKeybind(Keyboard.getKeyIndex(bind));
-                                System.out.println("Set module " + module.getName() + " bind to " + module.getKeybind());
+                                try {
+                                    String bind = words[1];
+                                    module.setKeybind(Keyboard.getKeyIndex(bind));
+                                    System.out.println("Set module " + module.getName() + " bind to " + module.getKeybind());
+                                }catch (Exception e) {
+                                    System.out.println("Couldn't set " + module.getName() + "'s bind for some reason.");
+                                }
                                 break;
                             case "Enabled":
-                                String status = words[1];
-                                if (status.equalsIgnoreCase("true")) {
-                                    module.toggle();
-                                    System.out.println("Set module " + module.getName() + " to Toggled");
+                                try {
+                                    String status = words[1];
+                                    if (status.equalsIgnoreCase("true")) {
+                                        if(!module.isEnabled())
+                                            module.toggle();
+                                        System.out.println("Set module " + module.getName() + " to Toggled");
+                                    }
+                                }catch (Exception e) {
+                                    System.out.println("Couldn't enable " + module.getName() + " for some reason.");
                                 }
                                 break;
                             case "Setting":
@@ -100,10 +110,10 @@ public class ConfigManager {
                                             } else if (setting instanceof ModeSetting) {
                                                 ((ModeSetting) setting).setMode(settingValue);
                                                 System.out.println("Set setting " + setting.getName() + " to " + ((ModeSetting) setting).getMode());
-                                            } else if (setting instanceof StringSetting) {
-                                                String[] value = getStringValue(setting, words);
-                                                ((StringSetting) setting).setValue(Arrays.toString(value));
-                                                System.out.println("Set setting " + setting.getName() + " to " + ((StringSetting) setting).getValue());
+//                                            } else if (setting instanceof StringSetting) {
+//                                                String[] value = getStringValue(setting, words);
+//                                                ((StringSetting) setting).setValue(Arrays.toString(value));
+//                                                System.out.println("Set setting " + setting.getName() + " to " + ((StringSetting) setting).getValue());
                                             } else if (setting instanceof ColorSetting) {
                                                 int red = Integer.parseInt(words[2]);
                                                 int green = Integer.parseInt(words[3]);
@@ -116,7 +126,7 @@ public class ConfigManager {
                                                 System.out.println("Set setting " + setting.getName() + " to " + ((ColorSetting) setting).getR() + ", " + ((ColorSetting) setting).getG() + ", " + ((ColorSetting) setting).getB() + ", " + ((ColorSetting) setting).getA());
                                             }
                                         } catch (Exception e) {
-                                            e.printStackTrace();
+                                            System.out.println("Couldn't load setting " + setting.getName() + " for some reason.");
                                         }
                                     }
                                 }

@@ -2,6 +2,7 @@ package me.gerald.dallas.features.gui.clickgui;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.comps.CategoryComponent;
+import me.gerald.dallas.features.gui.comps.StringEntryComponent;
 import me.gerald.dallas.features.gui.comps.TextComponent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.GUI;
@@ -18,7 +19,8 @@ import java.util.List;
 
 public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
-    public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 25, 35, 100, 11);
+    public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
+    public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
 
     public List<CategoryComponent> categories = new ArrayList<>();
     private CategoryComponent priorityComponent = null;
@@ -60,6 +62,7 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
+        searchBox.drawScreen(mouseX, mouseY, partialTicks);
         descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
         if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3) {
@@ -89,6 +92,8 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
+        searchBox.mouseClicked(mouseX, mouseY, mouseButton);
+
         if (mouseButton == 0 && descriptionBox.isInside(mouseX, mouseY)) {
             descriptionBox.beginDragging(mouseX, mouseY);
         }
@@ -114,6 +119,8 @@ public class ClickGUI extends GuiScreen {
             descriptionBox.stopDragging();
         }
 
+        searchBox.mouseReleased(mouseX, mouseY, state);
+
         super.mouseReleased(mouseX, mouseY, state);
     }
 
@@ -126,6 +133,11 @@ public class ClickGUI extends GuiScreen {
                 e.printStackTrace();
             }
         }
+
+        try {
+            searchBox.keyTyped(typedChar, keyCode);
+        } catch (UnsupportedFlavorException ignored) { }
+
         super.keyTyped(typedChar, keyCode);
     }
 

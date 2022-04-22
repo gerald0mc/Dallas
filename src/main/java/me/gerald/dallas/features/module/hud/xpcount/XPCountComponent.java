@@ -35,12 +35,12 @@ public class XPCountComponent extends HUDContainer {
                 width = 12;
                 height = 12;
                 RenderUtil.renderItem(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE) + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x + 10, y + 12, -1);
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE) + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x + 10, y + 12, -1);
                 break;
             case "Name":
-                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("XP: " + InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""));
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("XP: " + InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""));
                 height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("XP" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x, y, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("XP" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x, y, color.getRGB());
                 break;
         }
     }

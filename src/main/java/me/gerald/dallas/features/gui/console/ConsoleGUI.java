@@ -30,6 +30,7 @@ public class ConsoleGUI extends GuiScreen {
     int height = 250;
 
     public List<String> messageHistory = new ArrayList<>();
+    public String PREFIX = ChatFormatting.BOLD + "[Console] " + ChatFormatting.RESET;
     public String entryString = "";
 
     public ConsoleGUI() {
@@ -75,7 +76,7 @@ public class ConsoleGUI extends GuiScreen {
             case Keyboard.KEY_RETURN:
                 if(entryString.equalsIgnoreCase("clear")) {
                     messageHistory.clear();
-                    messageHistory.add("Cleared console.");
+                    messageHistory.add(PREFIX + "Cleared console.");
                     return;
                 }
                 if (entryString.length() > 0)
