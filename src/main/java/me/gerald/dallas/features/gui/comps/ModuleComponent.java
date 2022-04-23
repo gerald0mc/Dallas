@@ -40,7 +40,7 @@ public class ModuleComponent extends AbstractContainer {
         while (iterator.hasNext()) {
             Setting element = iterator.next();
             if (element instanceof BooleanSetting)
-                settingComponents.add(new BooleanComponent((BooleanSetting) element, x, y, 110, height));
+                settingComponents.add(new BooleanComponent((BooleanSetting) element, true, x, y, 110, height));
             else if (element instanceof NumberSetting)
                 settingComponents.add(new NumberComponent((NumberSetting) element, x, y, 110, height));
             else if (element instanceof ModeSetting)

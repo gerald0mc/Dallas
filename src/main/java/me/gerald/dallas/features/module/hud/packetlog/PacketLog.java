@@ -19,7 +19,9 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("rawtypes") // Doesn't happen in kotlin ;)
 public class PacketLog extends HUDModule {
-    public static List<BooleanComponent> settings = new ArrayList<>();
+    public static List<BooleanComponent> cPacketSettings = new ArrayList<>();
+    public static List<BooleanComponent> sPacketSettings = new ArrayList<>();
+    public static List<BooleanComponent> miscPacketSettings = new ArrayList<>();
     public static Map<Class<? extends Packet>, PacketData> dataMap = new HashMap<>();
     public final NumberSetting max = register(new NumberSetting("Max Lines", 16, 5, 100));
     private final BooleanSetting properties = register(new BooleanSetting("Properties", true));
@@ -28,7 +30,15 @@ public class PacketLog extends HUDModule {
         super(new PacketLogComponent(1, 11, 1, 1), "PacketLog", Category.HUD, "Shows the players ping.");
         ReflectionUtil.getSubclasses(Packet.class).forEach(packet -> dataMap.put(packet, new PacketData(packet)));
         // i dont wanna do this lol
-        //dataMap.values().forEach(data -> settings.add(new BooleanComponent()));
+        for(Map.Entry<Class<? extends Packet>, PacketData> entry : dataMap.entrySet()) {
+            if(entry.getValue().setting.getName().startsWith("C")) {
+                cPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
+            }else if(entry.getValue().setting.getName().startsWith("S")) {
+                sPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
+            }else {
+                miscPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
+            }
+        }
     }
 
     @SubscribeEvent
