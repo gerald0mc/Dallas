@@ -17,6 +17,7 @@ public class MCP extends Module {
     public BooleanSetting toggle = register(new BooleanSetting("Toggle", true));
     public BooleanSetting noPearlToggle = register(new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue()));
     public BooleanSetting onThrowToggle = register(new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue()));
+
     public MCP() {
         super("MCP", Category.COMBAT, "Middle click pearl.");
     }

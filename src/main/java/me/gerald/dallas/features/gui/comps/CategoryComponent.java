@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class CategoryComponent extends DragComponent {
@@ -27,16 +26,10 @@ public class CategoryComponent extends DragComponent {
         this.y = y;
         this.width = width;
         this.height = height;
-        if (Yeehaw.INSTANCE.moduleManager.getCategory(category) != null) {
-            Iterator<Module> iterator = Yeehaw.INSTANCE.moduleManager.getCategory(category).iterator();
-            while (iterator.hasNext()) {
-                Module element = iterator.next();
-                modules.add(new ModuleComponent(element, category, x, y, width, height));
-                if (!iterator.hasNext()) {
-                    modules.get(modules.size() - 1).lastModule = true;
-                }
-            }
-        }
+        Yeehaw.INSTANCE.moduleManager.getCategory(category).forEach(
+                module -> modules.add(new ModuleComponent(module, category, x, y, width, height))
+        );
+        modules.get(modules.size() - 1).lastModule = true;
     }
 
     @Override

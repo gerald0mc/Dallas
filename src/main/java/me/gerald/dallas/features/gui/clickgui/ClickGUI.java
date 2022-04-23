@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
-    public static Color clientColor;
+    public static Color clientColor = Color.BLACK; // Nigger (this crashes???)
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
     public List<CategoryComponent> categories = new ArrayList<>();

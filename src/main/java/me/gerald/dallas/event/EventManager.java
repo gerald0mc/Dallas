@@ -9,8 +9,8 @@ import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -20,13 +20,16 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.List;
 
-public class EventManager {
+public class EventManager implements Globals {
+    private final List<Module> hudModules;
     public TotemPopListener totemPopListener;
 
     public EventManager() {
         MinecraftForge.EVENT_BUS.register(this);
         totemPopListener = new TotemPopListener();
+        hudModules = Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD);
     }
 
     //binds
@@ -59,14 +62,12 @@ public class EventManager {
     //hud editor
     @SubscribeEvent
     public void onGameOverlay(RenderGameOverlayEvent.Text event) {
-        if (Minecraft.getMinecraft().currentScreen instanceof ClickGUI) return;
-        if (Minecraft.getMinecraft().currentScreen instanceof GuiChat) return;
-        for (Module module : Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD)) {
+        if (mc.currentScreen instanceof ClickGUI || mc.currentScreen instanceof GuiChat) return;
+        hudModules.forEach(module -> {
             if (module.isEnabled()) {
-                final HUDModule hudMod = (HUDModule) module;
-                hudMod.getContainer().drawScreen(-1, -1, event.getPartialTicks());
+                ((HUDModule) module).getContainer().drawScreen(-1, -1, event.getPartialTicks());
             }
-        }
+        });
     }
 
     //config save
@@ -91,7 +92,7 @@ public class EventManager {
 //    public void onRender(RenderGameOverlayEvent.Text event) {
 //        if(Module.nullCheck()) return;
 //        if(notificationHistory.isEmpty()) return;
-//        if(Minecraft.getMinecraft().currentScreen instanceof GuiChat) {
+//        if(mc.currentScreen instanceof GuiChat) {
 //            Color color;
 //            if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
 //                color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
@@ -103,14 +104,14 @@ public class EventManager {
 //            int yOffset = 0;
 //            for(NotificationConstructor notificationConstructor : NotificationManager.notificationHistory) {
 //                if(!Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue()) {
-//                    Gui.drawRect(0, 2 + yOffset, Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+//                    Gui.drawRect(0, 2 + yOffset, mc.fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
 //                    Gui.drawRect(0, 2 + yOffset, 2, 2 + height + yOffset, color.getRGB());
-//                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 4 + yOffset, -1);
+//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 4 + yOffset, -1);
 //                }else {
-//                    Gui.drawRect(0, 2 + yOffset, Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+//                    Gui.drawRect(0, 2 + yOffset, mc.fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
 //                    Gui.drawRect(0, 2 + yOffset, 2, 2 + height + yOffset, color.getRGB());
-//                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getTitle(), 4, 4 + yOffset, -1);
-//                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 17 + yOffset, -1);
+//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getTitle(), 4, 4 + yOffset, -1);
+//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 17 + yOffset, -1);
 //                }
 //                yOffset += height + 2;
 //            }

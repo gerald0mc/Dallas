@@ -29,6 +29,7 @@ public class DallasBot extends Module {
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Facts.txt";
     String afterMessage = " | Dallas Bot";
     List<String> facts = new ArrayList<>();
+
     public DallasBot() {
         super("DallasBot", Category.CLIENT, "A bot with multiple useful commands.");
         facts.addAll(Arrays.asList(defaultFacts));

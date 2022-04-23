@@ -2,6 +2,7 @@ package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,60 +19,16 @@ public class ModuleManager {
     // haven't actually tested but it should work lol
     public ModuleManager() {
         REFLECTIONS.getSubTypesOf(Module.class).forEach(module -> {
-            try {
-                modules.add(module.getDeclaredConstructor().newInstance());
-            } catch (Exception exception) {
-                // this only really fails if the constructor throws an exception or has parameters
-                exception.printStackTrace();
+            if (!Modifier.isAbstract(module.getModifiers())) {
+                try {
+                    modules.add(module.getDeclaredConstructor().newInstance());
+                } catch (Exception exception) {
+                    // this only fails if the constructor throws an exception or has parameters
+                    // rethrow because it shouldn't happen
+                    throw new RuntimeException("Could not initialize " + module, exception);
+                }
             }
         });
-
-//        //client
-//        modules.add(new Console());
-//        modules.add(new DallasBot());
-//        modules.add(new GUI());
-//        //combat
-//        modules.add(new AntiTrap());
-//        modules.add(new AutoBurrow());
-//        modules.add(new AutoKit());
-//        modules.add(new CevPlace());
-//        modules.add(new CrystalAura());
-//        modules.add(new FakePearl());
-//        modules.add(new MCP());
-//        modules.add(new TotemPopCounter());
-//        //hud
-//        modules.add(new Armor());
-//        modules.add(new me.gerald.dallas.features.module.hud.arraylist.ArrayList());
-//        modules.add(new Coordinates());
-//        modules.add(new CPS());
-//        modules.add(new CrystalCount());
-//        modules.add(new GappleCount());
-//        modules.add(new Notifications());
-//        modules.add(new PacketLog());
-//        modules.add(new Ping());
-//        modules.add(new Server());
-//        modules.add(new TotemCount());
-//        modules.add(new Watermark());
-//        modules.add(new XPCount());
-//        //misc
-//        modules.add(new AutoGG());
-//        modules.add(new Chat());
-//        modules.add(new Emojis());
-//        modules.add(new FakePlayer());
-//        modules.add(new NameChanger());
-//        modules.add(new Spammer());
-//        modules.add(new WebhookSpammer());
-//        modules.add(new Window());
-//        //movement
-//        modules.add(new Dive());
-//        modules.add(new Sprint());
-//        //render
-//        modules.add(new Chams());
-//        modules.add(new DamageESP());
-//        modules.add(new ItemESP());
-//        modules.add(new Nametags());
-//        modules.add(new Waypoints());
-
         modules.forEach(module -> moduleMap.put(module.getClass(), module));
     }
 

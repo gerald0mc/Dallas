@@ -25,6 +25,7 @@ public class Nametags extends Module {
     public BooleanSetting ping = register(new BooleanSetting("Ping", true));
     public BooleanSetting totemPops = register(new BooleanSetting("TotemPops", true));
     public BooleanSetting health = register(new BooleanSetting("Health", true));
+
     public Nametags() {
         super("Nametags", Category.RENDER, "Renders info about players.");
     }

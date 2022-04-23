@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class Dive extends Module {
     public BooleanSetting autoDisable = register(new BooleanSetting("AutoDisable", true));
     public NumberSetting bypassAmount = register(new NumberSetting("BypassAmount", -1, -10, 10));
+
     public Dive() {
         super("Dive", Category.MOVEMENT, "Cool dolphin thing.");
     }

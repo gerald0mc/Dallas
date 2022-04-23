@@ -7,6 +7,7 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 public class ArrayList extends HUDModule {
     public NumberSetting spacing = register(new NumberSetting("Spacing", 0, 0, 5));
     public BooleanSetting skipHUD = register(new BooleanSetting("SkipHUD", true));
+
     public ArrayList() {
         super(new ArrayListComponent(1, 181, 1, 1), "ArrayList", Category.HUD, "Renders all enabled modules.");
     }

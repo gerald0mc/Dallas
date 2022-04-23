@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ItemESP extends Module {
     public NumberSetting scale = register(new NumberSetting("Scale", 1, 0, 5));
     public BooleanSetting count = register(new BooleanSetting("Count", true));
+
     public ItemESP() {
         super("ItemESP", Category.RENDER, "Renders a items name and quantity.");
     }

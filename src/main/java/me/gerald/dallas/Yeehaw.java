@@ -7,12 +7,12 @@ import me.gerald.dallas.managers.*;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
-import net.minecraft.block.Block;
+import me.gerald.dallas.utils.ReflectionUtil;import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,16 @@ public class Yeehaw {
     public ConsoleGUI consoleGUI;
 
     public List<Block> searchBlocks;
+
+    static {
+        // Notify is not necessary, java is just retarded
+        // Loading this early because it takes a long time
+        new Thread(() -> {
+            long time = System.currentTimeMillis();
+            ReflectionUtil.REFLECTIONS.notify();
+            System.out.println("Reflections warmed up in " + time + "ms.");
+        }).start();
+    }
 
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {

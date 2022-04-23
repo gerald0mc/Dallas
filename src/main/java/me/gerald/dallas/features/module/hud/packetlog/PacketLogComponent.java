@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.module.hud.packetlog;
 
+import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import net.minecraft.client.Minecraft;
@@ -8,22 +9,23 @@ import net.minecraft.client.gui.Gui;
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PacketLogComponent extends HUDContainer {
-    public static List<Class<?>> packetList;
     public static List<String> packetHistory;
     public int page = 0;
+
     public PacketLogComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.height = 150;
-        packetHistory = new ArrayList<>();
-        packetList = new ArrayList<>();
+        // This isn't ever more than 100 elements, performance hit is negligible
+        packetHistory = new CopyOnWriteArrayList<>();
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        final PacketLog module = Yeehaw.INSTANCE.moduleManager.getModule(PacketLog.class);
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
         //logger
@@ -34,8 +36,7 @@ public class PacketLogComponent extends HUDContainer {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Selection", x + Minecraft.getMinecraft().fontRenderer.getStringWidth("Log") + 4, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
         switch (page) {
             case 0:
-                if (packetHistory.size() >= 10)
-                    packetHistory.remove(0);
+                while (packetHistory.size() >= module.max.getValue()) packetHistory.remove(0);
                 int longest = getLongestWord(packetHistory);
                 width = longest > 300 ? longest + 3 : 300;
                 Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 175).getRGB());

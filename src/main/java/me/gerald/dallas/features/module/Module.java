@@ -12,11 +12,11 @@ import java.util.List;
 public class Module {
     public static Minecraft mc = Minecraft.getMinecraft();
     private final List<Setting> settings;
+    private final String metaData = "";
     private String name;
     private Category category;
     private int keybind;
     private String description;
-    private final String metaData = "";
     private boolean isEnabled = false;
 
     public Module(String name, Category category, String description) {

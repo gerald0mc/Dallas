@@ -21,6 +21,7 @@ public class FakePlayer extends Module {
     public TimerUtil moveTimer = new TimerUtil();
     public EntityOtherPlayerMP fakePlayer;
     public Random random = new Random();
+
     public FakePlayer() {
         super("FakePlayer", Category.MISC, "Spawns a fake player into the world.");
     }

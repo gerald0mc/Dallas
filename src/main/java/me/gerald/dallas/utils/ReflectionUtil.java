@@ -2,8 +2,6 @@ package me.gerald.dallas.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ConfigurationBuilder;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
@@ -18,7 +16,7 @@ import java.util.function.Function;
  * @since 4/22/2022
  */
 public class ReflectionUtil {
-    public static final Reflections REFLECTIONS = new Reflections(new ConfigurationBuilder().setScanners(new SubTypesScanner()));
+    public static final Reflections REFLECTIONS = new Reflections();
     public static final Unsafe UNSAFE;
 
     static {
@@ -27,22 +25,21 @@ public class ReflectionUtil {
             field.setAccessible(true);
             UNSAFE = (Unsafe) field.get(null);
         } catch (Exception e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
     public static String betterSimpleName(Class<?> clazz) {
-        String full = clazz.getName();
-        String pckg = clazz.getPackage().getName();
-        return StringUtils.substringAfter(full, pckg + ".");
+        return StringUtils.substringAfterLast(clazz.getName(), ".");
     }
 
-    public static List<Field> allFields(Class<?> clazz) {
+    public static List<Field> allInstanceFields(Class<?> clazz) {
         List<Field> list = new ArrayList<>();
         Class<?> superClass = clazz;
         for (; superClass != Object.class; superClass = superClass.getSuperclass()) {
             Collections.addAll(list, superClass.getDeclaredFields());
         }
+        list.removeIf(field -> Modifier.isStatic(field.getModifiers()));
         return list;
     }
 
@@ -60,6 +57,6 @@ public class ReflectionUtil {
         else if (float.class.equals(field.getType())) return object -> String.valueOf(UNSAFE.getFloat(object, offset));
         else if (double.class.equals(field.getType()))
             return object -> String.valueOf(UNSAFE.getDouble(object, offset));
-        else return object -> UNSAFE.getObject(object, offset).toString();
+        else return object -> String.valueOf(UNSAFE.getObject(object, offset));
     }
 }

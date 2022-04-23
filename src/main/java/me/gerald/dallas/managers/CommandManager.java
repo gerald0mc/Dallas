@@ -1,24 +1,29 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.command.Command;
-import me.gerald.dallas.features.command.impl.*;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.gerald.dallas.utils.ReflectionUtil.REFLECTIONS;
+
 public class CommandManager {
-    public List<Command> commands;
+    private final List<Command> commands = new ArrayList<>();
     public String PREFIX = "-";
 
     public CommandManager() {
-        commands = new ArrayList<>();
-        commands.add(new Emoji());
-        commands.add(new Friend());
-        commands.add(new Help());
-        commands.add(new Set());
-        commands.add(new Toggle());
-        commands.add(new Waypoint());
-        commands.add(new Webhook());
+        REFLECTIONS.getSubTypesOf(Command.class).forEach(command -> {
+            if (!Modifier.isAbstract(command.getModifiers())) {
+                try {
+                    commands.add(command.getDeclaredConstructor().newInstance());
+                } catch (Exception exception) {
+                    // this only fails if the constructor throws an exception or has parameters
+                    // rethrow because it shouldn't happen
+                    throw new RuntimeException("Could not initialize " + command, exception);
+                }
+            }
+        });
     }
 
     public List<Command> getCommands() {
