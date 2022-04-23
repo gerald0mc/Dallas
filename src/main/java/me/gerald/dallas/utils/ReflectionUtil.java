@@ -16,7 +16,7 @@ import java.util.function.Function;
  * @since 4/22/2022
  */
 public class ReflectionUtil {
-    public static final Reflections REFLECTIONS = new Reflections();
+    public static Reflections REFLECTIONS;
     public static final Unsafe UNSAFE;
 
     static {

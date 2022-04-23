@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;import org.reflections.Reflections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +49,11 @@ public class Yeehaw {
     public List<Block> searchBlocks;
 
     static {
-        // Notify is not necessary, java is just retarded
         // Loading this early because it takes a long time
         new Thread(() -> {
             long time = System.currentTimeMillis();
-            ReflectionUtil.REFLECTIONS.notify();
-            System.out.println("Reflections warmed up in " + time + "ms.");
+            ReflectionUtil.REFLECTIONS = new Reflections();
+            System.out.println("Reflections initialized in " + time + "ms.");
         }).start();
     }
 
