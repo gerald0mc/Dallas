@@ -1,19 +1,18 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.command.Command;
+import me.gerald.dallas.utils.ReflectionUtil;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-import static me.gerald.dallas.utils.ReflectionUtil.REFLECTIONS;
 
 public class CommandManager {
     private final List<Command> commands = new ArrayList<>();
     public String PREFIX = "-";
 
     public CommandManager() {
-        REFLECTIONS.getSubTypesOf(Command.class).forEach(command -> {
+        ReflectionUtil.getSubclasses(Command.class).forEach(command -> {
             if (!Modifier.isAbstract(command.getModifiers())) {
                 try {
                     commands.add(command.getDeclaredConstructor().newInstance());

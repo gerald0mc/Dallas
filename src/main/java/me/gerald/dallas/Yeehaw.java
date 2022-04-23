@@ -11,7 +11,7 @@ import me.gerald.dallas.utils.ReflectionUtil;import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -51,14 +51,18 @@ public class Yeehaw {
     static {
         // Loading this early because it takes a long time
         new Thread(() -> {
+            System.out.println("Initializing Reflections instance");
             long time = System.currentTimeMillis();
-            ReflectionUtil.REFLECTIONS = new Reflections();
-            System.out.println("Reflections initialized in " + time + "ms.");
+            ReflectionUtil.init();
+            synchronized (ReflectionUtil.class) {
+                ReflectionUtil.class.notifyAll();
+                System.out.println("Reflections initialized in " + (System.currentTimeMillis() - time) + "ms.");
+            }
         }).start();
     }
 
     @Mod.EventHandler
-    public void preinit(FMLPreInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         //major managers
         moduleManager = new ModuleManager();

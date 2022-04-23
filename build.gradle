@@ -25,6 +25,10 @@ java {
 
 compileJava {
     options.encoding("UTF-8")
+    // fuck you nigga! i don't like warnings!!!
+    options.compilerArgs << '-XDignore.symbol.file'
+    options.forkOptions.executable = 'javac'
+    options.fork = true
 }
 
 configurations {

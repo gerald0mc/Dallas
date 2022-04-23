@@ -9,6 +9,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -16,10 +17,12 @@ import java.util.function.Function;
  * @since 4/22/2022
  */
 public class ReflectionUtil {
-    public static Reflections REFLECTIONS;
-    public static final Unsafe UNSAFE;
+    private static Unsafe UNSAFE;
+    private static Reflections REFLECTIONS;
 
-    static {
+    // Would use static block but java is being gay
+    public static void init() {
+        REFLECTIONS = new Reflections();
         try {
             Field field = Unsafe.class.getDeclaredField("theUnsafe");
             field.setAccessible(true);
@@ -27,6 +30,20 @@ public class ReflectionUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static <T> Set<Class<? extends T>> getSubclasses(Class<T> clazz) {
+        // We initialize REFLECTIONS on another thread because it takes a long time.
+        // If your computer is slow, it may still be initializing when this is called.
+        // This is a non-busy wait to ensure it is loaded before the first use.
+        while (ReflectionUtil.REFLECTIONS == null) {
+            synchronized (ReflectionUtil.class) {
+                try {
+                    ReflectionUtil.class.wait();
+                } catch (InterruptedException ignored) {}
+            }
+        }
+        return REFLECTIONS.getSubTypesOf(clazz);
     }
 
     public static String betterSimpleName(Class<?> clazz) {

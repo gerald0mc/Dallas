@@ -1,6 +1,7 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.utils.ReflectionUtil;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -9,16 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static me.gerald.dallas.utils.ReflectionUtil.REFLECTIONS;
-
 public class ModuleManager {
     private final List<Module> modules = new ArrayList<>();
     private final Map<Class<?>, Module> moduleMap = new HashMap<>();
 
-
-    // haven't actually tested but it should work lol
     public ModuleManager() {
-        REFLECTIONS.getSubTypesOf(Module.class).forEach(module -> {
+        ReflectionUtil.getSubclasses(Module.class).forEach(module -> {
             if (!Modifier.isAbstract(module.getModifiers())) {
                 try {
                     modules.add(module.getDeclaredConstructor().newInstance());

@@ -17,8 +17,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static me.gerald.dallas.utils.ReflectionUtil.REFLECTIONS;
-
 @SuppressWarnings("rawtypes") // Doesn't happen in kotlin ;)
 public class PacketLog extends HUDModule {
     public static List<BooleanComponent> settings = new ArrayList<>();
@@ -28,7 +26,7 @@ public class PacketLog extends HUDModule {
 
     public PacketLog() {
         super(new PacketLogComponent(1, 11, 1, 1), "PacketLog", Category.HUD, "Shows the players ping.");
-        REFLECTIONS.getSubTypesOf(Packet.class).forEach(packet -> dataMap.put(packet, new PacketData(packet)));
+        ReflectionUtil.getSubclasses(Packet.class).forEach(packet -> dataMap.put(packet, new PacketData(packet)));
         // i dont wanna do this lol
         //dataMap.values().forEach(data -> settings.add(new BooleanComponent()));
     }
