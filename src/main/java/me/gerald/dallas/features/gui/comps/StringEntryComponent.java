@@ -3,11 +3,7 @@ package me.gerald.dallas.features.gui.comps;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
-import me.gerald.dallas.features.gui.api.SettingComponent;
-import me.gerald.dallas.features.gui.comps.settingcomps.*;
 import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.setting.Setting;
-import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -71,7 +67,7 @@ public class StringEntryComponent extends AbstractContainer {
             if (mouseButton == 0)
                 listening = !listening;
         }
-        for(ModuleComponent component : searchModules) {
+        for (ModuleComponent component : searchModules) {
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
 //        for(SettingComponent component : settingComponents) {
@@ -98,8 +94,8 @@ public class StringEntryComponent extends AbstractContainer {
 //            settingComponents.clear();
             searchModules.clear();
             entryString = removeLastLetter(entryString);
-            for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if(module.getName().contains(entryString)) {
+            for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+                if (module.getName().contains(entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
 //                for(Setting setting : module.getSettings()) {
@@ -122,8 +118,8 @@ public class StringEntryComponent extends AbstractContainer {
 //            settingComponents.clear();
             searchModules.clear();
             entryString += keyChar;
-            for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if(module.getName().contains(entryString)) {
+            for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+                if (module.getName().contains(entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
 //                for(Setting setting : module.getSettings()) {

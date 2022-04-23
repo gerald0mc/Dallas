@@ -53,7 +53,7 @@ public class Waypoints extends Module {
             int z = Integer.parseInt(values[7]);
             String dimension = values[9];
             String ip = values[11];
-            if(Minecraft.getMinecraft().getCurrentServerData() != null) {
+            if (Minecraft.getMinecraft().getCurrentServerData() != null) {
                 ServerData data = Minecraft.getMinecraft().getCurrentServerData();
                 if (!data.serverIP.equalsIgnoreCase(ip)) continue;
             }

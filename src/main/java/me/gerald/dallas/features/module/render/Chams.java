@@ -10,27 +10,17 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.MathUtil;
-import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Chams extends Module {
-    public Chams() {
-        super("Chams", Category.RENDER, "Chams for different things.");
-    }
-
     public ModeSetting renderMode = register(new ModeSetting("RenderMode", "Both", "Both", "Fill", "Outline"));
     public BooleanSetting colorSync = register(new BooleanSetting("ColorSync", true));
     public ColorSetting outlineColor = register(new ColorSetting("OutlineColor", 0, 0, 0, 255, () -> !colorSync.getValue()));
@@ -38,29 +28,32 @@ public class Chams extends Module {
     public NumberSetting lineWidth = register(new NumberSetting("Linewidth", 1, 0.1f, 5));
     public BooleanSetting pops = register(new BooleanSetting("Pops", true));
     public BooleanSetting deaths = register(new BooleanSetting("Deaths", true));
-    public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1,5, () -> pops.getValue() || deaths.getValue()));
+    public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 2, 1, 5, () -> pops.getValue() || deaths.getValue()));
     public BooleanSetting fade = register(new BooleanSetting("Fade", true));
     public NumberSetting fadeSpeed = register(new NumberSetting("FadeSpeed", 1, 0.1f, 5, () -> fade.getValue() && (pops.getValue() || deaths.getValue())));
     public BooleanSetting removePrevious = register(new BooleanSetting("RemovePrevious", true, () -> pops.getValue() || deaths.getValue()));
-
     public CopyOnWriteArrayList<Render> renderMap = new CopyOnWriteArrayList<>();
+
+    public Chams() {
+        super("Chams", Category.RENDER, "Chams for different things.");
+    }
 
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event) {
-        if(nullCheck()) return;
-        if(renderMap.isEmpty()) return;
-        for(Render person : renderMap) {
-            if(fade.getValue()) {
+        if (nullCheck()) return;
+        if (renderMap.isEmpty()) return;
+        for (Render person : renderMap) {
+            if (fade.getValue()) {
                 person.updateValues(renderMap);
-            }else {
-                if(System.currentTimeMillis() - person.startTime > timeToRemove.getValue() * 1000) {
+            } else {
+                if (System.currentTimeMillis() - person.startTime > timeToRemove.getValue() * 1000) {
                     renderMap.remove(person);
                     continue;
                 }
             }
             GL11.glPushMatrix();
             GL11.glDepthRange(0.01, 1.0f);
-            if(renderMode.getMode().equals("Both") || renderMode.getMode().equals("Outline")) {
+            if (renderMode.getMode().equals("Both") || renderMode.getMode().equals("Outline")) {
                 float r = (colorSync.getValue() ? ClickGUI.clientColor.getRed() : outlineColor.getR()) / 255f;
                 float g = (colorSync.getValue() ? ClickGUI.clientColor.getGreen() : outlineColor.getG()) / 255f;
                 float b = (colorSync.getValue() ? ClickGUI.clientColor.getBlue() : outlineColor.getB()) / 255f;
@@ -83,7 +76,7 @@ public class Chams extends Module {
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_TEXTURE_2D);
             }
-            if(renderMode.getMode().equals("Both") || renderMode.getMode().equals("Fill")) {
+            if (renderMode.getMode().equals("Both") || renderMode.getMode().equals("Fill")) {
                 float r = (colorSync.getValue() ? ClickGUI.clientColor.getRed() : fillColor.getR()) / 255f;
                 float g = (colorSync.getValue() ? ClickGUI.clientColor.getGreen() : fillColor.getG()) / 255f;
                 float b = (colorSync.getValue() ? ClickGUI.clientColor.getBlue() : fillColor.getB()) / 255f;
@@ -113,8 +106,8 @@ public class Chams extends Module {
 
     @SubscribeEvent
     public void onPop(TotemPopEvent event) {
-        if(nullCheck()) return;
-        if(event.getEntity() == mc.player) return;
+        if (nullCheck()) return;
+        if (event.getEntity() == mc.player) return;
         EntityOtherPlayerMP fakeEntity = new EntityOtherPlayerMP(mc.world, new GameProfile(event.getEntity().getUniqueID(), "Ballz"));
         fakeEntity.copyLocationAndAnglesFrom(event.getEntity());
         fakeEntity.rotationYaw = event.getEntity().rotationYaw;
@@ -124,15 +117,15 @@ public class Chams extends Module {
         fakeEntity.cameraYaw = fakeEntity.rotationYaw;
         fakeEntity.cameraPitch = fakeEntity.rotationPitch;
         fakeEntity.setSneaking(event.getEntity().isSneaking());
-        if(removePrevious.getValue())
+        if (removePrevious.getValue())
             renderMap.removeIf(render -> render.entity == fakeEntity);
         renderMap.add(new Render(fakeEntity, System.currentTimeMillis()));
     }
 
     @SubscribeEvent
     public void onDeath(DeathEvent event) {
-        if(nullCheck()) return;
-        if(event.getEntity() == mc.player) return;
+        if (nullCheck()) return;
+        if (event.getEntity() == mc.player) return;
         EntityOtherPlayerMP fakeEntity = new EntityOtherPlayerMP(mc.world, new GameProfile(event.getEntity().getUniqueID(), "Ballz"));
         fakeEntity.copyLocationAndAnglesFrom(event.getEntity());
         fakeEntity.rotationYaw = event.getEntity().rotationYaw;
@@ -142,7 +135,7 @@ public class Chams extends Module {
         fakeEntity.cameraYaw = fakeEntity.rotationYaw;
         fakeEntity.cameraPitch = fakeEntity.rotationPitch;
         fakeEntity.setSneaking(event.getEntity().isSneaking());
-        if(removePrevious.getValue())
+        if (removePrevious.getValue())
             renderMap.removeIf(render -> render.entity == fakeEntity);
         renderMap.add(new Render(fakeEntity, System.currentTimeMillis()));
     }
@@ -153,16 +146,16 @@ public class Chams extends Module {
             entityIn.lastTickPosY = entityIn.posY;
             entityIn.lastTickPosZ = entityIn.posZ;
         }
-        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double)partialTicks;
-        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double)partialTicks;
-        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double)partialTicks;
+        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
+        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
+        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
         float f = entityIn.prevRotationYaw + (entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks;
         int i = entityIn.getBrightnessForRender();
         if (entityIn.isBurning())
             i = 15728880;
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
         mc.getRenderManager().renderEntity(entityIn, d0 - mc.getRenderManager().viewerPosX, d1 - mc.getRenderManager().viewerPosY, d2 - mc.getRenderManager().viewerPosZ, f, partialTicks, true);
     }
 
@@ -177,7 +170,7 @@ public class Chams extends Module {
         }
 
         public void updateValues(CopyOnWriteArrayList<Render> arrayList) {
-            if(a < 0) {
+            if (a < 0) {
                 arrayList.remove(this);
             }
             a -= 180 / Yeehaw.INSTANCE.moduleManager.getModule(Chams.class).fadeSpeed.getValue() * Yeehaw.INSTANCE.fpsManager.getFrametime();

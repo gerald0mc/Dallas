@@ -1,10 +1,11 @@
 package me.gerald.dallas.features.gui.api;
 
-import java.awt.*;
+import me.gerald.dallas.utils.Globals;
+
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-public abstract class AbstractContainer {
+public abstract class AbstractContainer implements Globals {
     public int x, y, width, height;
     public boolean last = false;
 

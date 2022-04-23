@@ -23,9 +23,9 @@ public class CoordinatesComponent extends HUDContainer {
         int playerX = (int) Minecraft.getMinecraft().player.posX;
         int playerZ = (int) Minecraft.getMinecraft().player.posZ;
         Color color;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
             color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
+        } else {
             color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         }
         String coordinates = Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).xyz.getValue() ? "X" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerX + ChatFormatting.RESET + " Y" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + (int) Minecraft.getMinecraft().player.posY + ChatFormatting.RESET + " Z" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + playerZ : ChatFormatting.WHITE + (playerX + " " + (int) Minecraft.getMinecraft().player.posY + " " + playerZ);

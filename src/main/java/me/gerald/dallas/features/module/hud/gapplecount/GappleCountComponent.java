@@ -4,7 +4,6 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
-import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -25,9 +24,9 @@ public class GappleCountComponent extends HUDContainer {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
         Color color;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
             color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
+        } else {
             color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).renderMode.getMode()) {
@@ -38,9 +37,9 @@ public class GappleCountComponent extends HUDContainer {
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x + 10, y + 12, -1);
                 break;
             case "Name":
-                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""));
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""));
                 height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)  + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x, y, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Gapples" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x, y, color.getRGB());
                 break;
         }
     }

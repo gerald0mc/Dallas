@@ -1,9 +1,9 @@
 package me.gerald.dallas.managers.notification;
 
 public class NotificationConstructor {
-    private String title;
-    private String message;
-    private long startTime;
+    private final String title;
+    private final String message;
+    private final long startTime;
 
     public NotificationConstructor(String title, String message, long startTime) {
         this.title = title;

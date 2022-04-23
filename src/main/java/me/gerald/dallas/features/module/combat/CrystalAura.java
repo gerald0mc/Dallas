@@ -37,53 +37,6 @@ public class CrystalAura extends Module {
         super("CrystalAura", Module.Category.COMBAT, "NOT AUTO CRYSTAL!!!#!#!@#");
     }
 
-    @SubscribeEvent
-    public void onUpdate(TickEvent.ClientTickEvent event) {
-        if (nullCheck()) return;
-        Entity target = getTarget((int) range.getValue());
-        if(placeTimer.passedMs((long) delayMS.getValue()))
-            placeLogic(target);
-        if(breakTimer.passedMs((long) delayMS.getValue()))
-            breakLogic();
-    }
-
-    public void placeLogic(Entity target) {
-        List<BlockPos> blocks = findCrystalBlocks();
-        if(mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL || mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-            for (BlockPos pos : blocks) {
-                double playerDamage = calculateDamage(pos.getX(), pos.getY(), pos.getZ(), target);
-                double selfDamage = calculateDamage(pos.getX(), pos.getY(), pos.getZ(), mc.player);
-                if (playerDamage > .5) {
-                    if (selfDamage > maxPlayerDamage.getValue()) return;
-                    RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos.getX() + .5, pos.getY() - .5d, pos.getZ() + .5));
-                    EnumFacing face;
-                    if (result == null || result.sideHit == null) {
-                        face = EnumFacing.UP;
-                    } else {
-                        face = result.sideHit;
-                    }
-                    boolean offhand = mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL;
-                    mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, face, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-                    placeTimer.reset();
-                    return;
-                }
-            }
-        }
-    }
-
-    public void breakLogic() {
-        for (Entity entity : mc.world.loadedEntityList) {
-            if (mc.player.getDistance(entity) <= range.getValue()) {
-                if (entity instanceof EntityEnderCrystal) {
-                    mc.playerController.attackEntity(mc.player, entity);
-                    breakTimer.reset();
-                }
-            }
-        }
-    }
-
-    //kami calcs
-
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity) {
         float doubleExplosionSize = 6.0F * 2.0F;
         double distancedSize = entity.getDistance(posX, posY, posZ) / (double) doubleExplosionSize;
@@ -124,6 +77,53 @@ public class CrystalAura extends Module {
         return damage * (diff == 0 ? 0 : (diff == 2 ? 1 : (diff == 1 ? 0.5f : 1.5f)));
     }
 
+    //kami calcs
+
+    @SubscribeEvent
+    public void onUpdate(TickEvent.ClientTickEvent event) {
+        if (nullCheck()) return;
+        Entity target = getTarget((int) range.getValue());
+        if (placeTimer.passedMs((long) delayMS.getValue()))
+            placeLogic(target);
+        if (breakTimer.passedMs((long) delayMS.getValue()))
+            breakLogic();
+    }
+
+    public void placeLogic(Entity target) {
+        List<BlockPos> blocks = findCrystalBlocks();
+        if (mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL || mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+            for (BlockPos pos : blocks) {
+                double playerDamage = calculateDamage(pos.getX(), pos.getY(), pos.getZ(), target);
+                double selfDamage = calculateDamage(pos.getX(), pos.getY(), pos.getZ(), mc.player);
+                if (playerDamage > .5) {
+                    if (selfDamage > maxPlayerDamage.getValue()) return;
+                    RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos.getX() + .5, pos.getY() - .5d, pos.getZ() + .5));
+                    EnumFacing face;
+                    if (result == null || result.sideHit == null) {
+                        face = EnumFacing.UP;
+                    } else {
+                        face = result.sideHit;
+                    }
+                    boolean offhand = mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL;
+                    mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, face, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                    placeTimer.reset();
+                    return;
+                }
+            }
+        }
+    }
+
+    public void breakLogic() {
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (mc.player.getDistance(entity) <= range.getValue()) {
+                if (entity instanceof EntityEnderCrystal) {
+                    mc.playerController.attackEntity(mc.player, entity);
+                    breakTimer.reset();
+                }
+            }
+        }
+    }
+
     private List<BlockPos> findCrystalBlocks() {
         NonNullList<BlockPos> positions = NonNullList.create();
         positions.addAll(BlockUtil.getSphere(mc.player.getPosition(), range.getValue(), false).stream().filter(this::canPlaceCrystal).collect(Collectors.toList()));
@@ -142,10 +142,10 @@ public class CrystalAura extends Module {
     }
 
     public Entity getTarget(int range) {
-        for(Entity entity : mc.world.loadedEntityList) {
-            if(entity == mc.player) continue;
-            if(Yeehaw.INSTANCE.friendManager.isFriend(entity.getDisplayName().getUnformattedText())) continue;
-            if(mc.player.getDistance(entity) < range) return entity;
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (entity == mc.player) continue;
+            if (Yeehaw.INSTANCE.friendManager.isFriend(entity.getDisplayName().getUnformattedText())) continue;
+            if (mc.player.getDistance(entity) < range) return entity;
         }
         return null;
     }

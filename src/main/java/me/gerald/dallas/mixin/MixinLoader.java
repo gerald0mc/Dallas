@@ -5,12 +5,12 @@ import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("Gerald MIXINS")
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public final class MixinLoader implements IFMLLoadingPlugin {
+
     @Override
     public String[] getASMTransformerClass() {
         return new String[0];
@@ -21,7 +21,6 @@ public final class MixinLoader implements IFMLLoadingPlugin {
         return null;
     }
 
-    @Nullable
     @Override
     public String getSetupClass() {
         return null;

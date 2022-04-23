@@ -6,7 +6,6 @@ import me.gerald.dallas.features.gui.api.SettingComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -44,7 +43,7 @@ public class NumberComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateSliderLogic(mouseX);
-        if(changeColor) {
+        if (changeColor) {
             sliderColor = ClickGUI.clientColor;
         }
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());

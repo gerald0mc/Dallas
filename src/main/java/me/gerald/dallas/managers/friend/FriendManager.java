@@ -8,30 +8,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FriendManager {
-    public List<FriendConstructor> friends;
+    public Set<String> friends = new HashSet<>();
     File friendsFile;
 
     public FriendManager() {
-        friends = new ArrayList<>();
         friendsFile = new File(ConfigManager.clientPath, "Friends.txt");
         if (!friendsFile.exists()) {
             try {
                 friendsFile.createNewFile();
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     }
 
     public void addFriend(String entity) {
-        friends.add(new FriendConstructor(entity));
+        friends.add(entity);
         try {
             FileWriter fileWriter = new FileWriter(friendsFile, true);
             fileWriter.write(entity + "\n");
             fileWriter.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
     public void delFriend(String entity) {
@@ -41,24 +43,21 @@ public class FriendManager {
                 if (friend.equalsIgnoreCase(entity)) {
                     FileUtil.removeLineFromFile(friendsFile, entity);
                 }
-                for(FriendConstructor friendConstructor : getFriends()) {
-                    if(friendConstructor.getName().equalsIgnoreCase(entity)) {
-                        friends.remove(friendConstructor);
-                    }
-                }
             }
-        } catch (IOException ignored) {}
+            friends.removeIf(string -> string.equalsIgnoreCase(entity));
+        } catch (IOException ignored) {
+        }
     }
 
     public boolean isFriend(String name) {
-        for (FriendConstructor friendConstructor : friends) {
-            if (friendConstructor.getName().equalsIgnoreCase(name))
+        for (String string : friends) {
+            if (string.equalsIgnoreCase(name))
                 return true;
         }
         return false;
     }
 
-    public List<FriendConstructor> getFriends() {
+    public Set<String> getFriends() {
         return friends;
     }
 }

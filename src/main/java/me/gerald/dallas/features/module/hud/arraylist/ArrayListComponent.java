@@ -24,21 +24,21 @@ public class ArrayListComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         List<String> moduleNames = new ArrayList<>();
         Color color;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
             color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
+        } else {
             color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         }
         int yOffset = 0;
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.module.hud.arraylist.ArrayList.class).skipHUD.getValue()) continue;
-            if(module.isEnabled()) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.module.hud.arraylist.ArrayList.class).skipHUD.getValue())
+                continue;
+            if (module.isEnabled()) {
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName() + module.getMetaData(), x, y + yOffset, color.getRGB());
                 yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.module.hud.arraylist.ArrayList.class).spacing.getValue();
                 moduleNames.add(module.getName() + module.getMetaData());
-            }else {
-                if(moduleNames.contains(module.getName()))
-                    moduleNames.remove(module.getName());
+            } else {
+                moduleNames.remove(module.getName());
             }
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : moduleNames.get(0));

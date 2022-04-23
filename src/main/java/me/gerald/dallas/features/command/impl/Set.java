@@ -14,27 +14,27 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class Set extends Command {
     public Set() {
-        super("Set", "Set various stuff.", new String[] {"set", "[setting]", "[value]"});
+        super("Set", "Set various stuff.", new String[]{"set", "[setting]", "[value]"});
     }
 
     @Override
     public void onCommand(String[] args) {
         super.onCommand(args);
-        if(args.length == 1) {
+        if (args.length == 1) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Set Command", "Please enter what setting and value you wish to set.", true);
             MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please enter what setting and value you wish to set."));
             return;
         }
         String settingName = args[1];
-        if(args.length == 2) {
+        if (args.length == 2) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Set Command", "Please enter the value you wish to set.", true);
             MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please enter the value you wish to set."));
             return;
         }
         String value = args[2];
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            for(Setting setting : module.getSettings()) {
-                if(setting.getName().equalsIgnoreCase(settingName)) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            for (Setting setting : module.getSettings()) {
+                if (setting.getName().equalsIgnoreCase(settingName)) {
                     if (setting instanceof BooleanSetting)
                         ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
                     else if (setting instanceof NumberSetting)

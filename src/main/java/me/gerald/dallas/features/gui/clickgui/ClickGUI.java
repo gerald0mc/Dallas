@@ -19,12 +19,11 @@ import java.util.List;
 
 public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
+    public static Color clientColor;
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
-
     public List<CategoryComponent> categories = new ArrayList<>();
     private CategoryComponent priorityComponent = null;
-    public static Color clientColor;
 
     public ClickGUI() {
         int xOffset = 10;
@@ -36,9 +35,9 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
             clientColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
+        } else {
             clientColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         }
         for (CategoryComponent component : categories) {
@@ -136,7 +135,8 @@ public class ClickGUI extends GuiScreen {
 
         try {
             searchBox.keyTyped(typedChar, keyCode);
-        } catch (UnsupportedFlavorException ignored) { }
+        } catch (UnsupportedFlavorException ignored) {
+        }
 
         super.keyTyped(typedChar, keyCode);
     }

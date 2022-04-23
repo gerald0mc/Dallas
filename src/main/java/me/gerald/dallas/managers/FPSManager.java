@@ -3,8 +3,8 @@ package me.gerald.dallas.managers;
 import java.util.LinkedList;
 
 public class FPSManager {
-    private int fps;
     private final LinkedList<Long> frames;
+    private int fps;
 
     public FPSManager() {
         frames = new LinkedList<>();
@@ -13,8 +13,8 @@ public class FPSManager {
     public void update() {
         long time = System.nanoTime();
         frames.add(time);
-        while(true) {
-            long f = this.frames.getFirst();
+        while (true) {
+            long f = frames.getFirst();
             if (time - f <= 1000000000L)
                 break;
             frames.remove();

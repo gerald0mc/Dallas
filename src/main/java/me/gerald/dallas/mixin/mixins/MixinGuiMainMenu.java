@@ -3,7 +3,6 @@ package me.gerald.dallas.mixin.mixins;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.utils.ChangeConstructor;
-import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -14,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 @Mixin({GuiMainMenu.class})
 public class MixinGuiMainMenu extends GuiScreen {
@@ -38,7 +37,7 @@ public class MixinGuiMainMenu extends GuiScreen {
         int yOffset = 0;
         Gui.drawRect(0, 18, 2 + getLongestWord(changelog), 29 + (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * changelog.size()), new Color(0, 0, 0, 180).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Changelog" + ChatFormatting.GRAY + ":", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * 2 + 1, -1);
-        for(ChangeConstructor s : changelog) {
+        for (ChangeConstructor s : changelog) {
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(s.getFullLog(), 1, 28 + yOffset, -1);
             yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         }
@@ -46,7 +45,7 @@ public class MixinGuiMainMenu extends GuiScreen {
 
     public int getLongestWord(List<ChangeConstructor> strings) {
         HashMap<String, Integer> hashMap = new HashMap<>();
-        for(ChangeConstructor s : strings)
+        for (ChangeConstructor s : strings)
             hashMap.put(s.getFullLog(), Minecraft.getMinecraft().fontRenderer.getStringWidth(s.getFullLog()));
         return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
     }

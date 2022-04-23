@@ -16,8 +16,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FakePearl extends Module {
     private final Queue<CPacketPlayer> packets = new ConcurrentLinkedQueue<>();
-    private int thrownPearlId = -1;
     public boolean hasThrown = false;
+    private int thrownPearlId = -1;
 
     public FakePearl() {
         super("FakePearl", Category.COMBAT, "When you throw a pearl it will be a fake pearl and will blink the player until the fake pearl has landed.");

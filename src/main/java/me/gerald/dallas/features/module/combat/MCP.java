@@ -13,14 +13,13 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Mouse;
 
 public class MCP extends Module {
-    public MCP() {
-        super("MCP", Category.COMBAT, "Middle click pearl.");
-    }
-
     public BooleanSetting switchBack = register(new BooleanSetting("SwitchBack", true));
     public BooleanSetting toggle = register(new BooleanSetting("Toggle", true));
     public BooleanSetting noPearlToggle = register(new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue()));
     public BooleanSetting onThrowToggle = register(new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue()));
+    public MCP() {
+        super("MCP", Category.COMBAT, "Middle click pearl.");
+    }
 
     @SubscribeEvent
     public void onMouseInput(InputEvent.MouseInputEvent event) {
@@ -31,16 +30,16 @@ public class MCP extends Module {
                 int originalSlot;
                 if (pearlSlot == -1) {
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your inventory.", true);
-                    if(noPearlToggle.getValue())
+                    if (noPearlToggle.getValue())
                         toggle();
                     return;
                 }
                 originalSlot = mc.player.inventory.currentItem;
                 InventoryUtil.switchToSlot(pearlSlot);
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-                if(switchBack.getValue())
+                if (switchBack.getValue())
                     InventoryUtil.switchToSlot(originalSlot);
-                if(onThrowToggle.getValue())
+                if (onThrowToggle.getValue())
                     toggle();
             }
         }

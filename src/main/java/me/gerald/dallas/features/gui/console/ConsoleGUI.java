@@ -4,13 +4,10 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
-import me.gerald.dallas.features.gui.comps.TextComponent;
-import me.gerald.dallas.utils.ChangeConstructor;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,17 +18,16 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class ConsoleGUI extends GuiScreen {
-
-    int width = 300;
-    int height = 250;
 
     public List<String> messageHistory = new ArrayList<>();
     public String PREFIX = ChatFormatting.BOLD + "[Console] " + ChatFormatting.RESET;
     public String entryString = "";
+    int width = 300;
+    int height = 250;
 
     public ConsoleGUI() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -39,9 +35,9 @@ public class ConsoleGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(messageHistory.size() >= 25)
+        if (messageHistory.size() >= 25)
             messageHistory.remove(0);
-        this.width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
+        width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
         Gui.drawRect(25, 25, width + 25, height, new Color(0, 0, 0, 175).getRGB());
         //full box
         //top lines
@@ -53,7 +49,7 @@ public class ConsoleGUI extends GuiScreen {
         //bottom line
         Gui.drawRect(24, height, 25 + width, height + 1, new Color(0, 0, 0, 255).getRGB());
         int yOffset = 0;
-        for(String s : messageHistory) {
+        for (String s : messageHistory) {
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(s, 27, 27 + yOffset, -1);
             yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         }
@@ -62,10 +58,12 @@ public class ConsoleGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {}
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    }
 
     @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {}
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+    }
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
@@ -74,7 +72,7 @@ public class ConsoleGUI extends GuiScreen {
                 entryString = removeLastLetter(entryString);
                 break;
             case Keyboard.KEY_RETURN:
-                if(entryString.equalsIgnoreCase("clear")) {
+                if (entryString.equalsIgnoreCase("clear")) {
                     messageHistory.clear();
                     messageHistory.add(PREFIX + "Cleared console.");
                     return;
@@ -93,17 +91,18 @@ public class ConsoleGUI extends GuiScreen {
                 if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                     try {
                         entryString += Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-                    } catch (UnsupportedFlavorException ignored) {}
+                    } catch (UnsupportedFlavorException ignored) {
+                    }
                 }
                 break;
             case Keyboard.KEY_C:
                 if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                     if (entryString.length() == 0) {
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Console","Nothing to copy.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Nothing to copy.", true);
                         return;
                     }
                     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entryString), null);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Console","Copied text in string box to clipboard.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Copied text in string box to clipboard.", true);
                 }
                 break;
         }
@@ -133,7 +132,7 @@ public class ConsoleGUI extends GuiScreen {
     public int getLongestWord(List<String> strings) {
         HashMap<String, Integer> hashMap = new HashMap<>();
         hashMap.put(entryString + "_", Minecraft.getMinecraft().fontRenderer.getStringWidth(entryString + "_"));
-        for(String s : strings)
+        for (String s : strings)
             hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
         return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
     }

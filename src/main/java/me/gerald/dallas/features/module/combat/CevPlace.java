@@ -1,6 +1,5 @@
 package me.gerald.dallas.features.module.combat;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
@@ -29,7 +28,7 @@ public class CevPlace extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         if (!alwaysActive.getValue()) return;
         if (timer.passedMs((long) delay.getValue())) {
             for (EntityPlayer p : mc.world.playerEntities) {

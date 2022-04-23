@@ -41,8 +41,8 @@ public class Emojis extends Module {
 
     @SubscribeEvent
     public void onChat(ClientChatEvent event) {
-        for(Map.Entry<String, String> entry : emojis.entrySet()) {
-            if(event.getOriginalMessage().contains(":" + entry.getKey() + ":")) {
+        for (Map.Entry<String, String> entry : emojis.entrySet()) {
+            if (event.getOriginalMessage().contains(":" + entry.getKey() + ":")) {
                 event.setMessage(event.getOriginalMessage().replace(":" + entry.getKey() + ":", entry.getValue()));
             }
         }

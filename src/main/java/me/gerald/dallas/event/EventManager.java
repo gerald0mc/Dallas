@@ -3,14 +3,11 @@ package me.gerald.dallas.event;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
-import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.event.listeners.TotemPopListener;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.HUDModule;
-import me.gerald.dallas.features.module.hud.packetlog.PacketLog;
-import me.gerald.dallas.features.module.hud.packetlog.PacketLogComponent;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -89,17 +86,6 @@ public class EventManager {
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
         MessageUtil.sendMessage(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
     }
-
-//    @SubscribeEvent
-//    public void onPacketR(PacketEvent.Receive event) {
-//        if(Yeehaw.INSTANCE.moduleManager.getModule(PacketLog.class).isEnabled())
-//            PacketLogComponent.packetHistory.add("Received packet " + event.getPacket().getClass().getSimpleName());
-//    }
-//
-//    @SubscribeEvent
-//    public void onPacketR(PacketEvent.Send event) {
-//        PacketLogComponent.packetHistory.add("Sent packet " + event.getPacket().getClass().getSimpleName());
-//    }
 
 //    @SubscribeEvent
 //    public void onRender(RenderGameOverlayEvent.Text event) {

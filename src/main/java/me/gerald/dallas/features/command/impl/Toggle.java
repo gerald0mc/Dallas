@@ -10,7 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class Toggle extends Command {
     public Toggle() {
-        super("Toggle", "Toggles a module.", new String[] {"toggle", "[module]"});
+        super("Toggle", "Toggles a module.", new String[]{"toggle", "[module]"});
     }
 
     @Override
@@ -22,8 +22,8 @@ public class Toggle extends Command {
             return;
         }
         String moduleName = args[1];
-        for(Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(module.getName().equalsIgnoreCase(moduleName)) {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (module.getName().equalsIgnoreCase(moduleName)) {
                 module.toggle();
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle Command", "Toggled " + ChatFormatting.AQUA + module.getName(), true);
                 MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Toggled " + ChatFormatting.AQUA + module.getName()));

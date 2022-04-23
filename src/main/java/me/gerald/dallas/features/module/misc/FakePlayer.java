@@ -16,16 +16,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Random;
 
 public class FakePlayer extends Module {
-    public FakePlayer() {
-        super("FakePlayer", Category.MISC, "Spawns a fake player into the world.");
-    }
-
     public BooleanSetting moving = register(new BooleanSetting("Moving", true));
     public NumberSetting moveDelay = register(new NumberSetting("MoveDelay", 75, 25, 250, () -> moving.getValue()));
-
     public TimerUtil moveTimer = new TimerUtil();
     public EntityOtherPlayerMP fakePlayer;
     public Random random = new Random();
+    public FakePlayer() {
+        super("FakePlayer", Category.MISC, "Spawns a fake player into the world.");
+    }
 
     @Override
     public void onEnable() {
@@ -40,19 +38,19 @@ public class FakePlayer extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        if(!moving.getValue()) return;
-        if(fakePlayer != null) {
-            if(moveTimer.passedMs((long) moveDelay.getValue())) {
-                if(mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ)).getBlock() != Blocks.AIR)
+        if (nullCheck()) return;
+        if (!moving.getValue()) return;
+        if (fakePlayer != null) {
+            if (moveTimer.passedMs((long) moveDelay.getValue())) {
+                if (mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ)).getBlock() != Blocks.AIR)
                     fakePlayer.posY += 0.5f;
-                else if(mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ).down()).getBlock() == Blocks.AIR)
+                else if (mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ).down()).getBlock() == Blocks.AIR)
                     fakePlayer.posY -= 1;
                 else {
                     int i = random.nextInt(2);
-                    if(i == 0) {
+                    if (i == 0) {
                         fakePlayer.setPositionAndRotation(fakePlayer.posX + 0.25f, fakePlayer.posY, fakePlayer.posZ, fakePlayer.cameraYaw, fakePlayer.cameraPitch);
-                    }else {
+                    } else {
                         fakePlayer.setPositionAndRotation(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ + 0.25f, fakePlayer.cameraYaw, fakePlayer.cameraPitch);
                     }
                 }

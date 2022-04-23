@@ -5,7 +5,6 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 public class ConfigManager {
@@ -79,7 +77,7 @@ public class ConfigManager {
                                     String bind = words[1];
                                     module.setKeybind(Keyboard.getKeyIndex(bind));
                                     System.out.println("Set module " + module.getName() + " bind to " + module.getKeybind());
-                                }catch (Exception e) {
+                                } catch (Exception e) {
                                     System.out.println("Couldn't set " + module.getName() + "'s bind for some reason.");
                                 }
                                 break;
@@ -87,11 +85,11 @@ public class ConfigManager {
                                 try {
                                     String status = words[1];
                                     if (status.equalsIgnoreCase("true")) {
-                                        if(!module.isEnabled())
+                                        if (!module.isEnabled())
                                             module.toggle();
                                         System.out.println("Set module " + module.getName() + " to Toggled");
                                     }
-                                }catch (Exception e) {
+                                } catch (Exception e) {
                                     System.out.println("Couldn't enable " + module.getName() + " for some reason.");
                                 }
                                 break;

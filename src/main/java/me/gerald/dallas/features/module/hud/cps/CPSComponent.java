@@ -22,9 +22,9 @@ public class CPSComponent extends HUDContainer {
         super.drawScreen(mouseX, mouseY, partialTicks);
         Yeehaw.INSTANCE.cpsManager.calculateCPS();
         Color color;
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
             color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        }else {
+        } else {
             color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth("CPS: " + Yeehaw.INSTANCE.cpsManager.getCps());

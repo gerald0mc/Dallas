@@ -13,21 +13,21 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.HashMap;
 
 public class TotemPopListener {
+    public HashMap<Entity, Integer> popMap = new HashMap<>();
+
     public TotemPopListener() {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public HashMap<Entity, Integer> popMap = new HashMap<>();
-
     @SubscribeEvent
     public void onPacketReceive(PacketEvent.Receive event) {
-        if(event.getPacket() instanceof SPacketEntityStatus) {
+        if (event.getPacket() instanceof SPacketEntityStatus) {
             SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
-            if(packet.getOpCode() == 35) {
-                if(!popMap.containsKey(packet.getEntity(Minecraft.getMinecraft().world))) {
+            if (packet.getOpCode() == 35) {
+                if (!popMap.containsKey(packet.getEntity(Minecraft.getMinecraft().world))) {
                     MinecraftForge.EVENT_BUS.post(new TotemPopEvent(packet.getEntity(Minecraft.getMinecraft().world), 1));
                     popMap.put(packet.getEntity(Minecraft.getMinecraft().world), 1);
-                }else {
+                } else {
                     popMap.put(packet.getEntity(Minecraft.getMinecraft().world), popMap.get(packet.getEntity(Minecraft.getMinecraft().world)) + 1);
                     MinecraftForge.EVENT_BUS.post(new TotemPopEvent(packet.getEntity(Minecraft.getMinecraft().world), popMap.get(packet.getEntity(Minecraft.getMinecraft().world))));
                 }
@@ -37,11 +37,10 @@ public class TotemPopListener {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if(Minecraft.getMinecraft().world != null && Minecraft.getMinecraft().player != null) {
+        if (Minecraft.getMinecraft().world != null && Minecraft.getMinecraft().player != null) {
             for (EntityPlayer player : Minecraft.getMinecraft().world.playerEntities) {
                 if ((player.isDead || !player.isEntityAlive() || player.getHealth() <= 0)) {
-                    if (popMap.containsKey(player))
-                        popMap.remove(player);
+                    popMap.remove(player);
                 }
             }
         }

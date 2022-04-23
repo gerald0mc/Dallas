@@ -5,10 +5,9 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 
 public class GappleCount extends HUDModule {
+    public ModeSetting renderMode = register(new ModeSetting("RendeMode", "Item", "Item", "Name"));
+    public BooleanSetting stackCount = register(new BooleanSetting("StackCount", true));
     public GappleCount() {
         super(new GappleCountComponent(1, 111, 1, 1), "GappleCount", Category.HUD, "Counts your gapples.");
     }
-
-    public ModeSetting renderMode = register(new ModeSetting("RendeMode", "Item", "Item", "Name"));
-    public BooleanSetting stackCount = register(new BooleanSetting("StackCount", true));
 }

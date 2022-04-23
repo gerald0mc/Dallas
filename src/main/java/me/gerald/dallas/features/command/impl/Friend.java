@@ -5,7 +5,6 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.managers.ConfigManager;
-import me.gerald.dallas.managers.friend.FriendConstructor;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
@@ -32,33 +31,33 @@ public class Friend extends Command {
         switch (args[1]) {
             case "add":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Please specify which player you would like to add to the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "Please specify which player you would like to add to the Friend list.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify which player you would like to add to the Friend list."));
                     return;
                 }
                 String playerName = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName)) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager",playerName + " is already a friend.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", playerName + " is already a friend.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(playerName + " is already a friend."));
                 } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(playerName);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Added " + playerName + " to the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "Added " + playerName + " to the Friend list.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(playerName + " to the Friend list."));
                 }
                 break;
             case "remove":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Please specify which player you would like to remove from the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "Please specify which player you would like to remove from the Friend list.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify which player you would like to remove from the Friend list."));
                     return;
                 }
                 String playerName2 = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName2)) {
                     Yeehaw.INSTANCE.friendManager.delFriend(playerName2);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","Removed " + playerName2 + " from Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "Removed " + playerName2 + " from Friend list.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Removed " + playerName2 + " from Friend list."));
                 } else {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager",playerName2 + " is already not a friend.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", playerName2 + " is already not a friend.", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(playerName2 + " is already not a friend."));
                 }
                 break;
@@ -72,11 +71,11 @@ public class Friend extends Command {
                         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
                         MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(friend));
                     }
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager","----------", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", "----------", true);
                     MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("----------"));
-                    for(FriendConstructor friendConstructor : Yeehaw.INSTANCE.friendManager.getFriends()) {
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", friendConstructor.getName(), true);
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(friendConstructor.getName()));
+                    for (String string : Yeehaw.INSTANCE.friendManager.getFriends()) {
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend Manager", string, true);
+                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(string));
                     }
                 } catch (IOException ignored) {
                 }

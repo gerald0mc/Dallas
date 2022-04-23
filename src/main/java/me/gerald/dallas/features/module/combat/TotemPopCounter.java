@@ -1,11 +1,9 @@
 package me.gerald.dallas.features.module.combat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.event.events.TotemPopEvent;
 import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -16,10 +14,10 @@ public class TotemPopCounter extends Module {
 
     @SubscribeEvent
     public void onPop(TotemPopEvent event) {
-        if(event.getPopCount() == 1) {
+        if (event.getPopCount() == 1) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped a totem.", true);
-        }else if(event.getPopCount() > 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop" , ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.GRAY + " totems.", true);
+        } else if (event.getPopCount() > 1) {
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.GRAY + " totems.", true);
         }
     }
 

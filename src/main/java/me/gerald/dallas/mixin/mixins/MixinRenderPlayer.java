@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinRenderPlayer {
     @Inject(method = "renderEntityName*", at = @At("HEAD"), cancellable = true)
     public void renderEntityNameHook(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq, CallbackInfo info) {
-        if(Yeehaw.INSTANCE.moduleManager.getModule(Nametags.class).isEnabled()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(Nametags.class).isEnabled()) {
             info.cancel();
         }
     }

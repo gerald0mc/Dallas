@@ -1,11 +1,9 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.event.events.PacketEvent;
-import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

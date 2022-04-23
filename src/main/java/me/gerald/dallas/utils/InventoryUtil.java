@@ -56,9 +56,9 @@ public class InventoryUtil {
 
     public static String getStackTotal(double amount) {
         double value = amount / 64;
-        if(value == 0)
+        if (value == 0)
             return "x0";
-        else if(!isInteger(value))
+        else if (!isInteger(value))
             return "<x" + (int) Math.ceil(value);
         else
             return "x" + (int) value;

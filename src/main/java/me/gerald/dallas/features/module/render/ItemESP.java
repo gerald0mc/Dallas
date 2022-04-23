@@ -13,20 +13,19 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemESP extends Module {
+    public NumberSetting scale = register(new NumberSetting("Scale", 1, 0, 5));
+    public BooleanSetting count = register(new BooleanSetting("Count", true));
     public ItemESP() {
         super("ItemESP", Category.RENDER, "Renders a items name and quantity.");
     }
 
-    public NumberSetting scale = register(new NumberSetting("Scale", 1, 0, 5));
-    public BooleanSetting count = register(new BooleanSetting("Count", true));
-
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Text event) {
-        if(nullCheck()) return;
-        for(Entity e : mc.world.getLoadedEntityList()) {
-            if(e instanceof EntityItem) {
+        if (nullCheck()) return;
+        for (Entity e : mc.world.getLoadedEntityList()) {
+            if (e instanceof EntityItem) {
                 EntityItem item = (EntityItem) e;
-                if(item.getItem().getDisplayName().length() > 50) continue;
+                if (item.getItem().getDisplayName().length() > 50) continue;
                 double deltaX = MathHelper.clampedLerp(item.lastTickPosX, item.posX, event.getPartialTicks());
                 double deltaY = MathHelper.clampedLerp(item.lastTickPosY, item.posY, event.getPartialTicks());
                 double deltaZ = MathHelper.clampedLerp(item.lastTickPosZ, item.posZ, event.getPartialTicks());
