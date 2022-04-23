@@ -40,7 +40,8 @@ public class ReflectionUtil {
             synchronized (ReflectionUtil.class) {
                 try {
                     ReflectionUtil.class.wait();
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
         return REFLECTIONS.getSubTypesOf(clazz);
