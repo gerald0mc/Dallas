@@ -31,13 +31,12 @@ public class PacketLog extends HUDModule {
         ReflectionUtil.getSubclasses(Packet.class).forEach(packet -> dataMap.put(packet, new PacketData(packet)));
         // i dont wanna do this lol
         for(Map.Entry<Class<? extends Packet>, PacketData> entry : dataMap.entrySet()) {
-            if(entry.getValue().setting.getName().startsWith("C")) {
+            if(entry.getValue().setting.getName().startsWith("C"))
                 cPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
-            }else if(entry.getValue().setting.getName().startsWith("S")) {
+            else if(entry.getValue().setting.getName().startsWith("S"))
                 sPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
-            }else {
+            else
                 miscPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
-            }
         }
     }
 
@@ -55,9 +54,8 @@ public class PacketLog extends HUDModule {
         PacketData data = dataMap.get(packet.getClass());
         if (data.setting.getValue()) {
             PacketLogComponent.packetHistory.add(data.name);
-            if (properties.getValue()) {
+            if (properties.getValue())
                 PacketLogComponent.packetHistory.addAll(data.getProperties(packet));
-            }
         }
     }
 

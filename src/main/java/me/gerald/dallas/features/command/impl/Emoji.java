@@ -38,6 +38,8 @@ public class Emoji extends Command {
                 }
                 String emoji = args[3];
                 Yeehaw.INSTANCE.moduleManager.getModule(Emojis.class).emojis.put(name, emoji);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Emoji Command", "Added new emoji to list called " + name + " and is set to " + emoji, true);
+                MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Added new emoji to list called " + name + " and is set to " + emoji));
                 break;
             case "list":
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Emoji Command", ChatFormatting.AQUA + "Emoji " + ChatFormatting.RESET + "List", true);

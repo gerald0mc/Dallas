@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Gui;
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -17,10 +18,12 @@ public class PacketLogComponent extends HUDContainer {
     public static List<String> packetHistory;
     public int page = 0;
     public int packetPage = 0;
-    public int selectionX;
-    public int selectionY;
-    public int selectionWidth;
-    public int selectionHeight;
+
+    public int logTabX = 0;
+    public int selectionTabX = 0;
+    public int sPacketsTabX = 0;
+    public int cPacketsTabX = 0;
+    public int miscPacketsTabX = 0;
 
     public PacketLogComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -40,12 +43,9 @@ public class PacketLogComponent extends HUDContainer {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Log", x + 1, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
         tabXOffset += Minecraft.getMinecraft().fontRenderer.getStringWidth("Log") + 4;
         //selection
-        selectionX = x + tabXOffset;
-        selectionY = y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        selectionWidth = (x + tabXOffset) + Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection") + 2;
-        selectionHeight = y;
-        Gui.drawRect(selectionX, selectionY, selectionWidth, selectionHeight, page == 1 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Selection", selectionX + 2, selectionY, -1);
+        Gui.drawRect(x + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, x + tabXOffset + Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection") + 2, y, page == 1 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Selection", x + tabXOffset + 2, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
+        if(selectionTabX != x + tabXOffset) selectionTabX = x + tabXOffset;
         tabXOffset += Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection") + 4;
         switch (page) {
             case 0:
@@ -71,22 +71,26 @@ public class PacketLogComponent extends HUDContainer {
                 break;
             case 1:
                 //SPackets
-                Gui.drawRect(x + tabXOffset, selectionY, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 2 + tabXOffset, selectionHeight, packetPage == 0 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("SPackets", x + 2 + tabXOffset, selectionY, -1);
+                Gui.drawRect(x + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 2 + tabXOffset, y, packetPage == 0 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("SPackets", x + 2 + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
+                if(sPacketsTabX != x + tabXOffset) sPacketsTabX = x + tabXOffset;
                 tabXOffset += Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 4;
                 //CPackets
-                Gui.drawRect(x + tabXOffset, selectionY, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets") + 2 + tabXOffset, selectionHeight, packetPage == 1 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("CPackets", x + 2 + tabXOffset, selectionY, -1);
+                Gui.drawRect(x + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets") + 2 + tabXOffset, y, packetPage == 1 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("CPackets", x + 2 + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
+                if(cPacketsTabX != x + tabXOffset) cPacketsTabX = x + tabXOffset;
                 tabXOffset += Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets") + 4;
                 //MiscPackets
-                Gui.drawRect(x + tabXOffset, selectionY, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("MiscPackets") + 2 + tabXOffset, selectionHeight, packetPage == 2 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("MiscPackets", x + 2 + tabXOffset, selectionY, -1);
+                Gui.drawRect(x + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("MiscPackets") + 2 + tabXOffset, y, packetPage == 2 ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 175).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("MiscPackets", x + 2 + tabXOffset, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
+                if(miscPacketsTabX != x + tabXOffset) miscPacketsTabX = x + tabXOffset;
                 switch (packetPage) {
                     case 0:
                         int yOffset2 = y;
                         int xOffset = 0;
                         int amountInRow = 0;
                         for(BooleanComponent component : PacketLog.sPacketSettings) {
+                            if(this.width != x + xOffset) this.width = xOffset;
                             component.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2;
                             component.width = 100;
                             if(amountInRow == 14) {
@@ -106,6 +110,7 @@ public class PacketLogComponent extends HUDContainer {
                         int xOffset2 = 0;
                         int amountInRow2 = 0;
                         for(BooleanComponent component : PacketLog.cPacketSettings) {
+                            if(this.width != x + xOffset2) this.width = xOffset2;
                             component.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2;
                             component.width = 100;
                             if(amountInRow2 == 14) {
@@ -125,6 +130,7 @@ public class PacketLogComponent extends HUDContainer {
                         int xOffset3 = 0;
                         int amountInRow3 = 0;
                         for(BooleanComponent component : PacketLog.miscPacketSettings) {
+                            if(this.width != x + xOffset3) this.width = xOffset3;
                             component.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2;
                             component.width = 100;
                             if(amountInRow3 == 14) {
@@ -148,33 +154,39 @@ public class PacketLogComponent extends HUDContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(isInside(mouseX, mouseY, selectionX, y, selectionWidth, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
-            if(mouseButton == 0) {
-                page = 1;
-            }
-        }else if(isInside(mouseX, mouseY, x, y, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("Log") + 2, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
+        //log tab
+        if(isInside(mouseX, mouseY, logTabX, y, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("Log"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
             if(mouseButton == 0) {
                 page = 0;
             }
+        //selection tab
+        }else if(isInside(mouseX, mouseY, selectionTabX, y, selectionTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
+            if(mouseButton == 0) {
+                page = 1;
+            }
         }
         if(page == 1) {
-            if(isInside(mouseX, mouseY, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("Log") + 2, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, selectionWidth + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 4, y)) {
+            //spacket tab
+            if(isInside(mouseX, mouseY, sPacketsTabX, y, sPacketsTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
                 if(mouseButton == 0) {
                     packetPage = 0;
                 }
-            }else if(isInside(mouseX, mouseY, selectionWidth + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 4, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, selectionWidth + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + 6, y)) {
+            //cpacket tab
+            }else if(isInside(mouseX, mouseY, cPacketsTabX, y, cPacketsTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
                 if(mouseButton == 0) {
                     packetPage = 1;
                 }
-            }else if(isInside(mouseX, mouseY, selectionWidth + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets") + 6, y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, selectionWidth + Minecraft.getMinecraft().fontRenderer.getStringWidth("SPackets") + Minecraft.getMinecraft().fontRenderer.getStringWidth("CPackets") + 8, y)) {
+            //miscpacket tab
+            }else if(isInside(mouseX, mouseY, miscPacketsTabX, y, miscPacketsTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("MiscPackets"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
                 if(mouseButton == 0) {
                     packetPage = 2;
                 }
             }
         }
-        if (isInside(mouseX, mouseY)) {
-            if (mouseButton == 0)
+        if(isInside(mouseX, mouseY)) {
+            if(mouseButton == 0) {
                 beginDragging(mouseX, mouseY);
+            }
         }
     }
 

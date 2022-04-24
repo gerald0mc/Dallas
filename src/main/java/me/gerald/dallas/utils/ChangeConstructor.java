@@ -37,13 +37,13 @@ public class ChangeConstructor {
                 if (secondaryValue.equals(""))
                     return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
                 else
-                    return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + secondaryValue + ChatFormatting.RESET + " to " + value;
+                    return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.YELLOW + secondaryValue + ChatFormatting.RESET + " to " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
             case COMMAND:
                 return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " command!";
             case CHANGE:
                 return ChatFormatting.GRAY + "[" + ChatFormatting.RESET + "*" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Changed " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " to " + ChatFormatting.YELLOW + secondaryValue + ChatFormatting.RESET + "!";
             case DELETE:
-                return ChatFormatting.GRAY + "[" + ChatFormatting.RED + "-" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Deleted " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
+                return ChatFormatting.GRAY + "[" + ChatFormatting.RED + "-" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Deleted " + ChatFormatting.RED + value + ChatFormatting.RESET + "!";
         }
         return "";
     }

@@ -4,7 +4,6 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.module.client.GUI;
 import me.gerald.dallas.managers.notification.NotificationConstructor;
-import me.gerald.dallas.utils.AnimationUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -35,9 +34,8 @@ public class NotificationsComponent extends HUDContainer {
         int yOffset = 0;
         for (NotificationConstructor notificationConstructor : Yeehaw.INSTANCE.notificationManager.getNotifications()) {
             if (!Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue()) {
-                int animationX = System.currentTimeMillis() - notificationConstructor.getStartTime() < System.currentTimeMillis() - (Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).timeToRemove.getValue() * 1000) ? 2 : (int) AnimationUtil.getSmooth2Animation(Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).timeToRemove.getValue() * 1000, System.currentTimeMillis() - notificationConstructor.getStartTime());
                 Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
-                Gui.drawRect(x, y + yOffset, x + animationX, y + height + yOffset, color.getRGB());
+                Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
             } else {
                 Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());

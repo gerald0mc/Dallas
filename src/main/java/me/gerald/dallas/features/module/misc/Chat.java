@@ -16,7 +16,7 @@ public class Chat extends Module {
     public void onChatSend(ClientChatEvent event) {
         String[] unsafe = prefix.getValue().split("");
         for (String character : unsafe)
-            if (event.getOriginalMessage().startsWith(character)) return;
+            if (event.getMessage().startsWith(character)) return;
         String suffix = " \u1D05\u1D00\u029F\u029F\u1D00\uA731";
         event.setMessage(event.getOriginalMessage() + suffix);
     }
