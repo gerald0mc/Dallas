@@ -42,7 +42,7 @@ public class ArrayListComponent extends HUDContainer {
             }
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : moduleNames.get(0));
-        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + yOffset;
     }
 
     @Override

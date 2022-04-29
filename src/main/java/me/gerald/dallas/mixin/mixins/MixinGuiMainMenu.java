@@ -25,13 +25,6 @@ public class MixinGuiMainMenu extends GuiScreen {
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "FakePlayer", "Moving"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "WebhookSpammer", "Crasher Mode"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "MCP"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Emoji"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Emojis"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "NameChanger", "FakeClip"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Console"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "NameChanger"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "ArrayList"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Toggle"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffset = 0;
