@@ -21,10 +21,10 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Nametags extends Module {
-    public NumberSetting scale = register(new NumberSetting("Scale", 2.5f, 0, 5));
-    public BooleanSetting ping = register(new BooleanSetting("Ping", true));
-    public BooleanSetting totemPops = register(new BooleanSetting("TotemPops", true));
-    public BooleanSetting health = register(new BooleanSetting("Health", true));
+    public NumberSetting scale = new NumberSetting("Scale", 2.5f, 0, 5);
+    public BooleanSetting ping = new BooleanSetting("Ping", true);
+    public BooleanSetting totemPops = new BooleanSetting("TotemPops", true);
+    public BooleanSetting health = new BooleanSetting("Health", true);
 
     public Nametags() {
         super("Nametags", Category.RENDER, "Renders info about players.");

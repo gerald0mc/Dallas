@@ -24,8 +24,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoBurrow extends Module {
-    public NumberSetting distanceToAct = register(new NumberSetting("DistanceToAct", 7, 1, 10));
-    public NumberSetting offset = register(new NumberSetting("Offset", 7, -20, 20));
+    public NumberSetting distanceToAct = new NumberSetting("DistanceToAct", 7, 1, 10);
+    public NumberSetting offset = new NumberSetting("Offset", 7, -20, 20);
     public int oldSlot = -1;
 
     public AutoBurrow() {

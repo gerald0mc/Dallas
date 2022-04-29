@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spammer extends Module {
-    public NumberSetting delay = register(new NumberSetting("Delay", 3, 0.1f, 5));
-    public BooleanSetting messageCounter = register(new BooleanSetting("MessageCounter", true));
+    public NumberSetting delay = new NumberSetting("Delay", 3, 0.1f, 5);
+    public BooleanSetting messageCounter = new BooleanSetting("MessageCounter", false);
     public TimerUtil timer = new TimerUtil();
     public List<String> messages = new ArrayList<>();
     public int messageCount = 0;

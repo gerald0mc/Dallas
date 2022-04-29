@@ -15,10 +15,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CevPlace extends Module {
-    public NumberSetting range = register(new NumberSetting("Range", 4, 1, 6));
-    public NumberSetting delay = register(new NumberSetting("Delay", 100, 0, 2000));
-    public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
-    public BooleanSetting ownSwing = register(new BooleanSetting("OwnSwing", true));
+    public NumberSetting range = new NumberSetting("Range", 4, 1, 6);
+    public NumberSetting delay = new NumberSetting("Delay", 100, 0, 2000);
+    public BooleanSetting alwaysActive = new BooleanSetting("AlwaysActive", false);
+    public BooleanSetting ownSwing = new BooleanSetting("OwnSwing", true);
 
     public TimerUtil timer = new TimerUtil();
 

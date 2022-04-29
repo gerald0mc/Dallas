@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Sprint extends Module {
-    public ModeSetting mode = register(new ModeSetting("Mode", "Rage", "Rage", "Legit"));
+    public ModeSetting mode = new ModeSetting("Mode", "Rage", "Rage", "Legit");
 
     public Sprint() {
         super("Sprint", Category.MOVEMENT, "Sets the player to sprinting.");

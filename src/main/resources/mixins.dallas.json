@@ -4,6 +4,7 @@
   "package": "me.gerald.dallas.mixin.mixins",
   "refmap": "mixins.dallas.refmap.json",
   "mixins": [
+    "MixinEntity",
     "MixinNetworkManager"
   ],
   "client": [

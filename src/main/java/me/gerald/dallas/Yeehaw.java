@@ -49,18 +49,18 @@ public class Yeehaw {
 
     public List<Block> searchBlocks;
 
-    static {
-        // Loading this early because it takes a long time
-        new Thread(() -> {
-            System.out.println("Initializing Reflections instance");
-            long time = System.currentTimeMillis();
-            ReflectionUtil.init();
-            synchronized (ReflectionUtil.class) {
-                ReflectionUtil.class.notifyAll();
-                System.out.println("Reflections initialized in " + (System.currentTimeMillis() - time) + "ms.");
-            }
-        }).start();
-    }
+//    static {
+//        // Loading this early because it takes a long time
+//        new Thread(() -> {
+//            System.out.println("Initializing Reflections instance");
+//            long time = System.currentTimeMillis();
+//            ReflectionUtil.init();
+//            synchronized (ReflectionUtil.class) {
+//                ReflectionUtil.class.notifyAll();
+//                System.out.println("Reflections initialized in " + (System.currentTimeMillis() - time) + "ms.");
+//            }
+//        }).start();
+//    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {

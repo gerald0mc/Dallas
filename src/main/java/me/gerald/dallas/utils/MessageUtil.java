@@ -2,7 +2,9 @@ package me.gerald.dallas.utils;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.features.gui.console.ConsoleGUI;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.client.Console;
 import me.gerald.dallas.features.module.hud.notification.Notifications;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
@@ -19,6 +21,9 @@ public class MessageUtil {
                 Yeehaw.INSTANCE.notificationManager.addNotification(title, message, System.currentTimeMillis());
         } else {
             Minecraft.getMinecraft().player.sendMessage(new TextComponentString(clientPrefix + message));
+        }
+        if(Yeehaw.INSTANCE.moduleManager.getModule(Console.class).clientMessages.getValue()) {
+            Yeehaw.INSTANCE.consoleGUI.messageHistory.add(message);
         }
     }
 }

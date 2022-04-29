@@ -26,9 +26,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CrystalAura extends Module {
-    public NumberSetting range = register(new NumberSetting("Range", 4, 1, 6));
-    public NumberSetting delayMS = register(new NumberSetting("DelayMS", 0, 0, 500));
-    public NumberSetting maxPlayerDamage = register(new NumberSetting("MaxPlayerDamage", 10, 1, 20));
+    public NumberSetting range = new NumberSetting("Range", 4, 1, 6);
+    public NumberSetting delayMS = new NumberSetting("DelayMS", 0, 0, 500);
+    public NumberSetting maxPlayerDamage = new NumberSetting("MaxPlayerDamage", 10, 1, 20);
 
     public TimerUtil placeTimer = new TimerUtil();
     public TimerUtil breakTimer = new TimerUtil();

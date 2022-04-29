@@ -50,7 +50,10 @@ public class ModuleComponent extends AbstractContainer {
             else if (element instanceof ColorSetting)
                 settingComponents.add(new ColorComponent((ColorSetting) element, x, y, 110, height));
             if (!iterator.hasNext()) {
-                settingComponents.get(settingComponents.size() - 1).last = true;
+                if(settingComponents.size() == 0)
+                    return;
+                else
+                    settingComponents.get(settingComponents.size() - 1).last = true;
             }
         }
     }

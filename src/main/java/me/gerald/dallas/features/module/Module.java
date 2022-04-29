@@ -7,6 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Module {
@@ -63,9 +64,21 @@ public class Module {
         this.description = description;
     }
 
-    public <T extends Setting> T register(T setting) {
-        settings.add(setting);
-        return setting;
+    public void registerValues() {
+        Arrays.stream(getClass().getDeclaredFields())
+                .filter((f) -> Setting.class.isAssignableFrom(f.getType()))
+                .forEach((f) -> {
+                    boolean access = f.isAccessible();
+                    if (!access) {
+                        f.setAccessible(true);
+                    }
+                    try {
+                        settings.add((Setting) f.get(this));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    f.setAccessible(access);
+                });
     }
 
     public List<Setting> getSettings() {

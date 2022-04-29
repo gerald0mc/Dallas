@@ -27,6 +27,7 @@ public class ModuleManager {
             }
         });
         modules.forEach(module -> moduleMap.put(module.getClass(), module));
+        modules.forEach(Module::registerValues);
     }
 
     public List<Module> getModules() {

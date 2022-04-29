@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PacketLogComponent extends HUDContainer {
-    public static List<String> packetHistory;
+    public static List<String> packetHistory = new CopyOnWriteArrayList<>();
     public int page = 0;
     public int packetPage = 0;
 
@@ -28,8 +28,6 @@ public class PacketLogComponent extends HUDContainer {
     public PacketLogComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.height = 154;
-        // This isn't ever more than 100 elements, performance hit is negligible
-        packetHistory = new CopyOnWriteArrayList<>();
     }
 
     @Override

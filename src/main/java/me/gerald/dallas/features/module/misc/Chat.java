@@ -6,10 +6,10 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Chat extends Module {
-    public StringSetting prefix = register(new StringSetting("NoPrefixWhen", "/.!-=@#$*;"));
+    public StringSetting prefix = new StringSetting("NoPrefixWhen", "/.!-=@#$*;");
 
     public Chat() {
-        super("Chat", Category.MISC, "Chat things.");
+        super("Chat", Category.MISC, "Chat things. (Issues with chat module)");
     }
 
     @SubscribeEvent

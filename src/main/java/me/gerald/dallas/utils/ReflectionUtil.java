@@ -17,11 +17,22 @@ import java.util.function.Function;
  * @since 4/22/2022
  */
 public class ReflectionUtil {
-    private static Unsafe UNSAFE;
-    private static Reflections REFLECTIONS;
+    private static final Unsafe UNSAFE;
+    private static final Reflections REFLECTIONS;
 
-    // Would use static block but java is being gay
-    public static void init() {
+//    // Would use static block but java is being gay
+//    public static void init() {
+//        REFLECTIONS = new Reflections();
+//        try {
+//            Field field = Unsafe.class.getDeclaredField("theUnsafe");
+//            field.setAccessible(true);
+//            UNSAFE = (Unsafe) field.get(null);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    static {
         REFLECTIONS = new Reflections();
         try {
             Field field = Unsafe.class.getDeclaredField("theUnsafe");
@@ -36,14 +47,6 @@ public class ReflectionUtil {
         // We initialize REFLECTIONS on another thread because it takes a long time.
         // If your computer is slow, it may still be initializing when this is called.
         // This is a non-busy wait to ensure it is loaded before the first use.
-        while (ReflectionUtil.REFLECTIONS == null) {
-            synchronized (ReflectionUtil.class) {
-                try {
-                    ReflectionUtil.class.wait();
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }
         return REFLECTIONS.getSubTypesOf(clazz);
     }
 

@@ -7,6 +7,7 @@ import me.gerald.dallas.event.listeners.TotemPopListener;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.features.module.client.Client;
 import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.Globals;
@@ -79,13 +80,29 @@ public class EventManager implements Globals {
     //module enable
     @SubscribeEvent
     public void onModuleEnable(ModuleToggleEvent.Enable event) {
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
+        if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
+        switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
+            case "Default":
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
+                break;
+            case "Simple":
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
+                break;
+        }
     }
 
     //module disable
     @SubscribeEvent
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Module Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
+        if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
+        switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
+            case "Default":
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
+                break;
+            case "Simple":
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
+                break;
+        }
     }
 
 //    @SubscribeEvent
