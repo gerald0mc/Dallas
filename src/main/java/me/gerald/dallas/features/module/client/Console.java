@@ -1,10 +1,8 @@
 package me.gerald.dallas.features.module.client;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 
 public class Console extends Module {

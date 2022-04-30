@@ -40,6 +40,7 @@ public class PacketLog extends HUDModule {
             else
                 miscPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
         }
+        setBetaModule(true);
     }
 
     @SubscribeEvent

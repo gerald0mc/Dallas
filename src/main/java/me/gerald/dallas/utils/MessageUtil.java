@@ -25,5 +25,6 @@ public class MessageUtil {
         if(Yeehaw.INSTANCE.moduleManager.getModule(Console.class).clientMessages.getValue()) {
             Yeehaw.INSTANCE.consoleGUI.messageHistory.add(message);
         }
+        Yeehaw.INSTANCE.eventManager.clientHistory.add(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + title + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + message);
     }
 }

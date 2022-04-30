@@ -23,7 +23,7 @@ public class ClickGUI extends GuiScreen {
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
     public List<CategoryComponent> categories = new ArrayList<>();
-    private CategoryComponent priorityComponent = null;
+    public CategoryComponent priorityComponent = null;
 
     public ClickGUI() {
         int xOffset = 10;

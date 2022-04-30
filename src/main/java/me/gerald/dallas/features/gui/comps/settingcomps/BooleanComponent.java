@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class BooleanComponent extends SettingComponent {
     public BooleanSetting setting;
-    public boolean showValue;
+    private final boolean showValue;
 
     public BooleanComponent(BooleanSetting setting, boolean showValue, int x, int y, int width, int height) {
         super(setting, x, y, width, height);

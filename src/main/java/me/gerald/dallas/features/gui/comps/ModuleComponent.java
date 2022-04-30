@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.gui.comps;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
 import me.gerald.dallas.features.gui.api.SettingComponent;
@@ -11,6 +12,7 @@ import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -64,17 +66,17 @@ public class ModuleComponent extends AbstractContainer {
         float alignment = 0;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleAlignment.getMode()) {
             case "Middle":
-                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName()) / 2f);
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName() + (module.isBetaModule() ? " BETA" : "")) / 2f);
                 break;
             case "Left":
                 alignment = x + 2f;
                 break;
             case "Right":
-                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName()) - 2;
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName() + (module.isBetaModule() ? " BETA" : "")) - 2;
                 break;
         }
         Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow((open ? "> " : "") + module.getName(), alignment, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.WHITE + (open ? "> " : "") + module.getName() + ChatFormatting.RESET + (module.isBetaModule() ? " BETA" : ""), alignment, y + 2f, new Color(251, 206, 5, 255).getRGB());
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line

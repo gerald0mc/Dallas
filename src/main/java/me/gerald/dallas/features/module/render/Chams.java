@@ -27,6 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Chams extends Module {
     public Chams() {
         super("Chams", Category.RENDER, "Chams for different things.");
+        setBetaModule(true);
     }
 
     public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "Both", "Fill", "Outline");

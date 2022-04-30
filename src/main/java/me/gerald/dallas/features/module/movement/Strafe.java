@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class Strafe extends Module {
     public Strafe() {
         super("Strafe", Category.MOVEMENT, "Automatically strafes for the player.");
+        setBetaModule(true);
     }
 
     @SubscribeEvent

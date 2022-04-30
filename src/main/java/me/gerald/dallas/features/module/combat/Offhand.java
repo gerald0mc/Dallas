@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -26,7 +27,15 @@ public class Offhand extends Module {
     public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true);
     public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 50, () -> !instantSwitch.getValue());
     public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
-    public BooleanSetting message = new BooleanSetting("Message", true);
+    public BooleanSetting checks = new BooleanSetting("Checks", true);
+    public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, () -> checks.getValue());
+    public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, () -> checks.getValue() && fallCheck.getValue());
+    public BooleanSetting liquidCheck = new BooleanSetting("LiquidCheck", true, () -> checks.getValue());
+    public BooleanSetting water = new BooleanSetting("Water", true, () -> checks.getValue() && liquidCheck.getValue());
+    public BooleanSetting lava = new BooleanSetting("Lava", true, () -> checks.getValue() && liquidCheck.getValue());
+    public BooleanSetting elytraCheck = new BooleanSetting("ElytraCheck", true, () -> checks.getValue());
+    public BooleanSetting flyingOnly = new BooleanSetting("FlyingOnly", true, () -> checks.getValue() && elytraCheck.getValue());
+    public BooleanSetting message = new BooleanSetting("Message", false);
 
     public TimerUtil delayTimer = new TimerUtil();
     public boolean needsItem = false;
@@ -39,10 +48,39 @@ public class Offhand extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
+        boolean forceTotem = false;
+        if(liquidCheck.getValue() && liquidCheck.isVisible()) {
+            if(mc.player.isInLava() && lava.getValue() || mc.player.isInWater() && water.getValue()) {
+                needsItem = false;
+                forceTotem = true;
+            }
+        }
+        if(elytraCheck.getValue() && elytraCheck.isVisible() && !forceTotem) {
+            for(ItemStack armor : mc.player.getArmorInventoryList()) {
+                if(armor.getItem() instanceof ItemElytra) {
+                    if(flyingOnly.getValue()) {
+                        if(mc.player.isElytraFlying()) {
+                            needsItem = false;
+                            forceTotem = true;
+                        }
+                    } else {
+                        needsItem = false;
+                        forceTotem = true;
+                    }
+                    break;
+                }
+            }
+        }
+        if (fallCheck.getValue() && mc.player.fallDistance > minDistance.getValue() && !forceTotem) {
+            needsItem = false;
+            forceTotem = true;
+        }
         if (!needsItem) {
-            if(absorptionAdd.getValue() ? (mc.player.getHealth() + mc.player.getAbsorptionAmount()) >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
-                needsItem = true;
-                return;
+            if(!forceTotem) {
+                if(absorptionAdd.getValue() ? (mc.player.getHealth() + mc.player.getAbsorptionAmount()) >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
+                    needsItem = true;
+                    return;
+                }
             }
             if(mc.player.getHeldItemOffhand().getItem().equals(Items.TOTEM_OF_UNDYING)) return;
             int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
@@ -57,7 +95,7 @@ public class Offhand extends Module {
             if(mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
             int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
             if(itemSlot != -1) {
-                doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + mc.player.getHeldItemOffhand().getDisplayName() + ChatFormatting.GRAY + " to offhand slot.");
+                doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot.");
             }else {
                 int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
                 if(totemSlot != -1)
@@ -87,12 +125,12 @@ public class Offhand extends Module {
         if(instantSwitch.getValue()) {
             InventoryUtil.moveItemToSlot(45, slot);
             if(message.getValue())
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string, true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), true);
         } else {
             if(delayTimer.passedMs((long) delay.getValue())) {
                 InventoryUtil.moveItemToSlot(45, slot);
                 if(message.getValue())
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string, true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), true);
                 delayTimer.reset();
             }
         }

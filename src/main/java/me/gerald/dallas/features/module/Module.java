@@ -18,6 +18,7 @@ public class Module {
     private Category category;
     private int keybind;
     private String description;
+    private boolean isBetaModule = false;
     private boolean isEnabled = false;
 
     public Module(String name, Category category, String description) {
@@ -60,37 +61,16 @@ public class Module {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void registerValues() {
-        Arrays.stream(getClass().getDeclaredFields())
-                .filter((f) -> Setting.class.isAssignableFrom(f.getType()))
-                .forEach((f) -> {
-                    boolean access = f.isAccessible();
-                    if (!access) {
-                        f.setAccessible(true);
-                    }
-                    try {
-                        settings.add((Setting) f.get(this));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    f.setAccessible(access);
-                });
-    }
-
-    public List<Setting> getSettings() {
-        return settings;
-    }
-
     public boolean isEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+    public boolean isBetaModule() {
+        return isBetaModule;
+    }
+
+    public void setBetaModule(boolean value) {
+        this.isBetaModule = value;
     }
 
     public void toggle() {
@@ -121,6 +101,27 @@ public class Module {
 
     public String getMetaData() {
         return metaData;
+    }
+
+    public void registerValues() {
+        Arrays.stream(getClass().getDeclaredFields())
+                .filter((f) -> Setting.class.isAssignableFrom(f.getType()))
+                .forEach((f) -> {
+                    boolean access = f.isAccessible();
+                    if (!access) {
+                        f.setAccessible(true);
+                    }
+                    try {
+                        settings.add((Setting) f.get(this));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    f.setAccessible(access);
+                });
+    }
+
+    public List<Setting> getSettings() {
+        return settings;
     }
 
     public enum Category {

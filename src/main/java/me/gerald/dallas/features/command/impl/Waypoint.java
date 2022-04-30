@@ -2,7 +2,6 @@ package me.gerald.dallas.features.command.impl;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.FileUtil;
@@ -31,8 +30,7 @@ public class Waypoint extends Command {
         if (!waypointFile.exists()) {
             try {
                 waypointFile.createNewFile();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add].", true);
-                MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add]."));
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add].", true);
             } catch (IOException ignored) {
             }
         }
@@ -46,8 +44,7 @@ public class Waypoint extends Command {
                 String server = "Singleplayer";
                 switch (args.length) {
                     case 2:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please specify the name of your Waypoint.", true);
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify the name of your Waypoint."));
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of your Waypoint.", true);
                         return;
                     case 3:
                         waypointName = args[2];
@@ -71,16 +68,13 @@ public class Waypoint extends Command {
                         }
                         break;
                     case 4:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please specify Y, Z, and Dimension of your custom waypoint.", true);
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify Y, Z, and Dimension of your custom waypoint."));
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Y, Z, and Dimension of your custom waypoint.", true);
                         return;
                     case 5:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please specify Z and Dimension of your custom waypoint.", true);
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify Z and Dimension of your custom waypoint."));
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Z and Dimension of your custom waypoint.", true);
                         return;
                     case 6:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please specify Dimension of your custom waypoint.", true);
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify Dimension of your custom waypoint."));
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Dimension of your custom waypoint.", true);
                         return;
                     case 7:
                         waypointName = args[2];
@@ -94,8 +88,7 @@ public class Waypoint extends Command {
                         } else if (args[6].equalsIgnoreCase("end")) {
                             dimension = "End";
                         } else {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please make your dimension you are trying to set is one of three (Overworld, Nether, or End).", true);
-                            MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please make your dimension you are trying to set is one of three (Overworld, Nether, or End)."));
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please make your dimension you are trying to set is one of three (Overworld, Nether, or End).", true);
                             return;
                         }
                         ServerData data2 = Minecraft.getMinecraft().getCurrentServerData();
@@ -108,15 +101,13 @@ public class Waypoint extends Command {
                     FileWriter fileWriter = new FileWriter(waypointFile, true);
                     fileWriter.write("Name " + waypointName + " X " + x + " Y " + y + " Z " + z + " Dimension " + dimension + " Server " + server + "\n");
                     fileWriter.close();
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Added new waypoint called " + waypointName + " and is it X: " + x + " Y: " + y + " Z: " + z + " and is in " + dimension, true);
-                    MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Added new waypoint called " + waypointName + " and is it X: " + x + " Y: " + y + " Z: " + z + " and is in " + dimension));
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + waypointName + " and is it X: " + x + " Y: " + y + " Z: " + z + " and is in " + dimension, true);
                 } catch (IOException ignored) {
                 }
                 break;
             case "remove":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Please specify the name of the Waypoint you are trying to remove.", true);
-                    MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please specify the name of the Waypoint you are trying to remove."));
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of the Waypoint you are trying to remove.", true);
                     return;
                 }
                 String target = args[2];
@@ -126,8 +117,7 @@ public class Waypoint extends Command {
                         String[] values = waypoint.split(" ");
                         if (values[1].equalsIgnoreCase(target)) {
                             FileUtil.removeLineFromFile(waypointFile, waypoint);
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint Command", "Removed " + target + " from Waypoints list.", true);
-                            MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Removed " + target + " from Waypoints list."));
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Removed " + target + " from Waypoints list.", true);
                         }
                     }
                 } catch (IOException ignored) {
@@ -136,11 +126,9 @@ public class Waypoint extends Command {
             case "list":
                 try {
                     List<String> waypoints = Files.readAllLines(Paths.get(waypointFile.toURI()));
-                    Minecraft.getMinecraft().player.sendMessage(new TextComponentString(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List"));
-                    MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List"));
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List", true);
                     for (String waypoint : waypoints) {
-                        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(waypoint));
-                        MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent(waypoint));
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", waypoint, true);
                     }
                 } catch (IOException ignored) {
                 }

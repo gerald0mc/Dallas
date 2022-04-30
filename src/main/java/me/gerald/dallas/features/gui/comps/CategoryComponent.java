@@ -87,6 +87,17 @@ public class CategoryComponent extends DragComponent {
         }
         for (ModuleComponent component : modules) {
             if (!open) return;
+            if (component.isInside(mouseX, mouseY)) {
+                for(Module.Category category : Module.Category.values()) {
+                    if(component.module.getCategory() == category) {
+                        for(CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
+                            if(categoryComponent.category == category) {
+                                Yeehaw.INSTANCE.clickGUI.priorityComponent = categoryComponent;
+                            }
+                        }
+                    }
+                }
+            }
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }

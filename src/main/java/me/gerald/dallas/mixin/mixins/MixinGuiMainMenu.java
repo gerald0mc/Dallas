@@ -21,6 +21,12 @@ public class MixinGuiMainMenu extends GuiScreen {
     @Inject(method = "drawScreen", at = @At("TAIL"))
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         List<ChangeConstructor> changelog = new ArrayList<>();
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Client"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Offhand"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "FPS"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Packet Log (WIP Dont Use)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Strafe (WIP Dont Use)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Chams"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Search Box"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "FakePlayer", "Moving"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "WebhookSpammer", "Crasher Mode"));

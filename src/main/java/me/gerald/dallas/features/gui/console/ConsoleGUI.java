@@ -2,7 +2,6 @@ package me.gerald.dallas.features.gui.console;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -35,11 +34,7 @@ public class ConsoleGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (messageHistory.size() >= 25)
-            messageHistory.remove(0);
-        width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
         Gui.drawRect(25, 25, width + 25, height, new Color(0, 0, 0, 175).getRGB());
-        //full box
         //top lines
         Gui.drawRect(24, 25, 25 + width, 26, new Color(0, 0, 0, 255).getRGB());
         //left line
@@ -50,6 +45,9 @@ public class ConsoleGUI extends GuiScreen {
         Gui.drawRect(24, height, 25 + width, height + 1, new Color(0, 0, 0, 255).getRGB());
         int yOffset = 0;
         for (String s : messageHistory) {
+            if (messageHistory.size() >= 25)
+                messageHistory.remove(0);
+            width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(s, 27, 27 + yOffset, -1);
             yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         }
@@ -114,11 +112,6 @@ public class ConsoleGUI extends GuiScreen {
     @Override
     public boolean doesGuiPauseGame() {
         return false;
-    }
-
-    @SubscribeEvent
-    public void onMessage(ConsoleMessageEvent event) {
-        messageHistory.add(event.getMessage());
     }
 
     public String removeLastLetter(String string) {

@@ -12,6 +12,8 @@ import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -20,7 +22,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.*;
 import java.util.List;
 
 public class EventManager implements Globals {
@@ -31,6 +35,7 @@ public class EventManager implements Globals {
         MinecraftForge.EVENT_BUS.register(this);
         totemPopListener = new TotemPopListener();
         hudModules = Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD);
+        clientHistory = new ArrayList<>();
     }
 
     //binds
@@ -105,33 +110,39 @@ public class EventManager implements Globals {
         }
     }
 
-//    @SubscribeEvent
-//    public void onRender(RenderGameOverlayEvent.Text event) {
-//        if(Module.nullCheck()) return;
-//        if(notificationHistory.isEmpty()) return;
-//        if(mc.currentScreen instanceof GuiChat) {
-//            Color color;
-//            if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
-//                color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-//            }else {
-//                color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
-//            }
-//            if(Yeehaw.INSTANCE.notificationManager.notifications.isEmpty() || !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled()) return;
-//            int height = Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? 26 : 13;
-//            int yOffset = 0;
-//            for(NotificationConstructor notificationConstructor : NotificationManager.notificationHistory) {
-//                if(!Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue()) {
-//                    Gui.drawRect(0, 2 + yOffset, mc.fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
-//                    Gui.drawRect(0, 2 + yOffset, 2, 2 + height + yOffset, color.getRGB());
-//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 4 + yOffset, -1);
-//                }else {
-//                    Gui.drawRect(0, 2 + yOffset, mc.fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), 2 + height + yOffset, new Color(0, 0, 0, 170).getRGB());
-//                    Gui.drawRect(0, 2 + yOffset, 2, 2 + height + yOffset, color.getRGB());
-//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getTitle(), 4, 4 + yOffset, -1);
-//                    mc.fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), 4, 17 + yOffset, -1);
-//                }
-//                yOffset += height + 2;
-//            }
-//        }
-//    }
+    public List<String> clientHistory;
+
+    @SubscribeEvent
+    public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {
+        if (clientHistory.size() >= (int) Yeehaw.INSTANCE.moduleManager.getModule(Client.class).historyAmount.getValue())
+            clientHistory.remove(0);
+        if(mc.currentScreen instanceof GuiChat) {
+            if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageHistory.getValue())
+                return;
+            int yOffset = clientHistory.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1);
+            if(Yeehaw.INSTANCE.moduleManager.getModule(Client.class).background.getValue()) {
+                Gui.drawRect(2, 0, 2 + getLongestWord(clientHistory), yOffset, new Color(0, 0, 0, 175).getRGB());
+                //top lines
+                Gui.drawRect(2, 0, 2 + getLongestWord(clientHistory), 1, new Color(0, 0, 0, 255).getRGB());
+                //left line
+                Gui.drawRect(2, 0, 3, yOffset, new Color(0, 0, 0, 255).getRGB());
+                //right line
+                Gui.drawRect(2 + getLongestWord(clientHistory) - 1, 0, 2 + getLongestWord(clientHistory), yOffset, new Color(0, 0, 0, 255).getRGB());
+                //bottom line
+                Gui.drawRect(2, yOffset - 1, 2 + getLongestWord(clientHistory), yOffset, new Color(0, 0, 0, 255).getRGB());
+            }
+            yOffset = 0;
+            for(String s : clientHistory) {
+                mc.fontRenderer.drawStringWithShadow(s, 2, yOffset, -1);
+                yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
+            }
+        }
+    }
+
+    public int getLongestWord(List<String> strings) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : strings)
+            hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
+        return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
+    }
 }
