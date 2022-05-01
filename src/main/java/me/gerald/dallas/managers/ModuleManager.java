@@ -41,4 +41,14 @@ public class ModuleManager {
     public List<Module> getCategory(Module.Category category) {
         return modules.stream().filter(module -> module.getCategory() == category).collect(Collectors.toList());
     }
+
+    public int getAmountPerCat(Module.Category category) {
+        int moduleTot = 0;
+        for(Module module : getModules()) {
+            if(module.getCategory() == category) {
+                moduleTot++;
+            }
+        }
+        return moduleTot;
+    }
 }

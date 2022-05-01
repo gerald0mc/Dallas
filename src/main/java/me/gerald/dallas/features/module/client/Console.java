@@ -15,6 +15,10 @@ public class Console extends Module {
 
     @Override
     public void onEnable() {
+        Yeehaw.INSTANCE.consoleGUI.selectionBox.inConsoleGUI = true;
+        Yeehaw.INSTANCE.consoleGUI.selectionBox.inClickGUI = false;
+        Yeehaw.INSTANCE.clickGUI.selectionBox.inConsoleGUI = true;
+        Yeehaw.INSTANCE.clickGUI.selectionBox.inClickGUI = false;
         mc.displayGuiScreen(Yeehaw.INSTANCE.consoleGUI);
         toggle();
     }

@@ -1,13 +1,12 @@
 package me.gerald.dallas;
 
-import me.gerald.dallas.event.EventManager;
+import me.gerald.dallas.managers.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.gui.console.ConsoleGUI;
 import me.gerald.dallas.managers.*;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
-import me.gerald.dallas.utils.ReflectionUtil;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;

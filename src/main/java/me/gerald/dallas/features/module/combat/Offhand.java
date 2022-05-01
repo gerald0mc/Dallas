@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.module.combat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.gerald.dallas.event.events.TotemPopEvent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.hud.armor.Armor;
 import me.gerald.dallas.setting.settings.BooleanSetting;
@@ -13,7 +14,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -25,8 +25,8 @@ public class Offhand extends Module {
     public ModeSetting item = new ModeSetting("Item", "Totem", "Totem", "Crystals", "Gapples");
     public NumberSetting totemHealth = new NumberSetting("TotemHealth", 10, 1, 36, () -> !item.getMode().equalsIgnoreCase("totem"));
     public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true);
-    public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 50, () -> !instantSwitch.getValue());
-    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
+    public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 1000, () -> !instantSwitch.getValue());
+//    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
     public BooleanSetting checks = new BooleanSetting("Checks", true);
     public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, () -> checks.getValue());
     public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, () -> checks.getValue() && fallCheck.getValue());
@@ -49,13 +49,13 @@ public class Offhand extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if(nullCheck()) return;
         boolean forceTotem = false;
-        if(liquidCheck.getValue() && liquidCheck.isVisible()) {
+        if(liquidCheck.getValue() && liquidCheck.isVisible() && needsItem) {
             if(mc.player.isInLava() && lava.getValue() || mc.player.isInWater() && water.getValue()) {
                 needsItem = false;
                 forceTotem = true;
             }
         }
-        if(elytraCheck.getValue() && elytraCheck.isVisible() && !forceTotem) {
+        if(elytraCheck.getValue() && elytraCheck.isVisible() && !forceTotem && needsItem) {
             for(ItemStack armor : mc.player.getArmorInventoryList()) {
                 if(armor.getItem() instanceof ItemElytra) {
                     if(flyingOnly.getValue()) {
@@ -71,13 +71,13 @@ public class Offhand extends Module {
                 }
             }
         }
-        if (fallCheck.getValue() && mc.player.fallDistance > minDistance.getValue() && !forceTotem) {
+        if (fallCheck.getValue() && mc.player.fallDistance > minDistance.getValue() && !forceTotem && needsItem) {
             needsItem = false;
             forceTotem = true;
         }
         if (!needsItem) {
             if(!forceTotem) {
-                if(absorptionAdd.getValue() ? (mc.player.getHealth() + mc.player.getAbsorptionAmount()) >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
+                if(mc.player.getHealth() >= totemHealth.getValue()) {
                     needsItem = true;
                     return;
                 }
@@ -88,7 +88,7 @@ public class Offhand extends Module {
                 doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.GRAY + " to offhand slot.");
             }
         } else {
-            if(absorptionAdd.getValue() ? (mc.player.getHealth() + mc.player.getAbsorptionAmount()) <= totemHealth.getValue() : mc.player.getHealth() <= totemHealth.getValue()) {
+            if(mc.player.getHealth() <= totemHealth.getValue()) {
                 needsItem = false;
                 return;
             }
@@ -121,6 +121,15 @@ public class Offhand extends Module {
         return null;
     }
 
+    @SubscribeEvent
+    public void onPop(TotemPopEvent event) {
+        if(event.getEntity() == mc.player) {
+            if(!instantSwitch.getValue()) {
+                delayTimer.reset();
+            }
+        }
+    }
+
     public void doThing(int slot, String string) {
         if(instantSwitch.getValue()) {
             InventoryUtil.moveItemToSlot(45, slot);
@@ -131,7 +140,6 @@ public class Offhand extends Module {
                 InventoryUtil.moveItemToSlot(45, slot);
                 if(message.getValue())
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), true);
-                delayTimer.reset();
             }
         }
     }

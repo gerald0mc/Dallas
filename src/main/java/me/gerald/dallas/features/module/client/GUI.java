@@ -13,6 +13,7 @@ public class GUI extends Module {
     public NumberSetting rainbowSpeed = new NumberSetting("RainbowSpeed", 3, 1, 10, () -> rainbow.getValue());
     public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Left", "Middle", "Right");
     public ModeSetting moduleAlignment = new ModeSetting("ModuleAlignment", "Middle", "Left", "Middle", "Right");
+    public BooleanSetting moduleCount = new BooleanSetting("ModuleCount", true);
 
     public GUI() {
         super("GUI", Category.CLIENT, "Displays the client GUI.");
@@ -20,6 +21,10 @@ public class GUI extends Module {
 
     @Override
     public void onEnable() {
+        Yeehaw.INSTANCE.consoleGUI.selectionBox.inConsoleGUI = false;
+        Yeehaw.INSTANCE.consoleGUI.selectionBox.inClickGUI = true;
+        Yeehaw.INSTANCE.clickGUI.selectionBox.inConsoleGUI = false;
+        Yeehaw.INSTANCE.clickGUI.selectionBox.inClickGUI = true;
         mc.displayGuiScreen(Yeehaw.INSTANCE.clickGUI);
         toggle();
     }
