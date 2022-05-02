@@ -68,8 +68,7 @@ public class CategoryComponent extends DragComponent {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + " category.") + 3;
         }
         int yOffset = height;
-        for (ModuleComponent component : modules) {
-            if (!open) return;
+        if (open) for (ModuleComponent component : modules) {
             component.x = x;
             component.y = y + yOffset;
             yOffset += component.getHeight();
@@ -86,8 +85,7 @@ public class CategoryComponent extends DragComponent {
                 open = !open;
             }
         }
-        for (ModuleComponent component : modules) {
-            if (!open) return;
+        if (open) for (ModuleComponent component : modules) {
             if (component.isInside(mouseX, mouseY)) {
                 for(Module.Category category : Module.Category.values()) {
                     if(component.module.getCategory() == category) {
