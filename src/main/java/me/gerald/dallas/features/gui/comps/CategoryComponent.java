@@ -107,16 +107,14 @@ public class CategoryComponent extends DragComponent {
             stopDragging();
         }
 
-        for (ModuleComponent component : modules) {
-            if (!open) return;
+        if (open) for (ModuleComponent component : modules) {
             component.mouseReleased(mouseX, mouseY, mouseButton);
         }
     }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
-        for (ModuleComponent component : modules) {
-            if (!open) return;
+        if (open) for (ModuleComponent component : modules) {
             component.keyTyped(keyChar, key);
         }
     }
