@@ -9,7 +9,6 @@ import me.gerald.dallas.utils.ReflectionUtil;
 import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +31,10 @@ public class PacketLog extends HUDModule {
         ReflectionUtil.getSubclasses(Packet.class).forEach(packet -> dataMap.put(packet, new PacketData(packet)));
         System.out.println(dataMap.size());
         // i dont wanna do this lol
-        for(Map.Entry<Class<? extends Packet>, PacketData> entry : dataMap.entrySet()) {
-            if(entry.getValue().setting.getName().startsWith("C"))
+        for (Map.Entry<Class<? extends Packet>, PacketData> entry : dataMap.entrySet()) {
+            if (entry.getValue().setting.getName().startsWith("C"))
                 cPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
-            else if(entry.getValue().setting.getName().startsWith("S"))
+            else if (entry.getValue().setting.getName().startsWith("S"))
                 sPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
             else
                 miscPacketSettings.add(new BooleanComponent(entry.getValue().setting, false, getContainer().x, getContainer().y, getContainer().width, getContainer().height));
@@ -45,7 +44,7 @@ public class PacketLog extends HUDModule {
 
     @SubscribeEvent
     public void onPacketSend(PacketEvent.Send event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         handlePacket(event.getPacket());
     }
 
@@ -56,7 +55,7 @@ public class PacketLog extends HUDModule {
 
     private void handlePacket(Packet<?> packet) {
         PacketData data = dataMap.get(packet.getClass());
-        if(data == null) {
+        if (data == null) {
             System.out.println(packet.getClass());
             return;
         }

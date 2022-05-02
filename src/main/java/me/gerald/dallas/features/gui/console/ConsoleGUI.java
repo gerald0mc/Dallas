@@ -3,7 +3,6 @@ package me.gerald.dallas.features.gui.console;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.command.Command;
-import me.gerald.dallas.features.gui.comps.ClickComponent;
 import me.gerald.dallas.features.gui.comps.SelectionComponent;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -12,7 +11,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -25,11 +23,11 @@ import java.util.*;
 
 public class ConsoleGUI extends GuiScreen {
     public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
-    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
-    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
     public List<String> messageHistory = new ArrayList<>();
     public String PREFIX = ChatFormatting.BOLD + "[Console] " + ChatFormatting.RESET;
     public String entryString = "";
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
     int width = 300;
     int height = 250;
 
@@ -67,7 +65,8 @@ public class ConsoleGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) { }
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+    }
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {

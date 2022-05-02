@@ -12,7 +12,6 @@ import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -52,7 +51,7 @@ public class ModuleComponent extends AbstractContainer {
             else if (element instanceof ColorSetting)
                 settingComponents.add(new ColorComponent((ColorSetting) element, x, y, 110, height));
             if (!iterator.hasNext()) {
-                if(settingComponents.size() == 0)
+                if (settingComponents.size() == 0)
                     return;
                 else
                     settingComponents.get(settingComponents.size() - 1).last = true;

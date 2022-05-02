@@ -5,7 +5,6 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.module.misc.WebhookSpammer;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraftforge.common.MinecraftForge;
 
 public class Webhook extends Command {
     public Webhook() {

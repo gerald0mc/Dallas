@@ -9,7 +9,6 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraftforge.common.MinecraftForge;
 
 public class Set extends Command {
     public Set() {

@@ -5,7 +5,6 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.module.misc.Emojis;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.Map;
 

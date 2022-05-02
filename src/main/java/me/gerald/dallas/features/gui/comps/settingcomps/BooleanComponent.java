@@ -11,8 +11,8 @@ import net.minecraft.client.gui.Gui;
 import java.awt.*;
 
 public class BooleanComponent extends SettingComponent {
-    public BooleanSetting setting;
     private final boolean showValue;
+    public BooleanSetting setting;
 
     public BooleanComponent(BooleanSetting setting, boolean showValue, int x, int y, int width, int height) {
         super(setting, x, y, width, height);

@@ -9,13 +9,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CrystalAura extends Module {
+    public NumberSetting range = new NumberSetting("Range", 4, 1, 6);
+    public TimerUtil breakTimer = new TimerUtil();
+
     public CrystalAura() {
         super("CrystalAura", Module.Category.COMBAT, "NOT AUTO CRYSTAL!!!#!#!@#");
     }
-
-    public NumberSetting range = new NumberSetting("Range", 4, 1, 6);
-
-    public TimerUtil breakTimer = new TimerUtil();
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {

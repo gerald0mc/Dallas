@@ -13,11 +13,12 @@ public class Strafe extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        if(mc.player.isInWater() || mc.player.isInLava() || mc.player.isOnLadder() || ((MixinEntity) mc.player).getIsInWeb()) return;
-        if(mc.player.onGround) {
+        if (nullCheck()) return;
+        if (mc.player.isInWater() || mc.player.isInLava() || mc.player.isOnLadder() || ((MixinEntity) mc.player).getIsInWeb())
+            return;
+        if (mc.player.onGround) {
             mc.player.jump();
-        }else {
+        } else {
             mc.player.motionY = -0.11f;
         }
     }

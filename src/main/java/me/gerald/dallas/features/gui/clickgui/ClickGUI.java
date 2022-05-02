@@ -23,12 +23,12 @@ public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
     public static Color clientColor = Color.BLACK; // Nigger (this crashes???)
     public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
-    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
-    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
     public List<CategoryComponent> categories = new ArrayList<>();
     public CategoryComponent priorityComponent = null;
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
 
     public ClickGUI() {
         int xOffset = 10;

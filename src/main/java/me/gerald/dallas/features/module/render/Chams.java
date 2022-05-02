@@ -1,19 +1,16 @@
 package me.gerald.dallas.features.module.render;
 
 import com.mojang.authlib.GameProfile;
-import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.event.events.TotemPopEvent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
-import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -22,22 +19,20 @@ import org.lwjgl.opengl.GL11;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Chams extends Module {
-    public Chams() {
-        super("Chams", Category.RENDER, "Chams for different things.");
-        setBetaModule(true);
-    }
-
     public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "Both", "Fill", "Outline");
     public NumberSetting alpha = new NumberSetting("Alpha", 150, 0, 255);
     public NumberSetting lineWidth = new NumberSetting("Linewidth", 1, 0.1f, 5);
     public BooleanSetting pops = new BooleanSetting("Pops", true);
     public BooleanSetting deaths = new BooleanSetting("Deaths", true);
     public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, () -> pops.getValue() || deaths.getValue());
-
     public HashMap<EntityOtherPlayerMP, Long> renderMap = new LinkedHashMap<>();
+
+    public Chams() {
+        super("Chams", Category.RENDER, "Chams for different things.");
+        setBetaModule(true);
+    }
 
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event) {

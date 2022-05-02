@@ -6,12 +6,12 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import org.lwjgl.input.Keyboard;
 
 public class Console extends Module {
+    public BooleanSetting clientMessages = new BooleanSetting("ClientMessages", true);
+
     public Console() {
         super("Console", Category.CLIENT, "Allows you to perform client commands in a GUI.");
         setKeybind(Keyboard.KEY_GRAVE);
     }
-
-    public BooleanSetting clientMessages = new BooleanSetting("ClientMessages", true);
 
     @Override
     public void onEnable() {

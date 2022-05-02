@@ -10,15 +10,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 
 public class AutoRetaliate extends Module {
-    public AutoRetaliate() {
-        super("AutoRetaliate", Category.MISC, "Does a thing.");
-    }
-
     public NumberSetting delay = new NumberSetting("Delay", 100, 0, 1000);
     public ModeSetting targetMode = new ModeSetting("TargetMode", "Closest", "Closest", "Setting");
     public StringSetting targetName = new StringSetting("TargetName", "gerald0mc", () -> targetMode.getMode().equalsIgnoreCase("setting"));
-
     public TimerUtil timer = new TimerUtil();
+
+    public AutoRetaliate() {
+        super("AutoRetaliate", Category.MISC, "Does a thing.");
+    }
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
@@ -26,8 +25,8 @@ public class AutoRetaliate extends Module {
             case "Closest":
                 break;
             case "Setting":
-                if(StringUtils.substringBetween(event.getMessage().getFormattedText(), "<", ">").equalsIgnoreCase(targetName.getValue())) {
-                    if(timer.passedMs((long) delay.getValue())) {
+                if (StringUtils.substringBetween(event.getMessage().getFormattedText(), "<", ">").equalsIgnoreCase(targetName.getValue())) {
+                    if (timer.passedMs((long) delay.getValue())) {
                         mc.player.sendChatMessage("Cope");
                         timer.reset();
                         break;

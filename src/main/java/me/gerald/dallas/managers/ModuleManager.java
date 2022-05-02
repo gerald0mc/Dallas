@@ -44,8 +44,8 @@ public class ModuleManager {
 
     public int getAmountPerCat(Module.Category category) {
         int moduleTot = 0;
-        for(Module module : getModules()) {
-            if(module.getCategory() == category) {
+        for (Module module : getModules()) {
+            if (module.getCategory() == category) {
                 moduleTot++;
             }
         }

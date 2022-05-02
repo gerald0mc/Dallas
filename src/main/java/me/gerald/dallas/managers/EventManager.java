@@ -9,7 +9,6 @@ import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.Client;
 import me.gerald.dallas.features.module.hud.HUDModule;
-import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -24,12 +23,13 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class EventManager implements Globals {
     private final List<Module> hudModules;
     public TotemPopListener totemPopListener;
+    public List<String> clientHistory;
 
     public EventManager() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -85,7 +85,7 @@ public class EventManager implements Globals {
     //module enable
     @SubscribeEvent
     public void onModuleEnable(ModuleToggleEvent.Enable event) {
-        if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
+        if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
             case "Default":
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
@@ -99,7 +99,7 @@ public class EventManager implements Globals {
     //module disable
     @SubscribeEvent
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
-        if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
+        if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
             case "Default":
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
@@ -110,17 +110,15 @@ public class EventManager implements Globals {
         }
     }
 
-    public List<String> clientHistory;
-
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {
-        if(mc.currentScreen instanceof GuiChat) {
-            if(!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageHistory.getValue())
+        if (mc.currentScreen instanceof GuiChat) {
+            if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageHistory.getValue())
                 return;
             if (clientHistory.size() >= (int) Yeehaw.INSTANCE.moduleManager.getModule(Client.class).historyAmount.getValue())
                 clientHistory.remove(0);
             int height = 1 + (clientHistory.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1));
-            if(Yeehaw.INSTANCE.moduleManager.getModule(Client.class).background.getValue()) {
+            if (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).background.getValue()) {
                 Gui.drawRect(1, 0, 2 + getLongestWord(clientHistory), height, new Color(0, 0, 0, 175).getRGB());
                 //top lines
                 Gui.drawRect(1, 0, 2 + getLongestWord(clientHistory), 1, new Color(0, 0, 0, 255).getRGB());
@@ -132,8 +130,8 @@ public class EventManager implements Globals {
                 Gui.drawRect(1, height - 1, 2 + getLongestWord(clientHistory), height, new Color(0, 0, 0, 255).getRGB());
             }
             int yOffset = 1;
-            if(clientHistory.isEmpty()) return;
-            for(String s : clientHistory) {
+            if (clientHistory.isEmpty()) return;
+            for (String s : clientHistory) {
                 mc.fontRenderer.drawStringWithShadow(s, 2, yOffset, -1);
                 yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
             }
@@ -144,7 +142,7 @@ public class EventManager implements Globals {
         HashMap<String, Integer> hashMap = new HashMap<>();
         for (String s : strings)
             hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
-        if(hashMap.isEmpty()) return 20;
+        if (hashMap.isEmpty()) return 20;
         return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
     }
 }

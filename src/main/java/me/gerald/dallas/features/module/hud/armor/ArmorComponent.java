@@ -2,7 +2,6 @@ package me.gerald.dallas.features.module.hud.armor;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
-import me.gerald.dallas.features.module.hud.crystalcount.CrystalCount;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;

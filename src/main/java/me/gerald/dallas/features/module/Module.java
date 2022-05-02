@@ -17,7 +17,7 @@ public class Module {
     private String name;
     private Category category;
     private int keybind;
-    private String description;
+    private final String description;
     private boolean isBetaModule = false;
     private boolean isEnabled = false;
 
@@ -70,7 +70,7 @@ public class Module {
     }
 
     public void setBetaModule(boolean value) {
-        this.isBetaModule = value;
+        isBetaModule = value;
     }
 
     public void toggle() {

@@ -7,7 +7,6 @@ import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
 import java.io.IOException;

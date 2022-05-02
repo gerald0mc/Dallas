@@ -41,7 +41,7 @@ public class CategoryComponent extends DragComponent {
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
             case "Middle":
                 alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " [" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "]" : "")) / 2f);
-                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]": "");
+                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
                 break;
             case "Left":
                 alignment = x + 2f;
@@ -87,10 +87,10 @@ public class CategoryComponent extends DragComponent {
         }
         if (open) for (ModuleComponent component : modules) {
             if (component.isInside(mouseX, mouseY)) {
-                for(Module.Category category : Module.Category.values()) {
-                    if(component.module.getCategory() == category) {
-                        for(CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
-                            if(categoryComponent.category == category) {
+                for (Module.Category category : Module.Category.values()) {
+                    if (component.module.getCategory() == category) {
+                        for (CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
+                            if (categoryComponent.category == category) {
                                 Yeehaw.INSTANCE.clickGUI.priorityComponent = categoryComponent;
                             }
                         }

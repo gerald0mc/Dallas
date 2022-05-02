@@ -66,7 +66,7 @@ public class StringEntryComponent extends AbstractContainer {
         if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
                 listening = !listening;
-            if(!listening)
+            if (!listening)
                 searchModules.clear();
         }
         for (ModuleComponent component : searchModules) {

@@ -5,7 +5,6 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraftforge.common.MinecraftForge;
 
 public class Toggle extends Command {
     public Toggle() {
