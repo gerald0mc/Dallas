@@ -85,8 +85,8 @@ public class CategoryComponent extends DragComponent {
                 open = !open;
             }
         }
+        if (!open) return;
         for (ModuleComponent component : modules) {
-            if (!open) return;
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }
