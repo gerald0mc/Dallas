@@ -34,14 +34,14 @@ public class StringEntryComponent extends AbstractContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + entryString : ChatFormatting.GRAY + defaultText, x + 2, y + 2f, -1);
+        //top lines
+        Gui.drawRect(x, y, x + width, y + 1, new Color(0, 0, 0, 255).getRGB());
         //left line
-        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        Gui.drawRect(x, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line
-        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if (last) {
-            //bottom line
-            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        }
+        Gui.drawRect(x + width, y, x + width + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //bottom line
+        Gui.drawRect(x - 1, y + height, x + width + 1, y + height + 1, new Color(0, 0, 0, 255).getRGB());
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "Search component.";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Search component.") + 3;

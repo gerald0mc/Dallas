@@ -20,7 +20,7 @@ public class SelectionComponent extends AbstractContainer {
     public boolean inClickGUI = false;
     public boolean inConsoleGUI = false;
     public List<GuiScreen> guis;
-    int consoleX = width + 2;
+    int consoleX = width + 4;
 
     public SelectionComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -33,8 +33,24 @@ public class SelectionComponent extends AbstractContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, width, y + height, !inClickGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ClickGUI", x + 1, y + 1, -1);
+        //top lines
+        Gui.drawRect(x, y, width, y + 1, new Color(0, 0, 0, 255).getRGB());
+        //left line
+        Gui.drawRect(x, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(width, y, width + 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //bottom line
+        Gui.drawRect(x - 1, y + height, width + 1, y + height + 1, new Color(0, 0, 0, 255).getRGB());
         Gui.drawRect(consoleX, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 2, y + height, !inConsoleGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ConsoleGUI", consoleX + 1, y + 1, -1);
+        //top lines
+        Gui.drawRect(consoleX, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 2, y + 1, new Color(0, 0, 0, 255).getRGB());
+        //left line
+        Gui.drawRect(consoleX, y, consoleX - 1, y + height, new Color(0, 0, 0, 255).getRGB());
+        //right line
+        Gui.drawRect(consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 2, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 3, y + height, new Color(0, 0, 0, 255).getRGB());
+        //bottom line
+        Gui.drawRect(consoleX - 1, y + height, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 3, y + height + 1, new Color(0, 0, 0, 255).getRGB());
     }
 
     @Override

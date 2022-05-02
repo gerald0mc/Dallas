@@ -63,6 +63,36 @@ public class ConfigManager {
         }
     }
 
+    public static void saveModule(Module mod) throws IOException {
+        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if(mod == module) {
+                File moduleFile = new File(modulePath, module.getName() + ".txt");
+                if (moduleFile.exists())
+                    moduleFile.delete();
+                moduleFile.createNewFile();
+                FileWriter fileWriter = new FileWriter(moduleFile, true);
+                fileWriter.write("Name " + module.getName() + "\n");
+                fileWriter.write("Bind " + Keyboard.getKeyName(module.getKeybind()) + "\n");
+                fileWriter.write("Enabled " + module.isEnabled() + "\n");
+                for (Setting setting : module.getSettings()) {
+                    if (setting instanceof BooleanSetting) {
+                        fileWriter.write("Setting " + setting.getName() + " " + ((BooleanSetting) setting).getValue() + "\n");
+                    } else if (setting instanceof NumberSetting) {
+                        fileWriter.write("Setting " + setting.getName() + " " + ((NumberSetting) setting).getValue() + "\n");
+                    } else if (setting instanceof ModeSetting) {
+                        fileWriter.write("Setting " + setting.getName() + " " + ((ModeSetting) setting).getMode() + "\n");
+                    } else if (setting instanceof StringSetting) {
+                        fileWriter.write("Setting " + setting.getName() + " " + ((StringSetting) setting).getValue() + "\n");
+                    } else if (setting instanceof ColorSetting) {
+                        fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
+                    }
+                }
+                fileWriter.close();
+                return;
+            }
+        }
+    }
+
     public static void load() {
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             File moduleFile = new File(modulePath, module.getName() + ".txt");
@@ -70,7 +100,7 @@ public class ConfigManager {
                 try {
                     List<String> lines = Files.readAllLines(Paths.get(moduleFile.toURI()), StandardCharsets.UTF_8);
                     for (String line : lines) {
-                        String[] words = line.split("\\W+");
+                        String[] words = line.split(" ");
                         switch (words[0]) {
                             case "Bind":
                                 try {
@@ -138,15 +168,5 @@ public class ConfigManager {
                 System.out.println("Couldn't find module " + module.getName() + " for some reason.");
             }
         }
-    }
-
-    public static String[] getStringValue(Setting setting, String[] line) {
-        String[] value = new String[line.length - 2];
-        for (int i = 0; i < line.length; i++) {
-            if (line[i].equalsIgnoreCase("setting")) continue;
-            if (line[i].equalsIgnoreCase(setting.getName())) continue;
-            value[i] = line[2 + i];
-        }
-        return value;
     }
 }

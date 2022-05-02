@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.module.combat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.TotemPopEvent;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
@@ -31,8 +32,10 @@ public class Offhand extends Module {
     public BooleanSetting elytraCheck = new BooleanSetting("ElytraCheck", true, () -> checks.getValue());
     public BooleanSetting flyingOnly = new BooleanSetting("FlyingOnly", true, () -> checks.getValue() && elytraCheck.getValue());
     public BooleanSetting message = new BooleanSetting("Message", false);
+
     public TimerUtil delayTimer = new TimerUtil();
     public boolean needsItem = false;
+
     public Offhand() {
         super("Offhand", Category.COMBAT, "You know what this does.");
     }
@@ -83,6 +86,12 @@ public class Offhand extends Module {
             int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
             if (totemSlot != -1) {
                 doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.GRAY + " to offhand slot.");
+            } else {
+                int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
+                if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
+                if(itemSlot != -1) {
+                    doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot for backup.");
+                }
             }
         } else {
             if (mc.player.getHealth() <= totemHealth.getValue()) {

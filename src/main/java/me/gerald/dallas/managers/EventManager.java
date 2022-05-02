@@ -9,6 +9,7 @@ import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.features.module.client.Client;
 import me.gerald.dallas.features.module.hud.HUDModule;
+import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -23,8 +24,8 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 public class EventManager implements Globals {
     private final List<Module> hudModules;
@@ -36,6 +37,11 @@ public class EventManager implements Globals {
         totemPopListener = new TotemPopListener();
         hudModules = Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD);
         clientHistory = new ArrayList<>();
+    }
+
+    @SubscribeEvent
+    public void onModuleToggle(ModuleToggleEvent event) throws IOException {
+        ConfigManager.saveModule(event.getModule());
     }
 
     //binds
@@ -74,12 +80,6 @@ public class EventManager implements Globals {
                 ((HUDModule) module).getContainer().drawScreen(-1, -1, event.getPartialTicks());
             }
         });
-    }
-
-    //config save
-    @SubscribeEvent
-    public void onModuleToggle(ModuleToggleEvent event) throws IOException {
-        ConfigManager.save();
     }
 
     //module enable

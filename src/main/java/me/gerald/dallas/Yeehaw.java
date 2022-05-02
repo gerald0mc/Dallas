@@ -7,6 +7,7 @@ import me.gerald.dallas.managers.*;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
+import me.gerald.dallas.utils.ShutDownHook;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +66,7 @@ public class Yeehaw {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
+
         //major managers
         moduleManager = new ModuleManager();
         eventManager = new EventManager();
@@ -78,6 +81,7 @@ public class Yeehaw {
         consoleGUI = new ConsoleGUI();
 
         ConfigManager.load();
+        Runtime.getRuntime().addShutdownHook(new ShutDownHook());
 
         searchBlocks = new ArrayList<>();
     }
