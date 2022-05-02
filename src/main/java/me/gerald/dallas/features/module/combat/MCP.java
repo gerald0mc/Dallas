@@ -13,10 +13,10 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Mouse;
 
 public class MCP extends Module {
-    public BooleanSetting switchBack = register(new BooleanSetting("SwitchBack", true));
-    public BooleanSetting toggle = register(new BooleanSetting("Toggle", true));
-    public BooleanSetting noPearlToggle = register(new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue()));
-    public BooleanSetting onThrowToggle = register(new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue()));
+    public BooleanSetting switchBack = new BooleanSetting("SwitchBack", true);
+    public BooleanSetting toggle = new BooleanSetting("Toggle", true);
+    public BooleanSetting noPearlToggle = new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue());
+    public BooleanSetting onThrowToggle = new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue());
 
     public MCP() {
         super("MCP", Category.COMBAT, "Middle click pearl.");
@@ -29,19 +29,19 @@ public class MCP extends Module {
             if (mouseButton == 2) {
                 int pearlSlot = InventoryUtil.getItemHotbar(Items.ENDER_PEARL);
                 int originalSlot;
-                if (pearlSlot == -1) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your inventory.", true);
+                if (pearlSlot != -1) {
+                    originalSlot = mc.player.inventory.currentItem;
+                    InventoryUtil.switchToSlot(pearlSlot);
+                    mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
+                    if (switchBack.getValue())
+                        InventoryUtil.switchToSlot(originalSlot);
+                    if (onThrowToggle.getValue())
+                        toggle();
+                } else {
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your hotbar.", true);
                     if (noPearlToggle.getValue())
                         toggle();
-                    return;
                 }
-                originalSlot = mc.player.inventory.currentItem;
-                InventoryUtil.switchToSlot(pearlSlot);
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-                if (switchBack.getValue())
-                    InventoryUtil.switchToSlot(originalSlot);
-                if (onThrowToggle.getValue())
-                    toggle();
             }
         }
     }

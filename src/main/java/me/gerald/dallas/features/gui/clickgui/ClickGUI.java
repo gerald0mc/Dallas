@@ -2,6 +2,7 @@ package me.gerald.dallas.features.gui.clickgui;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.comps.CategoryComponent;
+import me.gerald.dallas.features.gui.comps.SelectionComponent;
 import me.gerald.dallas.features.gui.comps.StringEntryComponent;
 import me.gerald.dallas.features.gui.comps.TextComponent;
 import me.gerald.dallas.features.module.Module;
@@ -10,6 +11,7 @@ import me.gerald.dallas.features.module.hud.HUDModule;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -20,10 +22,13 @@ import java.util.List;
 public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
     public static Color clientColor = Color.BLACK; // Nigger (this crashes???)
+    public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
     public List<CategoryComponent> categories = new ArrayList<>();
-    private CategoryComponent priorityComponent = null;
+    public CategoryComponent priorityComponent = null;
 
     public ClickGUI() {
         int xOffset = 10;
@@ -61,6 +66,7 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
+        selectionBox.drawScreen(mouseX, mouseY, partialTicks);
         searchBox.drawScreen(mouseX, mouseY, partialTicks);
         descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
@@ -91,6 +97,7 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
+        selectionBox.mouseClicked(mouseX, mouseY, mouseButton);
         searchBox.mouseClicked(mouseX, mouseY, mouseButton);
 
         if (mouseButton == 0 && descriptionBox.isInside(mouseX, mouseY)) {

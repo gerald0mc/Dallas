@@ -16,8 +16,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Random;
 
 public class FakePlayer extends Module {
-    public BooleanSetting moving = register(new BooleanSetting("Moving", true));
-    public NumberSetting moveDelay = register(new NumberSetting("MoveDelay", 75, 25, 250, () -> moving.getValue()));
+    public BooleanSetting moving = new BooleanSetting("Moving", true);
+    public NumberSetting moveDelay = new NumberSetting("MoveDelay", 75, 25, 250, () -> moving.getValue());
     public TimerUtil moveTimer = new TimerUtil();
     public EntityOtherPlayerMP fakePlayer;
     public Random random = new Random();

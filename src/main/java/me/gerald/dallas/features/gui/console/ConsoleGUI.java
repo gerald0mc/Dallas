@@ -2,12 +2,14 @@ package me.gerald.dallas.features.gui.console;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
+import me.gerald.dallas.features.gui.comps.ClickComponent;
+import me.gerald.dallas.features.gui.comps.SelectionComponent;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -22,7 +24,9 @@ import java.util.List;
 import java.util.*;
 
 public class ConsoleGUI extends GuiScreen {
-
+    public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
     public List<String> messageHistory = new ArrayList<>();
     public String PREFIX = ChatFormatting.BOLD + "[Console] " + ChatFormatting.RESET;
     public String entryString = "";
@@ -37,9 +41,7 @@ public class ConsoleGUI extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (messageHistory.size() >= 25)
             messageHistory.remove(0);
-        width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
         Gui.drawRect(25, 25, width + 25, height, new Color(0, 0, 0, 175).getRGB());
-        //full box
         //top lines
         Gui.drawRect(24, 25, 25 + width, 26, new Color(0, 0, 0, 255).getRGB());
         //left line
@@ -50,20 +52,22 @@ public class ConsoleGUI extends GuiScreen {
         Gui.drawRect(24, height, 25 + width, height + 1, new Color(0, 0, 0, 255).getRGB());
         int yOffset = 0;
         for (String s : messageHistory) {
+            width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(s, 27, 27 + yOffset, -1);
             yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         }
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(entryString + "_", 27, height - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, -1);
+        selectionBox.drawScreen(mouseX, mouseY, partialTicks);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        selectionBox.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
-    }
+    protected void mouseReleased(int mouseX, int mouseY, int state) { }
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
@@ -114,11 +118,6 @@ public class ConsoleGUI extends GuiScreen {
     @Override
     public boolean doesGuiPauseGame() {
         return false;
-    }
-
-    @SubscribeEvent
-    public void onMessage(ConsoleMessageEvent event) {
-        messageHistory.add(event.getMessage());
     }
 
     public String removeLastLetter(String string) {

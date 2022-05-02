@@ -1,5 +1,7 @@
 package me.gerald.dallas.managers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.Setting;
@@ -10,6 +12,7 @@ import org.lwjgl.input.Keyboard;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;

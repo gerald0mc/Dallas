@@ -27,7 +27,7 @@ public class ArmorComponent extends HUDContainer {
                 int xOffset = 0;
                 for (ItemStack stack : Minecraft.getMinecraft().player.getArmorInventoryList()) {
                     RenderUtil.renderItem(stack, x + xOffset, y);
-                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? (InventoryUtil.getTotalAmountOfItem(stack.getItem())) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x + xOffset + 12, y + 12, -1);
+                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).stackCount.getValue() ? (InventoryUtil.getTotalAmountOfItem(stack.getItem())) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x + xOffset + 12, y + 12, -1);
                     if (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue())
                         xOffset += 20;
                     else
@@ -40,7 +40,7 @@ public class ArmorComponent extends HUDContainer {
                 int yOffset = 0;
                 for (ItemStack stack : Minecraft.getMinecraft().player.getArmorInventoryList()) {
                     RenderUtil.renderItem(stack, x, y + yOffset);
-                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? (InventoryUtil.getTotalAmountOfItem(stack.getItem())) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x + 12, y + yOffset + 12, -1);
+                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).stackCount.getValue() ? (InventoryUtil.getTotalAmountOfItem(stack.getItem())) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x + 12, y + yOffset + 12, -1);
                     if (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue())
                         yOffset += 20;
                     else

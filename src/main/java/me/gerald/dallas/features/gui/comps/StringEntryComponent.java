@@ -66,22 +66,12 @@ public class StringEntryComponent extends AbstractContainer {
         if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
                 listening = !listening;
+            if(!listening)
+                searchModules.clear();
         }
         for (ModuleComponent component : searchModules) {
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
-//        for(SettingComponent component : settingComponents) {
-//            if (component.setting instanceof BooleanSetting)
-//                settingComponents.add(new BooleanComponent((BooleanSetting) setting, x, y, 100, height));
-//            else if (component.setting instanceof NumberSetting)
-//                settingComponents.add(new NumberComponent((NumberSetting) setting, x, y, 100, height));
-//            else if (component.setting instanceof ModeSetting)
-//                settingComponents.add(new ModeComponent((ModeSetting) setting, x, y, 100, height));
-//            else if (component.setting instanceof StringSetting)
-//                settingComponents.add(new StringComponent((StringSetting) setting, x, y, 100, height));
-//            else if (component.setting instanceof ColorSetting)
-//                settingComponents.add(new ColorComponent((ColorSetting) setting, x, y, 100, height));
-//        }
     }
 
     @Override

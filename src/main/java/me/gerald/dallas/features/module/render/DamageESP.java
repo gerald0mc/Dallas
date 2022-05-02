@@ -23,13 +23,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DamageESP extends Module {
-    public NumberSetting timeBetweenChecks = register(new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f));
-    public NumberSetting timeToRemove = register(new NumberSetting("TimeToRemove", 3, 1, 5));
-    public BooleanSetting self = register(new BooleanSetting("Self", true));
-    public BooleanSetting healText = register(new BooleanSetting("HealText", true));
-    public ColorSetting healColor = register(new ColorSetting("HealColor", 0, 255, 0, 255, () -> healText.getValue()));
-    public BooleanSetting damageText = register(new BooleanSetting("DamageText", true));
-    public ColorSetting damageColor = register(new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue()));
+    public NumberSetting timeBetweenChecks = new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f);
+    public BooleanSetting self = new BooleanSetting("Self", true);
+    public BooleanSetting healText = new BooleanSetting("HealText", true);
+    public ColorSetting healColor = new ColorSetting("HealColor", 0, 255, 0, 255, () -> healText.getValue());
+    public BooleanSetting damageText = new BooleanSetting("DamageText", true);
+    public ColorSetting damageColor = new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue());
     public HashMap<EntityLivingBase, Float> entityHealthMap = new HashMap<>();
     public List<Damage> damages = new ArrayList<>();
     public TimerUtil timer = new TimerUtil();
@@ -69,7 +68,7 @@ public class DamageESP extends Module {
         if (nullCheck()) return;
         if (damages.isEmpty()) return;
         for (Damage damage : damages) {
-            if (System.currentTimeMillis() - damage.startTime >= timeToRemove.getValue() * 1000) {
+            if (System.currentTimeMillis() - damage.startTime >= 1000) {
                 damages.remove(damage);
                 return;
             }

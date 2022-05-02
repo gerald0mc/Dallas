@@ -7,7 +7,7 @@ import me.gerald.dallas.utils.MessageUtil;
 import org.lwjgl.opengl.Display;
 
 public class Window extends Module {
-    StringSetting windowName = register(new StringSetting("WindowName", "Dallas 1.0"));
+    StringSetting windowName = new StringSetting("WindowName", "Dallas 1.0");
 
     public Window() {
         super("Window", Category.MISC, "Customize the Minecraft window.");

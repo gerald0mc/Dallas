@@ -2,7 +2,6 @@ package me.gerald.dallas.features.command.impl;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.event.events.ConsoleMessageEvent;
 import me.gerald.dallas.features.command.Command;
 import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.setting.Setting;
@@ -21,14 +20,12 @@ public class Set extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set Command", "Please enter what setting and value you wish to set.", true);
-            MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please enter what setting and value you wish to set."));
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Please enter what setting and value you wish to set.", true);
             return;
         }
         String settingName = args[1];
         if (args.length == 2) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set Command", "Please enter the value you wish to set.", true);
-            MinecraftForge.EVENT_BUS.post(new ConsoleMessageEvent("Please enter the value you wish to set."));
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Please enter the value you wish to set.", true);
             return;
         }
         String value = args[2];

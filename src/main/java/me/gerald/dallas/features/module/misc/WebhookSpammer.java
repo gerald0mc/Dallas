@@ -16,12 +16,12 @@ import java.net.MalformedURLException;
  * @since 4/14/22
  */
 public class WebhookSpammer extends Module {
-    public final StringSetting webhookURL = register(new StringSetting("Webhook", "Haha nothing."));
-    public final StringSetting message = register(new StringSetting("Message", "@everyone PWNED BY DALLAS"));
-    public ModeSetting mode = register(new ModeSetting("Mode", "Spammer", "Spammer", "Crasher"));
-    private final NumberSetting delay = register(new NumberSetting("Delay(Secs)", 2, 1, 30, () -> mode.getMode().equals("Spammer")));
-    private final NumberSetting cooldown = register(new NumberSetting("Cooldown(Secs)", 30, 1, 60, () -> mode.getMode().equals("Spammer")));
-    private final NumberSetting messages = register(new NumberSetting("MessagesPerCycle", 50, 1, 300, () -> mode.getMode().equals("Spammer")));
+    public final StringSetting webhookURL = new StringSetting("Webhook", "Haha nothing.");
+    public final StringSetting message = new StringSetting("Message", "@everyone PWNED BY DALLAS");
+    public ModeSetting mode = new ModeSetting("Mode", "Spammer", "Spammer", "Crasher");
+    private final NumberSetting delay = new NumberSetting("Delay(Secs)", 2, 1, 30, () -> mode.getMode().equals("Spammer"));
+    private final NumberSetting cooldown = new NumberSetting("Cooldown(Secs)", 30, 1, 60, () -> mode.getMode().equals("Spammer"));
+    private final NumberSetting messages = new NumberSetting("MessagesPerCycle", 50, 1, 300, () -> mode.getMode().equals("Spammer"));
     private int messagesSent = 0;
     private int totalMessages = 0;
 

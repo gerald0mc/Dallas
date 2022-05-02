@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.gui.comps;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.DragComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
@@ -36,19 +37,19 @@ public class CategoryComponent extends DragComponent {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         float alignment = 0;
-        String text = null;
+        String text = "";
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
             case "Middle":
-                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString()) / 2f);
-                text = (open ? "> " : "V ") + category.toString();
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " [" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "]" : "")) / 2f);
+                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]": "");
                 break;
             case "Left":
                 alignment = x + 2f;
-                text = (open ? "> " : "V ") + category.toString();
+                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
                 break;
             case "Right":
-                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + (open ? " >" : " V")) - 2;
-                text = category.toString() + (open ? " >" : " V");
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? "[" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "] " : "") + category.toString() + (open ? " >" : " V")) - 2;
+                text = (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "] " + ChatFormatting.RESET : "") + category.toString() + (open ? " >" : " V");
                 break;
         }
         Gui.drawRect(x - 2, y, x + width + 2, y + height, ClickGUI.clientColor.getRGB());
@@ -85,8 +86,19 @@ public class CategoryComponent extends DragComponent {
                 open = !open;
             }
         }
-        if (!open) return;
         for (ModuleComponent component : modules) {
+            if (!open) return;
+            if (component.isInside(mouseX, mouseY)) {
+                for(Module.Category category : Module.Category.values()) {
+                    if(component.module.getCategory() == category) {
+                        for(CategoryComponent categoryComponent : Yeehaw.INSTANCE.clickGUI.categories) {
+                            if(categoryComponent.category == category) {
+                                Yeehaw.INSTANCE.clickGUI.priorityComponent = categoryComponent;
+                            }
+                        }
+                    }
+                }
+            }
             component.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }

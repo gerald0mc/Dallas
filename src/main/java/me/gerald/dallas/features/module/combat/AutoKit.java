@@ -10,8 +10,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoKit extends Module {
-    public StringSetting kitName = register(new StringSetting("KitName", "autoKit"));
-    public NumberSetting delay = register(new NumberSetting("Delay", 50, 0, 250));
+    public StringSetting kitName = new StringSetting("KitName", "autoKit");
+    public NumberSetting delay = new NumberSetting("Delay", 50, 0, 250);
     public boolean hasDied = false;
     public TimerUtil timer = new TimerUtil();
 

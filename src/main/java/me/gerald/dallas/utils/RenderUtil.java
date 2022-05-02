@@ -53,9 +53,7 @@ public class RenderUtil {
         GlStateManager.popMatrix();
         RenderHelper.enableGUIStandardItemLighting();
         renderItem.zLevel = -100.0F;
-        GlStateManager.disableDepth();
         renderItem.renderItemIntoGUI(stack, x, y);
-        GlStateManager.enableDepth();
         renderItem.zLevel = 0.0F;
         RenderHelper.disableStandardItemLighting();
         GlStateManager.enableAlpha();

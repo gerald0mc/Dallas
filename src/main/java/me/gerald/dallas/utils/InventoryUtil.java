@@ -17,8 +17,9 @@ public class InventoryUtil {
     }
 
     public static int getItemInventory(Item item, boolean hotbar) {
-        for (int i = (hotbar ? 0 : 9); i < 36; i++) {
-            if (Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem() == item) {
+        for (int i = (hotbar ? 0 : 9); i < 45; ++i) {
+            ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
+            if(stack.getItem() == item) {
                 return i;
             }
         }

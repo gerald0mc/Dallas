@@ -12,10 +12,12 @@ import java.awt.*;
 
 public class BooleanComponent extends SettingComponent {
     public BooleanSetting setting;
+    private final boolean showValue;
 
-    public BooleanComponent(BooleanSetting setting, int x, int y, int width, int height) {
+    public BooleanComponent(BooleanSetting setting, boolean showValue, int x, int y, int width, int height) {
         super(setting, x, y, width, height);
         this.setting = setting;
+        this.showValue = showValue;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -25,7 +27,7 @@ public class BooleanComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, setting.getValue() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + (setting.getValue() ? "True" : "False"), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + (showValue ? " " + ChatFormatting.GRAY + (setting.getValue() ? "True" : "False") : ""), x + 2, y + 2f, -1);
         //left line
         Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
         //right line

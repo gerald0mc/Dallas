@@ -12,11 +12,11 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class NameChanger extends Module {
-    public StringSetting name = register(new StringSetting("Name", "PERSON"));
-    public BooleanSetting mentionHighlight = register(new BooleanSetting("MentionHighlight", true));
-    public BooleanSetting fakeClips = register(new BooleanSetting("FakeClips", false));
-    public StringSetting fakeName = register(new StringSetting("FakeName", "WomanAreObjects", () -> fakeClips.getValue()));
-    public NumberSetting fakeDistance = register(new NumberSetting("FakeDistance", 30, 1, 50, () -> fakeClips.getValue()));
+    public StringSetting name = new StringSetting("Name", "PERSON");
+    public BooleanSetting mentionHighlight = new BooleanSetting("MentionHighlight", true);
+    public BooleanSetting fakeClips = new BooleanSetting("FakeClips", false);
+    public StringSetting fakeName = new StringSetting("FakeName", "WomanAreObjects", () -> fakeClips.getValue());
+    public NumberSetting fakeDistance = new NumberSetting("FakeDistance", 30, 1, 50, () -> fakeClips.getValue());
     public EntityPlayer closestPlayer;
 
     public NameChanger() {

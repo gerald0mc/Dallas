@@ -5,6 +5,7 @@ import me.gerald.dallas.features.module.Module;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraftforge.client.event.ClientChatEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
@@ -39,10 +40,10 @@ public class Emojis extends Module {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH) //so it has higher priority over the chat module.
     public void onChat(ClientChatEvent event) {
         for (Map.Entry<String, String> entry : emojis.entrySet()) {
-            if (event.getOriginalMessage().contains(":" + entry.getKey() + ":")) {
+            if (event.getMessage().contains(":" + entry.getKey() + ":")) {
                 event.setMessage(event.getOriginalMessage().replace(":" + entry.getKey() + ":", entry.getValue()));
             }
         }

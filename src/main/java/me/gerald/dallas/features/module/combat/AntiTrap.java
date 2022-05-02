@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AntiTrap extends Module {
-    public BooleanSetting fullAnti = register(new BooleanSetting("FullAnti", true));
-    public BooleanSetting alwaysActive = register(new BooleanSetting("AlwaysActive", false));
-    public NumberSetting distanceToActivate = register(new NumberSetting("DistanceToAct", 10, 0, 30));
+    public BooleanSetting fullAnti = new BooleanSetting("FullAnti", true);
+    public BooleanSetting alwaysActive = new BooleanSetting("AlwaysActive", false);
+    public NumberSetting distanceToActivate = new NumberSetting("DistanceToAct", 10, 0, 30);
 
     public AntiTrap() {
         super("AntiTrap", Category.COMBAT, "Places a crystal on the block next to you so you cannot be trapped.");
