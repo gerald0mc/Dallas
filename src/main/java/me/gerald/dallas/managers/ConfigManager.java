@@ -1,7 +1,7 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
 import net.minecraft.client.Minecraft;
@@ -106,7 +106,7 @@ public class ConfigManager {
                                 try {
                                     String bind = words[1];
                                     module.setKeybind(Keyboard.getKeyIndex(bind));
-                                    System.out.println("Set module " + module.getName() + " bind to " + module.getKeybind());
+                                    System.out.println("Set modules " + module.getName() + " bind to " + module.getKeybind());
                                 } catch (Exception e) {
                                     System.out.println("Couldn't set " + module.getName() + "'s bind for some reason.");
                                 }
@@ -117,7 +117,7 @@ public class ConfigManager {
                                     if (status.equalsIgnoreCase("true")) {
                                         if (!module.isEnabled())
                                             module.toggle();
-                                        System.out.println("Set module " + module.getName() + " to Toggled");
+                                        System.out.println("Set modules " + module.getName() + " to Toggled");
                                     }
                                 } catch (Exception e) {
                                     System.out.println("Couldn't enable " + module.getName() + " for some reason.");
@@ -162,10 +162,10 @@ public class ConfigManager {
                         }
                     }
                 } catch (IOException io) {
-                    System.out.println("Couldn't load module " + module.getName() + " for some reason.");
+                    System.out.println("Couldn't load modules " + module.getName() + " for some reason.");
                 }
             } else {
-                System.out.println("Couldn't find module " + module.getName() + " for some reason.");
+                System.out.println("Couldn't find modules " + module.getName() + " for some reason.");
             }
         }
     }

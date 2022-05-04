@@ -4,7 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.SettingComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.features.module.client.GUI;
+import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

@@ -1,7 +1,7 @@
 package me.gerald.dallas.managers.notification;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.module.hud.notification.Notifications;
+import me.gerald.dallas.features.modules.hud.notification.Notifications;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -12,8 +12,8 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class NotificationManager {
-    public static List<NotificationConstructor> notificationHistory;
-    public Queue<NotificationConstructor> notifications;
+    public static List<Notification> notificationHistory;
+    public Queue<Notification> notifications;
 
     public NotificationManager() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -21,12 +21,12 @@ public class NotificationManager {
         notificationHistory = new ArrayList<>();
     }
 
-    public Queue<NotificationConstructor> getNotifications() {
+    public Queue<Notification> getNotifications() {
         return notifications;
     }
 
     public void addNotification(String title, String message, long startTime) {
-        notifications.add(new NotificationConstructor(title, message, startTime));
+        notifications.add(new Notification(title, message, startTime));
 //        notificationHistory.add(new NotificationConstructor(title, message, startTime));
     }
 
@@ -37,7 +37,7 @@ public class NotificationManager {
 //                notificationHistory.remove(i - 1);
 //        }
         if (notifications.isEmpty()) return;
-        for (NotificationConstructor notificationConstructor : getNotifications()) {
+        for (Notification notificationConstructor : getNotifications()) {
             if (System.currentTimeMillis() - notificationConstructor.getStartTime() >= (Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).timeToRemove.getValue() * 1000)) {
                 notifications.remove(notificationConstructor);
             }

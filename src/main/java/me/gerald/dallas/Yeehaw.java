@@ -4,7 +4,9 @@ import me.gerald.dallas.managers.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.gui.console.ConsoleGUI;
 import me.gerald.dallas.managers.*;
+import me.gerald.dallas.managers.command.CommandManager;
 import me.gerald.dallas.managers.friend.FriendManager;
+import me.gerald.dallas.managers.module.ModuleManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.ShutDownHook;
@@ -15,7 +17,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

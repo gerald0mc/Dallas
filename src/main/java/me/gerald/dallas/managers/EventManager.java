@@ -4,12 +4,11 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
 import me.gerald.dallas.event.listeners.TotemPopListener;
-import me.gerald.dallas.features.command.Command;
+import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.features.module.client.Client;
-import me.gerald.dallas.features.module.hud.HUDModule;
-import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.managers.module.Module;
+import me.gerald.dallas.features.modules.client.Client;
+import me.gerald.dallas.features.modules.hud.HUDModule;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -82,7 +81,7 @@ public class EventManager implements Globals {
         });
     }
 
-    //module enable
+    //modules enable
     @SubscribeEvent
     public void onModuleEnable(ModuleToggleEvent.Enable event) {
         if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
@@ -96,7 +95,7 @@ public class EventManager implements Globals {
         }
     }
 
-    //module disable
+    //modules disable
     @SubscribeEvent
     public void onModuleDisable(ModuleToggleEvent.Disable event) {
         if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;

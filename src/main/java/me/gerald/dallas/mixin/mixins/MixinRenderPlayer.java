@@ -1,7 +1,7 @@
 package me.gerald.dallas.mixin.mixins;
 
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.module.render.Nametags;
+import me.gerald.dallas.features.modules.render.Nametags;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.spongepowered.asm.mixin.Mixin;

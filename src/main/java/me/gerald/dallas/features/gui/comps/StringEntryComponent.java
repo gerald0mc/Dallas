@@ -3,7 +3,7 @@ package me.gerald.dallas.features.gui.comps;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
-import me.gerald.dallas.features.module.Module;
+import me.gerald.dallas.managers.module.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -88,7 +88,7 @@ public class StringEntryComponent extends AbstractContainer {
                 if (module.getName().contains(entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
-//                for(Setting setting : module.getSettings()) {
+//                for(Setting setting : modules.getSettings()) {
 //                    if(setting.getName().contains(entryString)) {
 //                        if (setting instanceof BooleanSetting)
 //                            settingComponents.add(new BooleanComponent((BooleanSetting) setting, x, y, 100, height));
@@ -112,7 +112,7 @@ public class StringEntryComponent extends AbstractContainer {
                 if (module.getName().contains(entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
-//                for(Setting setting : module.getSettings()) {
+//                for(Setting setting : modules.getSettings()) {
 //                    if(setting.getName().contains(entryString)) {
 //                        if (setting instanceof BooleanSetting)
 //                            settingComponents.add(new BooleanComponent((BooleanSetting) setting, x, y, 100, height));

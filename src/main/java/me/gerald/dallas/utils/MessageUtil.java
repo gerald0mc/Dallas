@@ -2,9 +2,10 @@ package me.gerald.dallas.utils;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.module.Module;
-import me.gerald.dallas.features.module.client.Console;
-import me.gerald.dallas.features.module.hud.notification.Notifications;
+import me.gerald.dallas.features.gui.console.ConsoleGUI;
+import me.gerald.dallas.managers.module.Module;
+import me.gerald.dallas.features.modules.client.Console;
+import me.gerald.dallas.features.modules.hud.notification.Notifications;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
@@ -13,6 +14,11 @@ public class MessageUtil {
 
     public static void sendMessage(String title, String message, boolean clientMessage) {
         if (Module.nullCheck()) return;
+        Yeehaw.INSTANCE.eventManager.clientHistory.add(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + title + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + message);
+        if (Yeehaw.INSTANCE.moduleManager.getModule(Console.class).clientMessages.getValue()) {
+            Yeehaw.INSTANCE.consoleGUI.messageHistory.add(message);
+            if(Minecraft.getMinecraft().currentScreen instanceof ConsoleGUI) return;
+        }
         if (Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled()) {
             if (clientMessage && !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).clientMessages.getValue())
                 Minecraft.getMinecraft().player.sendMessage(new TextComponentString(clientPrefix + message));
@@ -21,9 +27,5 @@ public class MessageUtil {
         } else {
             Minecraft.getMinecraft().player.sendMessage(new TextComponentString(clientPrefix + message));
         }
-        if (Yeehaw.INSTANCE.moduleManager.getModule(Console.class).clientMessages.getValue()) {
-            Yeehaw.INSTANCE.consoleGUI.messageHistory.add(message);
-        }
-        Yeehaw.INSTANCE.eventManager.clientHistory.add(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + title + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + message);
     }
 }
