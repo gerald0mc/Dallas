@@ -6,8 +6,8 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 
 /**
  * @author bush
- * @since 5/6/2022
  * @see MixinItemRenderer
+ * @since 5/6/2022
  */
 public class ViewModel extends Module {
     public static ViewModel INSTANCE;

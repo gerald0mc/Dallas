@@ -16,10 +16,10 @@ public class Module {
     public static Minecraft mc = Minecraft.getMinecraft();
     private final List<Setting> settings;
     private final String metaData = "";
+    private final String description;
     private String name;
     private Category category;
     private int keybind;
-    private final String description;
     private boolean isBetaModule = false;
     private boolean isEnabled = false;
 
@@ -89,7 +89,7 @@ public class Module {
     public void enable() {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
-        if(isBetaModule) {
+        if (isBetaModule) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Warning", "As this modules is a Alpha modules it might be prone to crashing and is not recommended for use.", true);
         }
         onEnable();

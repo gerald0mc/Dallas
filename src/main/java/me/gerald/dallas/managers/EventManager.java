@@ -4,11 +4,11 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
 import me.gerald.dallas.event.listeners.TotemPopListener;
-import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.features.modules.client.Client;
 import me.gerald.dallas.features.modules.hud.HUDModule;
+import me.gerald.dallas.managers.command.Command;
+import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -23,8 +23,8 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class EventManager implements Globals {
     private final List<Module> hudModules;

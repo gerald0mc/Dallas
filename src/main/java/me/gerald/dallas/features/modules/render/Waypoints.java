@@ -2,8 +2,8 @@ package me.gerald.dallas.features.modules.render;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.FileUtil;
 import me.gerald.dallas.utils.MessageUtil;

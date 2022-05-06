@@ -4,8 +4,8 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.DragComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.features.modules.client.GUI;
+import me.gerald.dallas.managers.module.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

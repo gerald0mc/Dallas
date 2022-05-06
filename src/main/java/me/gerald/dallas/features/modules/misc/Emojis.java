@@ -1,8 +1,8 @@
 package me.gerald.dallas.features.modules.misc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
