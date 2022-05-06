@@ -49,7 +49,7 @@ public class Offhand extends Module {
         if (nullCheck()) return;
         boolean forceTotem = false;
         if (fallCheck.getValue() && needsItem) {
-            if(mc.player.fallDistance > minDistance.getValue()) {
+            if (mc.player.fallDistance > minDistance.getValue()) {
                 needsItem = false;
                 forceTotem = true;
             }
@@ -90,7 +90,7 @@ public class Offhand extends Module {
             } else {
                 int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
                 if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
-                if(itemSlot != -1) {
+                if (itemSlot != -1) {
                     doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot for backup.");
                 }
             }

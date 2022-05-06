@@ -65,7 +65,7 @@ public class ConfigManager {
 
     public static void saveModule(Module mod) throws IOException {
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if(mod == module) {
+            if (mod == module) {
                 File moduleFile = new File(modulePath, module.getName() + ".txt");
                 if (moduleFile.exists())
                     moduleFile.delete();

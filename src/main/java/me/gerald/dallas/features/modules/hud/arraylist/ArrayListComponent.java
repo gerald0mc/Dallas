@@ -2,8 +2,8 @@ package me.gerald.dallas.features.modules.hud.arraylist;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
-import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.features.modules.client.GUI;
+import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 

@@ -2,8 +2,8 @@ package me.gerald.dallas.features.commands;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.features.modules.misc.Emojis;
+import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.utils.MessageUtil;
 
 import java.util.Map;

@@ -2,8 +2,8 @@ package me.gerald.dallas.features.gui.console;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.features.gui.comps.SelectionComponent;
+import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
