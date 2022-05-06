@@ -10,12 +10,10 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
  * @since 5/6/2022
  */
 public class ViewModel extends Module {
-    public static ViewModel INSTANCE;
 
     public BooleanSetting noSway = new BooleanSetting("No Sway", false);
 
     public ViewModel() {
         super("ViewModel", Category.RENDER, "Alters the appearance of held items");
-        INSTANCE = this;
     }
 }

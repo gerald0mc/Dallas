@@ -1,5 +1,6 @@
 package me.gerald.dallas.mixin.mixins;
 
+import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.modules.render.ViewModel;
 import net.minecraft.client.renderer.ItemRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +19,8 @@ public class MixinItemRenderer {
     private void rotateArm(float tickProgress, CallbackInfo callback) {
         // For people reading this that are confused about the method "rotateAroundXAndY",
         // that only changes lighting. This method is what actually rotates held items.
-        if (ViewModel.INSTANCE.isEnabled() && ViewModel.INSTANCE.noSway.getValue()) {
+        ViewModel module = Yeehaw.INSTANCE.moduleManager.getModule(ViewModel.class);
+        if (module != null && module.isEnabled() && module.noSway.getValue()) {
             callback.cancel();
         }
     }
