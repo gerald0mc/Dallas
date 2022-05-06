@@ -108,40 +108,4 @@ public class EventManager implements Globals {
                 break;
         }
     }
-
-    @SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {
-        if (mc.currentScreen instanceof GuiChat) {
-            if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageHistory.getValue())
-                return;
-            if (clientHistory.size() >= (int) Yeehaw.INSTANCE.moduleManager.getModule(Client.class).historyAmount.getValue())
-                clientHistory.remove(0);
-            int height = 1 + (clientHistory.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1));
-            if (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).background.getValue()) {
-                Gui.drawRect(1, 0, 2 + getLongestWord(clientHistory), height, new Color(0, 0, 0, 175).getRGB());
-                //top lines
-                Gui.drawRect(1, 0, 2 + getLongestWord(clientHistory), 1, new Color(0, 0, 0, 255).getRGB());
-                //left line
-                Gui.drawRect(1, 0, 2, height, new Color(0, 0, 0, 255).getRGB());
-                //right line
-                Gui.drawRect(2 + getLongestWord(clientHistory) - 1, 0, 2 + getLongestWord(clientHistory), height, new Color(0, 0, 0, 255).getRGB());
-                //bottom line
-                Gui.drawRect(1, height - 1, 2 + getLongestWord(clientHistory), height, new Color(0, 0, 0, 255).getRGB());
-            }
-            int yOffset = 1;
-            if (clientHistory.isEmpty()) return;
-            for (String s : clientHistory) {
-                mc.fontRenderer.drawStringWithShadow(s, 2, yOffset, -1);
-                yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
-            }
-        }
-    }
-
-    public int getLongestWord(List<String> strings) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        for (String s : strings)
-            hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
-        if (hashMap.isEmpty()) return 20;
-        return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
-    }
 }

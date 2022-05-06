@@ -21,7 +21,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Nametags extends Module {
-    public NumberSetting scale = new NumberSetting("Scale", 2.5f, 0, 5);
+    public NumberSetting scale = new NumberSetting("Scale", 2, 0, 5);
     public BooleanSetting ping = new BooleanSetting("Ping", true);
     public BooleanSetting totemPops = new BooleanSetting("TotemPops", true);
     public BooleanSetting health = new BooleanSetting("Health", true);
