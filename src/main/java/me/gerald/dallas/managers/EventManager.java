@@ -19,6 +19,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -36,6 +37,17 @@ public class EventManager implements Globals {
         totemPopListener = new TotemPopListener();
         hudModules = Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD);
         clientHistory = new ArrayList<>();
+    }
+
+    @SubscribeEvent
+    public void onUpdate(TickEvent.ClientTickEvent event) {
+        if(Module.nullCheck()) return;
+        if(!Yeehaw.INSTANCE.clickGUI.searchBox.entryString.equals("Search")) {
+            if(!(mc.currentScreen instanceof ClickGUI)) {
+                Yeehaw.INSTANCE.clickGUI.searchBox.searchModules.clear();
+                Yeehaw.INSTANCE.clickGUI.searchBox.listening = false;
+            }
+        }
     }
 
     @SubscribeEvent

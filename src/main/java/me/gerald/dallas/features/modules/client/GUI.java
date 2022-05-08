@@ -8,9 +8,12 @@ import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class GUI extends Module {
-    public ColorSetting color = new ColorSetting("Color", 127, 0, 255, 255);
-    public BooleanSetting rainbow = new BooleanSetting("Rainbow", false);
-    public NumberSetting rainbowSpeed = new NumberSetting("RainbowSpeed", 3, 1, 10, () -> rainbow.getValue());
+    public BooleanSetting renderParent = new BooleanSetting("Render", false);
+    public ColorSetting color = new ColorSetting("Color", 127, 0, 255, 255, () -> renderParent.getValue());
+    public BooleanSetting border = new BooleanSetting("Border", true, () -> renderParent.getValue());
+    public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255, () -> renderParent.getValue() && border.getValue());
+    public BooleanSetting rainbow = new BooleanSetting("Rainbow", false, () -> renderParent.getValue());
+    public NumberSetting rainbowSpeed = new NumberSetting("RainbowSpeed", 3, 1, 10, () -> renderParent.getValue() && rainbow.getValue());
     public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Left", "Middle", "Right");
     public ModeSetting moduleAlignment = new ModeSetting("ModuleAlignment", "Middle", "Left", "Middle", "Right");
     public BooleanSetting moduleCount = new BooleanSetting("ModuleCount", true);

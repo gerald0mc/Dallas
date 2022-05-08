@@ -77,7 +77,8 @@ public class ModuleComponent extends AbstractContainer {
         }
         Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.WHITE + (open ? "> " : "") + module.getName() + ChatFormatting.RESET + (module.isBetaModule() ? " ALPHA" : ""), alignment, y + 2f, new Color(251, 206, 5, 255).getRGB());
-        RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, lastModule);
+        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
+            RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor(), false, true, true, lastModule);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;

@@ -8,6 +8,7 @@ import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
+import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -69,8 +70,7 @@ public class StringEntryComponent extends AbstractContainer {
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-    }
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) { }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException {
@@ -79,7 +79,7 @@ public class StringEntryComponent extends AbstractContainer {
             searchModules.clear();
             entryString = removeLastLetter(entryString);
             for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if (module.getName().contains(entryString)) {
+                if(StringUtils.containsIgnoreCase(module.getName(), entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
 //                for(Setting setting : modules.getSettings()) {
@@ -103,7 +103,7 @@ public class StringEntryComponent extends AbstractContainer {
             searchModules.clear();
             entryString += keyChar;
             for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if (module.getName().contains(entryString)) {
+                if(StringUtils.containsIgnoreCase(module.getName(), entryString)) {
                     searchModules.add(new ModuleComponent(module, module.getCategory(), x, y, width, height));
                 }
 //                for(Setting setting : modules.getSettings()) {

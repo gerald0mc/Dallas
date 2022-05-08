@@ -2,6 +2,7 @@ package me.gerald.dallas.mixin.mixins;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.features.modules.client.Client;
 import me.gerald.dallas.utils.ChangeConstructor;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -24,8 +25,11 @@ public class MixinGuiMainMenu extends GuiScreen {
     private String splashText;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    public void postConstructor(final CallbackInfo ci) {
-        this.splashText = getRandomSplash(Yeehaw.INSTANCE.splashText);
+    public void postConstructor(CallbackInfo ci) {
+        Client module = Yeehaw.INSTANCE.moduleManager.getModule(Client.class);
+        if(module.isEnabled() && module.customSplashText.getValue()) {
+            this.splashText = getRandomSplash(Yeehaw.INSTANCE.splashText);
+        }
     }
 
     @Inject(method = "drawScreen", at = @At("TAIL"))

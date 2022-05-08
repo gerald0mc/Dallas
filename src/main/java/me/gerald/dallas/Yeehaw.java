@@ -42,6 +42,7 @@ public class Yeehaw {
     public EventManager eventManager;
     public ConfigManager configManager;
     public CommandManager commandManager;
+    public RotationManager rotationManager;
     //secondary managers
     public FriendManager friendManager;
     public NotificationManager notificationManager;
@@ -68,6 +69,7 @@ public class Yeehaw {
         eventManager = new EventManager();
         configManager = new ConfigManager();
         commandManager = new CommandManager();
+        rotationManager = new RotationManager();
         //secondary managers
         friendManager = new FriendManager();
         notificationManager = new NotificationManager();

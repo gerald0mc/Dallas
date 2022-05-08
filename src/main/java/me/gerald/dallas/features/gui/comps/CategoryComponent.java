@@ -54,7 +54,8 @@ public class CategoryComponent extends DragComponent {
                 break;
         }
         Gui.drawRect(x - 2, y, x + width + 2, y + height, ClickGUI.clientColor.getRGB());
-        RenderUtil.renderBorder(x - 2, y,x + width + 2, y + height, 1, new Color(0, 0, 0, 255));
+        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
+            RenderUtil.renderBorder(x - 2, y,x + width + 2, y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
 
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
         if (isInside(mouseX, mouseY)) {

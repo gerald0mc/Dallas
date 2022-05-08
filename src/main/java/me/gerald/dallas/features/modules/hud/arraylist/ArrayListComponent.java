@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class ArrayListComponent extends HUDContainer {
                 moduleNames.remove(module.getName());
             }
         }
-        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : moduleNames.get(0));
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : getLongestWord(moduleNames));
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + yOffset;
     }
 
@@ -65,5 +66,12 @@ public class ArrayListComponent extends HUDContainer {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    public String getLongestWord(List<String> strings) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : strings)
+            hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
+        return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
     }
 }
