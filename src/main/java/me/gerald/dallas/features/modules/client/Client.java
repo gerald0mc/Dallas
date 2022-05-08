@@ -7,7 +7,6 @@ import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class Client extends Module {
     public BooleanSetting toggleMessage = new BooleanSetting("ToggleMessage", true);
-    public BooleanSetting toggleSave = new BooleanSetting("ToggleSave", true);
     public ModeSetting messageMode = new ModeSetting("Mode", "Default", () -> toggleMessage.getValue(), "Default", "Simple");
 
     public Client() {

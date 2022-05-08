@@ -30,7 +30,7 @@ public class NotificationsComponent extends HUDContainer {
         }
         if (Yeehaw.INSTANCE.notificationManager.notifications.isEmpty() || !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled())
             return;
-        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? "[" + Yeehaw.INSTANCE.notificationManager.notifications.peek().getTitle() + ChatFormatting.RESET + "]: " + Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4 : Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4);
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? "[" + Yeehaw.INSTANCE.notificationManager.notifications.peek().getTitle() + ChatFormatting.RESET + "]: " + Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() : Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4);
         height = 13;
         int yOffset = 0;
         for (Notification notificationConstructor : Yeehaw.INSTANCE.notificationManager.getNotifications()) {
@@ -39,7 +39,7 @@ public class NotificationsComponent extends HUDContainer {
                 Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
             } else {
-                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth(notificationConstructor.getMessage() + 6), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("[" + notificationConstructor.getTitle() + "]: "  + notificationConstructor.getMessage()), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
                 Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + notificationConstructor.getTitle() + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
             }

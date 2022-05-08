@@ -43,12 +43,14 @@ public class ChangeConstructor {
             case COMMAND:
                 return ChatFormatting.GRAY + "[" + ChatFormatting.GREEN + "+" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Added " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " command!";
             case CHANGE:
-                return ChatFormatting.GRAY + "[" + ChatFormatting.RESET + "*" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Changed " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " to " + ChatFormatting.GOLD + secondaryValue + ChatFormatting.RESET + "!";
+                return ChatFormatting.GRAY + "[" + ChatFormatting.GOLD + "*" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Changed " + ChatFormatting.AQUA + value + ChatFormatting.RESET + " to " + ChatFormatting.GOLD + secondaryValue + ChatFormatting.RESET + "!";
             case DELETE:
                 return ChatFormatting.GRAY + "[" + ChatFormatting.RED + "-" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Deleted " + ChatFormatting.RED + value + ChatFormatting.RESET + "!";
+            case FIX:
+                return ChatFormatting.GRAY + "[" + ChatFormatting.GOLD + "*" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET + "Fixed " + ChatFormatting.AQUA + value + ChatFormatting.RESET + "!";
         }
         return "";
     }
 
-    public enum ChangeType {MODULE, MODULE_ADD, COMMAND, CHANGE, DELETE}
+    public enum ChangeType {MODULE, MODULE_ADD, COMMAND, CHANGE, DELETE, FIX}
 }

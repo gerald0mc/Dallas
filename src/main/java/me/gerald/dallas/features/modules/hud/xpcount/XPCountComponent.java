@@ -31,10 +31,9 @@ public class XPCountComponent extends HUDContainer {
         }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).renderMode.getMode()) {
             case "Item":
-                width = 12;
-                height = 12;
-                RenderUtil.renderItem(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE) + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x + 10, y + 12, -1);
+                width = 17;
+                height = 17;
+                RenderUtil.renderItem(new ItemStack(Items.EXPERIENCE_BOTTLE), InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE) + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""), x, y);
                 break;
             case "Name":
                 width = Minecraft.getMinecraft().fontRenderer.getStringWidth("XP: " + InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE) + (Yeehaw.INSTANCE.moduleManager.getModule(XPCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.EXPERIENCE_BOTTLE)) : ""));

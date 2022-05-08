@@ -10,6 +10,7 @@ import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -76,14 +77,7 @@ public class ModuleComponent extends AbstractContainer {
         }
         Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.WHITE + (open ? "> " : "") + module.getName() + ChatFormatting.RESET + (module.isBetaModule() ? " ALPHA" : ""), alignment, y + 2f, new Color(251, 206, 5, 255).getRGB());
-        //left line
-        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
-        //right line
-        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if (lastModule) {
-            //bottom line
-            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        }
+        RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, lastModule);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;

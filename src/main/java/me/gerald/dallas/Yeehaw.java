@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Mod(
@@ -49,25 +50,19 @@ public class Yeehaw {
     public ClickGUI clickGUI;
     public ConsoleGUI consoleGUI;
 
-    public List<Block> searchBlocks;
-
-//    static {
-//        // Loading this early because it takes a long time
-//        new Thread(() -> {
-//            System.out.println("Initializing Reflections instance");
-//            long time = System.currentTimeMillis();
-//            ReflectionUtil.init();
-//            synchronized (ReflectionUtil.class) {
-//                ReflectionUtil.class.notifyAll();
-//                System.out.println("Reflections initialized in " + (System.currentTimeMillis() - time) + "ms.");
-//            }
-//        }).start();
-//    }
+    public List<String> splashText;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
 
+        splashText = new ArrayList<>();
+        splashText.add("Dallas on top!");
+        splashText.add("gerald0mc owns everyone.");
+        splashText.add("Fuck bitches get money.");
+        splashText.add("Dallas owns you!");
+        splashText.add("All these nn's on me.");
+        splashText.add("Fuck niggers.");
         //major managers
         moduleManager = new ModuleManager();
         eventManager = new EventManager();
@@ -83,8 +78,6 @@ public class Yeehaw {
 
         ConfigManager.load();
         Runtime.getRuntime().addShutdownHook(new ShutDownHook());
-
-        searchBlocks = new ArrayList<>();
     }
 
     @SubscribeEvent

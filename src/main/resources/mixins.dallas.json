@@ -13,6 +13,7 @@
     "MixinGuiMainMenu",
     "MixinItemRenderer",
     "MixinNetHandlerPlayClient",
+    "MixinRenderItem",
     "MixinRenderPlayer"
   ]
 }

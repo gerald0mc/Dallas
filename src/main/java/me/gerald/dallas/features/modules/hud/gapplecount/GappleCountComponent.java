@@ -31,10 +31,9 @@ public class GappleCountComponent extends HUDContainer {
         }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).renderMode.getMode()) {
             case "Item":
-                width = 12;
-                height = 12;
-                RenderUtil.renderItem(new ItemStack(Items.GOLDEN_APPLE), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x + 10, y + 12, -1);
+                width = 17;
+                height = 17;
+                RenderUtil.renderItem(new ItemStack(Items.GOLDEN_APPLE), InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""), x, y);
                 break;
             case "Name":
                 width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Gapples: " + InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE) + (Yeehaw.INSTANCE.moduleManager.getModule(GappleCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.GOLDEN_APPLE)) : ""));

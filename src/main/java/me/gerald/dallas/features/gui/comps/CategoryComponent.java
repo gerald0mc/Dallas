@@ -6,6 +6,7 @@ import me.gerald.dallas.features.gui.api.DragComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.managers.module.Module;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -53,14 +54,7 @@ public class CategoryComponent extends DragComponent {
                 break;
         }
         Gui.drawRect(x - 2, y, x + width + 2, y + height, ClickGUI.clientColor.getRGB());
-        //top lines
-        Gui.drawRect(x - 2, y, x + width + 2, y + 1, new Color(0, 0, 0, 255).getRGB());
-        //left line
-        Gui.drawRect(x - 2, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
-        //right line
-        Gui.drawRect(x + width + 1, y, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
-        //bottom line
-        Gui.drawRect(x - 2, y + height - 1, x + width + 2, y + height, new Color(0, 0, 0, 255).getRGB());
+        RenderUtil.renderBorder(x - 2, y,x + width + 2, y + height, 1, new Color(0, 0, 0, 255));
 
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
         if (isInside(mouseX, mouseY)) {

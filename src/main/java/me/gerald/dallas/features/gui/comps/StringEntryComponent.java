@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
 import me.gerald.dallas.managers.module.Module;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -34,14 +35,7 @@ public class StringEntryComponent extends AbstractContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + entryString : ChatFormatting.GRAY + defaultText, x + 2, y + 2f, -1);
-        //top lines
-        Gui.drawRect(x, y, x + width, y + 1, new Color(0, 0, 0, 255).getRGB());
-        //left line
-        Gui.drawRect(x, y, x - 1, y + height, new Color(0, 0, 0, 255).getRGB());
-        //right line
-        Gui.drawRect(x + width, y, x + width + 1, y + height, new Color(0, 0, 0, 255).getRGB());
-        //bottom line
-        Gui.drawRect(x - 1, y + height, x + width + 1, y + height + 1, new Color(0, 0, 0, 255).getRGB());
+        RenderUtil.renderBorder(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255));
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "Search component.";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Search component.") + 3;

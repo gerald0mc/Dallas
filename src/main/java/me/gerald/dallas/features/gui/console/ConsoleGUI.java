@@ -5,6 +5,7 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.comps.SelectionComponent;
 import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.utils.MessageUtil;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -40,14 +41,7 @@ public class ConsoleGUI extends GuiScreen {
         if (messageHistory.size() >= 25)
             messageHistory.remove(0);
         Gui.drawRect(25, 25, width + 25, height, new Color(0, 0, 0, 175).getRGB());
-        //top lines
-        Gui.drawRect(24, 25, 25 + width, 26, new Color(0, 0, 0, 255).getRGB());
-        //left line
-        Gui.drawRect(24, 25, 25, height, new Color(0, 0, 0, 255).getRGB());
-        //right line
-        Gui.drawRect(24 + width, 25, 25 + width, height, new Color(0, 0, 0, 255).getRGB());
-        //bottom line
-        Gui.drawRect(24, height, 25 + width, height + 1, new Color(0, 0, 0, 255).getRGB());
+        RenderUtil.renderBorder(25, 25, 25 + width, height, 1, new Color(0, 0, 0, 255));
         int yOffset = 0;
         for (String s : messageHistory) {
             width = getLongestWord(messageHistory) > 300 ? getLongestWord(messageHistory) + 3 : 300;

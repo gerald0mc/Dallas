@@ -7,6 +7,7 @@ import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -31,10 +32,9 @@ public class TotemCountComponent extends HUDContainer {
         }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(TotemCount.class).renderMode.getMode()) {
             case "Item":
-                width = 12;
-                height = 12;
-                RenderUtil.renderItem(new ItemStack(Items.TOTEM_OF_UNDYING), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING)), x + 10, y + 12, -1);
+                width = 17;
+                height = 17;
+                RenderUtil.renderItem(new ItemStack(Items.TOTEM_OF_UNDYING), String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING)), x, y);
                 break;
             case "Name":
                 width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Totems: " + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));

@@ -31,10 +31,9 @@ public class CrystalCountComponent extends HUDContainer {
         }
         switch (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).renderMode.getMode()) {
             case "Item":
-                width = 15;
-                height = 15;
-                RenderUtil.renderItem(new ItemStack(Items.END_CRYSTAL), x, y);
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL) + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL)) : ""), x + 10, y + 12, -1);
+                width = 17;
+                height = 17;
+                RenderUtil.renderItem(new ItemStack(Items.END_CRYSTAL), InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL) + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL)) : ""), x, y);
                 break;
             case "Name":
                 width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Crystals: " + InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL) + (Yeehaw.INSTANCE.moduleManager.getModule(CrystalCount.class).stackCount.getValue() ? " " + InventoryUtil.getStackTotal(InventoryUtil.getTotalAmountOfItem(Items.END_CRYSTAL)) : ""));

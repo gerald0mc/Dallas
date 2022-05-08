@@ -21,7 +21,7 @@ public class Offhand extends Module {
     public NumberSetting totemHealth = new NumberSetting("TotemHealth", 10, 1, 36, () -> !item.getMode().equalsIgnoreCase("totem"));
     public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true);
     public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 1000, () -> !instantSwitch.getValue());
-    //    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
+    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
     public BooleanSetting checks = new BooleanSetting("Checks", true);
     public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, () -> checks.getValue());
     public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, () -> checks.getValue() && fallCheck.getValue());
@@ -78,7 +78,7 @@ public class Offhand extends Module {
         }
         if (!needsItem) {
             if (!forceTotem) {
-                if (mc.player.getHealth() >= totemHealth.getValue()) {
+                if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
                     needsItem = true;
                     return;
                 }
@@ -95,7 +95,7 @@ public class Offhand extends Module {
                 }
             }
         } else {
-            if (mc.player.getHealth() <= totemHealth.getValue()) {
+            if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
                 needsItem = false;
                 return;
             }

@@ -17,7 +17,6 @@ public class NameChanger extends Module {
     public BooleanSetting fakeClips = new BooleanSetting("FakeClips", false);
     public StringSetting fakeName = new StringSetting("FakeName", "WomanAreObjects", () -> fakeClips.getValue());
     public NumberSetting fakeDistance = new NumberSetting("FakeDistance", 30, 1, 50, () -> fakeClips.getValue());
-    public EntityPlayer closestPlayer;
 
     public NameChanger() {
         super("NameChanger", Category.MISC, "Changes the players name in chat.");
@@ -30,11 +29,12 @@ public class NameChanger extends Module {
 
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
+        EntityPlayer closestPlayer = null;
         if (BlockUtil.findClosestPlayer().getDistance(mc.player) > fakeDistance.getValue() && BlockUtil.findClosestPlayer() != null && fakeClips.getValue())
             closestPlayer = BlockUtil.findClosestPlayer();
         if (event.getMessage().getUnformattedText().contains(mc.player.getDisplayNameString()))
             event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(mc.player.getDisplayNameString(), (mentionHighlight.getValue() ? ChatFormatting.YELLOW : "") + name.getValue() + ChatFormatting.RESET)));
-        else if (event.getMessage().getUnformattedText().contains(closestPlayer.getDisplayNameString()) && fakeClips.getValue() && closestPlayer != null)
+        if (event.getMessage().getUnformattedText().contains(closestPlayer.getDisplayNameString()) && fakeClips.getValue() && closestPlayer != null)
             event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(closestPlayer.getDisplayNameString(), (mentionHighlight.getValue() ? ChatFormatting.YELLOW : "") + fakeName.getValue() + ChatFormatting.RESET)));
     }
 }

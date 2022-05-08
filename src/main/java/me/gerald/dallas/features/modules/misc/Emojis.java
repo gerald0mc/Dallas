@@ -40,11 +40,11 @@ public class Emojis extends Module {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH) //so it has higher priority over the chat modules.
+    @SubscribeEvent
     public void onChat(ClientChatEvent event) {
         for (Map.Entry<String, String> entry : emojis.entrySet()) {
             if (event.getMessage().contains(":" + entry.getKey() + ":")) {
-                event.setMessage(event.getOriginalMessage().replace(":" + entry.getKey() + ":", entry.getValue()));
+                event.setMessage(event.getMessage().replace(":" + entry.getKey() + ":", entry.getValue()));
             }
         }
     }

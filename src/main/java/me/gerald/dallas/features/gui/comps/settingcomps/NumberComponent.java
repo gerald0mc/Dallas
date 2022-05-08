@@ -6,6 +6,7 @@ import me.gerald.dallas.features.gui.api.SettingComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -49,14 +50,7 @@ public class NumberComponent extends SettingComponent {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Gui.drawRect(x, y, x + (int) sliderWidth, y + height, sliderColor.getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
-        //left line
-        Gui.drawRect(x, y, x + 1, y + height, new Color(0, 0, 0, 255).getRGB());
-        //right line
-        Gui.drawRect(x + width - 1, y, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        if (last) {
-            //bottom line
-            Gui.drawRect(x, y + height - 1, x + width, y + height, new Color(0, 0, 0, 255).getRGB());
-        }
+        RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A number setting called (" + setting.getName() + ").";
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A number setting called (" + setting.getName() + ").") + 3;
