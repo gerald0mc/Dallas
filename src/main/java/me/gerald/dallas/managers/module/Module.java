@@ -134,6 +134,7 @@ public class Module {
         MOVEMENT,
         RENDER,
         MISC,
+        BARITONE,
         CLIENT,
         HUD
     }

@@ -2,6 +2,7 @@ package me.gerald.dallas.features.modules.hud.arraylist;
 
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
+import me.gerald.dallas.features.gui.comps.BlockSelectionComponent;
 import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.RenderUtil;
@@ -18,6 +19,7 @@ public class ArrayListComponent extends HUDContainer {
     public ArrayListComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
+    public BlockSelectionComponent selectionComponent = new BlockSelectionComponent(x, y, 0, 0);
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -42,12 +44,16 @@ public class ArrayListComponent extends HUDContainer {
                 moduleNames.remove(module.getName());
             }
         }
+        selectionComponent.x = x;
+        selectionComponent.y = y;
+        selectionComponent.drawScreen(mouseX, mouseY, partialTicks);
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : getLongestWord(moduleNames));
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + yOffset;
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        selectionComponent.mouseClicked(mouseX, mouseY, mouseButton);
         if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
                 beginDragging(mouseX, mouseY);

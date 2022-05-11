@@ -36,6 +36,8 @@ public class MixinGuiMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         //change log
         List<ChangeConstructor> changelog = new ArrayList<>();
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "Popping"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "DistanceCheck"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "Offhand", "AbsorptionAdd"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Splash"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "Chat Module Name", "ChatPrefix"));

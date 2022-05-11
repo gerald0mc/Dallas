@@ -23,7 +23,7 @@ public class RuneScapeChat extends Module {
         super("RuneScapeChat", Category.RENDER, "Renders chat like how RuneScape does.");
     }
 
-    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 6, 1, 10);
+    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5);
     public NumberSetting scale = new NumberSetting("Scale", 1.5f, 0, 5);
     public List<Player> playerList = new ArrayList<>();
 
@@ -31,34 +31,30 @@ public class RuneScapeChat extends Module {
     public void onChatR(ClientChatReceivedEvent event) {
         String sender = StringUtils.substringBetween(event.getMessage().getFormattedText(), "<", ">");
         EntityPlayer entityPlayer = mc.world.getPlayerEntityByName(sender);
-        if(entityPlayer == null)
-            return;
+        if(entityPlayer == null) return;
         if(entityPlayer.equals(mc.player)) return;
         Player player = new Player(entityPlayer);
-        for(Player p : playerList) {
-            if(p.sender == player.sender) {
-                p.messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
-                return;
+        if(!playerList.contains(player)) {
+            playerList.add(player);
+            playerList.get(playerList.size() - 1).messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
+        } else {
+            for(Player p : playerList) {
+                if(p.equals(player)) {
+                    p.messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
+                }
             }
         }
-        playerList.add(player);
-        playerList.get(playerList.size() - 1).messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
     }
 
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event) {
         if(nullCheck()) return;
-        if(playerList.isEmpty()) return;
         for(Player player : playerList) {
-            if(player.messageMap.isEmpty()) {
-                playerList.remove(player);
-                return;
-            }
             int yOffset = 0;
             for(Map.Entry<String, Long> message : player.messageMap.entrySet()) {
                 if(System.currentTimeMillis() - message.getValue() >= timeToRemove.getValue() * 1000) {
                     player.messageMap.remove(message.getKey());
-                    return;
+                    continue;
                 }
                 double yAdd = player.sender.isSneaking() ? 1.75 : 2.25;
                 double deltaX = MathHelper.clampedLerp(player.sender.lastTickPosX, player.sender.posX, event.getPartialTicks());

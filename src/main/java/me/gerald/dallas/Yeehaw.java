@@ -1,16 +1,17 @@
 package me.gerald.dallas;
 
-import me.gerald.dallas.managers.EventManager;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.gui.console.ConsoleGUI;
-import me.gerald.dallas.managers.*;
+import me.gerald.dallas.managers.CPSManager;
+import me.gerald.dallas.managers.ConfigManager;
+import me.gerald.dallas.managers.EventManager;
+import me.gerald.dallas.managers.FPSManager;
 import me.gerald.dallas.managers.command.CommandManager;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.module.ModuleManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
 import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.ShutDownHook;
-import net.minecraft.block.Block;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +19,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Mod(
@@ -42,7 +42,6 @@ public class Yeehaw {
     public EventManager eventManager;
     public ConfigManager configManager;
     public CommandManager commandManager;
-    public RotationManager rotationManager;
     //secondary managers
     public FriendManager friendManager;
     public NotificationManager notificationManager;
@@ -69,7 +68,6 @@ public class Yeehaw {
         eventManager = new EventManager();
         configManager = new ConfigManager();
         commandManager = new CommandManager();
-        rotationManager = new RotationManager();
         //secondary managers
         friendManager = new FriendManager();
         notificationManager = new NotificationManager();

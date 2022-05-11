@@ -156,7 +156,7 @@ public class PacketLogComponent extends HUDContainer {
             if (mouseButton == 0) {
                 page = 0;
             }
-            //selection tab
+        //selection tab
         } else if (isInside(mouseX, mouseY, selectionTabX, y, selectionTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
             if (mouseButton == 0) {
                 page = 1;
@@ -203,9 +203,5 @@ public class PacketLogComponent extends HUDContainer {
 
     public int getLongestWord(List<String> strings) {
         return strings.stream().mapToInt(mc.fontRenderer::getStringWidth).max().orElse(0);
-    }
-
-    public boolean isInside(int mouseX, int mouseY, int x, int y, int width, int height) {
-        return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
     }
 }

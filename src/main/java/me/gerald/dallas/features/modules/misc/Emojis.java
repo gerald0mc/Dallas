@@ -5,7 +5,6 @@ import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;

@@ -20,6 +20,8 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -34,9 +36,11 @@ public class Nametags extends Module {
     public BooleanSetting border = new BooleanSetting("Border", true, () -> backGround.getValue());
     public BooleanSetting clientSync = new BooleanSetting("ClientSync", true, () -> border.getValue());
     public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255, () -> !clientSync.getValue());
+    public BooleanSetting health = new BooleanSetting("Health", true);
     public BooleanSetting ping = new BooleanSetting("Ping", true);
     public BooleanSetting totemPops = new BooleanSetting("TotemPops", true);
-    public BooleanSetting health = new BooleanSetting("Health", true);
+    public BooleanSetting armor = new BooleanSetting("Armor", true);
+    public BooleanSetting hands = new BooleanSetting("Hands", true);
     public BooleanSetting allEntities = new BooleanSetting("AllEntities", true);
     public BooleanSetting entityHealth = new BooleanSetting("EntityHealth", true, () -> allEntities.getValue());
     public BooleanSetting animals = new BooleanSetting("Animals", true, () -> allEntities.getValue());
@@ -77,6 +81,14 @@ public class Nametags extends Module {
                         str += " Pops: " + Yeehaw.INSTANCE.eventManager.totemPopListener.getTotalPops(player);
                     if (health.getValue())
                         str += " " + getHealthColor(player) + MathHelper.ceil(playerHealth) + ChatFormatting.RESET;
+                    if(armor.getValue()) {
+                        int xOffset = (int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) + 17;
+                        for(ItemStack armor : mc.player.getArmorInventoryList()) {
+                            if(armor.getItem().equals(Items.AIR)) continue;
+                            RenderUtil.renderItem(armor, "", xOffset, -(mc.fontRenderer.FONT_HEIGHT) - 17);
+                            xOffset += 17;
+                        }
+                    }
                     if(backGround.getValue()) {
                         Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f), -(mc.fontRenderer.FONT_HEIGHT + 2), ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f), 1, new Color(12, 12, 12, 100).getRGB());
                         if(border.getValue())

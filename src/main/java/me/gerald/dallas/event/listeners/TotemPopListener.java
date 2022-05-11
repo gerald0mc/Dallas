@@ -49,4 +49,14 @@ public class TotemPopListener {
     public int getTotalPops(Entity entity) {
         return popMap.getOrDefault(entity, 0);
     }
+
+    public void handlePop(Entity entity) {
+        if (!popMap.containsKey(entity)) {
+            MinecraftForge.EVENT_BUS.post(new TotemPopEvent(entity, 1));
+            popMap.put(entity, 1);
+        } else {
+            popMap.put(entity, popMap.get(entity) + 1);
+            MinecraftForge.EVENT_BUS.post(new TotemPopEvent(entity, popMap.get(entity)));
+        }
+    }
 }

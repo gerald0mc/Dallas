@@ -50,9 +50,11 @@ public class RenderUtil {
         GL11.glPushMatrix();
         GlStateManager.enableDepth();
         Minecraft.getMinecraft().getRenderItem().zLevel = 200.0f;
+        RenderHelper.enableStandardItemLighting();
         Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
         Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, stack, x, y, "");
         GlStateManager.enableTexture2D();
+        RenderHelper.disableStandardItemLighting();
         GlStateManager.disableLighting();
         GlStateManager.disableDepth();
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(string, x + 13, y + 10, -1);
