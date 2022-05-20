@@ -49,7 +49,8 @@ public class NumberComponent extends SettingComponent {
         }
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
         Gui.drawRect(x, y, x + (int) sliderWidth, y + height, sliderColor.getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getValue(), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), String.valueOf(setting.getValue())), x + 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + String.valueOf(setting.getValue()), x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(String.valueOf(setting.getValue())) - 2, y + 1, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A number setting called (" + setting.getName() + ").";

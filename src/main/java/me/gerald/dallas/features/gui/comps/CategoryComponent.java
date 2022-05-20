@@ -29,9 +29,10 @@ public class CategoryComponent extends DragComponent {
         this.width = width;
         this.height = height;
         Yeehaw.INSTANCE.moduleManager.getCategory(category).forEach(
-                module -> modules.add(new ModuleComponent(module, category, x, y, width, height))
+                module -> modules.add(new ModuleComponent(module, category, x, y, width, height - 2))
         );
-        modules.get(modules.size() - 1).lastModule = true;
+        if(modules.size() != 0)
+            modules.get(modules.size() - 1).lastModule = true;
     }
 
     @Override
@@ -41,22 +42,22 @@ public class CategoryComponent extends DragComponent {
         String text = "";
         switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryAlignment.getMode()) {
             case "Middle":
-                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " [" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "]" : "")) / 2f);
-                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
+                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " [" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "]" : "")) / 2f);
+                text = category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
                 break;
             case "Left":
-                alignment = x + 2f;
-                text = (open ? "> " : "V ") + category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
+                alignment = Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? x + Minecraft.getMinecraft().fontRenderer.getStringWidth(open ? "> " : "V ") : x + 2f + Minecraft.getMinecraft().fontRenderer.getStringWidth(open ? "> " : "V ");
+                text = category.toString() + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? " " + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "]" : "");
                 break;
             case "Right":
-                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? "[" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "] " : "") + category.toString() + (open ? " >" : " V")) - 2;
-                text = (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "] " + ChatFormatting.RESET : "") + category.toString() + (open ? " >" : " V");
+                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? "[" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "] " : "") + category.toString()) - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? 1 : 2);
+                text = (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleCount.getValue() ? ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + ChatFormatting.GRAY + "] " + ChatFormatting.RESET : "") + category.toString();
                 break;
         }
-        Gui.drawRect(x - 2, y, x + width + 2, y + height, ClickGUI.clientColor.getRGB());
+        Gui.drawRect(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? 2 : 0), y, x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? 2 : 0), y + height, ClickGUI.clientColor.getRGB());
         if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
-            RenderUtil.renderBorder(x - 2, y,x + width + 2, y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
-
+            RenderUtil.renderBorder(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? 2 : 0), y,x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).catOverhang.getValue() ? 2 : 0), y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(open ? "> " : "V ", x + 2, y + 2, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = category.toString() + " category.";

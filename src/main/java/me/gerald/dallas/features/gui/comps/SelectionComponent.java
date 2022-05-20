@@ -33,14 +33,14 @@ public class SelectionComponent extends AbstractContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         //clickGUI tab
-        Gui.drawRect(x, y, width, y + height, !inClickGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ClickGUI", x + 1, y + 1, -1);
-        RenderUtil.renderBorder(x, y, width, y + height, 1, new Color(0, 0, 0, 255));
+        Gui.drawRect(x - 1, y, width + 1, y + height, !inClickGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ClickGUI", x + 1, y + 2, -1);
+        RenderUtil.renderBorder(x - 1, y, width + 1, y + height, 1, new Color(0, 0, 0, 255));
 
         //console tab
-        Gui.drawRect(consoleX, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 2, y + height, !inConsoleGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ConsoleGUI", consoleX + 1, y + 1, -1);
-        RenderUtil.renderBorder(consoleX, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 2, y + height, 1, new Color(0, 0, 0, 255));
+        Gui.drawRect(consoleX - 1, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 3, y + height, !inConsoleGUI ? new Color(0, 0, 0, 125).getRGB() : ClickGUI.clientColor.getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("ConsoleGUI", consoleX + 1, y + 2, -1);
+        RenderUtil.renderBorder(consoleX - 1, y, consoleX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ConsoleGUI") + 3, y + height, 1, new Color(0, 0, 0, 255));
     }
 
     @Override

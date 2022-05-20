@@ -39,8 +39,8 @@ public class CoordinatesComponent extends HUDContainer {
         } else if (Minecraft.getMinecraft().player.dimension == 0 && Yeehaw.INSTANCE.moduleManager.getModule(Coordinates.class).nether.getValue()) {
             coordinates += ChatFormatting.RED + " [" + ChatFormatting.GRAY + ((int) Minecraft.getMinecraft().player.posX / 8) + " " + ((int) Minecraft.getMinecraft().player.posZ / 8) + ChatFormatting.RED + "]";
         }
-        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates);
-        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(coordinates) - 1;
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT - 1;
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(coordinates, x, y, color.getRGB());
     }
 

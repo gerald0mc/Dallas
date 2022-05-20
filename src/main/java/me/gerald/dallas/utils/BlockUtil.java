@@ -3,7 +3,9 @@ package me.gerald.dallas.utils;
 import me.gerald.dallas.Yeehaw;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -119,5 +121,10 @@ public class BlockUtil {
 
     public static List<BlockPos> getSphere(BlockPos pos, float r, boolean hollow) {
         return getSphere(pos, r, (int) r, hollow, true, 0);
+    }
+
+    public static boolean isClickable(BlockPos pos) {
+        AxisAlignedBB box = new AxisAlignedBB(pos, pos.add(1.0, 1.0, 1.0));
+        return Minecraft.getMinecraft().world.getBlockState(pos).getBlock().canPlaceBlockAt(Minecraft.getMinecraft().world, pos) && Minecraft.getMinecraft().world.getEntitiesWithinAABB(Entity.class, box, (entity) -> !entity.isDead && !(entity instanceof EntityItem)).isEmpty();
     }
 }

@@ -15,7 +15,7 @@ public class GUI extends Module {
     public BooleanSetting rainbow = new BooleanSetting("Rainbow", false, () -> renderParent.getValue());
     public NumberSetting rainbowSpeed = new NumberSetting("RainbowSpeed", 3, 1, 10, () -> renderParent.getValue() && rainbow.getValue());
     public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Left", "Middle", "Right");
-    public ModeSetting moduleAlignment = new ModeSetting("ModuleAlignment", "Middle", "Left", "Middle", "Right");
+    public BooleanSetting catOverhang = new BooleanSetting("CategoryOverhang", true);
     public BooleanSetting moduleCount = new BooleanSetting("ModuleCount", true);
 
     public GUI() {

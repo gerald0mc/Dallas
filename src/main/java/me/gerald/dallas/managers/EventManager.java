@@ -3,6 +3,7 @@ package me.gerald.dallas.managers;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.ModuleToggleEvent;
+import me.gerald.dallas.event.listeners.DamageListener;
 import me.gerald.dallas.event.listeners.TotemPopListener;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.modules.client.Client;
@@ -28,13 +29,16 @@ import java.util.List;
 import java.util.*;
 
 public class EventManager implements Globals {
-    private final List<Module> hudModules;
     public TotemPopListener totemPopListener;
+    public DamageListener damageListener;
+
+    private final List<Module> hudModules;
     public List<String> clientHistory;
 
     public EventManager() {
         MinecraftForge.EVENT_BUS.register(this);
         totemPopListener = new TotemPopListener();
+        damageListener = new DamageListener();
         hudModules = Yeehaw.INSTANCE.moduleManager.getCategory(Module.Category.HUD);
         clientHistory = new ArrayList<>();
     }

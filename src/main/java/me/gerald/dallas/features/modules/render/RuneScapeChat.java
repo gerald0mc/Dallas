@@ -3,6 +3,7 @@ package me.gerald.dallas.features.modules.render;
 import ibxm.Player;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.ProjectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -21,6 +22,7 @@ import java.util.List;
 public class RuneScapeChat extends Module {
     public RuneScapeChat() {
         super("RuneScapeChat", Category.RENDER, "Renders chat like how RuneScape does.");
+        setBetaModule(true);
     }
 
     public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5);
@@ -37,10 +39,12 @@ public class RuneScapeChat extends Module {
         if(!playerList.contains(player)) {
             playerList.add(player);
             playerList.get(playerList.size() - 1).messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
+            MessageUtil.sendMessage("HI", "Added player to player list. " + entityPlayer.getDisplayNameString(), true);
         } else {
             for(Player p : playerList) {
                 if(p.equals(player)) {
                     p.messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
+                    MessageUtil.sendMessage("HI", "Added players message to message list.", true);
                 }
             }
         }
@@ -54,6 +58,7 @@ public class RuneScapeChat extends Module {
             for(Map.Entry<String, Long> message : player.messageMap.entrySet()) {
                 if(System.currentTimeMillis() - message.getValue() >= timeToRemove.getValue() * 1000) {
                     player.messageMap.remove(message.getKey());
+                    MessageUtil.sendMessage("HI", "Removed player from player list.", true);
                     continue;
                 }
                 double yAdd = player.sender.isSneaking() ? 1.75 : 2.25;

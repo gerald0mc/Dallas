@@ -36,15 +36,11 @@ public class MixinGuiMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         //change log
         List<ChangeConstructor> changelog = new ArrayList<>();
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "RuneScapeChat(WIP Still busted)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "BlockAnimation(Busted ATM)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "DeathAnimation(WIP Don't Use)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "GUI Comps", "Sexy AF"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "Popping"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "DistanceCheck"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "Offhand", "AbsorptionAdd"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Splash"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "Chat Module Name", "ChatPrefix"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "Emojis and ChatPrefix not working together"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Runescape Chat (WIP Does nothing ATM!)"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "Armor", "Durability"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Viewmodel", "Render"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffsetChange = 0;

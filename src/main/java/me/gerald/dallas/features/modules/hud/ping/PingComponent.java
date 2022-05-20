@@ -60,7 +60,6 @@ public class PingComponent extends HUDContainer {
         } catch (Exception e) {
             return "?";
         }
-
         return ping;
     }
 }

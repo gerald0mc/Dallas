@@ -19,21 +19,29 @@ public class ArrayListComponent extends HUDContainer {
     public ArrayListComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
-    public BlockSelectionComponent selectionComponent = new BlockSelectionComponent(x, y, 0, 0);
+
+    Random random = new Random();
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
         List<String> moduleNames = new ArrayList<>();
-        Color color;
-        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
-            color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        } else {
-            color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
+        Color color = null;
+        if(Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).colorMode.getMode().equals("Default")) {
+            if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+                color = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
+            } else {
+                color = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
+            }
         }
         int yOffset = 0;
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if(Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).colorMode.getMode().equals("Category")) {
+                color = module.getCategoryColor();
+            } else if(Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).colorMode.getMode().equals("Random")) {
+                color = new Color(random.nextInt(255) / 255f, random.nextInt(255) / 255f, random.nextInt(255) / 255f);
+            }
             if (module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).skipHUD.getValue())
                 continue;
             if (module.isEnabled()) {
@@ -44,16 +52,12 @@ public class ArrayListComponent extends HUDContainer {
                 moduleNames.remove(module.getName());
             }
         }
-        selectionComponent.x = x;
-        selectionComponent.y = y;
-        selectionComponent.drawScreen(mouseX, mouseY, partialTicks);
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : getLongestWord(moduleNames));
         height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + yOffset;
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        selectionComponent.mouseClicked(mouseX, mouseY, mouseButton);
         if (isInside(mouseX, mouseY)) {
             if (mouseButton == 0)
                 beginDragging(mouseX, mouseY);

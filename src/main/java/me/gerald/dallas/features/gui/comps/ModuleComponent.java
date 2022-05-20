@@ -3,6 +3,7 @@ package me.gerald.dallas.features.gui.comps;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
+import me.gerald.dallas.features.gui.api.ModuleContainer;
 import me.gerald.dallas.features.gui.api.SettingComponent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.gui.comps.settingcomps.*;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ModuleComponent extends AbstractContainer {
+public class ModuleComponent extends ModuleContainer {
     public Module module;
     public Module.Category category;
     public boolean open = false;
@@ -30,7 +31,7 @@ public class ModuleComponent extends AbstractContainer {
     public BindComponent bindComponent;
 
     public ModuleComponent(Module module, Module.Category category, int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(module, x, y, width, height);
         this.module = module;
         this.category = category;
         this.x = x;
@@ -63,23 +64,16 @@ public class ModuleComponent extends AbstractContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int yOffset = 0;
-        float alignment = 0;
-        switch (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).moduleAlignment.getMode()) {
-            case "Middle":
-                alignment = x + width / 2f - (Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName() + (module.isBetaModule() ? " ALPHA" : "")) / 2f);
-                break;
-            case "Left":
-                alignment = x + 2f;
-                break;
-            case "Right":
-                alignment = x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth((open ? "> " : "") + module.getName() + (module.isBetaModule() ? " ALPHA" : "")) - 2;
-                break;
-        }
-        Gui.drawRect(x, y, x + width, y + height, module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.WHITE + (open ? "> " : "") + module.getName() + ChatFormatting.RESET + (module.isBetaModule() ? " ALPHA" : ""), alignment, y + 2f, new Color(251, 206, 5, 255).getRGB());
+        Gui.drawRect(x, y, x + width, y + height + (lastModule ? 1 : 0), module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue(open ? "> " : "", module.getName(), module.isBetaModule() ? "ALPHA" : ""), x + 2f, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.isBetaModule() ? "ALPHA" : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.isBetaModule() ? "ALPHA" : "") - 2, y + 1, new Color(251, 206, 5, 255).getRGB());
         if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
-            RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor(), false, true, true, lastModule);
+            RenderUtil.renderBorderToggle(x, y, x + width, y + height + (lastModule ? 1 : 0), 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor(), false, true, true, lastModule);
         if (isInside(mouseX, mouseY)) {
+            if (needsHover) {
+                Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getName()), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName(), mouseX + 7, mouseY - 13, -1);
+            }
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
             Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;
         }

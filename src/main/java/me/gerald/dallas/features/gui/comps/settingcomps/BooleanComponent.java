@@ -8,6 +8,7 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 
@@ -28,7 +29,8 @@ public class BooleanComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, setting.getValue() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + (showValue ? " " + ChatFormatting.GRAY + (setting.getValue() ? "True" : "False") : ""), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), setting.getValue() ? "True" : "False"), x + 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(showValue ? ChatFormatting.GRAY + (setting.getValue() ? "True" : "False") : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getValue() ? "True" : "False") - 2, y + 1, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A boolean setting called (" + setting.getName() + ").";

@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,7 +91,7 @@ public class Module {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
         if (isBetaModule) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Warning", "As this modules is a Alpha modules it might be prone to crashing and is not recommended for use.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Warning", "As this modules is a Alpha module it might be prone to crashing and is not recommended for use.", true);
         }
         onEnable();
     }
@@ -134,8 +135,25 @@ public class Module {
         MOVEMENT,
         RENDER,
         MISC,
-        BARITONE,
         CLIENT,
-        HUD
+        HUD;
+    }
+
+    public Color getCategoryColor() {
+        switch (category) {
+            case COMBAT:
+                return Color.RED;
+            case MOVEMENT:
+                return Color.BLUE;
+            case RENDER:
+                return Color.MAGENTA;
+            case MISC:
+                return Color.GREEN;
+            case CLIENT:
+                return Color.WHITE;
+            case HUD:
+                return Color.CYAN;
+        }
+        return Color.WHITE;
     }
 }

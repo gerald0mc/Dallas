@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.gui.comps;
 
 import me.gerald.dallas.features.gui.api.AbstractContainer;
+import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.block.Block;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockSelectionComponent extends AbstractContainer {
+public class BlockSelectionComponent extends HUDContainer {
     public BlockSelectionComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
@@ -27,10 +28,9 @@ public class BlockSelectionComponent extends AbstractContainer {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(!blockPosList.isEmpty() && blockPosList.get(0).x != x) {
-            System.out.println("Clearing block pos list.");
+        updateDragPosition(mouseX, mouseY);
+        if(!blockPosList.isEmpty() && blockPosList.get(0).x != x)
             blockPosList.clear();
-        }
         Gui.drawRect(x, y, x + (18 * 12), y + height + 18, new Color(0, 0, 0, 170).getRGB());
         int xOffset = x;
         int yOffset = 0;
@@ -62,6 +62,10 @@ public class BlockSelectionComponent extends AbstractContainer {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        if (isInside(mouseX, mouseY, x, y, (18 * 12), height + 18)) {
+            if (mouseButton == 0)
+                beginDragging(mouseX, mouseY);
+        }
         for(Thing thing : blockPosList) {
             if (isInside(mouseX, mouseY, thing.x, thing.y, 18, 17)) {
                 if(mouseButton == 0) {
@@ -72,7 +76,7 @@ public class BlockSelectionComponent extends AbstractContainer {
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton) { }
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) { stopDragging(); }
 
     @Override
     public void keyTyped(char keyChar, int key) throws IOException, UnsupportedFlavorException { }

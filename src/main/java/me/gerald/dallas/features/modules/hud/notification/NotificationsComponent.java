@@ -30,8 +30,8 @@ public class NotificationsComponent extends HUDContainer {
         }
         if (Yeehaw.INSTANCE.notificationManager.notifications.isEmpty() || !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled())
             return;
-        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? "[" + Yeehaw.INSTANCE.notificationManager.notifications.peek().getTitle() + ChatFormatting.RESET + "]: " + Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() : Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4);
-        height = 13;
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue() ? "[" + Yeehaw.INSTANCE.notificationManager.notifications.peek().getTitle() + "]: " + Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() : Yeehaw.INSTANCE.notificationManager.notifications.peek().getMessage() + 4);
+        height = 12;
         int yOffset = 0;
         for (Notification notificationConstructor : Yeehaw.INSTANCE.notificationManager.getNotifications()) {
             if (!Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).title.getValue()) {

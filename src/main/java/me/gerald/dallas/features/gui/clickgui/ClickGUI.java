@@ -33,29 +33,26 @@ public class ClickGUI extends GuiScreen {
     public ClickGUI() {
         int xOffset = 10;
         for (Module.Category category : Module.Category.values()) {
-            categories.add(new CategoryComponent(category, xOffset, 50, 100, 11));
+            categories.add(new CategoryComponent(category, xOffset, 50, 100, 12));
             xOffset += 110;
         }
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue()) {
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue())
             clientColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
-        } else {
+        else
             clientColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
-        }
-        for (CategoryComponent component : categories) {
-            if (component.equals(priorityComponent)) {
-                continue;
-            }
 
+        for (CategoryComponent component : categories) {
+            if (component.equals(priorityComponent))
+                continue;
             component.drawScreen(mouseX, mouseY, partialTicks);
         }
 
-        if (priorityComponent != null) {
+        if (priorityComponent != null)
             priorityComponent.drawScreen(mouseX, mouseY, partialTicks);
-        }
 
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
@@ -67,15 +64,18 @@ public class ClickGUI extends GuiScreen {
         }
 
         selectionBox.drawScreen(mouseX, mouseY, partialTicks);
+
         searchBox.drawScreen(mouseX, mouseY, partialTicks);
+
         descriptionBox.updateDragPosition(mouseX, mouseY);
         descriptionBox.drawScreen(mouseX, mouseY, partialTicks);
-        if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3) {
+
+        if (descriptionBox.width != Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3)
             descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 3;
-        }
-        if (!descriptionBox.text.equalsIgnoreCase(DEFAULT_DESCRIPTION_TEXT)) {
+
+        if (!descriptionBox.text.equalsIgnoreCase(DEFAULT_DESCRIPTION_TEXT))
             descriptionBox.text = DEFAULT_DESCRIPTION_TEXT;
-        }
+
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -83,9 +83,8 @@ public class ClickGUI extends GuiScreen {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         for (CategoryComponent component : categories) {
             component.mouseClicked(mouseX, mouseY, mouseButton);
-            if (component.isInside(mouseX, mouseY)) {
+            if (component.isInside(mouseX, mouseY))
                 priorityComponent = component;
-            }
         }
 
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
@@ -98,11 +97,11 @@ public class ClickGUI extends GuiScreen {
         }
 
         selectionBox.mouseClicked(mouseX, mouseY, mouseButton);
+
         searchBox.mouseClicked(mouseX, mouseY, mouseButton);
 
-        if (mouseButton == 0 && descriptionBox.isInside(mouseX, mouseY)) {
+        if (mouseButton == 0 && descriptionBox.isInside(mouseX, mouseY))
             descriptionBox.beginDragging(mouseX, mouseY);
-        }
 
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -112,6 +111,7 @@ public class ClickGUI extends GuiScreen {
         for (CategoryComponent component : categories) {
             component.mouseReleased(mouseX, mouseY, state);
         }
+
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
                 if (module.isEnabled()) {
@@ -121,9 +121,8 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
-        if (state == 0 && descriptionBox.isDragging()) {
+        if (state == 0 && descriptionBox.isDragging())
             descriptionBox.stopDragging();
-        }
 
         searchBox.mouseReleased(mouseX, mouseY, state);
 
@@ -142,8 +141,7 @@ public class ClickGUI extends GuiScreen {
 
         try {
             searchBox.keyTyped(typedChar, keyCode);
-        } catch (UnsupportedFlavorException ignored) {
-        }
+        } catch (UnsupportedFlavorException ignored) { }
 
         super.keyTyped(typedChar, keyCode);
     }

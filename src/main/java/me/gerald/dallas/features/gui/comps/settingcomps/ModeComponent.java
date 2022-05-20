@@ -25,7 +25,8 @@ public class ModeComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName() + " " + ChatFormatting.GRAY + setting.getMode(), x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), setting.getMode()), x + 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + setting.getMode(), x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getMode()) - 2, y + 1, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";

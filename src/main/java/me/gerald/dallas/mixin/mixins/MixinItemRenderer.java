@@ -6,7 +6,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,7 +38,13 @@ public class MixinItemRenderer {
         if (module.isEnabled() && module.viewModel.getValue()) {
             if (transform == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND) {
                 GlStateManager.scale(module.scaleX.getValue() / 100F, module.scaleY.getValue() / 100F, module.scaleZ.getValue() / 100F);
-                GlStateManager.translate(module.translateX.getValue() / 200F, module.translateY.getValue() / 200F, module.translateZ.getValue() / 200F);
+                if(Mouse.getEventButtonState() && Mouse.getEventButton() == 1) {
+                    if(heldStack.getItem() instanceof ItemSword) {
+                        GlStateManager.translate(-0.5F, 0.2F, 0.0F);
+                    }
+                } else {
+                    GlStateManager.translate(module.translateX.getValue() / 200F, module.translateY.getValue() / 200F, module.translateZ.getValue() / 200F);
+                }
                 GlStateManager.rotate(module.rotateX.getValue(), 1, 0, 0);
                 GlStateManager.rotate(module.rotateY.getValue(), 0, 1, 0);
                 GlStateManager.rotate(module.rotateZ.getValue(), 0, 0, 1);

@@ -12,8 +12,12 @@ import me.gerald.dallas.utils.MathUtil;
 import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -21,6 +25,7 @@ import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -56,7 +61,22 @@ public class FakePlayer extends Module {
                         fakePlayer.inventory.copyInventory(mc.player.inventory);
                         break;
                     case "OP":
-                        //TODO Add OP mode. (OP armor and totem)
+                        //diamond helmet
+                        ItemStack helmet = new ItemStack(Items.DIAMOND_HELMET);
+                        helmet.addEnchantment(Enchantments.PROTECTION, 4);
+                        fakePlayer.inventory.armorInventory.set(3, helmet);
+                        //diamond chest
+                        ItemStack chest = new ItemStack(Items.DIAMOND_CHESTPLATE);
+                        chest.addEnchantment(Enchantments.PROTECTION, 4);
+                        fakePlayer.inventory.armorInventory.set(2, chest);
+                        //diamond legs
+                        ItemStack leggings = new ItemStack(Items.DIAMOND_LEGGINGS);
+                        leggings.addEnchantment(Enchantments.BLAST_PROTECTION, 4);
+                        fakePlayer.inventory.armorInventory.set(1, leggings);
+                        //diamond boots
+                        ItemStack boots = new ItemStack(Items.DIAMOND_BOOTS);
+                        boots.addEnchantment(Enchantments.PROTECTION, 4);
+                        fakePlayer.inventory.armorInventory.set(0, boots);
                         break;
                 }
             }
@@ -68,7 +88,6 @@ public class FakePlayer extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (!moving.getValue()) return;
         if (fakePlayer != null) {
             if(mc.player.getDistance(fakePlayer) >= distance.getValue()) {
                 if(distanceCheck.getValue())
@@ -82,6 +101,7 @@ public class FakePlayer extends Module {
                     Yeehaw.INSTANCE.eventManager.totemPopListener.handlePop(fakePlayer);
                 }
             }
+            if(!moving.getValue()) return;
             if (moveTimer.passedMs((long) moveDelay.getValue())) {
                 if (mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ)).getBlock() != Blocks.AIR)
                     fakePlayer.posY += 0.5f;
