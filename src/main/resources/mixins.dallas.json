@@ -15,6 +15,7 @@
     "MixinNetHandlerPlayClient",
     "MixinRenderItem",
     "MixinRenderLivingBase",
-    "MixinRenderPlayer"
+    "MixinRenderPlayer",
+    "MixinEntityPlayerSP"
   ]
 }
