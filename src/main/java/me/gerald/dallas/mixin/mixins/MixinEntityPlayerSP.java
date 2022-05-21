@@ -65,17 +65,13 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"), cancellable = true)
     public void onUpdateWalkingPlayerPreHook(CallbackInfo info) {
-        // info.cancel(); // TODO: dont cancel this?
-
         MotionUpdateEvent event = new MotionUpdateEvent(posX, getEntityBoundingBox().minY, posZ, rotationYaw, rotationPitch, onGround);
         MinecraftForge.EVENT_BUS.post(event);
 
         if (event.isCanceled()) {
             info.cancel();
-            return;
+            onUpdateWalkingPlayerSpoof(event);
         }
-
-        onUpdateWalkingPlayerSpoof(event);
     }
 
     /**
