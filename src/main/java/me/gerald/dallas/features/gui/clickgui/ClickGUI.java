@@ -45,15 +45,6 @@ public class ClickGUI extends GuiScreen {
         else
             clientColor = new Color(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getR() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getG() / 255f, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).color.getB() / 255f);
 
-        for (CategoryComponent component : categories) {
-            if (component.equals(priorityComponent))
-                continue;
-            component.drawScreen(mouseX, mouseY, partialTicks);
-        }
-
-        if (priorityComponent != null)
-            priorityComponent.drawScreen(mouseX, mouseY, partialTicks);
-
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getCategory() == Module.Category.HUD) {
                 if (module.isEnabled()) {
@@ -62,6 +53,15 @@ public class ClickGUI extends GuiScreen {
                 }
             }
         }
+
+        for (CategoryComponent component : categories) {
+            if (component.equals(priorityComponent))
+                continue;
+            component.drawScreen(mouseX, mouseY, partialTicks);
+        }
+
+        if (priorityComponent != null)
+            priorityComponent.drawScreen(mouseX, mouseY, partialTicks);
 
         selectionBox.drawScreen(mouseX, mouseY, partialTicks);
 

@@ -90,12 +90,11 @@ public class Offhand extends Module {
             } else {
                 int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
                 if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
-                if (itemSlot != -1) {
+                if (itemSlot != -1)
                     doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot for backup.");
-                }
             }
         } else {
-            if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() >= totemHealth.getValue() : mc.player.getHealth() >= totemHealth.getValue()) {
+            if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() <= totemHealth.getValue() : mc.player.getHealth() <= totemHealth.getValue()) {
                 needsItem = false;
                 return;
             }

@@ -20,6 +20,7 @@ public class ArrayListComponent extends HUDContainer {
         super(x, y, width, height);
     }
 
+    public HashMap<Module, Color> randomColorMap = new LinkedHashMap<>();
     Random random = new Random();
 
     @Override
@@ -37,10 +38,11 @@ public class ArrayListComponent extends HUDContainer {
         }
         int yOffset = 0;
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
+            if (!randomColorMap.containsKey(module)) randomColorMap.put(module, new Color(random.nextInt(255) / 255f, random.nextInt(255) / 255f, random.nextInt(255) / 255f));
             if(Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).colorMode.getMode().equals("Category")) {
                 color = module.getCategoryColor();
             } else if(Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).colorMode.getMode().equals("Random")) {
-                color = new Color(random.nextInt(255) / 255f, random.nextInt(255) / 255f, random.nextInt(255) / 255f);
+                color = randomColorMap.get(module);
             }
             if (module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).skipHUD.getValue())
                 continue;
