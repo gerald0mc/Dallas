@@ -28,4 +28,8 @@ public class MessageUtil {
             Minecraft.getMinecraft().player.sendMessage(new TextComponentString(clientPrefix + message));
         }
     }
+
+    public static void sendMessage(String message, int id) {
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(message), id);
+    }
 }
