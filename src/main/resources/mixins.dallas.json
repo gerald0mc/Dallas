@@ -10,12 +10,13 @@
   "client": [
     "IEntityRenderer",
     "IMinecraft",
+    "MixinEntityPlayerSP",
     "MixinGuiMainMenu",
     "MixinItemRenderer",
     "MixinNetHandlerPlayClient",
+    "MixinPlayerControllerMP",
     "MixinRenderItem",
     "MixinRenderLivingBase",
-    "MixinRenderPlayer",
-    "MixinEntityPlayerSP"
+    "MixinRenderPlayer"
   ]
 }

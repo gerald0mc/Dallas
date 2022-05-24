@@ -25,7 +25,9 @@ import java.util.List;
         modid = Yeehaw.MOD_ID,
         name = Yeehaw.MOD_NAME,
         version = Yeehaw.VERSION,
-        guiFactory = Yeehaw.GUI_HOOK
+        guiFactory = Yeehaw.GUI_HOOK,
+        clientSideOnly = true,
+        acceptedMinecraftVersions = "[1.12.2]"
 )
 public class Yeehaw {
     //cum
