@@ -11,6 +11,7 @@
     "IEntityRenderer",
     "IMinecraft",
     "MixinEntityPlayerSP",
+    "MixinEntityRenderer",
     "MixinGuiMainMenu",
     "MixinItemRenderer",
     "MixinNetHandlerPlayClient",
