@@ -8,7 +8,7 @@ import me.gerald.dallas.utils.MessageUtil;
 
 public class Toggle extends Command {
     public Toggle() {
-        super("Toggle", "Toggles a modules.", new String[]{"toggle", "[modules]"});
+        super("Toggle", "Toggles a modules.", new String[]{"toggle", "<module>"});
     }
 
     @Override

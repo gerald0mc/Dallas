@@ -20,17 +20,17 @@ import java.util.List;
  * @since 5/20/22
  */
 public class Speed extends Module {
-    public Speed() {
-        super("Speed", Category.MOVEMENT, "zoom zoom lol");
-    }
-
-    public final ModeSetting mode = new ModeSetting("Mode", "Strafe", "Strafe", "YPort");
-    public final BooleanSetting strictJump = new BooleanSetting("StrictJump", false);
-    public final NumberSetting timer = new NumberSetting("Timer", 1.1f, 1.0f, 2.0f);
+    public ModeSetting mode = new ModeSetting("Mode", "Strafe", "Strafe", "YPort");
+    public BooleanSetting strictJump = new BooleanSetting("StrictJump", false);
+    public NumberSetting timer = new NumberSetting("Timer", 1.1f, 1.0f, 2.0f);
 
     private int stage = 4;
     private double motionSpeed, distance;
     private boolean funnyBoolean = false;
+
+    public Speed() {
+        super("Speed", Category.MOVEMENT, "zoom zoom lol");
+    }
 
     @Override
     public void onDisable() {

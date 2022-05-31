@@ -32,8 +32,7 @@ public class FriendManager {
             FileWriter fileWriter = new FileWriter(friendsFile, true);
             fileWriter.write(entity + "\n");
             fileWriter.close();
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) { }
     }
 
     public void delFriend(String entity) {
@@ -45,8 +44,7 @@ public class FriendManager {
                 }
             }
             friends.removeIf(string -> string.equalsIgnoreCase(entity));
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) { }
     }
 
     public boolean isFriend(String name) {

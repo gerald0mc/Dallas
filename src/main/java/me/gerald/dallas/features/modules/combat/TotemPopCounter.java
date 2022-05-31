@@ -20,18 +20,18 @@ public class TotemPopCounter extends Module {
         if (event.getPopCount() == 1) {
             switch (messageMode.getMode()) {
                 case "Default":
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped a totem.", true);
+                    MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has popped a totem.", true, event.getEntity().getEntityId());
                     return;
                 case "Basic":
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " popped " + ChatFormatting.RED + "1", true);
+                    MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " popped " + ChatFormatting.RED + "1", true, event.getEntity().getEntityId());
             }
         } else if (event.getPopCount() > 1) {
             switch (messageMode.getMode()) {
                 case "Default":
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.GRAY + " totems.", true);
+                    MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has popped " + ChatFormatting.RED + event.getPopCount() + ChatFormatting.RESET + " totems.", true, event.getEntity().getEntityId());
                     return;
                 case "Basic":
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " popped " + ChatFormatting.RED + event.getPopCount(), true);
+                    MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Totem Pop", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " popped " + ChatFormatting.RED + event.getPopCount(), true, event.getEntity().getEntityId());
             }
         }
     }
@@ -40,10 +40,10 @@ public class TotemPopCounter extends Module {
     public void onDeath(DeathEvent event) {
         switch (messageMode.getMode()) {
             case "Default":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " has just died what a retard.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " has just died what a retard.", true);
                 return;
             case "Basic":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.GRAY + " died.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Player Death", ChatFormatting.AQUA + event.getEntity().getDisplayName().getFormattedText() + ChatFormatting.RESET + " died.", true);
         }
     }
 }

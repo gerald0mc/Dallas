@@ -19,6 +19,7 @@ import java.util.List;
 public class Spammer extends Module {
     public NumberSetting delay = new NumberSetting("Delay", 3, 0.1f, 5);
     public BooleanSetting messageCounter = new BooleanSetting("MessageCounter", false);
+
     public TimerUtil timer = new TimerUtil();
     public List<String> messages = new ArrayList<>();
     public int messageCount = 0;
@@ -30,14 +31,13 @@ public class Spammer extends Module {
 
     @Override
     public void onEnable() {
-        File autoGGFile = new File(ConfigManager.clientPath, "Spammer.txt");
-        if (!autoGGFile.exists()) {
+        File spammerFile = new File(ConfigManager.clientPath, "Spammer.txt");
+        if (!spammerFile.exists()) {
             try {
-                autoGGFile.createNewFile();
+                spammerFile.createNewFile();
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Spammer", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
                 toggle();
-            } catch (IOException ignored) {
-            }
+            } catch (IOException ignored) { }
         }
     }
 

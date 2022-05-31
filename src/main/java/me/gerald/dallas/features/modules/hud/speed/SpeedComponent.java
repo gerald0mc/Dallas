@@ -58,7 +58,7 @@ public class SpeedComponent extends HUDContainer {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-
+        stopDragging();
     }
 
     @Override

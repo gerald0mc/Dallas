@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class Friend extends Command {
     public Friend() {
-        super("Friend", "Adds, removes, or list's all Friends.", new String[]{"f", "add/remove/list"});
+        super("Friend", "Adds, removes, or list's all Friends.", new String[]{"f", "[<add> <name>/<remove> <name>/<list>]"});
     }
 
     @Override
@@ -60,12 +61,7 @@ public class Friend extends Command {
                     for (String friend : friends) {
                         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
                     }
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "----------", true);
-                    for (String string : Yeehaw.INSTANCE.friendManager.getFriends()) {
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", string, true);
-                    }
-                } catch (IOException ignored) {
-                }
+                } catch (IOException ignored) { }
                 break;
         }
     }

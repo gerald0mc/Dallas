@@ -36,11 +36,15 @@ public class MixinGuiMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         //change log
         List<ChangeConstructor> changelog = new ArrayList<>();
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "RuneScapeChat(WIP Still busted)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "AutoKit", "Adapt & NoServerToggle"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.DELETE, "DeathAnimations"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "AntiTrap", "AutoSwitch & NoCrystalToggle"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "Gapple"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "AutoKick", "Misc"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Config"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.ADD, "Custom Configs"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "RuneScapeChat"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "BlockAnimation(Busted ATM)"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "DeathAnimation(WIP Don't Use)"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.CHANGE, "GUI Comps", "Sexy AF"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "Popping"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffsetChange = 0;
@@ -53,9 +57,8 @@ public class MixinGuiMainMenu extends GuiScreen {
         RenderUtil.renderBorder(0, 18, 2 + getLongestWord1(changelog), 29 + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * changelog.size(), 1, new Color(0, 0, 0, 255));
         //dev log
         List<String> devLog = new ArrayList<>();
-        devLog.add("Module's NameChanger and RunescapeChat are causing issues don't use.");
-        devLog.add("Module's PacketLog and Chams crash don't use.");
-        devLog.add("Module Strafe is busted don't use.");
+        devLog.add("Module NameChanger is causing issues don't use.");
+        devLog.add("Module PacketLog crashes don't use.");
         int yOffsetDev = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * 3 + yOffsetChange + 3;
         int devY = yOffsetDev;
         Gui.drawRect(0, devY, 2 + getLongestWord2(devLog), yOffsetDev + (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * devLog.size()) + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, new Color(0, 0, 0, 180).getRGB());

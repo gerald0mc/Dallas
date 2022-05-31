@@ -8,7 +8,7 @@ public class ShutDownHook extends Thread {
     @Override
     public void run() {
         try {
-            ConfigManager.save();
+            ConfigManager.save("Current");
         } catch (IOException e) {
             e.printStackTrace();
         }

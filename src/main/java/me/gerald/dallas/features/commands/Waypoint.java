@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Waypoint extends Command {
     public Waypoint() {
-        super("Waypoint", "Allows you to modify waypoints.", new String[]{"waypoint", "[add/remove/list]"});
+        super("Waypoint", "Allows you to modify waypoints.", new String[]{"waypoint", "[<add> <name> <x> <y> <z> <dimension>/<remove> <name>/<list>]"});
     }
 
     @Override

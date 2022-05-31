@@ -21,6 +21,7 @@ import java.util.List;
 public class AutoGG extends Module {
     public NumberSetting cooldown = new NumberSetting("Cooldown(Secs)", 5, 1, 10);
     public BooleanSetting greenText = new BooleanSetting("GreenText", false);
+
     public TimerUtil timer = new TimerUtil();
     public List<String> randomMessages = new ArrayList<>();
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "AutoGG.txt";

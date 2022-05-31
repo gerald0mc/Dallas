@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Emoji extends Command {
     public Emoji() {
-        super("Emoji", "Emoji command.", new String[]{"emoji", "[add/list]"});
+        super("Emoji", "Emoji command.", new String[]{"emoji", "[<add>/<list>]"});
     }
 
     @Override

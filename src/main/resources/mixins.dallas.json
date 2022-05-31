@@ -9,7 +9,7 @@
   ],
   "client": [
     "IEntityRenderer",
-    "IMinecraft",
+    "IRenderGlobal",
     "MixinEntityPlayerSP",
     "MixinEntityRenderer",
     "MixinGuiMainMenu",
@@ -17,7 +17,6 @@
     "MixinNetHandlerPlayClient",
     "MixinPlayerControllerMP",
     "MixinRenderItem",
-    "MixinRenderLivingBase",
     "MixinRenderPlayer"
   ]
 }

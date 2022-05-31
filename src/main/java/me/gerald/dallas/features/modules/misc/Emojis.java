@@ -34,17 +34,15 @@ public class Emojis extends Module {
             try {
                 emojiFile.createNewFile();
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Emojis.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
-            } catch (IOException ignored) {
-            }
+            } catch (IOException ignored) { }
         }
     }
 
     @SubscribeEvent
     public void onChat(ClientChatEvent event) {
         for (Map.Entry<String, String> entry : emojis.entrySet()) {
-            if (event.getMessage().contains(":" + entry.getKey() + ":")) {
+            if (event.getMessage().contains(":" + entry.getKey() + ":"))
                 event.setMessage(event.getMessage().replace(":" + entry.getKey() + ":", entry.getValue()));
-            }
         }
     }
 }

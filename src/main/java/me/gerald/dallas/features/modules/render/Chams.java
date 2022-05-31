@@ -19,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Chams extends Module {
     public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "Both", "Fill", "Outline");
@@ -27,7 +28,7 @@ public class Chams extends Module {
     public BooleanSetting pops = new BooleanSetting("Pops", true);
     public BooleanSetting deaths = new BooleanSetting("Deaths", true);
     public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, () -> pops.getValue() || deaths.getValue());
-    public HashMap<EntityOtherPlayerMP, Long> renderMap = new LinkedHashMap<>();
+    public ConcurrentHashMap<EntityOtherPlayerMP, Long> renderMap = new ConcurrentHashMap<>();
 
     public Chams() {
         super("Chams", Category.RENDER, "Chams for different things.");
@@ -39,7 +40,7 @@ public class Chams extends Module {
         if (nullCheck()) return;
         if (renderMap.isEmpty()) return;
         for (Map.Entry<EntityOtherPlayerMP, Long> entry : renderMap.entrySet()) {
-            if (System.currentTimeMillis() - entry.getValue() > timeToRemove.getValue() * 1000) {
+            if (System.currentTimeMillis() - entry.getValue() >= timeToRemove.getValue() * 1000) {
                 renderMap.remove(entry.getKey());
                 continue;
             }

@@ -134,9 +134,7 @@ public class ClickGUI extends GuiScreen {
         for (CategoryComponent component : categories) {
             try {
                 component.keyTyped(typedChar, keyCode);
-            } catch (UnsupportedFlavorException e) {
-                e.printStackTrace();
-            }
+            } catch (UnsupportedFlavorException ignored) { }
         }
 
         try {

@@ -12,7 +12,7 @@ import me.gerald.dallas.utils.MessageUtil;
 
 public class Set extends Command {
     public Set() {
-        super("Set", "Set various stuff.", new String[]{"set", "[setting]", "[value]"});
+        super("Set", "Set various stuff.", new String[]{"set", "<setting>", "<value>"});
     }
 
     @Override
@@ -31,12 +31,23 @@ public class Set extends Command {
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             for (Setting setting : module.getSettings()) {
                 if (setting.getName().equalsIgnoreCase(settingName)) {
-                    if (setting instanceof BooleanSetting)
+                    if (setting instanceof BooleanSetting) {
                         ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
-                    else if (setting instanceof NumberSetting)
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Set setting " + ChatFormatting.AQUA + setting.getName() + ChatFormatting.RESET + " to " + ChatFormatting.GREEN + ((BooleanSetting) setting).getValue(), true);
+                    } else if (setting instanceof NumberSetting) {
+                        if(Integer.parseInt(value) > ((NumberSetting) setting).getMax()) {
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "The value you have entered is larger then this settings max value.", true);
+                            return;
+                        } else if(Integer.parseInt(value) < ((NumberSetting) setting).getMin()) {
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "The value you have entered is smaller then this settings min value.", true);
+                            return;
+                        }
                         ((NumberSetting) setting).setValue(Float.parseFloat(value));
-                    else if (setting instanceof ModeSetting)
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Set setting " + ChatFormatting.AQUA + setting.getName() + ChatFormatting.RESET + " to " + ChatFormatting.GREEN + ((NumberSetting) setting).getValue(), true);
+                    } else if (setting instanceof ModeSetting) {
                         ((ModeSetting) setting).setMode(value);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Set setting " + ChatFormatting.AQUA + setting.getName() + ChatFormatting.RESET + " to " + ChatFormatting.GREEN + ((ModeSetting) setting).getMode(), true);
+                    }
                     return;
                 }
             }

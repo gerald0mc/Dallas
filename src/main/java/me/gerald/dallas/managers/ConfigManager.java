@@ -4,7 +4,9 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
+import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -13,32 +15,56 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConfigManager {
     public static File mainPath;
     public static File clientPath;
-    public static File modulePath;
+    public static File configPath;
+    public static File currentConfigPath;
+    public static File rarityPath;
 
     public ConfigManager() {
         mainPath = new File(Minecraft.getMinecraft().gameDir, "Dallas");
         clientPath = new File(mainPath, "Client");
-        modulePath = new File(mainPath, "Modules");
+        configPath = new File(mainPath, "Configs");
+        currentConfigPath = new File(configPath, "Current");
+        rarityPath = new File(clientPath, "Rarities");
         if (!mainPath.exists()) {
-            modulePath.mkdirs();
+            configPath.mkdirs();
             clientPath.mkdir();
+            currentConfigPath.mkdir();
+            rarityPath.mkdir();
         }
-        if (!modulePath.exists()) {
-            modulePath.mkdir();
-        }
-        if (!clientPath.exists()) {
+        if (!clientPath.exists())
             clientPath.mkdir();
-        }
+        if (!configPath.exists())
+            configPath.mkdir();
+        if(!currentConfigPath.exists())
+            currentConfigPath.mkdir();
+        if(!rarityPath.exists())
+            rarityPath.mkdir();
     }
 
-    public static void save() throws IOException {
+    public static void save(String configName) throws IOException {
+        String[] strings = configName.split(" ");
+        if(strings.length > 1) {
+            System.out.println("Config can only be 1 word long for loading purposes.");
+            return;
+        }
+        File config;
+        if(!configName.equalsIgnoreCase("current")) {
+            config = new File(configPath, configName);
+            if(!config.exists()) {
+                config.mkdir();
+            }
+        } else {
+            config = new File(configPath, "Current");
+        }
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            File moduleFile = new File(modulePath, module.getName() + ".txt");
+            File moduleFile = new File(config, module.getName() + ".txt");
             if (moduleFile.exists())
                 moduleFile.delete();
             moduleFile.createNewFile();
@@ -63,10 +89,25 @@ public class ConfigManager {
         }
     }
 
-    public static void saveModule(Module mod) throws IOException {
+    public static void saveModule(Module mod, String configName) throws IOException {
+        String[] strings = configName.split(" ");
+        if(strings.length > 1) {
+            System.out.println("Config can only be 1 word long for loading purposes.");
+            return;
+        }
+        File config;
+        if(configName.equalsIgnoreCase("current")) {
+            config = new File(configPath, "Current");
+        } else {
+            config = new File(configPath, configName);
+            if(!config.exists()) {
+                System.out.println("This config doesn't exist.");
+                return;
+            }
+        }
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (mod == module) {
-                File moduleFile = new File(modulePath, module.getName() + ".txt");
+                File moduleFile = new File(config, module.getName() + ".txt");
                 if (moduleFile.exists())
                     moduleFile.delete();
                 moduleFile.createNewFile();
@@ -93,9 +134,24 @@ public class ConfigManager {
         }
     }
 
-    public static void load() {
+    public static void load(String configName) {
+        String[] strings = configName.split(" ");
+        if(strings.length > 1) {
+            System.out.println("Config can only be 1 word long for loading purposes.");
+            return;
+        }
+        File config;
+        if(configName.equalsIgnoreCase("current")) {
+            config = new File(configPath, "Current");
+        } else {
+            config = new File(configPath, configName);
+            if(!config.exists()) {
+                System.out.println("This config doesn't exist.");
+                return;
+            }
+        }
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            File moduleFile = new File(modulePath, module.getName() + ".txt");
+            File moduleFile = new File(config, module.getName() + ".txt");
             if (moduleFile.exists()) {
                 try {
                     List<String> lines = Files.readAllLines(Paths.get(moduleFile.toURI()), StandardCharsets.UTF_8);

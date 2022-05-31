@@ -86,7 +86,7 @@ public class Nametags extends Module {
                         for(ItemStack armor : mc.player.getArmorInventoryList()) {
                             if(armor.getItem().equals(Items.AIR)) continue;
                             RenderUtil.renderItem(armor, "", xOffset, -(mc.fontRenderer.FONT_HEIGHT) - 17);
-                            xOffset += 17;
+                            xOffset += 22;
                         }
                     }
                     if(backGround.getValue()) {

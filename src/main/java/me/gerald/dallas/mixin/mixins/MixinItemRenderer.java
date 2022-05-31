@@ -1,6 +1,7 @@
 package me.gerald.dallas.mixin.mixins;
 
 import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.features.modules.render.BlockAnimation;
 import me.gerald.dallas.features.modules.render.ViewModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -39,8 +40,12 @@ public class MixinItemRenderer {
             if (transform == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND) {
                 GlStateManager.scale(module.scaleX.getValue() / 100F, module.scaleY.getValue() / 100F, module.scaleZ.getValue() / 100F);
                 if(Mouse.getEventButtonState() && Mouse.getEventButton() == 1) {
-                    if(heldStack.getItem() instanceof ItemSword) {
-                        GlStateManager.translate(-0.5F, 0.2F, 0.0F);
+                    if(!Yeehaw.INSTANCE.moduleManager.getModule(BlockAnimation.class).isEnabled()) {
+                        GlStateManager.translate(module.translateX.getValue() / 200F, module.translateY.getValue() / 200F, module.translateZ.getValue() / 200F);
+                    } else {
+                        if(heldStack.getItem() instanceof ItemSword) {
+                            GlStateManager.translate(-0.5F, 0.2F, 0.0F);
+                        }
                     }
                 } else {
                     GlStateManager.translate(module.translateX.getValue() / 200F, module.translateY.getValue() / 200F, module.translateZ.getValue() / 200F);

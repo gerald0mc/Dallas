@@ -29,7 +29,20 @@ public class MessageUtil {
         }
     }
 
-    public static void sendMessage(String message, int id) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(message), id);
+    public static void sendRemovableMessage(String title, String message, boolean clientMessage, int id) {
+        if (Module.nullCheck()) return;
+        Yeehaw.INSTANCE.eventManager.clientHistory.add(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + title + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + message);
+        if (Yeehaw.INSTANCE.moduleManager.getModule(Console.class).clientMessages.getValue()) {
+            Yeehaw.INSTANCE.consoleGUI.messageHistory.add(message);
+            if (Minecraft.getMinecraft().currentScreen instanceof ConsoleGUI) return;
+        }
+        if (Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).isEnabled()) {
+            if (clientMessage && !Yeehaw.INSTANCE.moduleManager.getModule(Notifications.class).clientMessages.getValue())
+                Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(clientPrefix + message), id);
+            else
+                Yeehaw.INSTANCE.notificationManager.addNotification(title, message, System.currentTimeMillis());
+        } else {
+            Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(clientPrefix + message), id);
+        }
     }
 }

@@ -21,7 +21,7 @@ public class Offhand extends Module {
     public NumberSetting totemHealth = new NumberSetting("TotemHealth", 10, 1, 36, () -> !item.getMode().equalsIgnoreCase("totem"));
     public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true);
     public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 1000, () -> !instantSwitch.getValue());
-    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", true);
+    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", false);
     public BooleanSetting checks = new BooleanSetting("Checks", true);
     public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, () -> checks.getValue());
     public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, () -> checks.getValue() && fallCheck.getValue());
@@ -86,12 +86,12 @@ public class Offhand extends Module {
             if (mc.player.getHeldItemOffhand().getItem().equals(Items.TOTEM_OF_UNDYING)) return;
             int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
             if (totemSlot != -1) {
-                doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.GRAY + " to offhand slot.");
+                doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
             } else {
                 int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
                 if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
                 if (itemSlot != -1)
-                    doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot for backup.");
+                    doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot for backup.");
             }
         } else {
             if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() <= totemHealth.getValue() : mc.player.getHealth() <= totemHealth.getValue()) {
@@ -101,11 +101,12 @@ public class Offhand extends Module {
             if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
             int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
             if (itemSlot != -1) {
-                doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.GRAY + " to offhand slot.");
+                doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot.");
             } else {
                 int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
+                if (mc.player.getHeldItemOffhand().getItem().equals(Items.TOTEM_OF_UNDYING)) return;
                 if (totemSlot != -1)
-                    doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.GRAY + " to offhand slot.");
+                    doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
             }
         }
     }

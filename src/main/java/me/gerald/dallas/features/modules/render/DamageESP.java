@@ -40,14 +40,14 @@ public class DamageESP extends Module {
     @SubscribeEvent
     public void onUpdate(DamageEvent.Damage event) {
         if (nullCheck()) return;
-        if(event.getEntity() == mc.player && !self.getValue()) return;
+        if(event.getEntity().equals(mc.player) && !self.getValue()) return;
         damages.add(new Damage(event.getEntity(), System.currentTimeMillis(), (float) event.getAmount(), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1), 1));
     }
 
     @SubscribeEvent
     public void onUpdate(DamageEvent.Heal event) {
         if (nullCheck()) return;
-        if(event.getEntity() == mc.player && !self.getValue()) return;
+        if(event.getEntity().equals(mc.player) && !self.getValue()) return;
         damages.add(new Damage(event.getEntity(), System.currentTimeMillis(), (float) event.getAmount(), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1), 1));
     }
 

@@ -8,7 +8,7 @@ import me.gerald.dallas.utils.MessageUtil;
 
 public class Webhook extends Command {
     public Webhook() {
-        super("Webhook", "Webhook stuff.", new String[]{"webhook", "[set [webhook/url]/start]"});
+        super("Webhook", "Webhook stuff.", new String[]{"webhook", "[<set> <webhook/url> <value>/<start>]"});
     }
 
     @Override
@@ -42,6 +42,7 @@ public class Webhook extends Command {
                 break;
             case "start":
                 Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).toggle();
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Starting webhook...", true);
                 break;
         }
     }

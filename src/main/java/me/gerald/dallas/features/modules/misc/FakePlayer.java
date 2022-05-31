@@ -16,12 +16,10 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -41,6 +39,10 @@ public class FakePlayer extends Module {
     public NumberSetting distance = new NumberSetting("Distance", 15, 1, 30, () -> distanceCheck.getValue());
     public BooleanSetting inventory = new BooleanSetting("Inventory", true);
     public ModeSetting inventoryMode = new ModeSetting("InventoryMode", "Player", () -> inventory.getValue(), "Player", "OP");
+    public BooleanSetting gapple = new BooleanSetting("Gapple", true);
+    public NumberSetting gappleDelay = new NumberSetting("GappleDelay(Secs)", 2.5f, 1, 5, () -> gapple.getValue());
+
+    public TimerUtil gappleTimer = new TimerUtil();
     public TimerUtil moveTimer = new TimerUtil();
     public EntityOtherPlayerMP fakePlayer;
     public Random random = new Random();
@@ -81,6 +83,7 @@ public class FakePlayer extends Module {
                 }
             }
             mc.world.spawnEntity(fakePlayer);
+            gappleTimer.reset();
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Fake Player", "Spawned a Fake Player.", true);
         }
     }
@@ -92,6 +95,16 @@ public class FakePlayer extends Module {
             if(mc.player.getDistance(fakePlayer) >= distance.getValue()) {
                 if(distanceCheck.getValue())
                     fakePlayer.setPositionAndRotation(mc.player.posX, mc.player.posY, mc.player.posZ, mc.player.cameraYaw, mc.player.cameraPitch);
+            }
+            if(gapple.getValue()) {
+                if(gappleTimer.passedMs((long) gappleDelay.getValue() * 1000)) {
+                    fakePlayer.setAbsorptionAmount(16.0f);
+                    fakePlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 400, 1));
+                    fakePlayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 6000, 0));
+                    fakePlayer.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 6000, 0));
+                    fakePlayer.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 3));
+                    gappleTimer.reset();
+                }
             }
             if (popping.getValue()) {
                 fakePlayer.inventory.offHandInventory.set(0, new ItemStack(Items.TOTEM_OF_UNDYING));

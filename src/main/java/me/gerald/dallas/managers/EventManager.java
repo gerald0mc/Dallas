@@ -56,7 +56,7 @@ public class EventManager implements Globals {
 
     @SubscribeEvent
     public void onModuleToggle(ModuleToggleEvent event) throws IOException {
-        ConfigManager.saveModule(event.getModule());
+        ConfigManager.saveModule(event.getModule(), "Current");
     }
 
     //binds
@@ -103,10 +103,10 @@ public class EventManager implements Globals {
         if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
             case "Default":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
+                MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true, 50);
                 break;
             case "Simple":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true);
+                MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.GREEN + "enabled" + ChatFormatting.RESET + "!", true, 50);
                 break;
         }
     }
@@ -117,10 +117,10 @@ public class EventManager implements Globals {
         if (!Yeehaw.INSTANCE.moduleManager.getModule(Client.class).toggleMessage.getValue()) return;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(Client.class).messageMode.getMode()) {
             case "Default":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
+                MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " has been " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true, 50);
                 break;
             case "Simple":
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true);
+                MessageUtil.sendRemovableMessage(ChatFormatting.BOLD + "Toggle", ChatFormatting.AQUA + event.getModule().getName() + ChatFormatting.RESET + " " + ChatFormatting.RED + "disabled" + ChatFormatting.RESET + "!", true, 50);
                 break;
         }
     }

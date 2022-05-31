@@ -7,7 +7,7 @@ import me.gerald.dallas.utils.MessageUtil;
 
 public class Splash extends Command {
     public Splash() {
-        super("Splash", "Add and removes messages from the splash menu.", new String[]{"splash", "[add/del/list]"});
+        super("Splash", "Add and removes messages from the splash menu.", new String[]{"splash", "[<add> <text>/<del> <index>/<list>]"});
     }
 
     @Override
