@@ -33,9 +33,13 @@ public class Speed extends Module {
     }
 
     @Override
+    public String getMetaData() {
+        return mode.getMode();
+    }
+
+    @Override
     public void onDisable() {
         super.onDisable();
-
         stage = 4;
         motionSpeed = 0.0;
         distance = 0.0;

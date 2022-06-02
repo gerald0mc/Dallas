@@ -36,15 +36,10 @@ public class MixinGuiMainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         //change log
         List<ChangeConstructor> changelog = new ArrayList<>();
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "AutoKit", "Adapt & NoServerToggle"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.DELETE, "DeathAnimations"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "AntiTrap", "AutoSwitch & NoCrystalToggle"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "FakePlayer", "Gapple"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "AutoKick", "Misc"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.COMMAND, "Config"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.ADD, "Custom Configs"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "RuneScapeChat"));
-        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "BlockAnimation(Busted ATM)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "MCXPee", "Combat"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "Client start config loading"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "EntityList (WIP Dont Use)", "HUD"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Spotify Integration (WIP Dont Use)", "HUD"));
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " v" + ChatFormatting.WHITE + Yeehaw.VERSION, 1, 1, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Texas on TOP!", 1, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1, -1);
         int yOffsetChange = 0;

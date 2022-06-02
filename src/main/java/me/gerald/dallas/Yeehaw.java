@@ -78,7 +78,7 @@ public class Yeehaw {
         clickGUI = new ClickGUI();
         consoleGUI = new ConsoleGUI();
 
-        ConfigManager.load(ConfigManager.currentConfigPath.getPath());
+        ConfigManager.load("Current");
         Runtime.getRuntime().addShutdownHook(new ShutDownHook());
     }
 

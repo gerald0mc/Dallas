@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.modules.hud.arraylist;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.gui.comps.BlockSelectionComponent;
@@ -47,15 +48,15 @@ public class ArrayListComponent extends HUDContainer {
             if (module.getCategory() == Module.Category.HUD && Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).skipHUD.getValue())
                 continue;
             if (module.isEnabled()) {
-                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName() + module.getMetaData(), x, y + yOffset, color.getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName() + (module.getMetaData().equals("") ? "" : ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + module.getMetaData() + ChatFormatting.GRAY + "]"), x, y + yOffset, color.getRGB());
                 yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + Yeehaw.INSTANCE.moduleManager.getModule(me.gerald.dallas.features.modules.hud.arraylist.ArrayList.class).spacing.getValue();
-                moduleNames.add(module.getName() + module.getMetaData());
+                moduleNames.add(module.getName() + "[" + module.getMetaData() + "]");
             } else {
                 moduleNames.remove(module.getName());
             }
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth(moduleNames.size() == 0 ? "Whole lotta cock" : getLongestWord(moduleNames));
-        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + yOffset;
+        height = yOffset == 0 ? Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT : yOffset;
     }
 
     @Override

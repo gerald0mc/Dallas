@@ -27,4 +27,8 @@ public class CommandManager {
     public List<Command> getCommands() {
         return commands;
     }
+
+    public void setPREFIX(String PREFIX) {
+        this.PREFIX = PREFIX;
+    }
 }

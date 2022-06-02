@@ -25,12 +25,12 @@ public class ModeComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), setting.getMode()), x + 2, y + 1, -1);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + setting.getMode(), x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getMode()) - 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), setting.getMode(), 6), x + 4, y + 3, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + setting.getMode(), x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getMode()) - 4, y + 3, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 8;
         }
     }
 

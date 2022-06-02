@@ -20,8 +20,15 @@ public class AntiTrap extends Module {
     public BooleanSetting noCrystalToggle = new BooleanSetting("NoCrystalToggle", true, () -> autoSwitch.getValue() && autoSwitch.isVisible());
     public NumberSetting distanceToActivate = new NumberSetting("DistanceToAct", 10, 0, 30);
 
+    public EntityPlayer target = null;
+
     public AntiTrap() {
         super("AntiTrap", Category.COMBAT, "Places a crystal on the block next to you so you cannot be trapped.");
+    }
+
+    @Override
+    public String getMetaData() {
+        return target != null ? target.getDisplayNameString() : "";
     }
 
     @SubscribeEvent
@@ -32,8 +39,14 @@ public class AntiTrap extends Module {
         BlockPos targetPos = BlockUtil.canPlaceCrystalSurround(playerPos);
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = BlockUtil.findClosestPlayer();
-        if (player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) return;
-        else if (player == null && !alwaysActive.getValue()) return;
+        if (player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) {
+            if(target != null) target = null;
+            return;
+        } else if (player == null && !alwaysActive.getValue()) {
+            if(target != null) target = null;
+            return;
+        }
+        target = player;
         int originalSlot = -1;
         if(autoSwitch.getValue() && autoSwitch.isVisible()) {
             int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
@@ -53,5 +66,10 @@ public class AntiTrap extends Module {
         if(originalSlot != mc.player.inventory.currentItem && originalSlot != -1) {
             InventoryUtil.switchToSlot(originalSlot);
         }
+    }
+
+    @Override
+    public void onDisable() {
+        target = null;
     }
 }

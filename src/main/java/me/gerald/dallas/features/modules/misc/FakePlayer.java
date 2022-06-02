@@ -40,7 +40,7 @@ public class FakePlayer extends Module {
     public BooleanSetting inventory = new BooleanSetting("Inventory", true);
     public ModeSetting inventoryMode = new ModeSetting("InventoryMode", "Player", () -> inventory.getValue(), "Player", "OP");
     public BooleanSetting gapple = new BooleanSetting("Gapple", true);
-    public NumberSetting gappleDelay = new NumberSetting("GappleDelay(Secs)", 2.5f, 1, 5, () -> gapple.getValue());
+    public NumberSetting gappleDelay = new NumberSetting("GappleDelay(Secs)", 5, 1, 10, () -> gapple.getValue());
 
     public TimerUtil gappleTimer = new TimerUtil();
     public TimerUtil moveTimer = new TimerUtil();
@@ -97,7 +97,7 @@ public class FakePlayer extends Module {
                     fakePlayer.setPositionAndRotation(mc.player.posX, mc.player.posY, mc.player.posZ, mc.player.cameraYaw, mc.player.cameraPitch);
             }
             if(gapple.getValue()) {
-                if(gappleTimer.passedMs((long) gappleDelay.getValue() * 1000)) {
+                if(gappleTimer.passedMs((long) (int) gappleDelay.getValue() * 1000)) {
                     fakePlayer.setAbsorptionAmount(16.0f);
                     fakePlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 400, 1));
                     fakePlayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 6000, 0));

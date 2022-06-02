@@ -21,9 +21,15 @@ public class CevPlace extends Module {
     public BooleanSetting ownSwing = new BooleanSetting("OwnSwing", true);
 
     public TimerUtil timer = new TimerUtil();
+    public EntityPlayer target = null;
 
     public CevPlace() {
         super("CevPlace", Category.COMBAT, "Automatically will place a crystal if the trapped player tries to mine out.");
+    }
+
+    @Override
+    public String getMetaData() {
+        return target != null ? target.getDisplayNameString() : "";
     }
 
     @SubscribeEvent
@@ -39,11 +45,14 @@ public class CevPlace extends Module {
                 BlockPos targetPos = playerPos.up().up();
                 if (mc.world.getBlockState(targetPos).getBlock() == Blocks.OBSIDIAN) {
                     if (mc.world.getBlockState(targetPos.up()).getBlock().equals(Blocks.AIR) && mc.world.getBlockState(targetPos.up().up()).getBlock().equals(Blocks.AIR)) {
+                        target = p;
                         BlockUtil.placeBlock(targetPos, true, Items.END_CRYSTAL);
                         timer.reset();
+                        return;
                     }
                 }
             }
+            target = null;
         }
     }
 

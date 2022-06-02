@@ -29,7 +29,7 @@ public class ClickComponent extends AbstractContainer {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, x + 2, y + 2, -1);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A click component with the text (" + text + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A click component with the text (" + text + ").") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A click component with the text (" + text + ").") + 8;
         }
     }
 

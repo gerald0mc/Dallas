@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.modules.render;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.module.Module;
@@ -11,14 +12,17 @@ import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockVine;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.*;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -29,6 +33,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 // #TODO RARITY RENDER
 
@@ -83,15 +89,34 @@ public class ItemESP extends Module {
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(projection.x, projection.y, 0);
                 GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
-                if(backGround.getValue()) {
-                    Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(entityItem.getItem().getDisplayName()) + 2) / 2f), -(mc.fontRenderer.FONT_HEIGHT + 2), ((mc.fontRenderer.getStringWidth(entityItem.getItem().getDisplayName()) + 2) / (int) 2f), 1, new Color(12, 12, 12, 100).getRGB());
-                    if(border.getValue())
-                        RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(entityItem.getItem().getDisplayName()) + 2) / 2f), -(mc.fontRenderer.FONT_HEIGHT + 2), ((mc.fontRenderer.getStringWidth(entityItem.getItem().getDisplayName()) + 2) / (int) 2f), 1, 1, clientSync.getValue() ? clientColor : borderColor.getColor());
+                List<String> lines = new ArrayList<>();
+                lines.add(entityItem.getItem().getItem().getItemStackDisplayName(entityItem.getItem()) + (count.getValue() ? (entityItem.getItem().getCount() == 1 ? "" : ChatFormatting.GRAY + " [" + ChatFormatting.AQUA + "x" + entityItem.getItem().getCount() + ChatFormatting.GRAY + "]") : ""));
+                if(entityItem.getItem().getItem().equals(Items.ENCHANTED_BOOK)) {
+                    Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(entityItem.getItem());
+                    for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                        lines.add(entry.getKey().getTranslatedName(entry.getValue()));
+                    }
                 }
-                mc.fontRenderer.drawStringWithShadow(count.getValue() ? (entityItem.getItem().getCount() == 1 ? "" : "x" + entityItem.getItem().getCount() + " ") : "" + entityItem.getItem().getDisplayName(), -(mc.fontRenderer.getStringWidth((count.getValue() ? (entityItem.getItem().getCount() == 1 ? "" : "x" + entityItem.getItem().getCount() + " ") : "") + entityItem.getItem().getDisplayName()) / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
+                if(backGround.getValue()) {
+                    Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2  + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), new Color(12, 12, 12, 100).getRGB());
+                    if(border.getValue())
+                        RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2  + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), 1, clientSync.getValue() ? clientColor : borderColor.getColor());
+                }
+                int yOffset = 0;
+                for(String line : lines) {
+                    mc.fontRenderer.drawStringWithShadow(line, -(mc.fontRenderer.getStringWidth(getLongestWordString(lines)) / 2f), -(mc.fontRenderer.FONT_HEIGHT) + yOffset, -1);
+                    yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
+                }
                 GlStateManager.popMatrix();
             }
         }
+    }
+
+    public String getLongestWordString(List<String> strings) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : strings)
+            hashMap.put(s, Minecraft.getMinecraft().fontRenderer.getStringWidth(s));
+        return Collections.max(hashMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
     }
 
 //    public void handleGlow(Entity realEntity, EntityItem entityItem, Scoreboard currentScoreboard) {

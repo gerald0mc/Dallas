@@ -36,9 +36,24 @@ public abstract class AbstractContainer implements Globals {
         return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
     }
 
-    public String trimValue(String preValue, String value, String otherValue) {
+    public String trimValue(String preValue, String value, String otherValue, int amountIn) {
         int otherWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(otherValue);
-        int maxWidth = width - 2 - otherWidth;
+        int maxWidth = width - amountIn - otherWidth;
+        if (Minecraft.getMinecraft().fontRenderer.getStringWidth(value) < maxWidth) return preValue + value;
+        else {
+            int preWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(preValue);
+            int dotWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth("...");
+            if(this instanceof ModuleContainer) {
+                ModuleContainer container = (ModuleContainer) this;
+                container.needsHover = true;
+            }
+            return preValue + Minecraft.getMinecraft().fontRenderer.trimStringToWidth(value, maxWidth - preWidth - dotWidth) + "...";
+        }
+    }
+
+    public String customTrimValue(String preValue, String value, String otherValue, int width, int amountIn) {
+        int otherWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(otherValue);
+        int maxWidth = width - amountIn - otherWidth;
         if (Minecraft.getMinecraft().fontRenderer.getStringWidth(value) < maxWidth) return preValue + value;
         else {
             int preWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(preValue);

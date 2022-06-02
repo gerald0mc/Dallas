@@ -29,18 +29,7 @@ public class AutoKit extends Module {
 
     @Override
     public String getMetaData() {
-        return "[" + ChatFormatting.WHITE + kitName.getValue() + ChatFormatting.RESET + "]";
-    }
-
-    @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        ServerData data = mc.getCurrentServerData();
-        if(data == null) {
-            if(!noServerToggle.getValue()) return;
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Not on a server toggling module...", true);
-            toggle();
-        }
+        return kitName.getValue();
     }
 
     @SubscribeEvent
@@ -68,18 +57,17 @@ public class AutoKit extends Module {
     }
 
     @SubscribeEvent
-    public void onDeath(DeathEvent event) {
-        if (event.getEntity() == mc.player && !hasDied)
-            hasDied = true;
-    }
-
-    @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
+        ServerData data = mc.getCurrentServerData();
+        if(data == null) {
+            if(!noServerToggle.getValue()) return;
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Not on a server toggling module...", true);
+            toggle();
+        }
         if (hasDied && mc.player.isEntityAlive() && !mc.player.isDead && mc.player.getHealth() > 1) {
             if (timer.passedMs((long) delay.getValue())) {
                 mc.player.sendChatMessage("/kit " + kitName.getValue());
-                timer.reset();
                 hasDied = false;
             }
         }
@@ -89,5 +77,13 @@ public class AutoKit extends Module {
     public void onDisable() {
         if (hasDied)
             hasDied = false;
+    }
+
+    @SubscribeEvent
+    public void onDeath(DeathEvent event) {
+        if (event.getEntity() == mc.player && !hasDied) {
+            timer.reset();
+            hasDied = true;
+        }
     }
 }

@@ -30,14 +30,14 @@ public class StringComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), listening ? ChatFormatting.WHITE + "TYPING" : !isInside(mouseX, mouseY) ? ChatFormatting.GRAY + "HOVER" : ChatFormatting.WHITE + "HOVERING"), x + 2, y + 1, -1);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.WHITE + "TYPING" : !isInside(mouseX, mouseY) ? ChatFormatting.GRAY + "HOVER" : ChatFormatting.WHITE + "HOVERING", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(listening ? "TYPING" : !isInside(mouseX, mouseY) ? "HOVER" : "HOVERING") - 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), listening ? ChatFormatting.WHITE + "TYPING" : !isInside(mouseX, mouseY) ? ChatFormatting.GRAY + "HOVER" : ChatFormatting.WHITE + "HOVERING", 6), x + 4, y + 3, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.WHITE + "TYPING" : !isInside(mouseX, mouseY) ? ChatFormatting.GRAY + "HOVER" : ChatFormatting.WHITE + "HOVERING", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(listening ? "TYPING" : !isInside(mouseX, mouseY) ? "HOVER" : "HOVERING") - 4, y + 3, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(listening ? entryString : setting.getValue()), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? entryString : setting.getValue(), mouseX + 7, mouseY - 13, -1);
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 8;
         } else if (listening) {
             Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(entryString), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(entryString, mouseX + 7, mouseY - 13, -1);

@@ -32,7 +32,7 @@ public class WebhookSpammer extends Module {
 
     @Override
     public String getMetaData() {
-        return totalMessages != 0 ? "[" + ChatFormatting.WHITE + totalMessages + ChatFormatting.RESET + "]" : "";
+        return totalMessages != 0 ? String.valueOf(totalMessages) : "";
     }
 
     @Override

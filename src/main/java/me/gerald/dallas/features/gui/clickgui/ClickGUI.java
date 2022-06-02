@@ -23,23 +23,24 @@ public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
     public static Color clientColor = Color.BLACK; // Nigger (this crashes???)
     public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
-    public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, 100, 11);
-    public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 11);
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
+    public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 8, 14);
+    public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 14);
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, 14);
     public List<CategoryComponent> categories = new ArrayList<>();
     public CategoryComponent priorityComponent = null;
-    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
-    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
 
     public ClickGUI() {
         int xOffset = 10;
         for (Module.Category category : Module.Category.values()) {
-            categories.add(new CategoryComponent(category, xOffset, 50, 100, 12));
+            categories.add(new CategoryComponent(category, xOffset, 50, 100, 16));
             xOffset += 110;
         }
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
         if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbow.getValue())
             clientColor = RenderUtil.genRainbow((int) Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).rainbowSpeed.getValue());
         else

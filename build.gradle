@@ -87,6 +87,11 @@ dependencies {
         exclude module: 'jna'
     }
     implementation configurations.shadow
+
+    implementation('se.michaelthelin.spotify:spotify-web-api-java:6.5.4') {
+        exclude module: 'commons-codec'
+        exclude module: 'commons-logging'
+    }
 }
 
 mixin {

@@ -99,7 +99,7 @@ public class Waypoint extends Command {
                     FileWriter fileWriter = new FileWriter(waypointFile, true);
                     fileWriter.write("Name " + waypointName + " X " + x + " Y " + y + " Z " + z + " Dimension " + dimension + " Server " + server + "\n");
                     fileWriter.close();
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + waypointName + " and is it X: " + x + " Y: " + y + " Z: " + z + " and is in " + dimension, true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + ChatFormatting.AQUA + waypointName + ChatFormatting.RESET + " and it is at " + ChatFormatting.GRAY + "X: " + ChatFormatting.GREEN + x + ChatFormatting.GRAY + " Y: " + ChatFormatting.GREEN + y + ChatFormatting.GRAY + " Z: " + ChatFormatting.GREEN + z + ChatFormatting.RESET + " and is in the " + ChatFormatting.GOLD + dimension, true);
                 } catch (IOException ignored) {
                 }
                 break;

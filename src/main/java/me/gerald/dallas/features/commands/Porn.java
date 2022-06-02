@@ -10,7 +10,7 @@ import java.net.URI;
 
 public class Porn extends Command {
     public Porn() {
-        super("Porn", "Does porn things.", new String[] {"porn", "<type"});
+        super("Porn", "Does porn things.", new String[] {"porn", "<type>"});
     }
 
     @Override

@@ -25,7 +25,7 @@ public class FakePearl extends Module {
 
     @Override
     public String getMetaData() {
-        return hasThrown ? "[" + ChatFormatting.GREEN + "ACTIVE" + ChatFormatting.RESET + "]" : "";
+        return hasThrown ? ChatFormatting.GREEN + "ACTIVE" : "";
     }
 
     @SubscribeEvent

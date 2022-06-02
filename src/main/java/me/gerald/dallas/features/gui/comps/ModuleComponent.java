@@ -38,20 +38,20 @@ public class ModuleComponent extends ModuleContainer {
         this.y = y;
         this.width = width;
         this.height = height;
-        bindComponent = new BindComponent(module, x, y, 110, height);
+        bindComponent = new BindComponent(module, x, y, width, height);
         Iterator<Setting> iterator = module.getSettings().iterator();
         while (iterator.hasNext()) {
             Setting element = iterator.next();
             if (element instanceof BooleanSetting)
-                settingComponents.add(new BooleanComponent((BooleanSetting) element, true, x, y, 110, height));
+                settingComponents.add(new BooleanComponent((BooleanSetting) element, true, x, y, width, height));
             else if (element instanceof NumberSetting)
-                settingComponents.add(new NumberComponent((NumberSetting) element, x, y, 110, height));
+                settingComponents.add(new NumberComponent((NumberSetting) element, x, y, width, height));
             else if (element instanceof ModeSetting)
-                settingComponents.add(new ModeComponent((ModeSetting) element, x, y, 110, height));
+                settingComponents.add(new ModeComponent((ModeSetting) element, x, y, width, height));
             else if (element instanceof StringSetting)
-                settingComponents.add(new StringComponent((StringSetting) element, x, y, 110, height));
+                settingComponents.add(new StringComponent((StringSetting) element, x, y, width, height));
             else if (element instanceof ColorSetting)
-                settingComponents.add(new ColorComponent((ColorSetting) element, x, y, 110, height));
+                settingComponents.add(new ColorComponent((ColorSetting) element, x, y, width, height));
             if (!iterator.hasNext()) {
                 if (settingComponents.size() == 0)
                     return;
@@ -65,8 +65,8 @@ public class ModuleComponent extends ModuleContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int yOffset = 0;
         Gui.drawRect(x, y, x + width, y + height + (lastModule ? 1 : 0), module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue(open ? "> " : "", module.getName(), module.isBetaModule() ? "ALPHA" : ""), x + 2f, y + 1, -1);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.isBetaModule() ? "ALPHA" : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.isBetaModule() ? "ALPHA" : "") - 2, y + 1, new Color(251, 206, 5, 255).getRGB());
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue(open ? "> " : "", module.getName(), module.isBetaModule() ? "ALPHA" : "", 6), x + 4, y + 3, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.isBetaModule() ? "ALPHA" : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.isBetaModule() ? "ALPHA" : "") - 4, y + 3, new Color(251, 206, 5, 255).getRGB());
         if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
             RenderUtil.renderBorderToggle(x, y, x + width, y + height + (lastModule ? 1 : 0), 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor(), false, true, true, lastModule);
         if (isInside(mouseX, mouseY)) {
@@ -75,7 +75,7 @@ public class ModuleComponent extends ModuleContainer {
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.getName(), mouseX + 7, mouseY - 13, -1);
             }
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = module.getDescription();
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(module.getDescription()) + 8;
         }
         if (open) {
             bindComponent.x = x + width;

@@ -38,12 +38,12 @@ public class ColorComponent extends SettingComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), "III"), x + 2, y + 1, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue("", setting.getName(), "III", 6), x + 4, y + 3, -1);
         Gui.drawRect(x + width - 12, y + 1, x + width - 2, y + height - 1, new Color(setting.getR(), setting.getG(), setting.getB(), 255).getRGB());
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A color setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A color setting called (" + setting.getName() + ").") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A color setting called (" + setting.getName() + ").") + 8;
         }
         if (open) {
             int yOffset = height;

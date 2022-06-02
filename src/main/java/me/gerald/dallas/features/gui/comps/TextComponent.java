@@ -23,7 +23,7 @@ public class TextComponent extends DragComponent {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height, ClickGUI.clientColor.getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, x + 2, y + 2, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, x + 4, y + 3, -1);
         RenderUtil.renderBorder(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255));
     }
 

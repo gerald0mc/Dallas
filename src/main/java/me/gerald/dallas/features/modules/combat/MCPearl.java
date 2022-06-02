@@ -12,15 +12,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Mouse;
 
-public class MCP extends Module {
+public class MCPearl extends Module {
     public BooleanSetting inventory = new BooleanSetting("Inventory", true);
     public BooleanSetting switchBack = new BooleanSetting("SwitchBack", true);
     public BooleanSetting toggle = new BooleanSetting("Toggle", true);
     public BooleanSetting noPearlToggle = new BooleanSetting("NoPearlToggle", true, () -> toggle.getValue());
     public BooleanSetting onThrowToggle = new BooleanSetting("OnThrowToggle", false, () -> toggle.getValue());
 
-    public MCP() {
-        super("MCP", Category.COMBAT, "Middle click pearl.");
+    public MCPearl() {
+        super("MCPearl", Category.COMBAT, "Middle click pearl.");
     }
 
     @SubscribeEvent

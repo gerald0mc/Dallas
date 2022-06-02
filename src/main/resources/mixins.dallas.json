@@ -16,7 +16,6 @@
     "MixinItemRenderer",
     "MixinNetHandlerPlayClient",
     "MixinPlayerControllerMP",
-    "MixinRenderItem",
     "MixinRenderPlayer"
   ]
 }

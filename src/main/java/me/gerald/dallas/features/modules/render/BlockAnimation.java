@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.modules.render;
 
 import me.gerald.dallas.managers.module.Module;
+import net.minecraft.world.World;
 
 public class BlockAnimation extends Module {
     public BlockAnimation() {

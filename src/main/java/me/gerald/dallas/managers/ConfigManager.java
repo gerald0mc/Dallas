@@ -1,6 +1,7 @@
 package me.gerald.dallas.managers;
 
 import me.gerald.dallas.Yeehaw;
+import me.gerald.dallas.features.modules.hud.HUDModule;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
@@ -25,6 +26,8 @@ public class ConfigManager {
     public static File configPath;
     public static File currentConfigPath;
     public static File rarityPath;
+
+    public static String currentConfig = "";
 
     public ConfigManager() {
         mainPath = new File(Minecraft.getMinecraft().gameDir, "Dallas");
@@ -85,6 +88,11 @@ public class ConfigManager {
                     fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
                 }
             }
+            if(module.getCategory().equals(Module.Category.HUD)) {
+                HUDModule hudModule = (HUDModule) module;
+                fileWriter.write("X " + hudModule.getContainer().x + "\n");
+                fileWriter.write("Y " + hudModule.getContainer().y + "\n");
+            }
             fileWriter.close();
         }
     }
@@ -105,33 +113,34 @@ public class ConfigManager {
                 return;
             }
         }
-        for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-            if (mod == module) {
-                File moduleFile = new File(config, module.getName() + ".txt");
-                if (moduleFile.exists())
-                    moduleFile.delete();
-                moduleFile.createNewFile();
-                FileWriter fileWriter = new FileWriter(moduleFile, true);
-                fileWriter.write("Name " + module.getName() + "\n");
-                fileWriter.write("Bind " + Keyboard.getKeyName(module.getKeybind()) + "\n");
-                fileWriter.write("Enabled " + module.isEnabled() + "\n");
-                for (Setting setting : module.getSettings()) {
-                    if (setting instanceof BooleanSetting) {
-                        fileWriter.write("Setting " + setting.getName() + " " + ((BooleanSetting) setting).getValue() + "\n");
-                    } else if (setting instanceof NumberSetting) {
-                        fileWriter.write("Setting " + setting.getName() + " " + ((NumberSetting) setting).getValue() + "\n");
-                    } else if (setting instanceof ModeSetting) {
-                        fileWriter.write("Setting " + setting.getName() + " " + ((ModeSetting) setting).getMode() + "\n");
-                    } else if (setting instanceof StringSetting) {
-                        fileWriter.write("Setting " + setting.getName() + " " + ((StringSetting) setting).getValue() + "\n");
-                    } else if (setting instanceof ColorSetting) {
-                        fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
-                    }
-                }
-                fileWriter.close();
-                return;
+        File moduleFile = new File(config, mod.getName() + ".txt");
+        if (moduleFile.exists())
+            moduleFile.delete();
+        moduleFile.createNewFile();
+        FileWriter fileWriter = new FileWriter(moduleFile, true);
+        fileWriter.write("Name " + mod.getName() + "\n");
+        fileWriter.write("Bind " + Keyboard.getKeyName(mod.getKeybind()) + "\n");
+        fileWriter.write("Enabled " + mod.isEnabled() + "\n");
+        for (Setting setting : mod.getSettings()) {
+            if (setting instanceof BooleanSetting) {
+                fileWriter.write("Setting " + setting.getName() + " " + ((BooleanSetting) setting).getValue() + "\n");
+            } else if (setting instanceof NumberSetting) {
+                fileWriter.write("Setting " + setting.getName() + " " + ((NumberSetting) setting).getValue() + "\n");
+            } else if (setting instanceof ModeSetting) {
+                fileWriter.write("Setting " + setting.getName() + " " + ((ModeSetting) setting).getMode() + "\n");
+            } else if (setting instanceof StringSetting) {
+                fileWriter.write("Setting " + setting.getName() + " " + ((StringSetting) setting).getValue() + "\n");
+            } else if (setting instanceof ColorSetting) {
+                fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
             }
         }
+        if(mod.getCategory().equals(Module.Category.HUD)) {
+            HUDModule hudModule = (HUDModule) mod;
+            fileWriter.write("X " + hudModule.getContainer().x + "\n");
+            fileWriter.write("Y " + hudModule.getContainer().y + "\n");
+        }
+        fileWriter.close();
+        return;
     }
 
     public static void load(String configName) {
@@ -215,6 +224,14 @@ public class ConfigManager {
                                     }
                                 }
                                 break;
+                            case "X":
+                                HUDModule hudModule = (HUDModule) module;
+                                hudModule.getContainer().x = Integer.parseInt(words[1]);
+                                break;
+                            case "Y":
+                                HUDModule hudModule2 = (HUDModule) module;
+                                hudModule2.getContainer().y = Integer.parseInt(words[1]);
+                                break;
                         }
                     }
                 } catch (IOException io) {
@@ -224,5 +241,6 @@ public class ConfigManager {
                 System.out.println("Couldn't find modules " + module.getName() + " for some reason.");
             }
         }
+        currentConfig = configName;
     }
 }

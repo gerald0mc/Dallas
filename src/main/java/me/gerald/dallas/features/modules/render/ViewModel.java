@@ -5,6 +5,11 @@ import me.gerald.dallas.mixin.mixins.MixinItemRenderer;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -14,10 +19,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
  * @since 5/6/2022
  */
 public class ViewModel extends Module {
-
     public BooleanSetting noSway = new BooleanSetting("NoSway", true);
-    public BooleanSetting itemOpacity = new BooleanSetting("ItemOpacity", true);
-    public NumberSetting alpha = new NumberSetting("Alpha", 175, 1, 255, () -> itemOpacity.getValue());
     public BooleanSetting viewModel = new BooleanSetting("ViewModel", true);
     public BooleanSetting bothSame = new BooleanSetting("BothSame", true, () -> viewModel.getValue());
     public ModeSetting handPage = new ModeSetting("HandPage", "Left", () -> viewModel.getValue() && !bothSame.getValue(), "Left", "Right");
@@ -52,16 +54,20 @@ public class ViewModel extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(!bothSame.getValue() && handPage.getMode().equalsIgnoreCase("left")) {
-            translateX.setName("LeftTranslateX");
-            translateY.setName("LeftTranslateY");
-            translateZ.setName("LeftTranslateZ");
-            rotateX.setName("LeftRotateX");
-            rotateY.setName("LeftRotateY");
-            rotateZ.setName("LeftRotateZ");
-            scaleX.setName("LeftScaleX");
-            scaleY.setName("LeftScaleY");
-            scaleZ.setName("LeftScaleZ");
+        if(!bothSame.getValue()) {
+            if(handPage.getMode().equalsIgnoreCase("Left")) {
+                if (handPage.getMode().equalsIgnoreCase("Left")) {
+                    translateX.setName("LeftTranslateX");
+                    translateY.setName("LeftTranslateY");
+                    translateZ.setName("LeftTranslateZ");
+                    rotateX.setName("LeftRotateX");
+                    rotateY.setName("LeftRotateY");
+                    rotateZ.setName("LeftRotateZ");
+                    scaleX.setName("LeftScaleX");
+                    scaleY.setName("LeftScaleY");
+                    scaleZ.setName("LeftScaleZ");
+                }
+            }
         } else {
             translateX.setName("TranslateX");
             translateY.setName("TranslateY");

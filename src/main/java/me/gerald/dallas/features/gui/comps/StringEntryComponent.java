@@ -35,11 +35,11 @@ public class StringEntryComponent extends AbstractContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(x, y, x + width, y + height + 1, new Color(0, 0, 0, 125).getRGB());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.GRAY + entryString : ChatFormatting.GRAY + defaultText, x + 2, y + 2f, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? entryString : ChatFormatting.GRAY + defaultText, x + 4, y + 3, -1);
         RenderUtil.renderBorder(x, y, x + width, y + height + 1, 1, new Color(0, 0, 0, 255));
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "Search component.";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Search component.") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Search component.") + 8;
         }
         int yOffset = height + 1;
         for (ModuleComponent component : searchModules) {

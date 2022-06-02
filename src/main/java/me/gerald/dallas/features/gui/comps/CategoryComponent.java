@@ -57,11 +57,11 @@ public class CategoryComponent extends DragComponent {
         Gui.drawRect(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y, x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y + height, ClickGUI.clientColor.getRGB());
         if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
             RenderUtil.renderBorder(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y,x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(open ? "> " : "V ", x + 2, y + 2, -1);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 2, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(open ? "> " : "V ", x + 2, y + 4, -1);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 4, -1);
         if (isInside(mouseX, mouseY)) {
             Yeehaw.INSTANCE.clickGUI.descriptionBox.text = category.toString() + " category.";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + " category.") + 3;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(category.toString() + " category.") + 8;
         }
         int yOffset = height;
         if (open) for (ModuleComponent component : modules) {

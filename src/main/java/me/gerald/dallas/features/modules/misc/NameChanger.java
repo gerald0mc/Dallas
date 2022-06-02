@@ -24,17 +24,22 @@ public class NameChanger extends Module {
 
     @Override
     public String getMetaData() {
-        return "[" + ChatFormatting.WHITE + name.getValue() + ChatFormatting.RESET + "]";
+        return name.getValue();
     }
 
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
-        EntityPlayer closestPlayer = null;
-        if (BlockUtil.findClosestPlayer().getDistance(mc.player) > fakeDistance.getValue() && BlockUtil.findClosestPlayer() != null && fakeClips.getValue())
-            closestPlayer = BlockUtil.findClosestPlayer();
+        EntityPlayer fakeTarget = null;
+        if(fakeClips.getValue()) {
+            EntityPlayer closestPlayer = BlockUtil.findClosestPlayer();
+            if(closestPlayer != null) {
+                if(mc.player.getDistance(closestPlayer) < fakeDistance.getValue())
+                    fakeTarget = BlockUtil.findClosestPlayer();
+            }
+        }
         if (event.getMessage().getUnformattedText().contains(mc.player.getDisplayNameString()))
             event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(mc.player.getDisplayNameString(), (mentionHighlight.getValue() ? ChatFormatting.YELLOW : "") + name.getValue() + ChatFormatting.RESET)));
-        if (event.getMessage().getUnformattedText().contains(closestPlayer.getDisplayNameString()) && fakeClips.getValue() && closestPlayer != null)
-            event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(closestPlayer.getDisplayNameString(), (mentionHighlight.getValue() ? ChatFormatting.YELLOW : "") + fakeName.getValue() + ChatFormatting.RESET)));
+        if (event.getMessage().getUnformattedText().contains(fakeTarget.getDisplayNameString()) && fakeTarget != null)
+            event.setMessage(new TextComponentString(event.getMessage().getFormattedText().replace(fakeTarget.getDisplayNameString(), fakeName.getValue() + ChatFormatting.RESET)));
     }
 }

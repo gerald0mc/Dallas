@@ -28,7 +28,7 @@ public class ConsoleGUI extends GuiScreen {
     public String PREFIX = ChatFormatting.BOLD + "[Console] " + ChatFormatting.RESET;
     public String entryString = "";
     int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
-    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 2);
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, 14);
     int width = 300;
     int height = 250;
 

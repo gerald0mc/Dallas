@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.modules.misc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.MessageUtil;
@@ -36,6 +37,7 @@ public class Emojis extends Module {
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Emojis.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
             } catch (IOException ignored) { }
         }
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "If you would like to see a list of emojis you can use " + ChatFormatting.GRAY + Yeehaw.INSTANCE.commandManager.PREFIX + ChatFormatting.AQUA + "emoji " + ChatFormatting.RED + "list", true);
     }
 
     @SubscribeEvent

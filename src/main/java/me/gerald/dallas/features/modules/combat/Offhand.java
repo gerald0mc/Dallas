@@ -41,7 +41,7 @@ public class Offhand extends Module {
 
     @Override
     public String getMetaData() {
-        return "[" + ChatFormatting.WHITE + InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING) + ChatFormatting.RESET + "]";
+        return String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));
     }
 
     @SubscribeEvent
