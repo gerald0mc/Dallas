@@ -30,6 +30,7 @@ public final class MixinLoader implements IFMLLoadingPlugin {
     public void injectData(Map<String, Object> data) {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.dallas.json");
+        Mixins.addConfiguration("mixins.baritone.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
     }
 
