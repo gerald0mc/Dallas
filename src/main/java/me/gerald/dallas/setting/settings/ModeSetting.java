@@ -8,15 +8,15 @@ public class ModeSetting extends Setting {
     private final String defaultMode;
     private int modeIndex;
 
-    public ModeSetting(String name, String defaultMode, String... modes) {
-        super(name);
+    public ModeSetting(String name, String defaultMode, String description, String... modes) {
+        super(name, description);
         this.defaultMode = defaultMode;
         this.modes = modes;
         modeIndex = indexOf(defaultMode);
     }
 
-    public ModeSetting(String name, String defaultMode, Visibility visibility, String... modes) {
-        super(name, visibility);
+    public ModeSetting(String name, String defaultMode, String description, Visibility visibility, String... modes) {
+        super(name, description, visibility);
         this.defaultMode = defaultMode;
         this.modes = modes;
         modeIndex = indexOf(defaultMode);

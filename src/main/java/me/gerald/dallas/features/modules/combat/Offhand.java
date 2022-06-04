@@ -17,20 +17,20 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Offhand extends Module {
-    public ModeSetting item = new ModeSetting("Item", "Totem", "Totem", "Crystals", "Gapples");
-    public NumberSetting totemHealth = new NumberSetting("TotemHealth", 10, 1, 36, () -> !item.getMode().equalsIgnoreCase("totem"));
-    public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true);
-    public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 1000, () -> !instantSwitch.getValue());
-    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", false);
-    public BooleanSetting checks = new BooleanSetting("Checks", true);
-    public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, () -> checks.getValue());
-    public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, () -> checks.getValue() && fallCheck.getValue());
-    public BooleanSetting liquidCheck = new BooleanSetting("LiquidCheck", true, () -> checks.getValue());
-    public BooleanSetting water = new BooleanSetting("Water", true, () -> checks.getValue() && liquidCheck.getValue());
-    public BooleanSetting lava = new BooleanSetting("Lava", true, () -> checks.getValue() && liquidCheck.getValue());
-    public BooleanSetting elytraCheck = new BooleanSetting("ElytraCheck", true, () -> checks.getValue());
-    public BooleanSetting flyingOnly = new BooleanSetting("FlyingOnly", true, () -> checks.getValue() && elytraCheck.getValue());
-    public BooleanSetting message = new BooleanSetting("Message", false);
+    public ModeSetting item = new ModeSetting("Item", "Totem", "What item will be in your offhand normally.", "Totem", "Crystals", "Gapples");
+    public NumberSetting totemHealth = new NumberSetting("TotemHealth", 10, 1, 36, "Health to switch back to totem.", () -> !item.getMode().equalsIgnoreCase("totem"));
+    public BooleanSetting instantSwitch = new BooleanSetting("InstantSwitch", true, "Toggles instantly switching between items.");
+    public NumberSetting delay = new NumberSetting("Delay(MS)", 5, 1, 1000, "Delay between switching between items.", () -> !instantSwitch.getValue());
+    public BooleanSetting absorptionAdd = new BooleanSetting("AbsorptionAdd", false, "Toggles factoring absorption in calculations.");
+    public BooleanSetting checks = new BooleanSetting("Checks", true, "Checks parent.");
+    public BooleanSetting fallCheck = new BooleanSetting("FallCheck", true, "Will switch to a totem if you are falling.", () -> checks.getValue());
+    public NumberSetting minDistance = new NumberSetting("MinDistance", 10, 1, 100, "Minimum distance to fall before switching.", () -> checks.getValue() && fallCheck.getValue());
+    public BooleanSetting liquidCheck = new BooleanSetting("LiquidCheck", true, "Will switch to a totem if you are in a liquid.", () -> checks.getValue());
+    public BooleanSetting water = new BooleanSetting("Water", true, "Will switch to a totem if in water.", () -> checks.getValue() && liquidCheck.getValue());
+    public BooleanSetting lava = new BooleanSetting("Lava", true, "Will switch to a totem if in lava.", () -> checks.getValue() && liquidCheck.getValue());
+    public BooleanSetting elytraCheck = new BooleanSetting("ElytraCheck", true, "Will switch to a totem if wearing a Elytra.", () -> checks.getValue());
+    public BooleanSetting flyingOnly = new BooleanSetting("FlyingOnly", true, "Will only perform ElytraSwitch if you are also flying.", () -> checks.getValue() && elytraCheck.getValue());
+    public BooleanSetting message = new BooleanSetting("Message", false, "Toggles sending of messages to inform you on switch.");
 
     public TimerUtil delayTimer = new TimerUtil();
     public boolean needsItem = false;

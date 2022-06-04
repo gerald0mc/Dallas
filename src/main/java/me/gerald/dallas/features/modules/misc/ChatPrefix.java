@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChatPrefix extends Module {
-    public StringSetting noPrefixWhen = new StringSetting("NoPrefixWhen", "/.!-=@#$*;");
+    public StringSetting noPrefixWhen = new StringSetting("NoPrefixWhen", "/.!-=@#$*;", "What characters to not add prefix to when sending a message.");
 
     public ChatPrefix() {
         super("ChatPrefix", Category.MISC, "Adds a client abbreviation to your messages.");

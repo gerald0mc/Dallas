@@ -20,9 +20,9 @@ import java.util.List;
  * @since 5/20/22
  */
 public class Speed extends Module {
-    public ModeSetting mode = new ModeSetting("Mode", "Strafe", "Strafe", "YPort");
-    public BooleanSetting strictJump = new BooleanSetting("StrictJump", false);
-    public NumberSetting timer = new NumberSetting("Timer", 1.1f, 1.0f, 2.0f);
+    public ModeSetting mode = new ModeSetting("Mode", "Strafe", "What kind of speed you will be using.", "Strafe", "YPort");
+    public BooleanSetting strictJump = new BooleanSetting("StrictJump", false, "Toggles strict jumping.");
+    public NumberSetting timer = new NumberSetting("Timer", 1.1f, 1.0f, 2.0f, "How fast the timer is affected.");
 
     private int stage = 4;
     private double motionSpeed, distance;

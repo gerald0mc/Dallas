@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DamageESP extends Module {
-    public NumberSetting timeBetweenChecks = new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f);
-    public BooleanSetting self = new BooleanSetting("Self", true);
-    public BooleanSetting healText = new BooleanSetting("HealText", true);
-    public ColorSetting healColor = new ColorSetting("HealColor", 0, 255, 0, 255, () -> healText.getValue());
-    public BooleanSetting damageText = new BooleanSetting("DamageText", true);
-    public ColorSetting damageColor = new ColorSetting("DamageColor", 255, 0, 0, 255, () -> damageText.getValue());
+    public NumberSetting timeBetweenChecks = new NumberSetting("TimeBetweenChecks", 1.0f, 0.1f, 5.0f, "Time in seconds between each health check.");
+    public BooleanSetting self = new BooleanSetting("Self", true, "Toggles the checking and rendering of the player. (YOU)");
+    public BooleanSetting healText = new BooleanSetting("HealText", true, "Toggles rendering of the heal text.");
+    public ColorSetting healColor = new ColorSetting("HealColor", 0, 255, 0, 255, "What color the heal text is gonna be.", () -> healText.getValue());
+    public BooleanSetting damageText = new BooleanSetting("DamageText", true, "Toggles rendering of the damage text.");
+    public ColorSetting damageColor = new ColorSetting("DamageColor", 255, 0, 0, 255, "What color the damage text is gonna be.", () -> damageText.getValue());
 
     public List<Damage> damages = new ArrayList<>();
 

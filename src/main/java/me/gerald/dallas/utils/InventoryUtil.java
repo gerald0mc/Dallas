@@ -1,6 +1,7 @@
 package me.gerald.dallas.utils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,6 +37,23 @@ public class InventoryUtil {
         if (Minecraft.getMinecraft().player.getHeldItemOffhand().getItem() == item)
             amountOfItem += Minecraft.getMinecraft().player.getHeldItemOffhand().getCount();
         return amountOfItem;
+    }
+
+    public static boolean isInventoryFull(boolean hotbar) {
+        for (int i = (hotbar ? 0 : 9); i < 45; ++i) {
+            ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
+            if (stack.getItem().equals(Items.AIR)) return false;
+        }
+        return true;
+    }
+
+    public static boolean isInventoryFullStack(boolean hotbar, Item stackToCheck) {
+        for (int i = (hotbar ? 0 : 9); i < 45; ++i) {
+            ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
+            if (stack.getItem().equals(stackToCheck) && (stack.getCount() < stack.getMaxStackSize())) return false;
+            if (stack.getItem().equals(Items.AIR)) return false;
+        }
+        return true;
     }
 
     public static void moveItemToSlot(int startSlot, int endSlot) {

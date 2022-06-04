@@ -22,12 +22,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Chams extends Module {
-    public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "Both", "Fill", "Outline");
-    public NumberSetting alpha = new NumberSetting("Alpha", 150, 0, 255);
-    public NumberSetting lineWidth = new NumberSetting("Linewidth", 1, 0.1f, 5);
-    public BooleanSetting pops = new BooleanSetting("Pops", true);
-    public BooleanSetting deaths = new BooleanSetting("Deaths", true);
-    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, () -> pops.getValue() || deaths.getValue());
+    public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "What way your chams will be rendered.", "Both", "Fill", "Outline");
+    public NumberSetting alpha = new NumberSetting("Alpha", 150, 0, 255, "The alpha of your chams.");
+    public NumberSetting lineWidth = new NumberSetting("Linewidth", 1, 0.1f, 5, "How thick the lines are.");
+    public BooleanSetting pops = new BooleanSetting("Pops", true, "Toggles pop chams.");
+    public BooleanSetting deaths = new BooleanSetting("Deaths", true, "Toggles death chams.");
+    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, "How fast in seconds it takes to remove either cham.", () -> pops.getValue() || deaths.getValue());
     public ConcurrentHashMap<EntityOtherPlayerMP, Long> renderMap = new ConcurrentHashMap<>();
 
     public Chams() {

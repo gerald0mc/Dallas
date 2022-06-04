@@ -9,7 +9,7 @@ import me.gerald.dallas.utils.MessageUtil;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TotemPopCounter extends Module {
-    public ModeSetting messageMode = new ModeSetting("MessageMode", "Default", "Default", "Basic");
+    public ModeSetting messageMode = new ModeSetting("MessageMode", "Default", "Visual style of the messages being sent.", "Default", "Basic");
 
     public TotemPopCounter() {
         super("TotemPopCounter", Category.COMBAT, "Says in chat when someone pops.");

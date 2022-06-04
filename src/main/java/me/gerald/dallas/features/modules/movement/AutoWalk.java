@@ -1,8 +1,5 @@
 package me.gerald.dallas.features.modules.movement;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.pathing.goals.GoalInverted;
-import baritone.api.pathing.goals.GoalXZ;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.utils.BaritoneHelper;
@@ -15,19 +12,15 @@ public class AutoWalk extends Module {
         super("AutoWalk", Category.MOVEMENT, "Example baritone module for gerald");
     }
 
-    public final ModeSetting mode = new ModeSetting("Mode", "Basic", "Basic", "Baritone");
+    public final ModeSetting mode = new ModeSetting("Mode", "Basic", "The way you will be auto walking.", "Basic", "Baritone");
 
     private boolean overrodeProcess = false;
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.getKeyCode(), false);
-
-        if (overrodeProcess && BaritoneHelper.isActive()) {
+        if (overrodeProcess && BaritoneHelper.isActive())
             BaritoneHelper.stop();
-        }
         overrodeProcess = false;
     }
 

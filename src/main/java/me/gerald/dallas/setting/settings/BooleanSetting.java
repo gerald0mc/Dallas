@@ -6,13 +6,13 @@ import me.gerald.dallas.setting.Visibility;
 public class BooleanSetting extends Setting {
     private boolean value;
 
-    public BooleanSetting(String name, boolean value) {
-        super(name);
+    public BooleanSetting(String name, boolean value, String description) {
+        super(name, description);
         this.value = value;
     }
 
-    public BooleanSetting(String name, boolean value, Visibility visibility) {
-        super(name, visibility);
+    public BooleanSetting(String name, boolean value, String description, Visibility visibility) {
+        super(name, description, visibility);
         this.value = value;
     }
 

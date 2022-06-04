@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Waypoints extends Module {
-    public NumberSetting scale = new NumberSetting("Scale", 2.5f, 1, 10);
-    public BooleanSetting distance = new BooleanSetting("Distance", true);
-    public BooleanSetting deathWaypoint = new BooleanSetting("DeathWaypoint", true);
+    public NumberSetting scale = new NumberSetting("Scale", 2.5f, 1, 10, "How much you are scaling your waypoint text.");
+    public BooleanSetting distance = new BooleanSetting("Distance", true, "Toggles rendering how far away you are from the waypoint.");
+    public BooleanSetting deathWaypoint = new BooleanSetting("DeathWaypoint", true, "Toggles adding of a death waypoint whenever you die.");
     public List<String> waypoints = new ArrayList<>();
     String filePath = "Dallas" + File.separator + "Client" + File.separator + "Waypoints.txt";
 

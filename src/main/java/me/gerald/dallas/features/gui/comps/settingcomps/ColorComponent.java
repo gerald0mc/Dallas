@@ -29,10 +29,10 @@ public class ColorComponent extends SettingComponent {
         this.width = width;
         this.height = height;
         rgbaSliders = new ArrayList<>();
-        rgbaSliders.add(new NumberComponent(new NumberSetting("Red", setting.getR(), 0, 255), x, y, width, height));
-        rgbaSliders.add(new NumberComponent(new NumberSetting("Green", setting.getG(), 0, 255), x, y, width, height));
-        rgbaSliders.add(new NumberComponent(new NumberSetting("Blue", setting.getB(), 0, 255), x, y, width, height));
-        rgbaSliders.add(new NumberComponent(new NumberSetting("Alpha", setting.getA(), 0, 255), x, y, width, height));
+        rgbaSliders.add(new NumberComponent(new NumberSetting("Red", setting.getR(), 0, 255, "Red slider."), x, y, width, height));
+        rgbaSliders.add(new NumberComponent(new NumberSetting("Green", setting.getG(), 0, 255, "Green slider."), x, y, width, height));
+        rgbaSliders.add(new NumberComponent(new NumberSetting("Blue", setting.getB(), 0, 255, "Blue slider."), x, y, width, height));
+        rgbaSliders.add(new NumberComponent(new NumberSetting("Alpha", setting.getA(), 0, 255, "Alpha slider."), x, y, width, height));
     }
 
     @Override

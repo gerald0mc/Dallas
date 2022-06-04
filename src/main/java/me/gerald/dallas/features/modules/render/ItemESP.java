@@ -39,12 +39,12 @@ import java.util.List;
 // #TODO RARITY RENDER
 
 public class ItemESP extends Module {
-    public NumberSetting scale = new NumberSetting("Scale", 1, 0, 5);
-    public BooleanSetting count = new BooleanSetting("Count", true);
-    public BooleanSetting backGround = new BooleanSetting("BackGround", true);
-    public BooleanSetting border = new BooleanSetting("Border", true, () -> backGround.getValue());
-    public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255);
-    public BooleanSetting clientSync = new BooleanSetting("ClientSync", true, () -> border.getValue() && border.isVisible());
+    public NumberSetting scale = new NumberSetting("Scale", 1, 0, 5, "The scaling of the item nametags.");
+    public BooleanSetting count = new BooleanSetting("Count", true, "Toggles the rendering of the stack count.");
+    public BooleanSetting backGround = new BooleanSetting("BackGround", true, "Toggles the rendering of a background.");
+    public BooleanSetting border = new BooleanSetting("Border", true, "Toggles the rendering of a border with your background.", () -> backGround.getValue());
+    public BooleanSetting clientSync = new BooleanSetting("ClientSync", true, "", () -> border.getValue() && border.isVisible());
+    public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255, "The color of your background.", () -> border.getValue() && border.isVisible() && !clientSync.getValue());
 //    public BooleanSetting rarityRencer = new BooleanSetting("RarityRender", true);
 //    public ModeSetting renderType = new ModeSetting("RenderType", "Glow", "Glow", "Text(WIP)");
 

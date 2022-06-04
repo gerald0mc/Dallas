@@ -37,20 +37,20 @@ import java.util.List;
 import static com.mojang.realmsclient.gui.ChatFormatting.*;
 
 public class Nametags extends Module {
-    public NumberSetting scale = new NumberSetting("Scale", 2, 0, 5);
-    public BooleanSetting backGround = new BooleanSetting("BackGround", true);
-    public BooleanSetting border = new BooleanSetting("Border", true, () -> backGround.getValue());
-    public BooleanSetting clientSync = new BooleanSetting("ClientSync", true, () -> border.getValue());
-    public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255, () -> !clientSync.getValue());
-    public BooleanSetting health = new BooleanSetting("Health", true);
-    public BooleanSetting ping = new BooleanSetting("Ping", true);
-    public BooleanSetting totemPops = new BooleanSetting("TotemPops", true);
-    public BooleanSetting allEntities = new BooleanSetting("AllEntities", true);
-    public BooleanSetting entityHealth = new BooleanSetting("EntityHealth", true, () -> allEntities.getValue());
-    public BooleanSetting animals = new BooleanSetting("Animals", true, () -> allEntities.getValue());
-    public BooleanSetting mobs = new BooleanSetting("Mobs", true, () -> allEntities.getValue());
-    public BooleanSetting villagers = new BooleanSetting("Villagers", true, () -> allEntities.getValue());
-    public BooleanSetting villagerTrades = new BooleanSetting("VillagerTrades", true, () -> villagers.getValue() && villagers.isVisible());
+    public NumberSetting scale = new NumberSetting("Scale", 2, 0, 5, "The scaling of the nametags.");
+    public BooleanSetting backGround = new BooleanSetting("BackGround", true, "Toggles the rendering of the background.");
+    public BooleanSetting border = new BooleanSetting("Border", true, "Toggles the rendering of the border.", () -> backGround.getValue());
+    public BooleanSetting clientSync = new BooleanSetting("ClientSync", true, "Toggles the color of your border being the cliet color.", () -> border.getValue());
+    public ColorSetting borderColor = new ColorSetting("BorderColor", 0, 0, 0, 255, "The color of your border.", () -> !clientSync.getValue());
+    public BooleanSetting health = new BooleanSetting("Health", true, "Toggles the rendering of players health.");
+    public BooleanSetting ping = new BooleanSetting("Ping", true, "Toggles the rendering of players ping.");
+    public BooleanSetting totemPops = new BooleanSetting("TotemPops", true, "Toggles the rendering of a players pops.");
+    public BooleanSetting allEntities = new BooleanSetting("AllEntities", true, "Toggles the rendering of nametags on all entities.");
+    public BooleanSetting entityHealth = new BooleanSetting("EntityHealth", true, "Toggles the rendering of health on entities.", () -> allEntities.getValue());
+    public BooleanSetting animals = new BooleanSetting("Animals", true, "Toggles the rendering of nametags on animals.", () -> allEntities.getValue());
+    public BooleanSetting mobs = new BooleanSetting("Mobs", true, "Toggles the rendering of nametags on mobs.", () -> allEntities.getValue());
+    public BooleanSetting villagers = new BooleanSetting("Villagers", true, "Toggles the rendering of nametags on villagers.", () -> allEntities.getValue());
+    public BooleanSetting villagerTrades = new BooleanSetting("VillagerTrades", true, "Toggles the rendering of villager trades on villager nametags.", () -> villagers.getValue() && villagers.isVisible());
 
     public Nametags() {
         super("Nametags", Category.RENDER, "Renders info about players.");

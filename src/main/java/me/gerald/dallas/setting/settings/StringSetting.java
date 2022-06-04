@@ -6,13 +6,13 @@ import me.gerald.dallas.setting.Visibility;
 public class StringSetting extends Setting {
     public String value;
 
-    public StringSetting(String name, String value) {
-        super(name);
+    public StringSetting(String name, String value, String description) {
+        super(name, description);
         this.value = value;
     }
 
-    public StringSetting(String name, String value, Visibility visibility) {
-        super(name, visibility);
+    public StringSetting(String name, String value, String description, Visibility visibility) {
+        super(name, description, visibility);
         this.value = value;
     }
 

@@ -14,11 +14,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AntiTrap extends Module {
-    public BooleanSetting fullAnti = new BooleanSetting("FullAnti", true);
-    public BooleanSetting alwaysActive = new BooleanSetting("AlwaysActive", false);
-    public BooleanSetting autoSwitch = new BooleanSetting("AutoSwitch", true, () -> alwaysActive.getValue());
-    public BooleanSetting noCrystalToggle = new BooleanSetting("NoCrystalToggle", true, () -> autoSwitch.getValue() && autoSwitch.isVisible());
-    public NumberSetting distanceToActivate = new NumberSetting("DistanceToAct", 10, 0, 30);
+    public BooleanSetting fullAnti = new BooleanSetting("FullAnti", true, "Basically faceplaces you.");
+    public BooleanSetting alwaysActive = new BooleanSetting("AlwaysActive", false, "Toggles the module always being active.");
+    public BooleanSetting autoSwitch = new BooleanSetting("AutoSwitch", true, "Toggles automatically switching to the crystal.", () -> alwaysActive.getValue());
+    public BooleanSetting noCrystalToggle = new BooleanSetting("NoCrystalToggle", true, "", () -> autoSwitch.getValue() && autoSwitch.isVisible());
+    public NumberSetting distanceToActivate = new NumberSetting("DistanceToAct", 10, 0, 30, "How far a player needs to be from you to activate.");
 
     public EntityPlayer target = null;
 

@@ -12,11 +12,11 @@ public class ElytraFly extends Module {
         super("ElytraFly", Category.MOVEMENT, "Basic AF ElytraFly. (Confirmed working on 5b5t)");
     }
 
-    public NumberSetting boost = new NumberSetting("Boost", 1.2f, 0.1f, 5.0f);
-    public BooleanSetting hover = new BooleanSetting("Hover", true);
-    public BooleanSetting autoLiftoff = new BooleanSetting("AutoLiftoff", true);
-    public NumberSetting fallDistance = new NumberSetting("FallDistance", 2, 1, 5);
-    public BooleanSetting verticalControls = new BooleanSetting("VerticalControls", true);
+    public NumberSetting boost = new NumberSetting("Boost", 1.2f, 0.1f, 5.0f, "How fast you will be boosted.");
+    public BooleanSetting hover = new BooleanSetting("Hover", true, "Toggles not falling while in the air.");
+    public BooleanSetting autoLiftoff = new BooleanSetting("AutoLiftoff", true, "Toggles auto liftoff after a certain of falling.");
+    public NumberSetting fallDistance = new NumberSetting("FallDistance", 2, 1, 5, "How far you must fall to toggle AutoLiftoff.");
+    public BooleanSetting verticalControls = new BooleanSetting("VerticalControls", true, "Toggling you being able to move up and down easily.");
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {

@@ -15,10 +15,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class AutoKit extends Module {
-    public StringSetting kitName = new StringSetting("KitName", "autoKit");
-    public NumberSetting delay = new NumberSetting("Delay", 50, 0, 250);
-    public BooleanSetting adapt = new BooleanSetting("Adapt", true);
-    public BooleanSetting noServerToggle = new BooleanSetting("NoServerToggle", true);
+    public StringSetting kitName = new StringSetting("KitName", "autoKit", "Name of the kit.");
+    public NumberSetting delay = new NumberSetting("Delay", 50, 0, 250, "How fast it will perform the kit command.");
+    public BooleanSetting adapt = new BooleanSetting("Adapt", true, "Will change current kit name when the user performs their own kit.");
+    public BooleanSetting noServerToggle = new BooleanSetting("NoServerToggle", true, "Will toggle the module if you are not on a server.");
 
     public TimerUtil timer = new TimerUtil();
     public boolean hasDied = false;

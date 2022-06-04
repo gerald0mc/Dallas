@@ -8,16 +8,16 @@ import java.awt.*;
 public class ColorSetting extends Setting {
     private int r, g, b, a;
 
-    public ColorSetting(String name, int r, int g, int b, int a) {
-        super(name);
+    public ColorSetting(String name, int r, int g, int b, int a, String description) {
+        super(name, description);
         this.r = r;
         this.g = g;
         this.b = b;
         this.a = a;
     }
 
-    public ColorSetting(String name, int r, int g, int b, int a, Visibility visibility) {
-        super(name, visibility);
+    public ColorSetting(String name, int r, int g, int b, int a, String description, Visibility visibility) {
+        super(name, description, visibility);
         this.r = r;
         this.g = g;
         this.b = b;

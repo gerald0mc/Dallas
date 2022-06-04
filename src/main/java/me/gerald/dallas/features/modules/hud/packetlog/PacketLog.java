@@ -23,8 +23,8 @@ public class PacketLog extends HUDModule {
     public static List<BooleanComponent> sPacketSettings = new ArrayList<>();
     public static List<BooleanComponent> miscPacketSettings = new ArrayList<>();
     public static Map<Class<? extends Packet>, PacketData> dataMap = new HashMap<>();
-    public final NumberSetting max = new NumberSetting("Max Lines", 16, 5, 100);
-    private final BooleanSetting properties = new BooleanSetting("Properties", true);
+    public final NumberSetting max = new NumberSetting("Max Lines", 16, 5, 100, "Max amount of lines in the packet logger menu.");
+    private final BooleanSetting properties = new BooleanSetting("Properties", true, "Toggles listing of packet properties.");
 
     public PacketLog() {
         super(new PacketLogComponent(1, 11, 1, 1), "PacketLog", Category.HUD, "Shows the players ping.");
@@ -73,7 +73,7 @@ public class PacketLog extends HUDModule {
 
         public PacketData(Class<? extends Packet> packet) {
             name = ReflectionUtil.betterSimpleName(packet);
-            setting = new BooleanSetting(name, false);
+            setting = new BooleanSetting(name, false, "Packet for " + name + ".");
             ReflectionUtil.allInstanceFields(packet).forEach(field ->
                     properties.add(new ImmutablePair<>(field.getName(), ReflectionUtil.fieldValue(field)))
             );

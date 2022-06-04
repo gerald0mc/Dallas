@@ -3,6 +3,7 @@ package me.gerald.dallas.features.modules.misc;
 import me.gerald.dallas.event.events.PlayerDamageBlockEvent;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.mixin.mixins.IRenderGlobal;
+import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.DestroyBlockProgress;
@@ -22,6 +23,8 @@ import org.lwjgl.opengl.GL11;
 import java.util.Map;
 
 public class PacketMine extends Module {
+    public BooleanSetting antiNeededlocks = new BooleanSetting("AntiNeededBlocks", true, "Stops you from mining certain important blocks.");
+
     public BlockPos currentBlock = null;
 
     public PacketMine() {

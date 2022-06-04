@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Mouse;
 
 public class Ruler extends Module {
-    public ColorSetting boxColor = new ColorSetting("BoxColor", 255, 255, 255, 125);
+    public ColorSetting boxColor = new ColorSetting("BoxColor", 255, 255, 255, 125, "Ruler box color.");
 
     public BlockPos rulerBlock = null;
 

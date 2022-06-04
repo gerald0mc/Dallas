@@ -12,11 +12,11 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class NameChanger extends Module {
-    public StringSetting name = new StringSetting("Name", "PERSON");
-    public BooleanSetting mentionHighlight = new BooleanSetting("MentionHighlight", true);
-    public BooleanSetting fakeClips = new BooleanSetting("FakeClips", false);
-    public StringSetting fakeName = new StringSetting("FakeName", "WomanAreObjects", () -> fakeClips.getValue());
-    public NumberSetting fakeDistance = new NumberSetting("FakeDistance", 30, 1, 50, () -> fakeClips.getValue());
+    public StringSetting name = new StringSetting("Name", "PERSON", "Fake name.");
+    public BooleanSetting mentionHighlight = new BooleanSetting("MentionHighlight", true, "Highlights your fake name in chat.");
+    public BooleanSetting fakeClips = new BooleanSetting("FakeClips", false, "Toggles closest player having named be changed to fake name.");
+    public StringSetting fakeName = new StringSetting("FakeName", "WomanAreObjects", "Fake name.", () -> fakeClips.getValue());
+    public NumberSetting fakeDistance = new NumberSetting("FakeDistance", 30, 1, 50, "Distance to activate FakeClips.", () -> fakeClips.getValue());
 
     public NameChanger() {
         super("NameChanger", Category.MISC, "Changes the players name in chat.");

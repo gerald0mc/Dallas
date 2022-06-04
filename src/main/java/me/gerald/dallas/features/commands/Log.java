@@ -32,22 +32,25 @@ public class Log extends Command {
         try {
             moduleLogFile.createNewFile();
             FileWriter writer = new FileWriter(moduleLogFile);
+            writer.write("Version: " + Yeehaw.VERSION + "\n");
+            writer.write("Is Dev?: " + Yeehaw.INSTANCE.isDevJar + "\n");
+            writer.write("Module Count: " + Yeehaw.INSTANCE.moduleManager.getModules().size() + "\n");
             for(Module.Category category : Module.Category.values()) {
-                writer.write(category.name() + "\n");
+                writer.write(category.name() + " [" + Yeehaw.INSTANCE.moduleManager.getAmountPerCat(category) + "]" + "\n");
                 for(Module module : Yeehaw.INSTANCE.moduleManager.getCategory(category)) {
-                    writer.write("* " + module.getName() + "\n");
+                    writer.write("* " + module.getName() + " " + module.getDescription() + "\n");
                     if(module.getSettings() != null) {
                         for(Setting setting : module.getSettings()) {
                             if(setting instanceof BooleanSetting)
-                                writer.write("  - " + setting.getName() + " Value: " + ((BooleanSetting) setting).getValue() + "\n");
+                                writer.write("  - " + setting.getName() + " Value: " + ((BooleanSetting) setting).getValue() + " -> " + setting.getDescription() + "\n");
                             else if(setting instanceof NumberSetting)
-                                writer.write("  - " + setting.getName() + " Value: " + ((NumberSetting) setting).getValue() + " Min: " + ((NumberSetting) setting).getMin() + " Max: " + ((NumberSetting) setting).getMax() + "\n");
+                                writer.write("  - " + setting.getName() + " Value: " + ((NumberSetting) setting).getValue() + " Min: " + ((NumberSetting) setting).getMin() + " Max: " + ((NumberSetting) setting).getMax() + " -> " + setting.getDescription() + "\n");
                             else if(setting instanceof ModeSetting)
-                                writer.write("  - " + setting.getName() + " Mode: " + ((ModeSetting) setting).getMode() + " Default: " + ((ModeSetting) setting).getDefaultMode() + " Modes: " + Arrays.toString(((ModeSetting) setting).getModes()) + "\n");
+                                writer.write("  - " + setting.getName() + " Mode: " + ((ModeSetting) setting).getMode() + " Default: " + ((ModeSetting) setting).getDefaultMode() + " Modes: " + Arrays.toString(((ModeSetting) setting).getModes()) + " -> " + setting.getDescription() + "\n");
                             else if(setting instanceof StringSetting)
-                                writer.write("  - " + setting.getName() + " Value: " + ((StringSetting) setting).getValue() + "\n");
+                                writer.write("  - " + setting.getName() + " Value: " + ((StringSetting) setting).getValue() + " -> " + setting.getDescription() + "\n");
                             else if(setting instanceof ColorSetting)
-                                writer.write("  - " + setting.getName() + " R: " + ((ColorSetting) setting).getR() + " G: " + ((ColorSetting) setting).getG() + " B: " + ((ColorSetting) setting).getB() + " A: " + ((ColorSetting) setting).getA() + "\n");
+                                writer.write("  - " + setting.getName() + " R: " + ((ColorSetting) setting).getR() + " G: " + ((ColorSetting) setting).getG() + " B: " + ((ColorSetting) setting).getB() + " A: " + ((ColorSetting) setting).getA() + " -> " + setting.getDescription() + "\n");
                         }
                     }
                 }

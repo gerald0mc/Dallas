@@ -20,9 +20,8 @@ public class AutoKick extends Module {
             toggle();
             return;
         }
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 10; i++)
             mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, -1337.69, mc.player.posZ, false));
-        }
         toggle();
     }
 }

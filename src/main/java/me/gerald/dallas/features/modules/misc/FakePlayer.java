@@ -30,17 +30,17 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Random;
 
 public class FakePlayer extends Module {
-    public BooleanSetting moving = new BooleanSetting("Moving", true);
-    public NumberSetting moveDelay = new NumberSetting("MoveDelay", 75, 25, 250, () -> moving.getValue());
-    public BooleanSetting popping = new BooleanSetting("Popping", true);
-    public BooleanSetting particle = new BooleanSetting("Particle", true, () -> popping.getValue());
-    public BooleanSetting sound = new BooleanSetting("Sound", false, () -> popping.getValue());
-    public BooleanSetting distanceCheck = new BooleanSetting("DistanceCheck", true);
-    public NumberSetting distance = new NumberSetting("Distance", 15, 1, 30, () -> distanceCheck.getValue());
-    public BooleanSetting inventory = new BooleanSetting("Inventory", true);
-    public ModeSetting inventoryMode = new ModeSetting("InventoryMode", "Player", () -> inventory.getValue(), "Player", "OP");
-    public BooleanSetting gapple = new BooleanSetting("Gapple", true);
-    public NumberSetting gappleDelay = new NumberSetting("GappleDelay(Secs)", 5, 1, 10, () -> gapple.getValue());
+    public BooleanSetting moving = new BooleanSetting("Moving", true, "Toggles the moving of the fake entity.");
+    public NumberSetting moveDelay = new NumberSetting("MoveDelay", 75, 25, 250, "How fast the fake entity will move in milliseconds.", () -> moving.getValue());
+    public BooleanSetting popping = new BooleanSetting("Popping", true, "Toggles popping of the fake entity.");
+    public BooleanSetting particle = new BooleanSetting("Particle", true, "Toggles the particle of the totem pop.", () -> popping.getValue());
+    public BooleanSetting sound = new BooleanSetting("Sound", false, "Toggles the sound of the totem pop.", () -> popping.getValue());
+    public BooleanSetting distanceCheck = new BooleanSetting("DistanceCheck", true, "Toggles checking for distance from player.");
+    public NumberSetting distance = new NumberSetting("Distance", 15, 1, 30, "The distance away from the player to teleport.", () -> distanceCheck.getValue());
+    public BooleanSetting inventory = new BooleanSetting("Inventory", true, "Toggles the fake entity having a customizable inventory.");
+    public ModeSetting inventoryMode = new ModeSetting("InventoryMode", "Player", "How the fake entities inventory will be created.", () -> inventory.getValue(), "Player", "OP");
+    public BooleanSetting gapple = new BooleanSetting("Gapple", true, "Toggles the ability for fake entity to gapple.");
+    public NumberSetting gappleDelay = new NumberSetting("GappleDelay(Secs)", 5, 1, 10, "Delay in seconds for gappling.", () -> gapple.getValue());
 
     public TimerUtil gappleTimer = new TimerUtil();
     public TimerUtil moveTimer = new TimerUtil();

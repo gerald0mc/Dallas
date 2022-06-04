@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RuneScapeChat extends Module {
-    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5);
-    public NumberSetting scale = new NumberSetting("Scale", 1.5f, 0, 5);
+    public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, "Time to remove in seconds the chats from the list.");
+    public NumberSetting scale = new NumberSetting("Scale", 1.5f, 0, 5, "Scaling of your chat render.");
 
     public List<Player> playerList = new ArrayList<>();
 

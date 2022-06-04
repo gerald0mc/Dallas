@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.Display;
 
 public class Window extends Module {
-    public StringSetting windowName = new StringSetting("WindowName", "Dallas 1.0");
+    public StringSetting windowName = new StringSetting("WindowName", "Dallas 1.0", "New window name.");
 
     public Window() {
         super("Window", Category.MISC, "Customize the Minecraft window.");

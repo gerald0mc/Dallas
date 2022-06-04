@@ -18,8 +18,7 @@ public class MCXPee extends Module {
         super("MCXPee", Category.COMBAT, "XP stuff.");
     }
 
-    public BooleanSetting silent = new BooleanSetting("Silent", true);
-    public NumberSetting testTimeChanger = new NumberSetting("TestTimeChanger", 1, 0.1f, 2);
+    public BooleanSetting silent = new BooleanSetting("Silent", true, "Toggles the module peeing silently or not.");
 
     public boolean switched = false;
     public boolean silentlyPeeing = false;

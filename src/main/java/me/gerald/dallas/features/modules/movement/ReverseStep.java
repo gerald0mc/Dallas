@@ -10,7 +10,7 @@ public class ReverseStep extends Module {
         super("ReverseStep", Category.MOVEMENT, "Pulls your nuts down.");
     }
 
-    public NumberSetting power = new NumberSetting("Power", 1.0f, 0.1f, 10.0f);
+    public NumberSetting power = new NumberSetting("Power", 1.0f, 0.1f, 10.0f, "How fast you get pulled down.");
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {

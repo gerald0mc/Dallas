@@ -53,6 +53,7 @@ public class Yeehaw {
     public ConsoleGUI consoleGUI;
 
     public List<String> splashText;
+    public boolean isDevJar = true;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {

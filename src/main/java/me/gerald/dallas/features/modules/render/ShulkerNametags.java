@@ -19,7 +19,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ShulkerNametags extends Module {
-    public BooleanSetting counts = new BooleanSetting("Counts", false);
+    public BooleanSetting counts = new BooleanSetting("Counts", false, "Toggles the rendering of item counts. (WIP. I.E. ASS)");
 
     public ShulkerNametags() {
         super("ShulkerNametags", Category.RENDER, "Renders the shulker as a nametag.");
