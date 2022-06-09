@@ -5,11 +5,6 @@ import me.gerald.dallas.mixin.mixins.MixinItemRenderer;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -54,8 +49,8 @@ public class ViewModel extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(!bothSame.getValue()) {
-            if(handPage.getMode().equalsIgnoreCase("Left")) {
+        if (!bothSame.getValue()) {
+            if (handPage.getMode().equalsIgnoreCase("Left")) {
                 if (handPage.getMode().equalsIgnoreCase("Left")) {
                     translateX.setName("LeftTranslateX");
                     translateY.setName("LeftTranslateY");

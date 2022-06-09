@@ -24,35 +24,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
+    @Shadow
+    @Final
+    public NetHandlerPlayClient connection;
+    @Shadow
+    protected Minecraft mc;
+    @Shadow
+    private boolean serverSprintState;
+    @Shadow
+    private boolean serverSneakState;
+    @Shadow
+    private int positionUpdateTicks;
+    @Shadow
+    private float lastReportedPitch;
+    @Shadow
+    private float lastReportedYaw;
+    @Shadow
+    private double lastReportedPosZ;
+    @Shadow
+    private double lastReportedPosY;
+    @Shadow
+    private double lastReportedPosX;
+    @Shadow
+    private boolean prevOnGround;
+    @Shadow
+    private boolean autoJumpEnabled;
+
     public MixinEntityPlayerSP(World worldIn, GameProfile playerProfile) {
         super(worldIn, playerProfile);
     }
 
-    @Shadow private boolean serverSprintState;
-
-    @Shadow @Final public NetHandlerPlayClient connection;
-
-    @Shadow private boolean serverSneakState;
-
-    @Shadow protected abstract boolean isCurrentViewEntity();
-
-    @Shadow private int positionUpdateTicks;
-
-    @Shadow private float lastReportedPitch;
-
-    @Shadow private float lastReportedYaw;
-
-    @Shadow private double lastReportedPosZ;
-
-    @Shadow private double lastReportedPosY;
-
-    @Shadow private double lastReportedPosX;
-
-    @Shadow private boolean prevOnGround;
-
-    @Shadow private boolean autoJumpEnabled;
-
-    @Shadow protected Minecraft mc;
+    @Shadow
+    protected abstract boolean isCurrentViewEntity();
 
     @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;move(Lnet/minecraft/entity/MoverType;DDD)V"))
     public void moveHook(AbstractClientPlayer player, MoverType type, double x, double y, double z) {
@@ -76,7 +79,7 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     /**
      * Spoofs your position and rotation and onGround state sent to the server
-     *
+     * <p>
      * Derived from EntityPlayerSP#onUpdateWalkingPlayer
      *
      * @param event the pre motion update event

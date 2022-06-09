@@ -13,12 +13,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Objects;
 
 public class SmartTravel extends Module {
+    public boolean overrodeProcess = false;
+    public BlockPos targetPos = null;
     public SmartTravel() {
         super("SmartTravel", Category.MOVEMENT, "Will travel to a set of coords then log when reached.");
     }
-
-    public boolean overrodeProcess = false;
-    public BlockPos targetPos = null;
 
     @Override
     public void onEnable() {
@@ -36,7 +35,7 @@ public class SmartTravel extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         if (!overrodeProcess) return;
         if (mc.player.getDistance(targetPos.getX(), mc.player.posY, targetPos.getZ()) <= 5) {
             overrodeProcess = false;

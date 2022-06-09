@@ -13,24 +13,24 @@ public class Splash extends Command {
     @Override
     public void onCommand(String[] args) {
         super.onCommand(args);
-        if(args.length == 1) {
+        if (args.length == 1) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Splash", "Please specify which subcommand you would like to use.", true);
             return;
         }
         switch (args[1]) {
             case "list":
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Splash", ChatFormatting.GOLD + "Splash " + ChatFormatting.RESET + "List" + ChatFormatting.GRAY + ":", true);
-                for(String s : Yeehaw.INSTANCE.splashText) {
+                for (String s : Yeehaw.INSTANCE.splashText) {
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "Splash", s, true);
                 }
                 return;
             case "add":
-                if(args.length == 2) {
+                if (args.length == 2) {
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "Splash", "Please specify the splash you wish to add to the list.", true);
                     return;
                 }
                 String splash = "";
-                for(int i = 2; i < args.length; i++) {
+                for (int i = 2; i < args.length; i++) {
                     if (i == 2) {
                         splash += args[i];
                     } else
@@ -40,7 +40,7 @@ public class Splash extends Command {
                 Yeehaw.INSTANCE.splashText.add(splash);
                 return;
             case "del":
-                if(args.length == 2) {
+                if (args.length == 2) {
                     MessageUtil.sendMessage(ChatFormatting.BOLD + "Splash", "Please specify the integer of the splash you wish to delete. (EX 0-5)", true);
                     return;
                 }

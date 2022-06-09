@@ -7,13 +7,11 @@ import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Image;
 import com.wrapper.spotify.model_objects.specification.Track;
-import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.utils.RenderUtil;
 import me.gerald.dallas.utils.SpotifyUtil;
 import me.gerald.dallas.utils.TextureUtil;
-import net.minecraft.block.BlockCrops;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -31,11 +29,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class SpotifyComponent extends HUDContainer {
+    private final Map<String, Integer> CACHE = new ConcurrentHashMap<>();
+
     public SpotifyComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
-
-    private final Map<String, Integer> CACHE = new ConcurrentHashMap<>();
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -44,7 +42,7 @@ public class SpotifyComponent extends HUDContainer {
         CurrentlyPlaying playing = null;
         try {
             playing = SpotifyUtil.playing;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (playing == null) {
@@ -97,7 +95,7 @@ public class SpotifyComponent extends HUDContainer {
         y1 += 5.0;
 
         int duration = track.getDurationMs();
-        int position = playing.getProgress_ms();;
+        int position = playing.getProgress_ms();
 
         float max = (float) duration;
         float percent = (float) position / max;
@@ -114,7 +112,7 @@ public class SpotifyComponent extends HUDContainer {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + text, (float) (x1 + (width / 2.0) - Minecraft.getMinecraft().fontRenderer.getStringWidth(text) / 2.0), y1, -1);
         RenderUtil.renderBorder(x, y, x + this.width, y + height, 1, new Color(0, 0, 0, 255));
         this.width = 225;
-        this.height = 75;
+        height = 75;
     }
 
     @Override
@@ -142,7 +140,7 @@ public class SpotifyComponent extends HUDContainer {
     /**
      * Gets the texture id for this url
      *
-     * @param url the spotify image url
+     * @param url  the spotify image url
      * @param name the name of the song for caching
      * @return the texture id or -1 if invalid
      */
@@ -156,7 +154,8 @@ public class SpotifyComponent extends HUDContainer {
                 DynamicTexture texture = new DynamicTexture(image);
                 CACHE.put(name, texture.getGlTextureId());
             }
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
         return -1;
     }
 

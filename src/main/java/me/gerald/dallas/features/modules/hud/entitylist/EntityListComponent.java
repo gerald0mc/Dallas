@@ -1,7 +1,6 @@
 package me.gerald.dallas.features.modules.hud.entitylist;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -21,20 +20,20 @@ public class EntityListComponent extends HUDContainer {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
         HashMap<Entity, Integer> entityNames = new LinkedHashMap<>();
-        for(Entity entity : Minecraft.getMinecraft().world.loadedEntityList) {
-            if(entity instanceof EntityPlayer) {
+        for (Entity entity : Minecraft.getMinecraft().world.loadedEntityList) {
+            if (entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
                 entityNames.put(player, 1);
             } else {
-                if(entityNames.containsKey(entity))
+                if (entityNames.containsKey(entity))
                     entityNames.replace(entity, entityNames.get(entity) + 1);
                 else
                     entityNames.put(entity, 1);
             }
         }
         int yOffset = 0;
-        for(Map.Entry<Entity, Integer> entry : entityNames.entrySet()) {
-            if(entry.getKey() instanceof EntityPlayer) {
+        for (Map.Entry<Entity, Integer> entry : entityNames.entrySet()) {
+            if (entry.getKey() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entry.getKey();
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow((int) (player.getHealth() + player.getAbsorptionAmount()) + " " + player.getDisplayNameString(), x, y + yOffset, -1);
             } else {
@@ -42,8 +41,8 @@ public class EntityListComponent extends HUDContainer {
             }
             yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
         }
-        this.width = Collections.max(entityNames.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
-        this.height = yOffset == 0 ? Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT : yOffset;
+        width = Collections.max(entityNames.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
+        height = yOffset == 0 ? Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT : yOffset;
     }
 
     @Override

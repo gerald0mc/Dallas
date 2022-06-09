@@ -23,12 +23,12 @@ public class ClickGUI extends GuiScreen {
     public static final String DEFAULT_DESCRIPTION_TEXT = "The modules description will appear here.";
     public static Color clientColor = Color.BLACK; // Nigger (this crashes???)
     public ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
-    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
     public TextComponent descriptionBox = new TextComponent(DEFAULT_DESCRIPTION_TEXT, 10, 35, Minecraft.getMinecraft().fontRenderer.getStringWidth(DEFAULT_DESCRIPTION_TEXT) + 8, 14);
     public StringEntryComponent searchBox = new StringEntryComponent("Search", 670, 50, 100, 14);
-    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, 14);
     public List<CategoryComponent> categories = new ArrayList<>();
     public CategoryComponent priorityComponent = null;
+    int startX = sr.getScaledWidth() / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") / 2;
+    public SelectionComponent selectionBox = new SelectionComponent(startX, 0, startX + Minecraft.getMinecraft().fontRenderer.getStringWidth("ClickGUI") + 2, 14);
 
     public ClickGUI() {
         int xOffset = 10;
@@ -135,12 +135,14 @@ public class ClickGUI extends GuiScreen {
         for (CategoryComponent component : categories) {
             try {
                 component.keyTyped(typedChar, keyCode);
-            } catch (UnsupportedFlavorException ignored) { }
+            } catch (UnsupportedFlavorException ignored) {
+            }
         }
 
         try {
             searchBox.keyTyped(typedChar, keyCode);
-        } catch (UnsupportedFlavorException ignored) { }
+        } catch (UnsupportedFlavorException ignored) {
+        }
 
         super.keyTyped(typedChar, keyCode);
     }

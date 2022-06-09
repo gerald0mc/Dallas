@@ -13,7 +13,7 @@ public class Velocity extends Module {
 
     @SubscribeEvent
     public void onPacketR(PacketEvent.Receive event) {
-        if(event.getPacket() instanceof SPacketEntityVelocity || event.getPacket() instanceof SPacketExplosion)
+        if (event.getPacket() instanceof SPacketEntityVelocity || event.getPacket() instanceof SPacketExplosion)
             event.setCanceled(true);
     }
 }

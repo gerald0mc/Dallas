@@ -10,7 +10,6 @@ import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
-import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class CategoryComponent extends DragComponent {
         Yeehaw.INSTANCE.moduleManager.getCategory(category).forEach(
                 module -> modules.add(new ModuleComponent(module, category, x, y, width, height - 2))
         );
-        if(modules.size() != 0)
+        if (modules.size() != 0)
             modules.get(modules.size() - 1).lastModule = true;
     }
 
@@ -55,8 +54,8 @@ public class CategoryComponent extends DragComponent {
                 break;
         }
         Gui.drawRect(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y, x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y + height, ClickGUI.clientColor.getRGB());
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
-            RenderUtil.renderBorder(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y,x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
+            RenderUtil.renderBorder(x - (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y, x + width + (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).categoryOverhang.getValue() ? 2 : 0), y + height, 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(open ? "> " : "V ", x + 2, y + 4, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, alignment, y + 4, -1);
         if (isInside(mouseX, mouseY)) {

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Explorer extends Command {
     public Explorer() {
-        super("Explorer", "Opens the clients config folder.", new String[] {"explorer"});
+        super("Explorer", "Opens the clients config folder.", new String[]{"explorer"});
     }
 
     @Override
@@ -19,6 +19,7 @@ public class Explorer extends Command {
         try {
             Desktop.getDesktop().open(ConfigManager.mainPath);
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Explorer", "Opened the client path in explorer.", true);
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 }

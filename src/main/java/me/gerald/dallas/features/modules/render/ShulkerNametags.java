@@ -4,7 +4,6 @@ import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.RenderUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
@@ -27,10 +26,10 @@ public class ShulkerNametags extends Module {
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Text event) {
-        for(Entity e : mc.world.loadedEntityList) {
-            if(e instanceof EntityItem) {
+        for (Entity e : mc.world.loadedEntityList) {
+            if (e instanceof EntityItem) {
                 EntityItem item = (EntityItem) e;
-                if(item.getItem().getItem() instanceof ItemShulkerBox) {
+                if (item.getItem().getItem() instanceof ItemShulkerBox) {
                     Vec3d projection = ProjectionUtil.toScaledScreenPos(item.getPositionVector());
                     renderShulkerToolTip(item.getItem(), (int) projection.x - 80, (int) projection.y - 80);
                 }

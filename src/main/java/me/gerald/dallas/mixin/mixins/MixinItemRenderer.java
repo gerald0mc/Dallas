@@ -4,13 +4,7 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.modules.render.AntiOverlay;
 import me.gerald.dallas.features.modules.render.OldAnimations;
 import me.gerald.dallas.features.modules.render.ViewModel;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,7 +32,7 @@ public class MixinItemRenderer {
     private void renderOverlays(float partialTicks, CallbackInfo ci) {
         //Just cancels all rendering of overlays. (Water, Fire, and Suffocation)
         AntiOverlay module = Yeehaw.INSTANCE.moduleManager.getModule(AntiOverlay.class);
-        if(module.isEnabled())
+        if (module.isEnabled())
             ci.cancel();
     }
 

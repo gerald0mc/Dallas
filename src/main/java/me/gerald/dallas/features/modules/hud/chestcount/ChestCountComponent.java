@@ -30,7 +30,7 @@ public class ChestCountComponent extends HUDContainer {
         }
         int chestTotal = 0;
         for (TileEntity tileEntity : Minecraft.getMinecraft().world.loadedTileEntityList) {
-            if(tileEntity instanceof TileEntityChest)
+            if (tileEntity instanceof TileEntityChest)
                 chestTotal++;
         }
         width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Chests: " + chestTotal);

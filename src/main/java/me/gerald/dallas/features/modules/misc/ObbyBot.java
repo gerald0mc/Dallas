@@ -6,16 +6,15 @@ import me.gerald.dallas.utils.BaritoneHelper;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ObbyBot extends Module {
+    public boolean overrodeProcess = false;
+
     public ObbyBot() {
         super("ObbyBot", Category.MISC, "Automatically mines obby for you.");
     }
-
-    public boolean overrodeProcess = false;
 
     @Override
     public void onEnable() {

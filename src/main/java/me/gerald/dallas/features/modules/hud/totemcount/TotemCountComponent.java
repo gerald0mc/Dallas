@@ -7,7 +7,6 @@ import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 

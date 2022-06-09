@@ -28,12 +28,14 @@ public class DamageListener {
                     entityHealthMap.put(entity, entity.getHealth());
                 } else {
                     if (entityHealthMap.get(entity) > entity.getHealth()) {
-                        if (!timer.passedMs(Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).isEnabled() ? (long) (Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).timeBetweenChecks.getValue() * 1000) : 50)) return;
+                        if (!timer.passedMs(Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).isEnabled() ? (long) (Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).timeBetweenChecks.getValue() * 1000) : 50))
+                            return;
                         MinecraftForge.EVENT_BUS.post(new DamageEvent.Damage(entity, (int) (entityHealthMap.get(entity) - entity.getHealth())));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();
                     } else if (entityHealthMap.get(entity) < entity.getHealth()) {
-                        if (!timer.passedMs(Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).isEnabled() ? (long) (Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).timeBetweenChecks.getValue() * 1000) : 50)) return;
+                        if (!timer.passedMs(Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).isEnabled() ? (long) (Yeehaw.INSTANCE.moduleManager.getModule(DamageESP.class).timeBetweenChecks.getValue() * 1000) : 50))
+                            return;
                         MinecraftForge.EVENT_BUS.post(new DamageEvent.Damage(entity, (int) (entity.getHealth() - entityHealthMap.get(entity))));
                         entityHealthMap.replace(entity, entity.getHealth());
                         timer.reset();

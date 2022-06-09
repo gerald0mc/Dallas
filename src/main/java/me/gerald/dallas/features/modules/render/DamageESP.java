@@ -6,20 +6,16 @@ import me.gerald.dallas.mixin.mixins.IEntityRenderer;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
-import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,14 +36,14 @@ public class DamageESP extends Module {
     @SubscribeEvent
     public void onUpdate(DamageEvent.Damage event) {
         if (nullCheck()) return;
-        if(event.getEntity().equals(mc.player) && !self.getValue()) return;
+        if (event.getEntity().equals(mc.player) && !self.getValue()) return;
         damages.add(new Damage(event.getEntity(), System.currentTimeMillis(), (float) event.getAmount(), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1), 1));
     }
 
     @SubscribeEvent
     public void onUpdate(DamageEvent.Heal event) {
         if (nullCheck()) return;
-        if(event.getEntity().equals(mc.player) && !self.getValue()) return;
+        if (event.getEntity().equals(mc.player) && !self.getValue()) return;
         damages.add(new Damage(event.getEntity(), System.currentTimeMillis(), (float) event.getAmount(), (float) ThreadLocalRandom.current().nextDouble(-0.5, 1), 1));
     }
 

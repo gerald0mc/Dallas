@@ -5,9 +5,7 @@ import me.gerald.dallas.features.modules.hud.HUDModule;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.Setting;
 import me.gerald.dallas.setting.settings.*;
-import me.gerald.dallas.utils.MessageUtil;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -16,8 +14,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ConfigManager {
@@ -45,22 +41,22 @@ public class ConfigManager {
             clientPath.mkdir();
         if (!configPath.exists())
             configPath.mkdir();
-        if(!currentConfigPath.exists())
+        if (!currentConfigPath.exists())
             currentConfigPath.mkdir();
-        if(!rarityPath.exists())
+        if (!rarityPath.exists())
             rarityPath.mkdir();
     }
 
     public static void save(String configName) throws IOException {
         String[] strings = configName.split(" ");
-        if(strings.length > 1) {
+        if (strings.length > 1) {
             System.out.println("Config can only be 1 word long for loading purposes.");
             return;
         }
         File config;
-        if(!configName.equalsIgnoreCase("current")) {
+        if (!configName.equalsIgnoreCase("current")) {
             config = new File(configPath, configName);
-            if(!config.exists()) {
+            if (!config.exists()) {
                 config.mkdir();
             }
         } else {
@@ -88,7 +84,7 @@ public class ConfigManager {
                     fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
                 }
             }
-            if(module.getCategory().equals(Module.Category.HUD)) {
+            if (module.getCategory().equals(Module.Category.HUD)) {
                 HUDModule hudModule = (HUDModule) module;
                 fileWriter.write("X " + hudModule.getContainer().x + "\n");
                 fileWriter.write("Y " + hudModule.getContainer().y + "\n");
@@ -99,16 +95,16 @@ public class ConfigManager {
 
     public static void saveModule(Module mod, String configName) throws IOException {
         String[] strings = configName.split(" ");
-        if(strings.length > 1) {
+        if (strings.length > 1) {
             System.out.println("Config can only be 1 word long for loading purposes.");
             return;
         }
         File config;
-        if(configName.equalsIgnoreCase("current")) {
+        if (configName.equalsIgnoreCase("current")) {
             config = new File(configPath, "Current");
         } else {
             config = new File(configPath, configName);
-            if(!config.exists()) {
+            if (!config.exists()) {
                 System.out.println("This config doesn't exist.");
                 return;
             }
@@ -134,7 +130,7 @@ public class ConfigManager {
                 fileWriter.write("Setting " + setting.getName() + " " + ((ColorSetting) setting).getR() + " " + ((ColorSetting) setting).getG() + " " + ((ColorSetting) setting).getB() + " " + ((ColorSetting) setting).getA() + "\n");
             }
         }
-        if(mod.getCategory().equals(Module.Category.HUD)) {
+        if (mod.getCategory().equals(Module.Category.HUD)) {
             HUDModule hudModule = (HUDModule) mod;
             fileWriter.write("X " + hudModule.getContainer().x + "\n");
             fileWriter.write("Y " + hudModule.getContainer().y + "\n");
@@ -145,16 +141,16 @@ public class ConfigManager {
 
     public static void load(String configName) {
         String[] strings = configName.split(" ");
-        if(strings.length > 1) {
+        if (strings.length > 1) {
             System.out.println("Config can only be 1 word long for loading purposes.");
             return;
         }
         File config;
-        if(configName.equalsIgnoreCase("current")) {
+        if (configName.equalsIgnoreCase("current")) {
             config = new File(configPath, "Current");
         } else {
             config = new File(configPath, configName);
-            if(!config.exists()) {
+            if (!config.exists()) {
                 System.out.println("This config doesn't exist.");
                 return;
             }

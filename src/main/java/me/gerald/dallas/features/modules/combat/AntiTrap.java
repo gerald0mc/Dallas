@@ -40,17 +40,17 @@ public class AntiTrap extends Module {
         BlockPos preTrapPos = BlockUtil.isPreTrap(playerPos);
         EntityPlayer player = BlockUtil.findClosestPlayer();
         if (player != null && mc.player.getDistance(player) > distanceToActivate.getValue() && !alwaysActive.getValue()) {
-            if(target != null) target = null;
+            if (target != null) target = null;
             return;
         } else if (player == null && !alwaysActive.getValue()) {
-            if(target != null) target = null;
+            if (target != null) target = null;
             return;
         }
         target = player;
         int originalSlot = -1;
-        if(autoSwitch.getValue() && autoSwitch.isVisible()) {
+        if (autoSwitch.getValue() && autoSwitch.isVisible()) {
             int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
-            if(crystalSlot == -1 && noCrystalToggle.getValue() && noCrystalToggle.isVisible()) {
+            if (crystalSlot == -1 && noCrystalToggle.getValue() && noCrystalToggle.isVisible()) {
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "AntiTrap", "No crystals in hotbar toggling module...", true);
                 toggle();
                 return;
@@ -63,7 +63,7 @@ public class AntiTrap extends Module {
         } else if (preTrapPos != null) {
             BlockUtil.placeBlock(preTrapPos, true, Items.END_CRYSTAL);
         }
-        if(originalSlot != mc.player.inventory.currentItem && originalSlot != -1) {
+        if (originalSlot != mc.player.inventory.currentItem && originalSlot != -1) {
             InventoryUtil.switchToSlot(originalSlot);
         }
     }

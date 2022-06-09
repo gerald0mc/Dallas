@@ -10,22 +10,22 @@ import java.net.URI;
 
 public class Porn extends Command {
     public Porn() {
-        super("Porn", "Does porn things.", new String[] {"porn", "<type>"});
+        super("Porn", "Does porn things.", new String[]{"porn", "<type>"});
     }
 
     @Override
     public void onCommand(String[] args) {
         super.onCommand(args);
-        if(args.length == 1) {
+        if (args.length == 1) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Porn", "Please specify the type of porn you wish to see.", true);
             return;
         }
         String type = "";
-        if(args.length == 2) {
+        if (args.length == 2) {
             type = args[1];
         } else {
-            for(int i = 1; i < args.length; i++) {
-                if(i + 1 == args.length + 1) {
+            for (int i = 1; i < args.length; i++) {
+                if (i + 1 == args.length + 1) {
                     type += args[i];
                     break;
                 } else {
@@ -35,6 +35,7 @@ public class Porn extends Command {
         }
         try {
             Desktop.getDesktop().browse(URI.create("https://www.pornhub.com/video/search?search=" + type));
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 }

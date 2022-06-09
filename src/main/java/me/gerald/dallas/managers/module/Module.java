@@ -130,15 +130,6 @@ public class Module {
         return settings;
     }
 
-    public enum Category {
-        COMBAT,
-        MOVEMENT,
-        RENDER,
-        MISC,
-        CLIENT,
-        HUD;
-    }
-
     public Color getCategoryColor() {
         switch (category) {
             case COMBAT:
@@ -155,5 +146,14 @@ public class Module {
                 return Color.CYAN;
         }
         return Color.WHITE;
+    }
+
+    public enum Category {
+        COMBAT,
+        MOVEMENT,
+        RENDER,
+        MISC,
+        CLIENT,
+        HUD
     }
 }

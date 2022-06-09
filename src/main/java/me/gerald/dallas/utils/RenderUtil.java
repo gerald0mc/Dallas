@@ -4,10 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
@@ -65,12 +62,13 @@ public class RenderUtil {
     /**
      * renderBorder - Renders a border with a changeable width and color around a set coordinate set.
      * renderBorderToggle - Renders a toggleable border with a changeable line width and color around a set coordinate set.
-     * @param x The parameter for the X coordinate.
-     * @param y The parameter for the Y coordinate.
-     * @param width The width of the border. When writing in the constructor you should put it as (x + width).
-     * @param height The height of the border. When writing in the constructor you should put it as (y + height).
+     *
+     * @param x         The parameter for the X coordinate.
+     * @param y         The parameter for the Y coordinate.
+     * @param width     The width of the border. When writing in the constructor you should put it as (x + width).
+     * @param height    The height of the border. When writing in the constructor you should put it as (y + height).
      * @param lineWidth The width of the lines (Min value: 1).
-     * @param color The color of the border lines.
+     * @param color     The color of the border lines.
      */
 
     public static void renderBorder(int x, int y, int width, int height, int lineWidth, Color color) {
@@ -85,13 +83,13 @@ public class RenderUtil {
     }
 
     public static void renderBorderToggle(int x, int y, int width, int height, int lineWidth, Color color, boolean top, boolean left, boolean right, boolean bottom) {
-        if(top)
+        if (top)
             Gui.drawRect(x, y, width, y + lineWidth, color.getRGB());
-        if(left)
+        if (left)
             Gui.drawRect(x, y, x + lineWidth, height, color.getRGB());
-        if(right)
+        if (right)
             Gui.drawRect(width, y, width - lineWidth, height, color.getRGB());
-        if(bottom)
+        if (bottom)
             Gui.drawRect(x, height, width, height - lineWidth, color.getRGB());
     }
 }

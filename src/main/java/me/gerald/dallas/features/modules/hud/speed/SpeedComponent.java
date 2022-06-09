@@ -15,12 +15,12 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 public class SpeedComponent extends HUDContainer {
+    private double motionSpeed = 0.0;
+
     public SpeedComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
         MinecraftForge.EVENT_BUS.register(this);
     }
-
-    private double motionSpeed = 0.0;
 
     @SubscribeEvent
     public void onMotionUpdate(MotionUpdateEvent event) {

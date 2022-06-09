@@ -2,17 +2,12 @@ package me.gerald.dallas.features.modules.render;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
-import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
-import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.RenderUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.BlockVine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,21 +15,15 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 // #TODO RARITY RENDER
 
@@ -91,19 +80,19 @@ public class ItemESP extends Module {
                 GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
                 List<String> lines = new ArrayList<>();
                 lines.add(entityItem.getItem().getItem().getItemStackDisplayName(entityItem.getItem()) + (count.getValue() ? (entityItem.getItem().getCount() == 1 ? "" : ChatFormatting.GRAY + " [" + ChatFormatting.AQUA + "x" + entityItem.getItem().getCount() + ChatFormatting.GRAY + "]") : ""));
-                if(entityItem.getItem().getItem().equals(Items.ENCHANTED_BOOK)) {
+                if (entityItem.getItem().getItem().equals(Items.ENCHANTED_BOOK)) {
                     Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(entityItem.getItem());
-                    for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                    for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                         lines.add(entry.getKey().getTranslatedName(entry.getValue()));
                     }
                 }
-                if(backGround.getValue()) {
-                    Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2  + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), new Color(12, 12, 12, 100).getRGB());
-                    if(border.getValue())
-                        RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2  + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), 1, clientSync.getValue() ? clientColor : borderColor.getColor());
+                if (backGround.getValue()) {
+                    Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2 + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), new Color(12, 12, 12, 100).getRGB());
+                    if (border.getValue())
+                        RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 2, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 2 + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), 1, clientSync.getValue() ? clientColor : borderColor.getColor());
                 }
                 int yOffset = 0;
-                for(String line : lines) {
+                for (String line : lines) {
                     mc.fontRenderer.drawStringWithShadow(line, -(mc.fontRenderer.getStringWidth(getLongestWordString(lines)) / 2f), -(mc.fontRenderer.FONT_HEIGHT) + yOffset, -1);
                     yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
                 }

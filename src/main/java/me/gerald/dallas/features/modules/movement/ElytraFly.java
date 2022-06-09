@@ -8,31 +8,30 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ElytraFly extends Module {
-    public ElytraFly() {
-        super("ElytraFly", Category.MOVEMENT, "Basic AF ElytraFly. (Confirmed working on 5b5t)");
-    }
-
     public NumberSetting boost = new NumberSetting("Boost", 1.2f, 0.1f, 5.0f, "How fast you will be boosted.");
     public BooleanSetting hover = new BooleanSetting("Hover", true, "Toggles not falling while in the air.");
     public BooleanSetting autoLiftoff = new BooleanSetting("AutoLiftoff", true, "Toggles auto liftoff after a certain of falling.");
     public NumberSetting fallDistance = new NumberSetting("FallDistance", 2, 1, 5, "How far you must fall to toggle AutoLiftoff.");
     public BooleanSetting verticalControls = new BooleanSetting("VerticalControls", true, "Toggling you being able to move up and down easily.");
+    public ElytraFly() {
+        super("ElytraFly", Category.MOVEMENT, "Basic AF ElytraFly. (Confirmed working on 5b5t)");
+    }
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        if(!mc.player.isElytraFlying()) {
-            if(autoLiftoff.getValue() && mc.player.fallDistance > fallDistance.getValue()) {
+        if (nullCheck()) return;
+        if (!mc.player.isElytraFlying()) {
+            if (autoLiftoff.getValue() && mc.player.fallDistance > fallDistance.getValue()) {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
             }
             return;
         }
-        if(hover.getValue() && (mc.player.movementInput.moveForward == 0 && mc.player.movementInput.moveStrafe == 0)) {
+        if (hover.getValue() && (mc.player.movementInput.moveForward == 0 && mc.player.movementInput.moveStrafe == 0)) {
             mc.player.motionY = -1.0E-4;
             return;
         }
-        if(verticalControls.getValue()) {
-            if(mc.gameSettings.keyBindJump.isPressed())
+        if (verticalControls.getValue()) {
+            if (mc.gameSettings.keyBindJump.isPressed())
                 mc.player.motionY = boost.getValue() / 10;
             else if (mc.gameSettings.keyBindSneak.isPressed())
                 mc.player.motionY = -(boost.getValue() / 10);

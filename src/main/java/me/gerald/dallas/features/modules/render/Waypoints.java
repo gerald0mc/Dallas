@@ -41,14 +41,15 @@ public class Waypoints extends Module {
             try {
                 waypointFile.createNewFile();
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoints", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add].", true);
-            } catch (IOException ignored) { }
+            } catch (IOException ignored) {
+            }
         }
     }
 
     @SubscribeEvent
     public void onDeath(DeathEvent event) {
-        if(!deathWaypoint.getValue()) return;
-        if(!event.getEntity().equals(mc.player)) return;
+        if (!deathWaypoint.getValue()) return;
+        if (!event.getEntity().equals(mc.player)) return;
         File waypointFile = new File(ConfigManager.clientPath, "Waypoints.txt");
         try {
             String server = "Singleplayer";
@@ -60,7 +61,8 @@ public class Waypoints extends Module {
             fileWriter.write("Name Death X " + mc.player.getPosition().getX() + " Y " + mc.player.getPosition().getY() + " Z " + mc.player.getPosition().getZ() + " Dimension " + getDimension(mc.player.dimension) + " Server " + server + "\n");
             fileWriter.close();
             MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + ChatFormatting.AQUA + "Death" + ChatFormatting.RESET + " and it is at " + ChatFormatting.GRAY + "X: " + ChatFormatting.GREEN + mc.player.getPosition().getX() + ChatFormatting.GRAY + " Y: " + ChatFormatting.GREEN + mc.player.getPosition().getY() + ChatFormatting.GRAY + " Z: " + ChatFormatting.GREEN + mc.player.getPosition().getZ() + ChatFormatting.RESET + " and is in the " + ChatFormatting.GOLD + getDimension(mc.player.dimension), true);
-        }catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 
     @SubscribeEvent

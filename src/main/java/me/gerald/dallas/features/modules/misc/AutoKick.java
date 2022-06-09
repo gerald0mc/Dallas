@@ -13,14 +13,14 @@ public class AutoKick extends Module {
 
     @Override
     public void onEnable() {
-        if(nullCheck()) return;
+        if (nullCheck()) return;
         ServerData data = mc.getCurrentServerData();
-        if(data == null) {
+        if (data == null) {
             MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKick", "You are not on a server! Toggling without performing any action.", true);
             toggle();
             return;
         }
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
             mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, -1337.69, mc.player.posZ, false));
         toggle();
     }

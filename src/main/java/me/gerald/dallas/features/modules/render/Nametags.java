@@ -20,7 +20,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.math.MathHelper;
@@ -31,8 +32,8 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 import static com.mojang.realmsclient.gui.ChatFormatting.*;
 
@@ -62,9 +63,9 @@ public class Nametags extends Module {
         Color clientColor = ClickGUI.clientColor;
         for (Entity e : mc.world.loadedEntityList) {
             if (e == mc.player) continue;
-            if(e instanceof EntityLivingBase) {
+            if (e instanceof EntityLivingBase) {
                 EntityLivingBase entity = (EntityLivingBase) e;
-                if(e instanceof EntityPlayer) {
+                if (e instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) e;
                     double playerHealth = player.getHealth() + player.getAbsorptionAmount();
                     String str = "";
@@ -87,31 +88,32 @@ public class Nametags extends Module {
                         str += " Pops: " + Yeehaw.INSTANCE.eventManager.totemPopListener.getTotalPops(player);
                     if (health.getValue())
                         str += " " + getHealthColor(player) + MathHelper.ceil(playerHealth) + RESET;
-                    if(backGround.getValue()) {
+                    if (backGround.getValue()) {
                         Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f) + 1, 2, new Color(12, 12, 12, 100).getRGB());
-                        if(border.getValue())
+                        if (border.getValue())
                             RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f) + 1, 2, 1, clientSync.getValue() ? clientColor : borderColor.getColor());
                     }
                     mc.fontRenderer.drawStringWithShadow(str, -(mc.fontRenderer.getStringWidth(str) / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
                     GlStateManager.popMatrix();
                 }
                 if (allEntities.getValue()) {
-                    if(entity instanceof EntityAnimal && !animals.getValue()) continue;
-                    else if((entity instanceof EntityMob || entity instanceof EntitySlime) && !mobs.getValue()) continue;
-                    else if(entity instanceof EntityVillager && !villagers.getValue()) continue;
+                    if (entity instanceof EntityAnimal && !animals.getValue()) continue;
+                    else if ((entity instanceof EntityMob || entity instanceof EntitySlime) && !mobs.getValue())
+                        continue;
+                    else if (entity instanceof EntityVillager && !villagers.getValue()) continue;
                     List<String> lines = new ArrayList<>();
                     double health = entity.getHealth() + entity.getAbsorptionAmount();
                     lines.add(entity.getDisplayName().getFormattedText() + (entityHealth.getValue() ? " " + MathHelper.ceil(health) : ""));
-                    if(entity instanceof EntityVillager) {
+                    if (entity instanceof EntityVillager) {
                         EntityVillager villager = (EntityVillager) entity;
                         MerchantRecipeList recipeList = villager.getRecipes(mc.player);
-                        if(recipeList == null) return;
-                        for(MerchantRecipe recipe : recipeList) {
+                        if (recipeList == null) return;
+                        for (MerchantRecipe recipe : recipeList) {
                             String bookEnchant = null;
-                            if(!villagerTrades.getValue()) break;
-                            if(recipe.getItemToSell().getItem().equals(Items.ENCHANTED_BOOK)) {
+                            if (!villagerTrades.getValue()) break;
+                            if (recipe.getItemToSell().getItem().equals(Items.ENCHANTED_BOOK)) {
                                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(recipe.getItemToSell());
-                                for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                                for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                                     bookEnchant = entry.getKey().getTranslatedName(entry.getValue());
                                     break;
                                 }
@@ -128,13 +130,13 @@ public class Nametags extends Module {
                     GlStateManager.pushMatrix();
                     GlStateManager.translate(projection.x, projection.y, 0);
                     GlStateManager.scale(scale.getValue(), scale.getValue(), 0);
-                    if(backGround.getValue()) {
+                    if (backGround.getValue()) {
                         Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 1 + (lines.size() != 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), new Color(12, 12, 12, 100).getRGB());
-                        if(border.getValue())
+                        if (border.getValue())
                             RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(getLongestWordString(lines)) + 2) / (int) 2f) + 1, 1 + (lines.size() > 1 ? lines.size() * (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1) : 0), 1, clientSync.getValue() ? clientColor : borderColor.getColor());
                     }
                     int yOffset = 0;
-                    for(String line : lines) {
+                    for (String line : lines) {
                         mc.fontRenderer.drawStringWithShadow(line, -(mc.fontRenderer.getStringWidth(getLongestWordString(lines)) / 2f), -(mc.fontRenderer.FONT_HEIGHT) + yOffset, -1);
                         yOffset += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT + 1;
                     }

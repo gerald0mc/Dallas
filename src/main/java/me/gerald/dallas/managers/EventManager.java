@@ -12,8 +12,6 @@ import me.gerald.dallas.managers.command.Command;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.MessageUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -23,16 +21,14 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class EventManager implements Globals {
+    private final List<Module> hudModules;
     public TotemPopListener totemPopListener;
     public DamageListener damageListener;
-
-    private final List<Module> hudModules;
     public List<String> clientHistory;
 
     public EventManager() {
@@ -45,9 +41,9 @@ public class EventManager implements Globals {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(Module.nullCheck()) return;
-        if(!Yeehaw.INSTANCE.clickGUI.searchBox.entryString.equals("Search")) {
-            if(!(mc.currentScreen instanceof ClickGUI)) {
+        if (Module.nullCheck()) return;
+        if (!Yeehaw.INSTANCE.clickGUI.searchBox.entryString.equals("Search")) {
+            if (!(mc.currentScreen instanceof ClickGUI)) {
                 Yeehaw.INSTANCE.clickGUI.searchBox.searchModules.clear();
                 Yeehaw.INSTANCE.clickGUI.searchBox.listening = false;
             }

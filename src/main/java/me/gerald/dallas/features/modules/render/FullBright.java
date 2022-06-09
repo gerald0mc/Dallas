@@ -5,11 +5,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class FullBright extends Module {
+    public float defaultGamma = -1f;
+
     public FullBright() {
         super("FullBright", Category.RENDER, "Basic AF FullBright.");
     }
-
-    public float defaultGamma = -1f;
 
     @Override
     public void onEnable() {
@@ -18,8 +18,8 @@ public class FullBright extends Module {
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
-        if(nullCheck()) return;
-        mc.gameSettings.gammaSetting =  100f;
+        if (nullCheck()) return;
+        mc.gameSettings.gammaSetting = 100f;
     }
 
     @Override

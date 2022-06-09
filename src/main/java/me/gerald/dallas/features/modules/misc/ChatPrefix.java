@@ -1,13 +1,9 @@
 package me.gerald.dallas.features.modules.misc;
 
 import me.gerald.dallas.managers.module.Module;
-import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.StringSetting;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ChatPrefix extends Module {
     public StringSetting noPrefixWhen = new StringSetting("NoPrefixWhen", "/.!-=@#$*;", "What characters to not add prefix to when sending a message.");

@@ -39,7 +39,7 @@ public class NotificationsComponent extends HUDContainer {
                 Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
             } else {
-                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("[" + notificationConstructor.getTitle() + "]: "  + notificationConstructor.getMessage()), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
+                Gui.drawRect(x, y + yOffset, x + Minecraft.getMinecraft().fontRenderer.getStringWidth("[" + notificationConstructor.getTitle() + "]: " + notificationConstructor.getMessage()), y + height + yOffset, new Color(0, 0, 0, 170).getRGB());
                 Gui.drawRect(x, y + yOffset, x + 2, y + height + yOffset, color.getRGB());
                 Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + "[" + ChatFormatting.RESET + notificationConstructor.getTitle() + ChatFormatting.GRAY + "]: " + ChatFormatting.RESET + notificationConstructor.getMessage(), x + 4, y + 2 + yOffset, -1);
             }

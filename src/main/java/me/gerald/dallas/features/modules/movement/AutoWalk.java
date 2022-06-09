@@ -8,13 +8,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class AutoWalk extends Module {
+    public final ModeSetting mode = new ModeSetting("Mode", "Basic", "The way you will be auto walking.", "Basic", "Baritone");
+    private boolean overrodeProcess = false;
+
     public AutoWalk() {
         super("AutoWalk", Category.MOVEMENT, "Example baritone module for gerald");
     }
-
-    public final ModeSetting mode = new ModeSetting("Mode", "Basic", "The way you will be auto walking.", "Basic", "Baritone");
-
-    private boolean overrodeProcess = false;
 
     @Override
     public void onDisable() {

@@ -1,6 +1,5 @@
 package me.gerald.dallas.features.gui.comps;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.AbstractContainer;
 import me.gerald.dallas.features.gui.api.ModuleContainer;
@@ -67,7 +66,7 @@ public class ModuleComponent extends ModuleContainer {
         Gui.drawRect(x, y, x + width, y + height + (lastModule ? 1 : 0), module.isEnabled() ? ClickGUI.clientColor.getRGB() : new Color(0, 0, 0, 125).getRGB());
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(trimValue(open ? "> " : "", module.getName(), module.isBetaModule() ? "ALPHA" : "", 6), x + 4, y + 3, -1);
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(module.isBetaModule() ? "ALPHA" : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(module.isBetaModule() ? "ALPHA" : "") - 4, y + 3, new Color(251, 206, 5, 255).getRGB());
-        if(Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
+        if (Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).border.getValue())
             RenderUtil.renderBorderToggle(x, y, x + width, y + height + (lastModule ? 1 : 0), 1, Yeehaw.INSTANCE.moduleManager.getModule(GUI.class).borderColor.getColor(), false, true, true, lastModule);
         if (isInside(mouseX, mouseY)) {
             if (needsHover) {

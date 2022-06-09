@@ -8,7 +8,7 @@ import me.gerald.dallas.utils.SpotifyUtil;
 
 public class Spotify extends Command {
     public Spotify() {
-        super("Spotify", "Spotify command.", new String[] {"spotify"});
+        super("Spotify", "Spotify command.", new String[]{"spotify"});
     }
 
     @Override

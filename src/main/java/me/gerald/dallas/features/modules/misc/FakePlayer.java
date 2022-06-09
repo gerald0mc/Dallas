@@ -12,9 +12,6 @@ import me.gerald.dallas.utils.MathUtil;
 import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
@@ -23,7 +20,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -57,7 +53,7 @@ public class FakePlayer extends Module {
         if (fakePlayer == null) {
             fakePlayer = new EntityOtherPlayerMP(mc.world, new GameProfile(mc.player.getUniqueID(), "Dallas"));
             fakePlayer.setPositionAndRotation(mc.player.posX, mc.player.posY, mc.player.posZ, mc.player.cameraYaw, mc.player.cameraPitch);
-            if(inventory.getValue()) {
+            if (inventory.getValue()) {
                 switch (inventoryMode.getMode()) {
                     case "Player":
                         fakePlayer.inventory.copyInventory(mc.player.inventory);
@@ -92,12 +88,12 @@ public class FakePlayer extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
         if (fakePlayer != null) {
-            if(mc.player.getDistance(fakePlayer) >= distance.getValue()) {
-                if(distanceCheck.getValue())
+            if (mc.player.getDistance(fakePlayer) >= distance.getValue()) {
+                if (distanceCheck.getValue())
                     fakePlayer.setPositionAndRotation(mc.player.posX, mc.player.posY, mc.player.posZ, mc.player.cameraYaw, mc.player.cameraPitch);
             }
-            if(gapple.getValue()) {
-                if(gappleTimer.passedMs((long) (int) gappleDelay.getValue() * 1000)) {
+            if (gapple.getValue()) {
+                if (gappleTimer.passedMs((long) (int) gappleDelay.getValue() * 1000)) {
                     fakePlayer.setAbsorptionAmount(16.0f);
                     fakePlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 400, 1));
                     fakePlayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 6000, 0));
@@ -114,7 +110,7 @@ public class FakePlayer extends Module {
                     Yeehaw.INSTANCE.eventManager.totemPopListener.handlePop(fakePlayer);
                 }
             }
-            if(!moving.getValue()) return;
+            if (!moving.getValue()) return;
             if (moveTimer.passedMs((long) moveDelay.getValue())) {
                 if (mc.world.getBlockState(new BlockPos(fakePlayer.posX, fakePlayer.posY, fakePlayer.posZ)).getBlock() != Blocks.AIR)
                     fakePlayer.posY += 0.5f;
@@ -142,7 +138,7 @@ public class FakePlayer extends Module {
             if (fakePlayer.getDistance(explosion.getX(), explosion.getY(), explosion.getZ()) <= 15) {
                 final double damage = MathUtil.calculateDamage(explosion.getX(), explosion.getY(), explosion.getZ(), fakePlayer);
                 if (damage > 0 && popping.getValue())
-                    fakePlayer.setHealth((float) (fakePlayer.getHealth() - MathHelper.clamp(damage,0, 999)));
+                    fakePlayer.setHealth((float) (fakePlayer.getHealth() - MathHelper.clamp(damage, 0, 999)));
             }
         }
     }
@@ -157,7 +153,8 @@ public class FakePlayer extends Module {
     }
 
     private void fakePop(Entity entity) {
-        if(particle.getValue()) mc.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.TOTEM, 30);
-        if(sound.getValue()) mc.world.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
+        if (particle.getValue()) mc.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.TOTEM, 30);
+        if (sound.getValue())
+            mc.world.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
     }
 }

@@ -1,7 +1,6 @@
 package me.gerald.dallas.features.modules.movement;
 
 import me.gerald.dallas.managers.module.Module;
-import me.gerald.dallas.setting.settings.ModeSetting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 

@@ -10,7 +10,6 @@ import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.TimerUtil;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -34,10 +33,10 @@ public class AutoKit extends Module {
 
     @SubscribeEvent
     public void onChatR(ClientChatEvent event) {
-        if(!adapt.getValue()) return;
+        if (!adapt.getValue()) return;
         String[] messageList = event.getMessage().split(" ");
         String newKitName = "";
-        if(messageList[0].equalsIgnoreCase("/kit")) {
+        if (messageList[0].equalsIgnoreCase("/kit")) {
             if (messageList.length == 2) {
                 newKitName = messageList[1];
             } else {
@@ -50,7 +49,7 @@ public class AutoKit extends Module {
                     }
                 }
             }
-            if(newKitName.equalsIgnoreCase(kitName.getValue())) return;
+            if (newKitName.equalsIgnoreCase(kitName.getValue())) return;
             kitName.setValue(newKitName);
             MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Set kit value to " + ChatFormatting.AQUA + newKitName, true);
         }
@@ -60,8 +59,8 @@ public class AutoKit extends Module {
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
         ServerData data = mc.getCurrentServerData();
-        if(data == null) {
-            if(!noServerToggle.getValue()) return;
+        if (data == null) {
+            if (!noServerToggle.getValue()) return;
             MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Not on a server toggling module...", true);
             toggle();
         }

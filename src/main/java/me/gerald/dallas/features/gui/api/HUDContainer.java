@@ -4,7 +4,6 @@ import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.ScaledResolution;
 
 public abstract class HUDContainer extends DragComponent {
     public HUDContainer(int x, int y, int width, int height) {

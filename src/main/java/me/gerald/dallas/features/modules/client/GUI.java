@@ -8,7 +8,7 @@ import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class GUI extends Module {
-    public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Alignment of the category name.","Left", "Middle", "Right");
+    public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Alignment of the category name.", "Left", "Middle", "Right");
     public BooleanSetting categoryOverhang = new BooleanSetting("CategoryOverhang", true, "Toggles category overhang.");
     public BooleanSetting moduleCount = new BooleanSetting("ModuleCount", true, "Toggles rendering of module count.");
     public BooleanSetting renderParent = new BooleanSetting("Render", false, "Render parent.");

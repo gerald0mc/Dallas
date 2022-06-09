@@ -34,18 +34,18 @@ public class RuneScapeChat extends Module {
     public void onChatR(ClientChatReceivedEvent event) {
         String sender = StringUtils.substringBetween(event.getMessage().getFormattedText(), "<", ">");
         EntityPlayer entityPlayer = mc.world.getPlayerEntityByName(sender);
-        if(entityPlayer == null) return;
-        if(entityPlayer.equals(mc.player)) return;
-        for(Player p : playerList) {
-            if(p.sender.equals(entityPlayer)) {
+        if (entityPlayer == null) return;
+        if (entityPlayer.equals(mc.player)) return;
+        for (Player p : playerList) {
+            if (p.sender.equals(entityPlayer)) {
                 p.messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
                 return;
             }
         }
         Player player = new Player(entityPlayer);
         playerList.add(player);
-        for(Player player1 : playerList) {
-            if(player1.sender.equals(player.sender)) {
+        for (Player player1 : playerList) {
+            if (player1.sender.equals(player.sender)) {
                 player1.messageMap.put(event.getMessage().getFormattedText().replace("<" + sender + ">", ""), System.currentTimeMillis());
                 return;
             }
@@ -54,16 +54,16 @@ public class RuneScapeChat extends Module {
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Text event) {
-        if(nullCheck()) return;
-        if(playerList.isEmpty()) return;
-        for(Player player : playerList) {
-            if(player.messageMap.isEmpty()) {
+        if (nullCheck()) return;
+        if (playerList.isEmpty()) return;
+        for (Player player : playerList) {
+            if (player.messageMap.isEmpty()) {
                 playerList.remove(player);
                 return;
             }
             int yOffset = 0;
-            for(Map.Entry<String, Long> message : player.messageMap.entrySet()) {
-                if(System.currentTimeMillis() - message.getValue() >= timeToRemove.getValue() * 1000) {
+            for (Map.Entry<String, Long> message : player.messageMap.entrySet()) {
+                if (System.currentTimeMillis() - message.getValue() >= timeToRemove.getValue() * 1000) {
                     player.messageMap.remove(message.getKey());
                     continue;
                 }

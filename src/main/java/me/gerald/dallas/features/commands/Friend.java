@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -61,7 +60,8 @@ public class Friend extends Command {
                     for (String friend : friends) {
                         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(friend));
                     }
-                } catch (IOException ignored) { }
+                } catch (IOException ignored) {
+                }
                 break;
         }
     }

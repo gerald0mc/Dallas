@@ -15,7 +15,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import static com.mojang.realmsclient.gui.ChatFormatting.*;
+import static com.mojang.realmsclient.gui.ChatFormatting.BOLD;
+import static com.mojang.realmsclient.gui.ChatFormatting.GRAY;
 import static me.bush.translator.LanguageKt.languageOf;
 
 /**
@@ -57,7 +58,8 @@ public class AutoTranslate extends Module {
         event.setCanceled(true);
         executor.execute(() -> {
             Translation translation = getTranslation(event.getMessage(), language);
-            if (translation != null) mc.addScheduledTask(() -> mc.player.sendChatMessage(translation.getTranslatedText()));
+            if (translation != null)
+                mc.addScheduledTask(() -> mc.player.sendChatMessage(translation.getTranslatedText()));
         });
     }
 

@@ -30,10 +30,10 @@ public class NameChanger extends Module {
     @SubscribeEvent
     public void onChatReceived(ClientChatReceivedEvent event) {
         EntityPlayer fakeTarget = null;
-        if(fakeClips.getValue()) {
+        if (fakeClips.getValue()) {
             EntityPlayer closestPlayer = BlockUtil.findClosestPlayer();
-            if(closestPlayer != null) {
-                if(mc.player.getDistance(closestPlayer) < fakeDistance.getValue())
+            if (closestPlayer != null) {
+                if (mc.player.getDistance(closestPlayer) < fakeDistance.getValue())
                     fakeTarget = BlockUtil.findClosestPlayer();
             }
         }

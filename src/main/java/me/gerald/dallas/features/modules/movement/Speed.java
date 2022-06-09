@@ -199,6 +199,6 @@ public class Speed extends Module {
             }
         }
 
-        return new float[] { forward, strafe, yaw };
+        return new float[]{forward, strafe, yaw};
     }
 }

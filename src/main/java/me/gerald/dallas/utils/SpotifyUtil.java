@@ -24,8 +24,8 @@ public class SpotifyUtil implements Globals {
     private static final String CLIENT_ID = "0cc6060392e0497bbeca323f61d66f10";
 
     // our spotify scopes
-    private static final String[] SCOPES = { "user-modify-playback-state", "user-read-playback-state",
-            "user-read-currently-playing", "user-read-recently-played", "user-read-playback-position" };
+    private static final String[] SCOPES = {"user-modify-playback-state", "user-read-playback-state",
+            "user-read-currently-playing", "user-read-recently-played", "user-read-playback-position"};
 
     // https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
     // We'll create a random verifier string that we'll use so we don't have to store any sensitive information in here
@@ -39,16 +39,13 @@ public class SpotifyUtil implements Globals {
     public static SpotifyApi api;
     public static User user;
     public static CurrentlyPlaying playing;
-
+    // if we are ready to use the spotify API
+    public static boolean ready = false;
     // cache our HTTP server in case for some reason if we need to reconnect and it did not unbind & shutdown
     private static HttpServer httpServer;
-
     // Cache our threads, so we interrupt them if we want to stop
     private static Thread codeRefreshThread, playbackUpdateThread;
     private static int refreshInterval = 0;
-
-    // if we are ready to use the spotify API
-    public static boolean ready = false;
 
     /**
      * Attempts to connect to spotify
@@ -188,13 +185,14 @@ public class SpotifyUtil implements Globals {
                     try {
                         TimeUnit.MILLISECONDS.sleep(1000);
                         playing = api.getUsersCurrentlyPlayingTrack().build().execute();
-                    } catch (InterruptedException | IOException | ParseException | SpotifyWebApiException e ) {
+                    } catch (InterruptedException | IOException | ParseException | SpotifyWebApiException e) {
                         e.printStackTrace();
                     }
                 }
             }, "Spotify-Playback-Update-Thread");
             codeRefreshThread.start();
             playbackUpdateThread.start();
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class TextureUtil implements Globals {
     /**
      * Binds the resource location to the texture manager
+     *
      * @param location the resource location
      */
     public static void bindTexture(ResourceLocation location) {
@@ -26,12 +27,12 @@ public class TextureUtil implements Globals {
      * Draws a texture on the screen
      *
      * @param location the texture's resource location
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * @param u the u coorinate on the texture
-     * @param v the v coordinate on the texture
-     * @param height the height of the texture
-     * @param width the width of the texture
+     * @param x        the x coordinate
+     * @param y        the y coordinate
+     * @param u        the u coorinate on the texture
+     * @param v        the v coordinate on the texture
+     * @param height   the height of the texture
+     * @param width    the width of the texture
      */
     public static void drawTexture(ResourceLocation location, double x, double y, int u, int v, double height, double width) {
         if (location != null) {

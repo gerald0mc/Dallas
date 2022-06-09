@@ -72,7 +72,7 @@ public class DallasBot extends Module {
     @SubscribeEvent
     public void onChatReceive(ClientChatReceivedEvent event) {
         String[] strings = event.getMessage().getUnformattedText().split(" ");
-        if(strings[1].equalsIgnoreCase("dhelp")) {
+        if (strings[1].equalsIgnoreCase("dhelp")) {
             if (StringUtils.substringBetween(event.getMessage().getUnformattedText(), "<", ">").equalsIgnoreCase(mc.player.getDisplayNameString())) {
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.GRAY + " Bot " + ChatFormatting.RESET + "Commands", true);
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Dallas Bot", ChatFormatting.GRAY + "[" + ChatFormatting.AQUA + "dhelp" + ChatFormatting.GRAY + "]: " + ChatFormatting.GREEN + "Shows bot commands that you and everyone else can do.", true);
@@ -82,7 +82,7 @@ public class DallasBot extends Module {
                 mc.player.sendChatMessage("Dallas Bot Commands: [dhelp] Says all commands." + "|" + "[dtexasfact(s)] Sends texas facts in chat." + afterMessage);
                 coolDownTimer.reset();
             }
-        } else if(strings[1].equalsIgnoreCase("dtexasfact") || strings[1].equalsIgnoreCase("dtexasfacts")) {
+        } else if (strings[1].equalsIgnoreCase("dtexasfact") || strings[1].equalsIgnoreCase("dtexasfacts")) {
             if (!coolDownTimer.passedMs((long) (delay.getValue() * 1000))) return;
             FileUtil.loadMessages(facts, filePath);
             mc.player.sendChatMessage(FileUtil.getRandomMessage(facts) + afterMessage);

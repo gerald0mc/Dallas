@@ -3,7 +3,7 @@ package me.gerald.dallas.setting;
 public class Setting {
     private final Visibility visibility;
     private String name;
-    private String description;
+    private final String description;
 
     public Setting(String name, String description) {
         this.name = name;

@@ -1,6 +1,5 @@
 package me.gerald.dallas.features.modules.hud.entitylist;
 
-import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.modules.hud.HUDModule;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 

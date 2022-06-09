@@ -2,7 +2,6 @@ package me.gerald.dallas.features.modules.misc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.event.events.DeathEvent;
-import me.gerald.dallas.event.events.PacketEvent;
 import me.gerald.dallas.managers.ConfigManager;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
@@ -37,7 +36,8 @@ public class AutoGG extends Module {
             try {
                 autoGGFile.createNewFile();
                 MessageUtil.sendMessage(ChatFormatting.BOLD + "Auto GG", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "AutoGG.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
-            } catch (IOException ignored) { }
+            } catch (IOException ignored) {
+            }
         }
     }
 

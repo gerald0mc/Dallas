@@ -8,7 +8,6 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 

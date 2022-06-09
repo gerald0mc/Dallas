@@ -6,7 +6,6 @@ import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -23,7 +22,7 @@ public class ArmorComponent extends HUDContainer {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         updateDragPosition(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        if(Module.nullCheck()) return;
+        if (Module.nullCheck()) return;
         switch (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).alignment.getMode()) {
             case "Sideways":
                 width = 80;

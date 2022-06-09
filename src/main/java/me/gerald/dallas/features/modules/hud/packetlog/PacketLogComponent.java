@@ -156,7 +156,7 @@ public class PacketLogComponent extends HUDContainer {
             if (mouseButton == 0) {
                 page = 0;
             }
-        //selection tab
+            //selection tab
         } else if (isInside(mouseX, mouseY, selectionTabX, y, selectionTabX + Minecraft.getMinecraft().fontRenderer.getStringWidth("Selection"), y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT)) {
             if (mouseButton == 0) {
                 page = 1;

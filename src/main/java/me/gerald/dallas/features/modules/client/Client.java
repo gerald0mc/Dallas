@@ -3,7 +3,6 @@ package me.gerald.dallas.features.modules.client;
 import me.gerald.dallas.managers.module.Module;
 import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
-import me.gerald.dallas.setting.settings.NumberSetting;
 
 public class Client extends Module {
     public BooleanSetting toggleMessage = new BooleanSetting("ToggleMessage", true, "Module Toggle notifications.");

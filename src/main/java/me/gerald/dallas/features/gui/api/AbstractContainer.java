@@ -1,7 +1,5 @@
 package me.gerald.dallas.features.gui.api;
 
-import me.gerald.dallas.Yeehaw;
-import me.gerald.dallas.features.modules.client.GUI;
 import me.gerald.dallas.utils.Globals;
 import net.minecraft.client.Minecraft;
 
@@ -43,7 +41,7 @@ public abstract class AbstractContainer implements Globals {
         else {
             int preWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(preValue);
             int dotWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth("...");
-            if(this instanceof ModuleContainer) {
+            if (this instanceof ModuleContainer) {
                 ModuleContainer container = (ModuleContainer) this;
                 container.needsHover = true;
             }
@@ -58,7 +56,7 @@ public abstract class AbstractContainer implements Globals {
         else {
             int preWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth(preValue);
             int dotWidth = Minecraft.getMinecraft().fontRenderer.getStringWidth("...");
-            if(this instanceof ModuleContainer) {
+            if (this instanceof ModuleContainer) {
                 ModuleContainer container = (ModuleContainer) this;
                 container.needsHover = true;
             }

@@ -35,10 +35,10 @@ public class Set extends Command {
                         ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
                         MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "Set setting " + ChatFormatting.AQUA + setting.getName() + ChatFormatting.RESET + " to " + ChatFormatting.GREEN + ((BooleanSetting) setting).getValue(), true);
                     } else if (setting instanceof NumberSetting) {
-                        if(Integer.parseInt(value) > ((NumberSetting) setting).getMax()) {
+                        if (Integer.parseInt(value) > ((NumberSetting) setting).getMax()) {
                             MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "The value you have entered is larger then this settings max value.", true);
                             return;
-                        } else if(Integer.parseInt(value) < ((NumberSetting) setting).getMin()) {
+                        } else if (Integer.parseInt(value) < ((NumberSetting) setting).getMin()) {
                             MessageUtil.sendMessage(ChatFormatting.BOLD + "Set", "The value you have entered is smaller then this settings min value.", true);
                             return;
                         }

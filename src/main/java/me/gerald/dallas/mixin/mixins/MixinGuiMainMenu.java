@@ -27,8 +27,8 @@ public class MixinGuiMainMenu extends GuiScreen {
     @Inject(method = "<init>", at = @At("RETURN"))
     public void postConstructor(CallbackInfo ci) {
         Client module = Yeehaw.INSTANCE.moduleManager.getModule(Client.class);
-        if(module.isEnabled() && module.customSplashText.getValue()) {
-            this.splashText = getRandomSplash(Yeehaw.INSTANCE.splashText);
+        if (module.isEnabled() && module.customSplashText.getValue()) {
+            splashText = getRandomSplash(Yeehaw.INSTANCE.splashText);
         }
     }
 

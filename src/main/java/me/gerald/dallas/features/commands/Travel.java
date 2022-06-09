@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class Travel extends Command {
     public Travel() {
-        super("Travel", "Command for travel module.", new String[] {"travel", "<x> <y>"});
+        super("Travel", "Command for travel module.", new String[]{"travel", "<x> <y>"});
     }
 
     @Override

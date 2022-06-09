@@ -4,7 +4,6 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.features.modules.client.GUI;
-import me.gerald.dallas.features.modules.hud.coordinates.Coordinates;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
@@ -33,8 +32,8 @@ public class BiomeComponent extends HUDContainer {
         BlockPos pos = mc.player.getPosition();
         Chunk chunk = mc.world.getChunk(pos);
         Biome biome = chunk.getBiome(pos, mc.world.getBiomeProvider());
-        this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Biome: " + biome.getBiomeName());
-        this.height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth("Biome: " + biome.getBiomeName());
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("Biome" + ChatFormatting.GRAY + ": " + ChatFormatting.WHITE + biome.getBiomeName(), x, y, color.getRGB());
     }
 
