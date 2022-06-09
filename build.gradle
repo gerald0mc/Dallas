@@ -78,6 +78,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
+    shadow 'com.github.therealbush:translator:1.0.2'
     // Apparently future crashes with v10
     shadow('org.reflections:reflections:0.9.12') {
         exclude module: 'jsr305'
