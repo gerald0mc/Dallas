@@ -34,11 +34,11 @@ public class Emojis extends Module {
         if (!emojiFile.exists()) {
             try {
                 emojiFile.createNewFile();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Emojis.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Emojis.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", MessageUtil.MessageType.INFO);
             } catch (IOException ignored) {
             }
         }
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "If you would like to see a list of emojis you can use " + ChatFormatting.GRAY + Yeehaw.INSTANCE.commandManager.PREFIX + ChatFormatting.AQUA + "emoji " + ChatFormatting.RED + "list", true);
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Emojis", "If you would like to see a list of emojis you can use " + ChatFormatting.GRAY + Yeehaw.INSTANCE.commandManager.PREFIX + ChatFormatting.AQUA + "emoji " + ChatFormatting.RED + "list", MessageUtil.MessageType.INFO);
     }
 
     @SubscribeEvent

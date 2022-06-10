@@ -1,6 +1,7 @@
 package me.gerald.dallas.features.modules.render;
 
 import com.mojang.authlib.GameProfile;
+import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.event.events.DeathEvent;
 import me.gerald.dallas.event.events.TotemPopEvent;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
@@ -12,6 +13,9 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
@@ -20,17 +24,40 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Chams extends Module {
-    public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "What way your chams will be rendered.", "Both", "Fill", "Outline");
-    public NumberSetting alpha = new NumberSetting("Alpha", 150, 0, 255, "The alpha of your chams.");
-    public NumberSetting lineWidth = new NumberSetting("Linewidth", 1, 0.1f, 5, "How thick the lines are.");
+    public BooleanSetting glow = new BooleanSetting("Glow", true, "Toggles players having a glow around them.");
     public BooleanSetting pops = new BooleanSetting("Pops", true, "Toggles pop chams.");
     public BooleanSetting deaths = new BooleanSetting("Deaths", true, "Toggles death chams.");
     public NumberSetting timeToRemove = new NumberSetting("TimeToRemove", 2, 1, 5, "How fast in seconds it takes to remove either cham.", () -> pops.getValue() || deaths.getValue());
+    public ModeSetting renderMode = new ModeSetting("RenderMode", "Both", "What way your chams will be rendered.", () -> pops.getValue() || deaths.getValue(), "Both", "Fill", "Outline");
+    public NumberSetting alpha = new NumberSetting("Alpha", 150, 0, 255, "The alpha of your chams.", () -> pops.getValue() || deaths.getValue());
+    public NumberSetting lineWidth = new NumberSetting("Linewidth", 1, 0.1f, 5, "How thick the lines are.", () -> pops.getValue() || deaths.getValue());
+
     public ConcurrentHashMap<EntityOtherPlayerMP, Long> renderMap = new ConcurrentHashMap<>();
 
     public Chams() {
         super("Chams", Category.RENDER, "Chams for different things.");
         setBetaModule(true);
+    }
+
+    @SubscribeEvent
+    public void onRenderOverlay(RenderGameOverlayEvent.Text event) {
+        if (nullCheck()) return;
+        if (!glow.getValue()) return;
+        Scoreboard scoreboard = mc.world.getScoreboard();
+        if(!scoreboard.getTeamNames().contains("Friends")) {
+            scoreboard.createTeam("Friends");
+            scoreboard.getTeam("Friends").setPrefix("§b");
+        }
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (entity.equals(mc.player)) continue;
+            if (entity instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) entity;
+                if (Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString())) {
+                    scoreboard.addPlayerToTeam(player.getCachedUniqueIdString(), "Friends");
+                }
+                player.setGlowing(true);
+            }
+        }
     }
 
     @SubscribeEvent

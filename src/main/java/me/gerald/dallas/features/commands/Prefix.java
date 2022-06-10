@@ -14,10 +14,10 @@ public class Prefix extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Prefix", "Please enter a value for the new prefix.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Prefix", "Please enter a value for the new prefix.", MessageUtil.MessageType.CONSTANT);
             return;
         } else if (args.length > 2 || args[1].length() > 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Prefix", "Please only try to set one letter as your new prefix.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Prefix", "Please only try to set one letter as your new prefix.", MessageUtil.MessageType.CONSTANT);
             return;
         }
         String prefix = args[1];

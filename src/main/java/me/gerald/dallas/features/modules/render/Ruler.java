@@ -26,10 +26,10 @@ public class Ruler extends Module {
         event.setCanceled(true);
         if (rulerBlock == null) {
             rulerBlock = event.getPos();
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Added position to pos list.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Added position to pos list.", MessageUtil.MessageType.CONSTANT);
         } else {
             int blocksBetween = (int) rulerBlock.getDistance(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Distance between the two spots is " + ChatFormatting.AQUA + blocksBetween + ChatFormatting.RESET + ".", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Distance between the two spots is " + ChatFormatting.AQUA + blocksBetween + ChatFormatting.RESET + ".", MessageUtil.MessageType.CONSTANT);
             rulerBlock = null;
         }
     }

@@ -91,7 +91,7 @@ public class Module {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.post(new ModuleToggleEvent.Enable(this));
         if (isBetaModule) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Warning", "As this modules is a Alpha module it might be prone to crashing and is not recommended for use.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Warning", "As this modules is a Alpha module it might be prone to crashing and is not recommended for use.", MessageUtil.MessageType.CONSTANT);
         }
         onEnable();
     }

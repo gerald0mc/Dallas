@@ -32,8 +32,12 @@ public class BooleanComponent extends SettingComponent {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(showValue ? ChatFormatting.GRAY + (setting.getValue() ? "True" : "False") : "", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getValue() ? "True" : "False") - 4, y + 3, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A boolean setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A boolean setting called (" + setting.getName() + ").") + 8;
+            if (needsHover) {
+                Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getName()), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName(), mouseX + 7, mouseY - 13, -1);
+            }
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = setting.getDescription();
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getDescription()) + 8;
         }
     }
 

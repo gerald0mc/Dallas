@@ -35,7 +35,7 @@ public class Spammer extends Module {
         if (!spammerFile.exists()) {
             try {
                 spammerFile.createNewFile();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Spammer", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Spammer", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Spammer.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", MessageUtil.MessageType.GENERAL);
                 toggle();
             } catch (IOException ignored) {
             }

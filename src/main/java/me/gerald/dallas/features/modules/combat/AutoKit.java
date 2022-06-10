@@ -51,7 +51,7 @@ public class AutoKit extends Module {
             }
             if (newKitName.equalsIgnoreCase(kitName.getValue())) return;
             kitName.setValue(newKitName);
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Set kit value to " + ChatFormatting.AQUA + newKitName, true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Set kit value to " + ChatFormatting.AQUA + newKitName, MessageUtil.MessageType.CONSTANT);
         }
     }
 
@@ -61,7 +61,7 @@ public class AutoKit extends Module {
         ServerData data = mc.getCurrentServerData();
         if (data == null) {
             if (!noServerToggle.getValue()) return;
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Not on a server toggling module...", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "AutoKit", "Not on a server toggling module...", MessageUtil.MessageType.CONSTANT);
             toggle();
         }
         if (hasDied && mc.player.isEntityAlive() && !mc.player.isDead && mc.player.getHealth() > 1) {

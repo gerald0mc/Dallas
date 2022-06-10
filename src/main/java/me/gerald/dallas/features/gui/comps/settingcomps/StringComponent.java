@@ -34,10 +34,14 @@ public class StringComponent extends SettingComponent {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? ChatFormatting.WHITE + "TYPING" : !isInside(mouseX, mouseY) ? ChatFormatting.GRAY + "HOVER" : ChatFormatting.WHITE + "HOVERING", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(listening ? "TYPING" : !isInside(mouseX, mouseY) ? "HOVER" : "HOVERING") - 4, y + 3, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
+            if (needsHover) {
+                Gui.drawRect(mouseX + 5, mouseY - 5 - (Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * 2), mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getName()), mouseY - 6 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, new Color(0, 0, 0, 255).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName(), mouseX + 7, mouseY - 23, -1);
+            }
             Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(listening ? entryString : setting.getValue()), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(listening ? entryString : setting.getValue(), mouseX + 7, mouseY - 13, -1);
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 8;
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = setting.getDescription();
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getDescription()) + 8;
         } else if (listening) {
             Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(entryString), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
             Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(entryString, mouseX + 7, mouseY - 13, -1);
@@ -77,11 +81,11 @@ public class StringComponent extends SettingComponent {
                 case Keyboard.KEY_C:
                     if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                         if (entryString.length() == 0) {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(), "Nothing to copy.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(), "Nothing to copy.", MessageUtil.MessageType.CONSTANT);
                             return;
                         }
                         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entryString), null);
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(), "Copied text in string box to clipboard.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + setting.getName(), "Copied text in string box to clipboard.", MessageUtil.MessageType.CONSTANT);
                     }
                     break;
             }

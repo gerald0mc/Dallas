@@ -14,6 +14,11 @@ public class GameSpeed extends Module {
     }
 
     @Override
+    public String getMetaData() {
+        return String.valueOf(speed.getValue());
+    }
+
+    @Override
     public void onDisable() {
         ((IMinecraft) mc).setTimerSpeed(1.0f);
     }

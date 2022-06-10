@@ -6,6 +6,12 @@ import me.gerald.dallas.setting.settings.BooleanSetting;
 import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.setting.settings.ModeSetting;
 import me.gerald.dallas.setting.settings.NumberSetting;
+import me.gerald.dallas.utils.WebhookUtil;
+import net.minecraft.client.Minecraft;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GUI extends Module {
     public ModeSetting categoryAlignment = new ModeSetting("CategoryAlignment", "Middle", "Alignment of the category name.", "Left", "Middle", "Right");

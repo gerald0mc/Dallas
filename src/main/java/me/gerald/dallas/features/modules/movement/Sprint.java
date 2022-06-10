@@ -13,9 +13,7 @@ public class Sprint extends Module {
     public void onUpdate(TickEvent.PlayerTickEvent event) {
         if (nullCheck()) return;
         if (!mc.player.collidedHorizontally && !mc.player.isSneaking() && mc.player.moveForward != 0 || mc.player.moveStrafing != 0) {
-            while (!mc.player.isSprinting()) {
-                mc.player.setSprinting(true);
-            }
+            mc.player.setSprinting(true);
         }
     }
 }

@@ -97,11 +97,6 @@ dependencies {
         exclude module: 'jna'
     }
 
-    implementation('se.michaelthelin.spotify:spotify-web-api-java:6.5.4') {
-        exclude module: 'commons-codec'
-        exclude module: 'commons-logging'
-    }
-
     implementation('com.github.cabaletta:baritone:1.2.14')
     shadow('cabaletta:baritone-api:1.2')
 

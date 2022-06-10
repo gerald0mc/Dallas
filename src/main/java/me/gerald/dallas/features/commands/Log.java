@@ -23,7 +23,7 @@ public class Log extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length > 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Log", "This command is just log", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Log", "This command is just log", MessageUtil.MessageType.CONSTANT);
             return;
         }
         File moduleLogFile = new File(ConfigManager.clientPath, "ModuleLog.txt");
@@ -58,6 +58,6 @@ public class Log extends Command {
             writer.close();
         } catch (IOException ignored) {
         }
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Log", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "ModuleLog.txt" + ChatFormatting.RESET + " to view all modules and settings.", true);
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Log", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "ModuleLog.txt" + ChatFormatting.RESET + " to view all modules and settings.", MessageUtil.MessageType.CONSTANT);
     }
 }

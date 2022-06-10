@@ -51,7 +51,7 @@ public class AntiTrap extends Module {
         if (autoSwitch.getValue() && autoSwitch.isVisible()) {
             int crystalSlot = InventoryUtil.getItemHotbar(Items.END_CRYSTAL);
             if (crystalSlot == -1 && noCrystalToggle.getValue() && noCrystalToggle.isVisible()) {
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "AntiTrap", "No crystals in hotbar toggling module...", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "AntiTrap", "No crystals in hotbar toggling module...", MessageUtil.MessageType.CONSTANT);
                 toggle();
                 return;
             }

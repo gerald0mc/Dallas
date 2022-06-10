@@ -17,16 +17,16 @@ public class Travel extends Command {
         super.onCommand(args);
         switch (args.length) {
             case 1:
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Please specify the " + ChatFormatting.AQUA + "X" + ChatFormatting.RESET + " and " + ChatFormatting.AQUA + "Y" + ChatFormatting.RESET + " of your target location.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Please specify the " + ChatFormatting.AQUA + "X" + ChatFormatting.RESET + " and " + ChatFormatting.AQUA + "Y" + ChatFormatting.RESET + " of your target location.", MessageUtil.MessageType.CONSTANT);
                 return;
             case 2:
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Please specify the " + ChatFormatting.AQUA + "Y" + ChatFormatting.RESET + " of your target location.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Please specify the " + ChatFormatting.AQUA + "Y" + ChatFormatting.RESET + " of your target location.", MessageUtil.MessageType.CONSTANT);
                 return;
             case 3:
                 int targetX = Integer.parseInt(args[1]);
                 int targetZ = Integer.parseInt(args[2]);
                 Yeehaw.INSTANCE.moduleManager.getModule(SmartTravel.class).targetPos = new BlockPos(targetX, 1, targetZ);
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Set SmartTravel location to " + ChatFormatting.AQUA + targetX + " " + targetZ + ChatFormatting.RESET + ".", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Travel", "Set SmartTravel location to " + ChatFormatting.AQUA + targetX + " " + targetZ + ChatFormatting.RESET + ".", MessageUtil.MessageType.CONSTANT);
         }
     }
 }

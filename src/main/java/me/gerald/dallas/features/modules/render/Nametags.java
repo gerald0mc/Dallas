@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.modules.render;
 
+import com.google.common.collect.Lists;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
@@ -24,6 +25,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.village.MerchantRecipe;
@@ -46,6 +48,8 @@ public class Nametags extends Module {
     public BooleanSetting health = new BooleanSetting("Health", true, "Toggles the rendering of players health.");
     public BooleanSetting ping = new BooleanSetting("Ping", true, "Toggles the rendering of players ping.");
     public BooleanSetting totemPops = new BooleanSetting("TotemPops", true, "Toggles the rendering of a players pops.");
+    public BooleanSetting armor = new BooleanSetting("Armor", true, "Toggles rendering players armor.");
+    public BooleanSetting items = new BooleanSetting("Items", true, "Toggles rendering players items in hand.");
     public BooleanSetting allEntities = new BooleanSetting("AllEntities", true, "Toggles the rendering of nametags on all entities.");
     public BooleanSetting entityHealth = new BooleanSetting("EntityHealth", true, "Toggles the rendering of health on entities.", () -> allEntities.getValue());
     public BooleanSetting animals = new BooleanSetting("Animals", true, "Toggles the rendering of nametags on animals.", () -> allEntities.getValue());
@@ -83,24 +87,42 @@ public class Nametags extends Module {
                     else
                         str += Yeehaw.INSTANCE.friendManager.isFriend(player.getDisplayNameString()) ? ChatFormatting.AQUA + player.getDisplayNameString() + ChatFormatting.RESET : player.getDisplayNameString();
                     if (ping.getValue())
-                        str += " " + GRAY + MathHelper.ceil(Objects.requireNonNull(Minecraft.getMinecraft().getConnection()).getPlayerInfo(player.getUniqueID()).getResponseTime()) + "ms";
+                        str += " " + GRAY + MathHelper.ceil(Objects.requireNonNull(mc.getConnection()).getPlayerInfo(player.getUniqueID()).getResponseTime()) + "ms";
                     if (totemPops.getValue())
                         str += " Pops: " + Yeehaw.INSTANCE.eventManager.totemPopListener.getTotalPops(player);
                     if (health.getValue())
                         str += " " + getHealthColor(player) + MathHelper.ceil(playerHealth) + RESET;
-                    if (backGround.getValue()) {
-                        Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f) + 1, 2, new Color(12, 12, 12, 100).getRGB());
-                        if (border.getValue())
+                    int y = -(mc.fontRenderer.FONT_HEIGHT * 3);
+                    if (this.armor.getValue()) {
+                        int x = -30;
+                        for (ItemStack armorPiece : Lists.reverse(player.inventory.armorInventory)) {
+                            if (armorPiece.isEmpty()) {
+                                x += 15;
+                                continue;
+                            }
+                            RenderUtil.renderItem(armorPiece, "", x, y);
+                            x += 15;
+                        }
+                    }
+                    if (this.items.getValue()) {
+                        if (!player.inventory.getStackInSlot(player.inventory.currentItem).isEmpty())
+                            RenderUtil.renderItem(player.inventory.getStackInSlot(player.inventory.currentItem), "", -48, y);
+                        // offhand
+                        if (!player.getHeldItemOffhand().isEmpty())
+                            RenderUtil.renderItem(player.getHeldItemOffhand(), "", 35, y);
+                    }
+                    if(backGround.getValue()) {
+                        Gui.drawRect((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f) + 1, 1, new Color(12, 12, 12, 100).getRGB());
+                        if(border.getValue())
                             RenderUtil.renderBorder((int) -((mc.fontRenderer.getStringWidth(str) + 2) / 2f) - 1, -(mc.fontRenderer.FONT_HEIGHT + 2) - 1, ((mc.fontRenderer.getStringWidth(str) + 2) / (int) 2f) + 1, 2, 1, clientSync.getValue() ? clientColor : borderColor.getColor());
                     }
                     mc.fontRenderer.drawStringWithShadow(str, -(mc.fontRenderer.getStringWidth(str) / 2f), -(mc.fontRenderer.FONT_HEIGHT), -1);
                     GlStateManager.popMatrix();
                 }
                 if (allEntities.getValue()) {
-                    if (entity instanceof EntityAnimal && !animals.getValue()) continue;
-                    else if ((entity instanceof EntityMob || entity instanceof EntitySlime) && !mobs.getValue())
-                        continue;
-                    else if (entity instanceof EntityVillager && !villagers.getValue()) continue;
+                    if(entity instanceof EntityAnimal && !animals.getValue()) continue;
+                    else if((entity instanceof EntityMob || entity instanceof EntitySlime) && !mobs.getValue()) continue;
+                    else if(entity instanceof EntityVillager && !villagers.getValue()) continue;
                     List<String> lines = new ArrayList<>();
                     double health = entity.getHealth() + entity.getAbsorptionAmount();
                     lines.add(entity.getDisplayName().getFormattedText() + (entityHealth.getValue() ? " " + MathHelper.ceil(health) : ""));

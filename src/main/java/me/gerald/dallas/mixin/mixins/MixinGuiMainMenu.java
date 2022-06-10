@@ -5,6 +5,7 @@ import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.modules.client.Client;
 import me.gerald.dallas.utils.ChangeConstructor;
 import me.gerald.dallas.utils.RenderUtil;
+import me.gerald.dallas.utils.WebhookUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -16,26 +17,30 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
 @Mixin(GuiMainMenu.class)
 public class MixinGuiMainMenu extends GuiScreen {
-    @Shadow
-    private String splashText;
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    public void postConstructor(CallbackInfo ci) {
-        Client module = Yeehaw.INSTANCE.moduleManager.getModule(Client.class);
-        if (module.isEnabled() && module.customSplashText.getValue()) {
-            splashText = getRandomSplash(Yeehaw.INSTANCE.splashText);
-        }
-    }
-
     @Inject(method = "drawScreen", at = @At("TAIL"))
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         //change log
         List<ChangeConstructor> changelog = new ArrayList<>();
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "Nametags", "Item & Armor render"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "Amor module fix item render"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "EntityList"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "TakeoffAssist", "Movement"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "Nametags", "Owners"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.DELETE, "AutoKick"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "LongJump (Mega DooDoo Fart Ass)", "Movement"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE_ADD, "SmartTravel", "Elytra flying (Straight)"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "ItemSaver", "Misc"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "AFKMend", "Misc"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "AntiRegear", "Misc"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "Messages", "Client"));
+        changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "GameSpeed (Timer)", "Misc"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "MCXPee", "Combat"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.FIX, "Client start config loading"));
         changelog.add(new ChangeConstructor(ChangeConstructor.ChangeType.MODULE, "EntityList (WIP Dont Use)", "HUD"));

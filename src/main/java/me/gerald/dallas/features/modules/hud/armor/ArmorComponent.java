@@ -1,5 +1,6 @@
 package me.gerald.dallas.features.modules.hud.armor;
 
+import com.google.common.collect.Lists;
 import me.gerald.dallas.Yeehaw;
 import me.gerald.dallas.features.gui.api.HUDContainer;
 import me.gerald.dallas.managers.module.Module;
@@ -7,6 +8,7 @@ import me.gerald.dallas.utils.InventoryUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
@@ -28,36 +30,30 @@ public class ArmorComponent extends HUDContainer {
                 width = 80;
                 height = 20;
                 int xOffset = 0;
-                for (ItemStack stack : Minecraft.getMinecraft().player.getArmorInventoryList()) {
+                for (ItemStack stack : Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue() ? Minecraft.getMinecraft().player.inventory.armorInventory : Lists.reverse(Minecraft.getMinecraft().player.inventory.armorInventory)) {
                     if (stack.getItem().equals(Items.AIR)) {
-                        if (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue())
-                            xOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
-                        else
-                            xOffset -= Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
+                        xOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
                         continue;
                     }
                     int duraString = Math.round(((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage());
                     RenderUtil.renderItem(stack, Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).stackCount.getValue() ? InventoryUtil.getTotalAmountOfItem(stack.getItem()) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x + xOffset, y);
-                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).durability.getValue() ? String.valueOf(duraString) : "", x + xOffset - 1, y - 8, new Color(66, 226, 29).getRGB());
-                    if (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue())
-                        xOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
-                    else
-                        xOffset -= Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
+                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).durability.getValue() ? String.valueOf(duraString) : "", x + xOffset + 2, y - 8, new Color(66, 226, 29).getRGB());
+                    xOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
                 }
                 break;
             case "Vertical":
                 height = 80;
                 width = 20;
                 int yOffset = 0;
-                for (ItemStack stack : Minecraft.getMinecraft().player.getArmorInventoryList()) {
-                    RenderUtil.renderItem(stack, Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).stackCount.getValue() ? (InventoryUtil.getTotalAmountOfItem(stack.getItem())) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x, y + yOffset);
+                for (ItemStack stack : Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue() ? Minecraft.getMinecraft().player.inventory.armorInventory : Lists.reverse(Minecraft.getMinecraft().player.inventory.armorInventory)) {
+                    if (stack.getItem().equals(Items.AIR)) {
+                        yOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
+                        continue;
+                    }
                     int duraString = Math.round(((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage());
                     RenderUtil.renderItem(stack, Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).stackCount.getValue() ? InventoryUtil.getTotalAmountOfItem(stack.getItem()) == 0 ? "" : String.valueOf(InventoryUtil.getTotalAmountOfItem(stack.getItem())) : "", x, y + yOffset);
-                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).durability.getValue() ? String.valueOf(duraString) : "", x - 1, y + yOffset - 8, new Color(66, 226, 29).getRGB());
-                    if (Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).reverse.getValue())
-                        yOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
-                    else
-                        yOffset -= Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
+                    Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).durability.getValue() ? String.valueOf(duraString) : "", x + 2, y + yOffset - 8, new Color(66, 226, 29).getRGB());
+                    yOffset += Yeehaw.INSTANCE.moduleManager.getModule(Armor.class).offset.getValue();
                 }
                 break;
         }

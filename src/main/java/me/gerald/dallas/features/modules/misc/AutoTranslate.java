@@ -11,6 +11,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -24,11 +25,11 @@ import static me.bush.translator.LanguageKt.languageOf;
  * @since 6/9/2022
  */
 public class AutoTranslate extends Module {
-    private final BooleanSetting incoming = new BooleanSetting("Incoming", true, "Translate incoming messages");
-    private final StringSetting inLang = new StringSetting("In Lang", "en", "Language to translate incoming messages to", incoming::getValue);
-    private final BooleanSetting suffix = new BooleanSetting("Suffix Translations", true, "Mark translated messages with \"[Translated]\"", incoming::getValue);
-    private final BooleanSetting outgoing = new BooleanSetting("Outgoing", true, "Translate outgoing messages");
-    private final StringSetting outLang = new StringSetting("Out Lang", "en", "Language to translate outgoing messages to", outgoing::getValue);
+    private final BooleanSetting incoming = new BooleanSetting("Incoming", true, "Translate incoming messages.");
+    private final StringSetting inLang = new StringSetting("In Lang", "en", "Language to translate incoming messages to.", incoming::getValue);
+    private final BooleanSetting suffix = new BooleanSetting("Suffix Translations", true, "Mark translated messages with \"[Translated]\".", incoming::getValue);
+    private final BooleanSetting outgoing = new BooleanSetting("Outgoing", true, "Translate outgoing messages.");
+    private final StringSetting outLang = new StringSetting("Out Lang", "en", "Language to translate outgoing messages to.", outgoing::getValue);
 
     private final Translator translator = new Translator();
     private final Executor executor = Executors.newSingleThreadExecutor();
@@ -68,7 +69,7 @@ public class AutoTranslate extends Module {
         try {
             translation = translator.translateBlocking(message, language);
         } catch (Exception exception) {
-            MessageUtil.sendMessage(BOLD + "AutoTranslate", "Could not process translation request. Disabling.", true);
+            MessageUtil.sendMessage(BOLD + "AutoTranslate", "Could not process translation request. Disabling.", MessageUtil.MessageType.CONSTANT);
             toggle();
         }
         return translation;
@@ -77,7 +78,7 @@ public class AutoTranslate extends Module {
     private Language getLanguage(String string) {
         Language language = languageOf(string);
         if (language == null) {
-            MessageUtil.sendMessage(BOLD + "AutoTranslate", string + " is not a valid language. Disabling.", true);
+            MessageUtil.sendMessage(BOLD + "AutoTranslate", string + " is not a valid language. Disabling.", MessageUtil.MessageType.CONSTANT);
             toggle();
         }
         return language;

@@ -44,6 +44,9 @@ public abstract class AbstractContainer implements Globals {
             if (this instanceof ModuleContainer) {
                 ModuleContainer container = (ModuleContainer) this;
                 container.needsHover = true;
+            } else if (this instanceof SettingComponent) {
+                SettingComponent component = (SettingComponent) this;
+                component.needsHover = true;
             }
             return preValue + Minecraft.getMinecraft().fontRenderer.trimStringToWidth(value, maxWidth - preWidth - dotWidth) + "...";
         }

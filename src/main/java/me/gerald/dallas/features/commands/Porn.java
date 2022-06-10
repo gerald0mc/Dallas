@@ -17,7 +17,7 @@ public class Porn extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Porn", "Please specify the type of porn you wish to see.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Porn", "Please specify the type of porn you wish to see.", MessageUtil.MessageType.CONSTANT);
             return;
         }
         String type = "";

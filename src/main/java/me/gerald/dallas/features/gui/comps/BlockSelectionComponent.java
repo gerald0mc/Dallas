@@ -19,7 +19,6 @@ import java.util.List;
 
 public class BlockSelectionComponent extends HUDContainer {
     public List<Thing> blockPosList = new ArrayList<>();
-    public boolean listDone = false;
     public BlockSelectionComponent(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
@@ -55,7 +54,6 @@ public class BlockSelectionComponent extends HUDContainer {
             xOffset += 18;
         }
         height = yOffset;
-        if (!listDone) listDone = true;
     }
 
     @Override

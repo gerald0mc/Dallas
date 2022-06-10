@@ -16,7 +16,7 @@ public class Window extends Module {
     @Override
     public void onEnable() {
         Display.setTitle(windowName.getValue());
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Window", "Set Minecraft window title to " + ChatFormatting.AQUA + windowName.getValue(), true);
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Window", "Set Minecraft window title to " + ChatFormatting.AQUA + windowName.getValue(), MessageUtil.MessageType.CONSTANT);
         toggle();
     }
 }

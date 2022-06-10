@@ -1,5 +1,6 @@
 package me.gerald.dallas;
 
+import baritone.api.BaritoneAPI;
 import me.gerald.dallas.features.gui.clickgui.ClickGUI;
 import me.gerald.dallas.features.gui.console.ConsoleGUI;
 import me.gerald.dallas.managers.CPSManager;
@@ -10,15 +11,23 @@ import me.gerald.dallas.managers.command.CommandManager;
 import me.gerald.dallas.managers.friend.FriendManager;
 import me.gerald.dallas.managers.module.ModuleManager;
 import me.gerald.dallas.managers.notification.NotificationManager;
+import me.gerald.dallas.utils.Globals;
 import me.gerald.dallas.utils.ProjectionUtil;
 import me.gerald.dallas.utils.ShutDownHook;
+import me.gerald.dallas.utils.WebhookUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Mod(
@@ -51,21 +60,11 @@ public class Yeehaw {
     public FPSManager fpsManager;
     public ClickGUI clickGUI;
     public ConsoleGUI consoleGUI;
-
-    public List<String> splashText;
-    public boolean isDevJar = true;
+    public boolean isDevJar = false;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
-
-        splashText = new ArrayList<>();
-        splashText.add("Dallas on top!");
-        splashText.add("gerald0mc owns everyone.");
-        splashText.add("Fuck bitches get money.");
-        splashText.add("Dallas owns you!");
-        splashText.add("All these nn's on me.");
-        splashText.add("Fuck niggers.");
         //major managers
         moduleManager = new ModuleManager();
         eventManager = new EventManager();

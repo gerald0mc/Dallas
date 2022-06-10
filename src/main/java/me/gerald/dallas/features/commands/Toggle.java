@@ -15,14 +15,14 @@ public class Toggle extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", "Please specify which modules you would like to toggle.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", "Please specify which modules you would like to toggle.", MessageUtil.MessageType.CONSTANT);
             return;
         }
         String moduleName = args[1];
         for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
             if (module.getName().equalsIgnoreCase(moduleName)) {
                 module.toggle();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", "Toggled " + ChatFormatting.AQUA + module.getName(), true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Toggle", "Toggled " + ChatFormatting.AQUA + module.getName(), MessageUtil.MessageType.CONSTANT);
                 return;
             }
         }

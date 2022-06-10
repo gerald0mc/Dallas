@@ -15,20 +15,20 @@ public class Webhook extends Command {
     public void onCommand(String[] args) {
         super.onCommand(args);
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Please specify which sub command you would like to use.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Please specify which sub command you would like to use.", MessageUtil.MessageType.CONSTANT);
             return;
         }
         switch (args[1]) {
             case "set":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Please specify either set webhook or message.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Please specify either set webhook or message.", MessageUtil.MessageType.CONSTANT);
                     return;
                 }
                 switch (args[2]) {
                     case "url":
                         String webhookURL = args[3];
                         Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).webhookURL.setValue(webhookURL);
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Set Webhook URL to " + ChatFormatting.AQUA + webhookURL, true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Set Webhook URL to " + ChatFormatting.AQUA + webhookURL, MessageUtil.MessageType.CONSTANT);
                         break;
                     case "message":
                         StringBuilder string = new StringBuilder(args[3]);
@@ -36,13 +36,13 @@ public class Webhook extends Command {
                             string.append(" ").append(args[(3 + i)]);
                         }
                         Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).message.setValue(string.toString());
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Set message to " + ChatFormatting.AQUA + string, true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Set message to " + ChatFormatting.AQUA + string, MessageUtil.MessageType.CONSTANT);
                         break;
                 }
                 break;
             case "start":
                 Yeehaw.INSTANCE.moduleManager.getModule(WebhookSpammer.class).toggle();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Starting webhook...", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook", "Starting webhook...", MessageUtil.MessageType.CONSTANT);
                 break;
         }
     }

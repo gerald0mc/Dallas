@@ -35,7 +35,7 @@ public class AutoGG extends Module {
         if (!autoGGFile.exists()) {
             try {
                 autoGGFile.createNewFile();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Auto GG", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "AutoGG.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Auto GG", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "AutoGG.txt" + ChatFormatting.RESET + " and add what you wish for it to say.", MessageUtil.MessageType.CONSTANT);
             } catch (IOException ignored) {
             }
         }

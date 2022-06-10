@@ -28,7 +28,7 @@ public class Waypoint extends Command {
         if (!waypointFile.exists()) {
             try {
                 waypointFile.createNewFile();
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add].", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please go into your " + ChatFormatting.GREEN + ".minecraft" + ChatFormatting.RESET + " folder and navigate to " + ChatFormatting.AQUA + "Dallas" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Client" + ChatFormatting.GRAY + File.separator + ChatFormatting.AQUA + "Waypoints.txt" + ChatFormatting.RESET + " and your waypoints you can also use " + Yeehaw.INSTANCE.commandManager.PREFIX + "waypoint [add].", MessageUtil.MessageType.CONSTANT);
             } catch (IOException ignored) {
             }
         }
@@ -42,7 +42,7 @@ public class Waypoint extends Command {
                 String server = "Singleplayer";
                 switch (args.length) {
                     case 2:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of your Waypoint.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of your Waypoint.", MessageUtil.MessageType.CONSTANT);
                         return;
                     case 3:
                         waypointName = args[2];
@@ -66,13 +66,13 @@ public class Waypoint extends Command {
                         }
                         break;
                     case 4:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Y, Z, and Dimension of your custom waypoint.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Y, Z, and Dimension of your custom waypoint.", MessageUtil.MessageType.CONSTANT);
                         return;
                     case 5:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Z and Dimension of your custom waypoint.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Z and Dimension of your custom waypoint.", MessageUtil.MessageType.CONSTANT);
                         return;
                     case 6:
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Dimension of your custom waypoint.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify Dimension of your custom waypoint.", MessageUtil.MessageType.CONSTANT);
                         return;
                     case 7:
                         waypointName = args[2];
@@ -86,7 +86,7 @@ public class Waypoint extends Command {
                         } else if (args[6].equalsIgnoreCase("end")) {
                             dimension = "End";
                         } else {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please make your dimension you are trying to set is one of three (Overworld, Nether, or End).", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please make your dimension you are trying to set is one of three (Overworld, Nether, or End).", MessageUtil.MessageType.CONSTANT);
                             return;
                         }
                         ServerData data2 = Minecraft.getMinecraft().getCurrentServerData();
@@ -99,13 +99,13 @@ public class Waypoint extends Command {
                     FileWriter fileWriter = new FileWriter(waypointFile, true);
                     fileWriter.write("Name " + waypointName + " X " + x + " Y " + y + " Z " + z + " Dimension " + dimension + " Server " + server + "\n");
                     fileWriter.close();
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + ChatFormatting.AQUA + waypointName + ChatFormatting.RESET + " and it is at " + ChatFormatting.GRAY + "X: " + ChatFormatting.GREEN + x + ChatFormatting.GRAY + " Y: " + ChatFormatting.GREEN + y + ChatFormatting.GRAY + " Z: " + ChatFormatting.GREEN + z + ChatFormatting.RESET + " and is in the " + ChatFormatting.GOLD + dimension, true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Added new waypoint called " + ChatFormatting.AQUA + waypointName + ChatFormatting.RESET + " and it is at " + ChatFormatting.GRAY + "X: " + ChatFormatting.GREEN + x + ChatFormatting.GRAY + " Y: " + ChatFormatting.GREEN + y + ChatFormatting.GRAY + " Z: " + ChatFormatting.GREEN + z + ChatFormatting.RESET + " and is in the " + ChatFormatting.GOLD + dimension, MessageUtil.MessageType.CONSTANT);
                 } catch (IOException ignored) {
                 }
                 break;
             case "remove":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of the Waypoint you are trying to remove.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Please specify the name of the Waypoint you are trying to remove.", MessageUtil.MessageType.CONSTANT);
                     return;
                 }
                 String target = args[2];
@@ -115,7 +115,7 @@ public class Waypoint extends Command {
                         String[] values = waypoint.split(" ");
                         if (values[1].equalsIgnoreCase(target)) {
                             FileUtil.removeLineFromFile(waypointFile, waypoint);
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Removed " + target + " from Waypoints list.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", "Removed " + target + " from Waypoints list.", MessageUtil.MessageType.CONSTANT);
                         }
                     }
                 } catch (IOException ignored) {
@@ -124,9 +124,9 @@ public class Waypoint extends Command {
             case "list":
                 try {
                     List<String> waypoints = Files.readAllLines(Paths.get(waypointFile.toURI()));
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as " + ChatFormatting.WHITE + "Waypoint List", MessageUtil.MessageType.CONSTANT);
                     for (String waypoint : waypoints) {
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", waypoint, true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Waypoint", waypoint, MessageUtil.MessageType.CONSTANT);
                     }
                 } catch (IOException ignored) {
                 }

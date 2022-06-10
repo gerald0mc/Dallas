@@ -47,7 +47,7 @@ public class SelectionComponent extends AbstractContainer {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (isInsideClick(mouseX, mouseY)) {
             if (Minecraft.getMinecraft().currentScreen instanceof ClickGUI) {
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Error", "Already in ClickGUI.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Error", "Already in ClickGUI.", MessageUtil.MessageType.ERROR);
                 return;
             }
             Yeehaw.INSTANCE.consoleGUI.selectionBox.inConsoleGUI = false;
@@ -57,7 +57,7 @@ public class SelectionComponent extends AbstractContainer {
             Minecraft.getMinecraft().displayGuiScreen(Yeehaw.INSTANCE.clickGUI);
         } else if (isInsideConsole(mouseX, mouseY)) {
             if (Minecraft.getMinecraft().currentScreen instanceof ConsoleGUI) {
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Error", "Already in ConsoleGUI.", true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Error", "Already in ConsoleGUI.", MessageUtil.MessageType.ERROR);
                 return;
             }
             Yeehaw.INSTANCE.consoleGUI.selectionBox.inConsoleGUI = true;

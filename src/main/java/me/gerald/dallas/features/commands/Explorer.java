@@ -18,7 +18,7 @@ public class Explorer extends Command {
         super.onCommand(args);
         try {
             Desktop.getDesktop().open(ConfigManager.mainPath);
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Explorer", "Opened the client path in explorer.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Explorer", "Opened the client path in explorer.", MessageUtil.MessageType.CONSTANT);
         } catch (IOException ignored) {
         }
     }

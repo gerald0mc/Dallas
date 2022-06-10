@@ -12,9 +12,9 @@ public class Help extends Command {
 
     @Override
     public void onCommand(String[] args) {
-        MessageUtil.sendMessage(ChatFormatting.BOLD + "Help", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.RESET + " Help Menu", true);
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "Help", ChatFormatting.BLUE + "Da" + ChatFormatting.WHITE + "ll" + ChatFormatting.RED + "as" + ChatFormatting.RESET + " Help Menu", MessageUtil.MessageType.CONSTANT);
         for (Command command : Yeehaw.INSTANCE.commandManager.getCommands()) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Help", ChatFormatting.AQUA + String.join(" ", command.getUsage()) + ChatFormatting.GRAY + ": " + ChatFormatting.GREEN + command.getDescription(), true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Help", ChatFormatting.AQUA + String.join(" ", command.getUsage()) + ChatFormatting.GRAY + ": " + ChatFormatting.GREEN + command.getDescription(), MessageUtil.MessageType.CONSTANT);
         }
     }
 }

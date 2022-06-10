@@ -29,8 +29,12 @@ public class ModeComponent extends SettingComponent {
         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + setting.getMode(), x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getMode()) - 4, y + 3, -1);
         RenderUtil.renderBorderToggle(x, y, x + width, y + height, 1, new Color(0, 0, 0, 255), false, true, true, last);
         if (isInside(mouseX, mouseY)) {
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = "A mode setting called (" + setting.getName() + ").";
-            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth("A mode setting called (" + setting.getName() + ").") + 8;
+            if (needsHover) {
+                Gui.drawRect(mouseX + 5, mouseY - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, mouseX + 8 + Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getName()), mouseY - 5, new Color(0, 0, 0, 255).getRGB());
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(setting.getName(), mouseX + 7, mouseY - 13, -1);
+            }
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.text = setting.getDescription();
+            Yeehaw.INSTANCE.clickGUI.descriptionBox.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.getDescription()) + 8;
         }
     }
 

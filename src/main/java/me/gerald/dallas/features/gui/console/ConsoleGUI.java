@@ -95,11 +95,11 @@ public class ConsoleGUI extends GuiScreen {
             case Keyboard.KEY_C:
                 if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
                     if (entryString.length() == 0) {
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Nothing to copy.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Nothing to copy.", MessageUtil.MessageType.CONSTANT);
                         return;
                     }
                     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entryString), null);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Copied text in string box to clipboard.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Console", "Copied text in string box to clipboard.", MessageUtil.MessageType.CONSTANT);
                 }
                 break;
         }

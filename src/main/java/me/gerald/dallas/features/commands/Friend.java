@@ -16,40 +16,40 @@ import java.util.List;
 
 public class Friend extends Command {
     public Friend() {
-        super("Friend", "Adds, removes, or list's all Friends.", new String[]{"f", "[<add> <name>/<remove> <name>/<list>]"});
+        super("Friend", "Adds, removes, or list's all Friends.", new String[]{"friend", "[<add> <name>/<remove> <name>/<list>]"});
     }
 
     @Override
     public void onCommand(String[] args) {
         if (args.length == 1) {
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify if you would like to add, remove, or list Friend.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify if you would like to add, remove, or list Friend.", MessageUtil.MessageType.CONSTANT);
             return;
         }
         switch (args[1]) {
             case "add":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify which player you would like to add to the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify which player you would like to add to the Friend list.", MessageUtil.MessageType.CONSTANT);
                     return;
                 }
                 String playerName = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName)) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", playerName + " is already a friend.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", playerName + " is already a friend.", MessageUtil.MessageType.CONSTANT);
                 } else {
                     Yeehaw.INSTANCE.friendManager.addFriend(playerName);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Added " + playerName + " to the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Added " + playerName + " to the Friend list.", MessageUtil.MessageType.CONSTANT);
                 }
                 break;
             case "remove":
                 if (args.length == 2) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify which player you would like to remove from the Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Please specify which player you would like to remove from the Friend list.", MessageUtil.MessageType.CONSTANT);
                     return;
                 }
                 String playerName2 = args[2];
                 if (Yeehaw.INSTANCE.friendManager.isFriend(playerName2)) {
                     Yeehaw.INSTANCE.friendManager.delFriend(playerName2);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Removed " + playerName2 + " from Friend list.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", "Removed " + playerName2 + " from Friend list.", MessageUtil.MessageType.CONSTANT);
                 } else {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", playerName2 + " is already not a friend.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Friend", playerName2 + " is already not a friend.", MessageUtil.MessageType.CONSTANT);
                 }
                 break;
             case "list":

@@ -41,12 +41,13 @@ public class Offhand extends Module {
 
     @Override
     public String getMetaData() {
-        return String.valueOf(InventoryUtil.getTotalAmountOfItem(Items.TOTEM_OF_UNDYING));
+        return getShortenedName(mc.player.getHeldItemOffhand().getItem()) == null ? "" : getShortenedName(mc.player.getHeldItemOffhand().getItem());
     }
 
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
+        //#TODO change to item
         boolean forceTotem = false;
         if (fallCheck.getValue() && needsItem) {
             if (mc.player.fallDistance > minDistance.getValue()) {
@@ -141,13 +142,24 @@ public class Offhand extends Module {
         if (instantSwitch.getValue()) {
             InventoryUtil.moveItemToSlot(45, slot);
             if (message.getValue())
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), true);
+                MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), MessageUtil.MessageType.CONSTANT);
         } else {
             if (delayTimer.passedMs((long) delay.getValue())) {
                 InventoryUtil.moveItemToSlot(45, slot);
                 if (message.getValue())
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Offhand", string.replace("<item>", mc.player.getHeldItemOffhand().getDisplayName()), MessageUtil.MessageType.CONSTANT);
             }
         }
+    }
+
+    public String getShortenedName(Item item) {
+        if (Items.TOTEM_OF_UNDYING.equals(item)) {
+            return "Totem";
+        } else if (Items.GOLDEN_APPLE.equals(item)) {
+            return "Gapples";
+        } else if (Items.END_CRYSTAL.equals(item)) {
+            return "Crystals";
+        }
+        return null;
     }
 }

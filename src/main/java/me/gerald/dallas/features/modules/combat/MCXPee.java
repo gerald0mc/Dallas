@@ -36,19 +36,19 @@ public class MCXPee extends Module {
             if (!mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE) && !switched) {
                 int xpSlot = InventoryUtil.getItemHotbar(Items.EXPERIENCE_BOTTLE);
                 if (xpSlot == -1) {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "You have no XP toggling...", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "You have no XP toggling...", MessageUtil.MessageType.CONSTANT);
                     toggle();
                     return;
                 }
                 if (xpSlot != mc.player.inventory.currentItem) {
                     if (silent.getValue()) {
                         InventoryUtil.silentSwitchToSlot(xpSlot);
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Silent switched to XP.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Silent switched to XP.", MessageUtil.MessageType.CONSTANT);
                         silentlyPeeing = true;
                     } else {
                         originalSlot = mc.player.inventory.currentItem;
                         InventoryUtil.switchToSlot(xpSlot);
-                        MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Normal switched to XP.", true);
+                        MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Normal switched to XP.", MessageUtil.MessageType.CONSTANT);
                     }
                     switched = true;
                     return;
@@ -61,12 +61,12 @@ public class MCXPee extends Module {
             if (switched) {
                 if (silentlyPeeing) {
                     InventoryUtil.silentSwitchToSlot(mc.player.inventory.currentItem);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Silent switched to original slot.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Silent switched to original slot.", MessageUtil.MessageType.CONSTANT);
                     silentlyPeeing = false;
                 } else {
                     if (mc.player.inventory.currentItem == originalSlot) return;
                     InventoryUtil.switchToSlot(originalSlot);
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Normal switched to original slot.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCXPee", "Normal switched to original slot.", MessageUtil.MessageType.CONSTANT);
                     originalSlot = -1;
                 }
                 switched = false;

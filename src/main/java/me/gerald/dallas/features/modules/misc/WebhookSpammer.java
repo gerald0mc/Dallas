@@ -48,23 +48,23 @@ public class WebhookSpammer extends Module {
                 switch (mode.getMode()) {
                     case "Spammer":
                         if (messagesSent >= messages.getValue()) {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "On cooldown to avoid being rate limited.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "On cooldown to avoid being rate limited.", MessageUtil.MessageType.CONSTANT);
                             delay((int) cooldown.getValue() * 1000);
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "No longer on cooldown, continuing webhook spam.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "No longer on cooldown, continuing webhook spam.", MessageUtil.MessageType.CONSTANT);
                             messagesSent = 0;
                         } else {
                             WebhookUtil webhook = new WebhookUtil(webhookURL.getValue());
                             webhook.setContent(message.getValue());
                             try {
                                 webhook.execute();
-                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "Executed", true);
+                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "Executed", MessageUtil.MessageType.CONSTANT);
                                 messagesSent++;
                                 totalMessages++;
                             } catch (MalformedURLException e) {
-                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "You have entered a invalid Webhook URL.", true);
+                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "You have entered a invalid Webhook URL.", MessageUtil.MessageType.CONSTANT);
                                 toggle();
                             } catch (IOException exception) {
-                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "There was an error while trying to send to the webhook.", true);
+                                MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "There was an error while trying to send to the webhook.", MessageUtil.MessageType.CONSTANT);
                                 toggle();
                             }
                             delay((int) delay.getValue() * 1000);
@@ -77,10 +77,10 @@ public class WebhookSpammer extends Module {
                             webhook.execute();
                             totalMessages++;
                         } catch (MalformedURLException e) {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "You have entered a invalid Webhook URL.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "You have entered a invalid Webhook URL.", MessageUtil.MessageType.CONSTANT);
                             toggle();
                         } catch (IOException exception) {
-                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "There was an error while trying to send to the webhook.", true);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "Webhook Spammer", "There was an error while trying to send to the webhook.", MessageUtil.MessageType.CONSTANT);
                             toggle();
                         }
                         break;

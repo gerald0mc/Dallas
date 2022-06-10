@@ -38,7 +38,7 @@ public class MCPearl extends Module {
                     if (onThrowToggle.getValue())
                         toggle();
                 } else {
-                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your hotbar.", true);
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "MCP", "You have no ender pearls in your hotbar.", MessageUtil.MessageType.CONSTANT);
                     if (noPearlToggle.getValue())
                         toggle();
                 }

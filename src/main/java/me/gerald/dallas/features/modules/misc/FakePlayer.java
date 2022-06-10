@@ -80,7 +80,7 @@ public class FakePlayer extends Module {
             }
             mc.world.spawnEntity(fakePlayer);
             gappleTimer.reset();
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Fake Player", "Spawned a Fake Player.", true);
+            MessageUtil.sendMessage(ChatFormatting.BOLD + "Fake Player", "Spawned a Fake Player.", MessageUtil.MessageType.CONSTANT);
         }
     }
 
