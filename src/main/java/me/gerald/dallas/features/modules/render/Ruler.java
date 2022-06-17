@@ -7,10 +7,14 @@ import me.gerald.dallas.setting.settings.ColorSetting;
 import me.gerald.dallas.utils.MessageUtil;
 import me.gerald.dallas.utils.RenderUtil;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import org.lwjgl.input.Mouse;
 
 public class Ruler extends Module {
     public ColorSetting boxColor = new ColorSetting("BoxColor", 255, 255, 255, 125, "Ruler box color.");
@@ -22,15 +26,20 @@ public class Ruler extends Module {
     }
 
     @SubscribeEvent
-    public void onBlockDamage(PlayerDamageBlockEvent event) {
-        event.setCanceled(true);
-        if (rulerBlock == null) {
-            rulerBlock = event.getPos();
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Added position to pos list.", MessageUtil.MessageType.CONSTANT);
-        } else {
-            int blocksBetween = (int) rulerBlock.getDistance(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Distance between the two spots is " + ChatFormatting.AQUA + blocksBetween + ChatFormatting.RESET + ".", MessageUtil.MessageType.CONSTANT);
-            rulerBlock = null;
+    public void onClick(InputEvent.MouseInputEvent event) {
+        if (Mouse.getEventButtonState()) {
+            if (Mouse.isButtonDown(0)) {
+                if (!mc.objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK)) return;
+                if (mc.world.getBlockState(mc.objectMouseOver.getBlockPos()).getBlock() == Blocks.AIR) return;
+                if (rulerBlock == null) {
+                    rulerBlock = mc.objectMouseOver.getBlockPos();
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Set new Ruler spot.", MessageUtil.MessageType.CONSTANT);
+                } else {
+                    int blocksBetween = (int) rulerBlock.getDistance(mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(), mc.objectMouseOver.getBlockPos().getZ());
+                    MessageUtil.sendMessage(ChatFormatting.BOLD + "Ruler", "Distance between the two spots is " + ChatFormatting.AQUA + blocksBetween + ChatFormatting.RESET + ".", MessageUtil.MessageType.CONSTANT);
+                    rulerBlock = null;
+                }
+            }
         }
     }
 

@@ -32,6 +32,7 @@ public class SmartTravel extends Module {
 
     @Override
     public void onEnable() {
+        if (nullCheck()) return;
         if (!overrodeProcess) {
             for (ItemStack armor : mc.player.getArmorInventoryList()) {
                 if (armor.getItem().equals(Items.ELYTRA) && mc.player.isElytraFlying()) {
@@ -54,6 +55,7 @@ public class SmartTravel extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
+        if (targetPos == null) return;
         if (mc.player.getHealth() <= health.getValue() && !mc.player.isDead && healthLogout.getValue()) {
             Objects.requireNonNull(mc.getConnection()).handleDisconnect(new SPacketDisconnect(new TextComponentString("Logged because your health dropped below " + healthLogout.getValue() + " and was at " + ChatFormatting.GRAY + "[" + mc.player.getHealth() + "]" + ChatFormatting.RESET + ".")));
             toggle();

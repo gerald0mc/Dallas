@@ -64,7 +64,7 @@ public class EventManager implements Globals {
         if (Keyboard.getEventKeyState()) {
             int key = Keyboard.getEventKey();
             for (Module module : Yeehaw.INSTANCE.moduleManager.getModules()) {
-                if (module.getKeybind() == key) {
+                if (module.getKeybind() == key && key != Keyboard.KEY_NONE) {
                     module.toggle();
                 }
             }

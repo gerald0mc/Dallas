@@ -18,8 +18,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ShulkerNametags extends Module {
-    public BooleanSetting counts = new BooleanSetting("Counts", false, "Toggles the rendering of item counts. (WIP. I.E. ASS)");
-
     public ShulkerNametags() {
         super("ShulkerNametags", Category.RENDER, "Renders the shulker as a nametag.");
     }
@@ -57,7 +55,7 @@ public class ShulkerNametags extends Module {
                 int iX = x + i % 9 * 18 + 8;
                 int iY = y + i / 9 * 18 + 18;
                 ItemStack itemStack = nonNullList.get(i);
-                RenderUtil.renderItem(itemStack, counts.getValue() ? itemStack.getCount() == 1 ? "" : String.valueOf(itemStack.getCount()) : "", iX, iY);
+                RenderUtil.renderItem(itemStack, "", iX, iY);
             }
             GlStateManager.disableLighting();
             GlStateManager.disableBlend();

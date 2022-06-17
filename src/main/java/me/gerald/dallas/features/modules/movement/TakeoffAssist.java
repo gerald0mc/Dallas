@@ -64,7 +64,7 @@ public class TakeoffAssist extends Module {
 
     public boolean isWearingElytra() {
         for (ItemStack stack : mc.player.getArmorInventoryList()) {
-            if (stack.equals(Items.ELYTRA)) return true;
+            if (stack.getItem().equals(Items.ELYTRA)) return true;
         }
         return false;
     }

@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -87,12 +88,12 @@ public class Offhand extends Module {
             if (mc.player.getHeldItemOffhand().getItem().equals(Items.TOTEM_OF_UNDYING)) return;
             int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
             if (totemSlot != -1) {
-                doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
+                doThing(totemSlot, "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
             } else {
                 int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
                 if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
                 if (itemSlot != -1)
-                    doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot for backup.");
+                    doThing(itemSlot, "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot for backup.");
             }
         } else {
             if (absorptionAdd.getValue() ? mc.player.getHealth() + mc.player.getAbsorptionAmount() <= totemHealth.getValue() : mc.player.getHealth() <= totemHealth.getValue()) {
@@ -102,12 +103,12 @@ public class Offhand extends Module {
             if (mc.player.getHeldItemOffhand().getItem().equals(getItem())) return;
             int itemSlot = InventoryUtil.getItemInventory(getItem(), true);
             if (itemSlot != -1) {
-                doThing(itemSlot, ChatFormatting.GRAY + "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot.");
+                doThing(itemSlot, "Moved " + ChatFormatting.GREEN + "<item>" + ChatFormatting.RESET + " to offhand slot.");
             } else {
                 int totemSlot = InventoryUtil.getItemInventory(Items.TOTEM_OF_UNDYING, true);
                 if (mc.player.getHeldItemOffhand().getItem().equals(Items.TOTEM_OF_UNDYING)) return;
                 if (totemSlot != -1)
-                    doThing(totemSlot, ChatFormatting.GRAY + "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
+                    doThing(totemSlot, "Moved a " + ChatFormatting.GREEN + "Totem of Undying" + ChatFormatting.RESET + " to offhand slot.");
             }
         }
     }

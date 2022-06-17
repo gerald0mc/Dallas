@@ -21,8 +21,6 @@ public class AFKMend extends Module {
         super("AFKMend", Category.MISC, "description");
     }
 
-    public NumberSetting durability = new NumberSetting("Durability", 90, 1, 99, "Durability to switch to another item.");
-
     public int itemSlot = -1;
 
     @Override
@@ -40,13 +38,14 @@ public class AFKMend extends Module {
     @SubscribeEvent
     public void onUpdate(TickEvent.ClientTickEvent event) {
         if (nullCheck()) return;
-        if (mc.player.getHeldItemOffhand().getItem().equals(Items.AIR) || itemSlot == -1) {
+        if (itemSlot == -1 || mc.player.getHeldItemOffhand().getItem().equals(Items.AIR)) {
             for (int i = 0; i < 45; ++i) {
                 ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
+                if (stack.getEnchantmentTagList().isEmpty()) continue;
                 for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
                     if (entry.getKey().equals(Enchantments.MENDING)) {
-                        int dura = Math.round(((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage());
-                        if (dura <= durability.getValue()) {
+                        float dura = ((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage();
+                        if (dura != 100) {
                             itemSlot = i;
                             InventoryUtil.moveItemToSlot(45, itemSlot);
                             MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "Switched to new item for AFK mending.", MessageUtil.MessageType.INFO);
@@ -55,29 +54,28 @@ public class AFKMend extends Module {
                     }
                 }
             }
-            MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "No items to mend toggling module.", MessageUtil.MessageType.INFO);
-            toggle();
         } else {
             ItemStack offHandStack = mc.player.getHeldItemOffhand();
-            int offHandDura = Math.round(((offHandStack.getMaxDamage() - offHandStack.getItemDamage()) * 100f) / (float) offHandStack.getMaxDamage());
-            if (offHandDura >= durability.getValue()) {
-                for (int i = 0; i < 45; ++i) {
-                    ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
-                    for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
-                        if (entry.getKey().equals(Enchantments.MENDING)) {
-                            int dura = Math.round(((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage());
-                            if (dura <= durability.getValue()) {
-                                itemSlot = i;
-                                InventoryUtil.moveItemToSlot(45, itemSlot);
-                                MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "Switched to new item for AFK mending.", MessageUtil.MessageType.INFO);
-                                return;
-                            }
+            float offHandDura = ((offHandStack.getMaxDamage() - offHandStack.getItemDamage()) * 100f) / (float) offHandStack.getMaxDamage();
+            if (offHandDura != 100)  return;
+            for (int i = 0; i < 45; ++i) {
+                ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getInventory().get(i);
+                if (stack.getEnchantmentTagList().isEmpty()) continue;
+                for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
+                    if (entry.getKey().equals(Enchantments.MENDING)) {
+                        float dura = ((stack.getMaxDamage() - stack.getItemDamage()) * 100f) / (float) stack.getMaxDamage();
+                        if (dura != 100) {
+                            itemSlot = i;
+                            InventoryUtil.moveItemToSlot(45, itemSlot);
+                            MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "Switched to new item for AFK mending.", MessageUtil.MessageType.INFO);
+                            return;
                         }
                     }
                 }
-                MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "No items left to mend toggling module.", MessageUtil.MessageType.INFO);
-                toggle();
             }
+            itemSlot = -1;
         }
+        MessageUtil.sendMessage(ChatFormatting.BOLD + "AFKMend", "No items left to mend toggling module.", MessageUtil.MessageType.INFO);
+        toggle();
     }
 }
